@@ -163,7 +163,7 @@ public final class UtilFrame extends javax.swing.JFrame {
         shuffleButton.addActionListener(evt -> shuffleButtonActionPerformed());
 
         fixedDelayCheckbox.setSelected(false);
-        fixedDelayCheckbox.setText("Fixed Delays");
+        fixedDelayCheckbox.setText("Force Fixed Delays");
         fixedDelayCheckbox.addActionListener(evt -> fixedDelayCheckboxActionPerformed());
 
         shuffleCheckbox.setSelected(true);
