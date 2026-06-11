@@ -16,10 +16,18 @@ public abstract class Renderable {
 	public static Graphics2D mainRender;
 
 	private static final double BC_A = -0.5;
+
+	protected static double __clamp(double v, double mi, double ma) {
+		return Math.max(mi, Math.min(v, ma));
+	}
 	
 	// macro: we can't be sure x/y are in bounds, and getting pixel values out-of-bounds will error out.
 	protected static int __getRGB(BufferedImage img, int x, int y) {
 		return x < 0 || y < 0 || x >= img.getWidth() || y >= img.getHeight() ? 0 : img.getRGB(x, y);
+	}
+	
+	public static int nearest(BufferedImage fb, double x, double y) {
+		return __getRGB(fb, (int) Math.round(x), (int) Math.round(y));
 	}
 	
 	public static int bilinearInt(int a, int b, int c, int d, double r1, double r2) {
@@ -33,6 +41,7 @@ public abstract class Renderable {
 		    c0 = __getRGB(fb, x0, y0), c1 = __getRGB(fb, x1, y0), c2 = __getRGB(fb, x0, y1), c3 = __getRGB(fb, x1, y1);
 		return (bilinearByte(c0, c1, c2, c3, x % 1d, y % 1d, 16) << 16) | (bilinearByte(c0, c1, c2, c3, x % 1d, y % 1d, 8) << 8) | bilinearByte(c0, c1, c2, c3, x % 1d, y % 1d, 0);
 	}
+	
 	private static double[][] __dotProd(double[][] a, double[][] b) {
 		double[] C = new double[b.length];
 		double[][] O = new double[a.length][b[0].length]; 
@@ -56,9 +65,6 @@ public abstract class Renderable {
 			}
 		}
 		return O;
-	}
-	protected static double __clamp(double v, double mi, double ma) {
-		return Math.max(mi, Math.min(v, ma));
 	}
 	public static int bicubic(BufferedImage fb, double x, double y) {
 		// stolen from ref. impl
@@ -89,10 +95,6 @@ public abstract class Renderable {
 			V[W] = (int) __clamp(__dotProd(__dotProd(L, M), R)[0][0], 0d, 255d);
 		}
 		return (V[0] << 16) | (V[1] << 8) | V[2];
-	}
-	
-	public static int nearest(BufferedImage fb, double x, double y) {
-		return __getRGB(fb, (int) Math.round(x), (int) Math.round(y));
 	}
 
 	public static Color samplePixel(ArrayVisualizer arrayVisualizer, double x, double y, Sampler s) {

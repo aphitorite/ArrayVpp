@@ -179,30 +179,30 @@ final public class UnstableMicrokitaSort extends Sort {
 	private void velvetSort(int[] array, int a, int b) {
 		if (a >= b - 1) return;
 		build(array, a, b);
-        for (int i = a + 1; i < b - 1; i++)
-        	sift(array, a, i, b, array[i], 0);
+	    for (int i = a + 1; i < b - 1; i++)
+	    	sift(array, a, i, b, array[i], 0);
 	}
 
-    private int medOf3(int[] array, int a, int b, int c) {
-    	int d;
-    	if (Reads.compareIndices(array, a, b, 0.5, true) > 0) {
-    		d = b; b = a;
-    	} else
-    		d = a;
-    	if (Reads.compareIndices(array, b, c, 0.5, true) > 0) {
-    		if (Reads.compareIndices(array, d, c, 0.5, true) > 0) return d;
-    		return c;
-    	}
-    	return b;
-    }
-    private int ninther(int[] array, int a, int b) {
-    	if (b - a <= 9) return a + (b - a) / 2;
-    	int len = b - a, half = len / 2, quart = len / 4, eight = len / 8;
-    	int c = medOf3(array, a, a + eight, a + quart);
-    	int d = medOf3(array, a + quart + eight, a + half, a + half + eight);
-    	int e = medOf3(array, b - quart, b - eight, b - 1);
-    	return medOf3(array, c, d, e);
-    }
+	private int medOf3(int[] array, int a, int b, int c) {
+		int d;
+		if (Reads.compareIndices(array, a, b, 0.5, true) > 0) {
+			d = b; b = a;
+		} else
+			d = a;
+		if (Reads.compareIndices(array, b, c, 0.5, true) > 0) {
+			if (Reads.compareIndices(array, d, c, 0.5, true) > 0) return d;
+			return c;
+		}
+		return b;
+	}
+	private int ninther(int[] array, int a, int b) {
+		if (b - a <= 9) return a + (b - a) / 2;
+		int len = b - a, half = len / 2, quart = len / 4, eight = len / 8;
+		int c = medOf3(array, a, a + eight, a + quart);
+		int d = medOf3(array, a + quart + eight, a + half, a + half + eight);
+		int e = medOf3(array, b - quart, b - eight, b - 1);
+		return medOf3(array, c, d, e);
+	}
 	private int pseudomo27(int[] array, int a, int b) {
 		if (b - a < 64) return ninther(array, a, b);
 		int d = (b - a + 1) / 8;
@@ -211,94 +211,94 @@ final public class UnstableMicrokitaSort extends Sort {
 		int m2 = ninther(array, a + 6 * d, b);
 		return medOf3(array, m0, m1, m2);
 	}
-    private int gaprank(int[] array, int a, int b, int g, int r) {
-    	int re = 0;
-    	while (a < b) {
-    		if (a != r && Reads.compareIndices(array, a, r, 0.25, true) < 0) re++;
-    		a += g;
-    	}
-    	return re;
-    }
-    private int median(int[] array, int a, int b) {
-    	int s = 1;
-    	while (s * s < b - a) s *= 2;
+	private int gaprank(int[] array, int a, int b, int g, int r) {
+		int re = 0;
+		while (a < b) {
+			if (a != r && Reads.compareIndices(array, a, r, 0.25, true) < 0) re++;
+			a += g;
+		}
+		return re;
+	}
+	private int median(int[] array, int a, int b) {
+		int s = 1;
+		while (s * s < b - a) s *= 2;
 
-    	if ((s /= 2) < 2) return ninther(array, a, b);
-    	int mid = (b - a - 1) / s / 2 + 1, e = (b - a) / 8, cm = a + (b - a) / 2, cr = 0;
+		if ((s /= 2) < 2) return ninther(array, a, b);
+		int mid = (b - a - 1) / s / 2 + 1, e = (b - a) / 8, cm = a + (b - a) / 2, cr = 0;
 
-    	for (int i = 0; i < e; i += s) {
-    		int p = pseudomo27(array, a + i, b - e + i), r = gaprank(array, a, b, s, p);
-    		if (__abs(cr - mid) > __abs(r - mid)) {
-    			cm = p;
-    			cr = r;
-    		}
-    	}
-    	return cm;
-    }
+		for (int i = 0; i < e; i += s) {
+			int p = pseudomo27(array, a + i, b - e + i), r = gaprank(array, a, b, s, p);
+			if (__abs(cr - mid) > __abs(r - mid)) {
+				cm = p;
+				cr = r;
+			}
+		}
+		return cm;
+	}
 
-    private int[] partition(int[] array, int a, int b, int p) {
-    	b--;
-    	int A, B;
-    	int c = A = a, d = B = b, c1 = 0, d1 = 0, C = 0;
-    	for (;;) {
-    		// find next out-of-place element
-    		while (a <= b && (C = Reads.compareIndexValue(array, a, p, 0.5, true)) <= 0) {
-    			if (C == 0) { // swap to c if equal to pivot
-    				Writes.swap(array, c++, a, 0.25, true, false);
-    				c1++;
-    			}
-    			a++;
-    		}
-    		// find next out-of-place element
-    		while (a <= b && (C = Reads.compareIndexValue(array, b, p, 0.5, true)) >= 0) {
-    			if (C == 0) { // swap to d if equal to pivot
-    				Writes.swap(array, d--, b, 0.25, true, false);
-    				d1++;
-    			}
-    			b--;
-    		}
-    		if (a == b) b--;
-    		if (a < b)
-    			// swap both elements
-    			Writes.swap(array, a++, b--, 1, true, false);
-    		else {
-    			if (b - c >= c1) // transport equals to middle left
-	    			for (int i = c; c1-- > 0;)
-	    				Writes.swap(array, b--, --i, 0.1, true, false);
-    			else { // transport inequals to left
-    				for (int i = A, j = c; j <= b;)
-    					Writes.swap(array, i++, j++, 0.1, true, false);
-    				b -= c1;
-    			}
-    			if (d - a >= d1) // transport equals to middle right
-	    			for (int i = d; d1-- > 0;)
-	    				Writes.swap(array, a++, ++i, 0.1, true, false);
-    			else { // transport inequals to right
-    				for (int i = B, j = d; j >= a;)
-    					Writes.swap(array, i--, j--, 0.1, true, false);
-    				a += d1;
-    			}
-    			return new int[] {b + 1, a - 1};
-    		}
-    	}
-    }
-    private int[] quickselect(int[] array, int a, int b, int r) {
-    	int j = 0, m[];
-    	boolean bad = false;
-    	while (b - a > MINSORT) {
-    		int p = bad ? median(array, a, b) : pseudomo27(array, a, b);
-    		m = partition(array, a, b, array[p]);
-    		bad = (m[0] - a) * 8 <= b - a || (b - m[1]) * 8 < b - a;
+	private int[] partition(int[] array, int a, int b, int p) {
+		b--;
+		int A, B;
+		int c = A = a, d = B = b, c1 = 0, d1 = 0, C = 0;
+		for (;;) {
+			// find next out-of-place element
+			while (a <= b && (C = Reads.compareIndexValue(array, a, p, 0.5, true)) <= 0) {
+				if (C == 0) { // swap to c if equal to pivot
+					Writes.swap(array, c++, a, 0.25, true, false);
+					c1++;
+				}
+				a++;
+			}
+			// find next out-of-place element
+			while (a <= b && (C = Reads.compareIndexValue(array, b, p, 0.5, true)) >= 0) {
+				if (C == 0) { // swap to d if equal to pivot
+					Writes.swap(array, d--, b, 0.25, true, false);
+					d1++;
+				}
+				b--;
+			}
+			if (a == b) b--;
+			if (a < b)
+				// swap both elements
+				Writes.swap(array, a++, b--, 1, true, false);
+			else {
+				if (b - c >= c1) // transport equals to middle left
+					for (int i = c; c1-- > 0;)
+						Writes.swap(array, b--, --i, 0.1, true, false);
+				else { // transport inequals to left
+					for (int i = A, j = c; j <= b;)
+						Writes.swap(array, i++, j++, 0.1, true, false);
+					b -= c1;
+				}
+				if (d - a >= d1) // transport equals to middle right
+					for (int i = d; d1-- > 0;)
+						Writes.swap(array, a++, ++i, 0.1, true, false);
+				else { // transport inequals to right
+					for (int i = B, j = d; j >= a;)
+						Writes.swap(array, i--, j--, 0.1, true, false);
+					a += d1;
+				}
+				return new int[] {b + 1, a - 1};
+			}
+		}
+	}
+	private int[] quickselect(int[] array, int a, int b, int r) {
+		int j = 0, m[];
+		boolean bad = false;
+		while (b - a > MINSORT) {
+			int p = bad ? median(array, a, b) : pseudomo27(array, a, b);
+			m = partition(array, a, b, array[p]);
+			bad = (m[0] - a) * 8 <= b - a || (b - m[1]) * 8 < b - a;
 
-    		if (m[0] <= r && r <= m[1]) return new int[] {j, m[0], m[1]};
-    		else if (r < m[0])          b = m[0];
-    		else                        a = m[1] + 1;
-    		j++;
-    	}
-    	insertRun(array, a, b);
-    	return new int[] {a, b};
-    }
-    
+			if (m[0] <= r && r <= m[1]) return new int[] {j, m[0], m[1]};
+			else if (r < m[0])          b = m[0];
+			else                        a = m[1] + 1;
+			j++;
+		}
+		insertRun(array, a, b);
+		return new int[] {a, b};
+	}
+	
 	private void mergeStatic(int[] array, int a, int m, int b, int t, boolean copyBack) {
 		int i = a, j = m, T = t;
 		while (i < m && j < b)
