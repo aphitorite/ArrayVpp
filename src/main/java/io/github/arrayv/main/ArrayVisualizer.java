@@ -159,6 +159,7 @@ public final class ArrayVisualizer {
     private volatile int currentGap;
 
     private boolean showShuffleAnimation;
+    private boolean useFixedDelays;
 
     private volatile boolean highlightAsAnalysis;
 
@@ -504,6 +505,7 @@ public final class ArrayVisualizer {
         this.utilFrame.reposition(this.arrayFrame);
 
         this.showShuffleAnimation = true;
+        this.useFixedDelays = false;
         this.highlightAsAnalysis = false;
         this.showStatistics = true;
 
@@ -915,6 +917,10 @@ public final class ArrayVisualizer {
         return this.getSortingThread() != null && this.getSortingThread().isAlive();
     }
 
+    public boolean isSortActive() {
+        return this.isActive() && !this.Highlights.fancyFinishActive();
+    }
+
     public void setComparator(int comparator) {
         switch (comparator) {
             case 0:
@@ -1018,6 +1024,14 @@ public final class ArrayVisualizer {
 
     public void toggleShuffleAnimation(boolean showShuffleAnimation) {
         this.showShuffleAnimation = showShuffleAnimation;
+    }
+
+    public boolean useFixedDelays() {
+        return this.useFixedDelays;
+    }
+
+    public void toggleFixedDelays(boolean useFixedDelays) {
+        this.useFixedDelays = useFixedDelays;
     }
 
     public String getCategory() {

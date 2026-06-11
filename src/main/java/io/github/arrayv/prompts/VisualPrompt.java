@@ -228,7 +228,7 @@ public final class VisualPrompt extends javax.swing.JFrame implements AppFrame {
         } else {
         	utilFrame.lockAuxState(false);
         }
-        utilFrame.jButton2ResetText();
+        utilFrame.visualButtonResetText();
         dispose();
     }//GEN-LAST:event_jList1ValueChanged
 

@@ -47,7 +47,7 @@ SOFTWARE.
 public final class UtilFrame extends javax.swing.JFrame {
     private static final long serialVersionUID = 1L;
 
-    private boolean jCheckBox9WarningShown = true; //set to false to enable warning
+    private boolean auxCheckboxWarningShown = true; //set to false to enable warning
 
     private final int[] array;
 
@@ -95,86 +95,30 @@ public final class UtilFrame extends javax.swing.JFrame {
     private void initComponents() {
         // Variables declaration - do not modify//GEN-BEGIN:variables
         javax.swing.JLabel jLabel1 = new javax.swing.JLabel();
-        this.jButton1 = new javax.swing.JButton();
-        this.jButton2 = new javax.swing.JButton();
-        JButton jButton3 = new JButton();
-        this.jCheckBox1 = new javax.swing.JCheckBox();
-        this.jCheckBox2 = new javax.swing.JCheckBox();
-        JButton jButton4 = new JButton();
-        JButton jButton7 = new JButton();
-        this.jCheckBox3 = new javax.swing.JCheckBox();
-        this.jCheckBox4 = new javax.swing.JCheckBox();
-        JButton jButton5 = new JButton();
-        this.jCheckBox5 = new javax.swing.JCheckBox();
-        this.jButton6 = new javax.swing.JButton();
-        this.jCheckBox6 = new javax.swing.JCheckBox();
-        this.jCheckBox7 = new javax.swing.JCheckBox();
-        this.jCheckBox8 = new javax.swing.JCheckBox();
-        this.jCheckBox9 = new javax.swing.JCheckBox();
-        this.jComboBox1 = new javax.swing.JComboBox();
+        this.modeBox = new javax.swing.JComboBox();
+        this.visualButton = new javax.swing.JButton();
+        this.linkedDotsCheckbox = new javax.swing.JCheckBox();
+        this.colorCheckbox = new javax.swing.JCheckBox();
+        this.auxCheckbox = new javax.swing.JCheckBox();
+        JButton speedButton = new JButton();
+        this.sortButton = new javax.swing.JButton();
+        JButton cancelSortButton = new JButton();
+        JButton cancelDelaysButton = new JButton();
+        this.shuffleButton = new javax.swing.JButton();
+        this.fixedDelayCheckbox = new javax.swing.JCheckBox();
+        this.shuffleCheckbox = new javax.swing.JCheckBox();
+        this.soundsCheckbox = new javax.swing.JCheckBox();
+        this.softerSoundsCheckbox = new javax.swing.JCheckBox();
+        this.endSweepCheckbox = new javax.swing.JCheckBox();
+        JButton clearStatsButton = new JButton();
+        this.statsCheckbox = new javax.swing.JCheckBox();
+        this.realTimeCheckbox = new javax.swing.JCheckBox();
 
         jLabel1.setText("Settings");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
 
-        jButton1ResetText();
-        jButton1.addActionListener(evt -> jButton1ActionPerformed());
-
-        jButton2ResetText();
-        jButton2.addActionListener(evt -> jButton2ActionPerformed());
-
-        jButton3.setText("Change Speed");
-        jButton3.addActionListener(evt -> jButton3ActionPerformed());
-
-        jButton4.setText("Cancel Delays");
-        jButton4.addActionListener(evt -> jButton4ActionPerformed());
-
-        jButton7.setText("Cancel Sort");
-        jButton7.addActionListener(evt -> jButton7ActionPerformed());
-
-        jCheckBox1.setSelected(true);
-        jCheckBox1.setText("Show Shuffle");
-        jCheckBox1.addActionListener(evt -> jCheckBox1ActionPerformed());
-
-        jCheckBox2.setSelected(false);
-        jCheckBox2.setText("Linked Dots");
-        jCheckBox2.addActionListener(evt -> jCheckBox2ActionPerformed());
-
-        jCheckBox3.setSelected(true);
-        jCheckBox3.setText("End Sweep Anim");
-        jCheckBox3.addActionListener(evt -> jCheckBox3ActionPerformed());
-
-        jCheckBox4.setSelected(true);
-        jCheckBox4.setText("Calc Real Time");
-        jCheckBox4.addActionListener(evt -> jCheckBox4ActionPerformed());
-
-        jButton5.setText("Clear Stats");
-        jButton5.addActionListener(evt -> jButton5ActionPerformed());
-
-        jCheckBox5.setSelected(false);
-        jCheckBox5.setText("Softer Sounds");
-        jCheckBox5.addActionListener(evt -> jCheckBox5ActionPerformed());
-
-        jButton6ResetText();
-        jButton6.addActionListener(evt -> jButton6ActionPerformed());
-
-        jCheckBox6.setSelected(true);
-        jCheckBox6.setText("Display Stats");
-        jCheckBox6.addActionListener(evt -> jCheckBox6ActionPerformed());
-
-        jCheckBox7.setSelected(true);
-        jCheckBox7.setText("Enable Sounds");
-        jCheckBox7.addActionListener(evt -> jCheckBox7ActionPerformed());
-
-        jCheckBox8.setSelected(false);
-        jCheckBox8.setText("Enable Color");
-        jCheckBox8.addActionListener(evt -> jCheckBox8ActionPerformed());
-
-        jCheckBox9.setSelected(false);
-        jCheckBox9.setText("Show Aux Arrays");
-        jCheckBox9.addActionListener(evt -> jCheckBox9ActionPerformed());
-
-        jComboBox1.setModel(new DefaultComboBoxModel<>(new String[] {
+        modeBox.setModel(new DefaultComboBoxModel<>(new String[] {
             "Sorting",
             "AntiQSort",
             "Stability Check",
@@ -182,13 +126,74 @@ public final class UtilFrame extends javax.swing.JFrame {
             "Reversed Sorting"
             // "*Simple* Benchmarking"
         }));
-        jComboBox1.addActionListener(evt -> jComboBox1ActionPerformed());
+        modeBox.addActionListener(evt -> modeBoxActionPerformed());
         if (arrayVisualizer.isDisabledStabilityCheck()) {
-            jComboBox1.removeItem("Stability Check");
+            modeBox.removeItem("Stability Check");
         }
 
-        JButton runScriptButton = new JButton("Run Script");
-        runScriptButton.addActionListener(e -> {
+        visualButtonResetText();
+        visualButton.addActionListener(evt -> visualButtonActionPerformed());
+
+        linkedDotsCheckbox.setSelected(false);
+        linkedDotsCheckbox.setText("Linked Dots");
+        linkedDotsCheckbox.addActionListener(evt -> linkedDotsCheckboxActionPerformed());
+
+        colorCheckbox.setSelected(false);
+        colorCheckbox.setText("Enable Color");
+        colorCheckbox.addActionListener(evt -> colorCheckboxActionPerformed());
+
+        auxCheckbox.setSelected(false);
+        auxCheckbox.setText("Show Aux Arrays");
+        auxCheckbox.addActionListener(evt -> auxCheckboxActionPerformed());
+
+        speedButton.setText("Change Speed");
+        speedButton.addActionListener(evt -> speedButtonActionPerformed());
+
+        sortButtonResetText();
+        sortButton.addActionListener(evt -> sortButtonActionPerformed());
+
+        cancelSortButton.setText("Cancel Sort");
+        cancelSortButton.addActionListener(evt -> cancelSortButtonActionPerformed());
+
+        cancelDelaysButton.setText("Cancel Delays");
+        cancelDelaysButton.addActionListener(evt -> cancelDelaysButtonActionPerformed());
+
+        shuffleButtonResetText();
+        shuffleButton.addActionListener(evt -> shuffleButtonActionPerformed());
+
+        fixedDelayCheckbox.setSelected(false);
+        fixedDelayCheckbox.setText("Fixed Delays");
+        fixedDelayCheckbox.addActionListener(evt -> fixedDelayCheckboxActionPerformed());
+
+        shuffleCheckbox.setSelected(true);
+        shuffleCheckbox.setText("Show Shuffle");
+        shuffleCheckbox.addActionListener(evt -> shuffleCheckboxActionPerformed());
+
+        soundsCheckbox.setSelected(true);
+        soundsCheckbox.setText("Enable Sounds");
+        soundsCheckbox.addActionListener(evt -> soundsCheckboxActionPerformed());
+
+        softerSoundsCheckbox.setSelected(false);
+        softerSoundsCheckbox.setText("Softer Sounds");
+        softerSoundsCheckbox.addActionListener(evt -> softerSoundsCheckboxActionPerformed());
+
+        endSweepCheckbox.setSelected(true);
+        endSweepCheckbox.setText("End Sweep Anim");
+        endSweepCheckbox.addActionListener(evt -> endSweepCheckboxActionPerformed());
+
+        clearStatsButton.setText("Clear Stats");
+        clearStatsButton.addActionListener(evt -> clearStatsButtonActionPerformed());
+
+        statsCheckbox.setSelected(true);
+        statsCheckbox.setText("Display Stats");
+        statsCheckbox.addActionListener(evt -> statsCheckboxActionPerformed());
+
+        realTimeCheckbox.setSelected(true);
+        realTimeCheckbox.setText("Calc Real Time");
+        realTimeCheckbox.addActionListener(evt -> realTimeCheckboxActionPerformed());
+
+        JButton scriptButton = new JButton("Run Script");
+        scriptButton.addActionListener(e -> {
             File scriptFile = new RunScriptDialog().getFile();
             if (scriptFile == null) return;
             try {
@@ -207,26 +212,27 @@ public final class UtilFrame extends javax.swing.JFrame {
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER, true)
                         .addComponent(jLabel1)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, true)
-                            .addComponent(this.jCheckBox1)
-                            .addComponent(this.jCheckBox2)
-                            .addComponent(this.jCheckBox3)
-                            .addComponent(this.jCheckBox4)
-                            .addComponent(this.jCheckBox6)
-                            .addComponent(this.jCheckBox7)
-                            .addComponent(this.jCheckBox8)
-                            .addComponent(this.jCheckBox9)
+                            .addComponent(this.fixedDelayCheckbox)
+                            .addComponent(this.shuffleCheckbox)
+                            .addComponent(this.linkedDotsCheckbox)
+                            .addComponent(this.endSweepCheckbox)
+                            .addComponent(this.realTimeCheckbox)
+                            .addComponent(this.statsCheckbox)
+                            .addComponent(this.soundsCheckbox)
+                            .addComponent(this.colorCheckbox)
+                            .addComponent(this.auxCheckbox)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, true)
-                                .addComponent(this.jCheckBox5)
+                                .addComponent(this.softerSoundsCheckbox)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                                    .addComponent(jButton7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(this.jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(this.jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(this.jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(runScriptButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(this.jComboBox1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                                    .addComponent(cancelSortButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(this.shuffleButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(clearStatsButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(cancelDelaysButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(speedButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(this.visualButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(this.sortButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(scriptButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(this.modeBox, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                 .addGap(0, 10, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -235,40 +241,42 @@ public final class UtilFrame extends javax.swing.JFrame {
                     .addGap(5, 5, 5)
                     .addComponent(jLabel1)
                     .addGap(7, 7, 7)
-                    .addComponent(this.jComboBox1)
+                    .addComponent(this.modeBox)
                     .addGap(10, 10, 10)
-                    .addComponent(this.jButton2)
+                    .addComponent(this.visualButton)
                     .addGap(5, 5, 5)
-                    .addComponent(this.jCheckBox2)
+                    .addComponent(this.linkedDotsCheckbox)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(this.jCheckBox8)
+                    .addComponent(this.colorCheckbox)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(this.jCheckBox9)
+                    .addComponent(this.auxCheckbox)
                     .addGap(7, 7, 7)
-                    .addComponent(jButton3)
+                    .addComponent(speedButton)
                     .addGap(12, 12, 12)
-                    .addComponent(this.jButton1)
+                    .addComponent(this.sortButton)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(jButton7)
+                    .addComponent(cancelSortButton)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(jButton4)
+                    .addComponent(cancelDelaysButton)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(this.jButton6)
+                    .addComponent(this.shuffleButton)
                     .addGap(7, 7, 7)
-                    .addComponent(this.jCheckBox1)
+                    .addComponent(this.fixedDelayCheckbox)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(this.jCheckBox7)
+                    .addComponent(this.shuffleCheckbox)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(this.jCheckBox5)
+                    .addComponent(this.soundsCheckbox)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(this.jCheckBox3)
+                    .addComponent(this.softerSoundsCheckbox)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(this.endSweepCheckbox)
                     .addGap(8, 8, 8)
-                    .addComponent(jButton5)
+                    .addComponent(clearStatsButton)
                     .addGap(5, 5, 5)
-                    .addComponent(this.jCheckBox6)
-                    .addComponent(this.jCheckBox4)
+                    .addComponent(this.statsCheckbox)
+                    .addComponent(this.realTimeCheckbox)
                     .addGap(5, 5, 5)
-                    .addComponent(runScriptButton)
+                    .addComponent(scriptButton)
                     .addGap(8, 8, 8))
         );
 
@@ -276,88 +284,88 @@ public final class UtilFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     public void setMode(String mode) {
-        this.jComboBox1.setSelectedItem(mode);
+        this.modeBox.setSelectedItem(mode);
     }
 
     public void lockColorState(boolean val) {
-    	if(jCheckBox8.isEnabled()) {
-	    	this.lastUnlockedColor = jCheckBox8.isSelected();
-	    	jCheckBox8.setSelected(val);
-	    	jCheckBox8.setEnabled(false);
-	        arrayVisualizer.toggleColor(jCheckBox8.isSelected());
+    	if(colorCheckbox.isEnabled()) {
+	    	this.lastUnlockedColor = colorCheckbox.isSelected();
+	    	colorCheckbox.setSelected(val);
+	    	colorCheckbox.setEnabled(false);
+	        arrayVisualizer.toggleColor(colorCheckbox.isSelected());
     	}
     }
     public void unlockColorState() {
-    	if(!jCheckBox8.isEnabled()) {
-	    	jCheckBox8.setEnabled(true);
-	    	jCheckBox8.setSelected(this.lastUnlockedColor);
-	        arrayVisualizer.toggleColor(jCheckBox8.isSelected());
+    	if(!colorCheckbox.isEnabled()) {
+	    	colorCheckbox.setEnabled(true);
+	    	colorCheckbox.setSelected(this.lastUnlockedColor);
+	        arrayVisualizer.toggleColor(colorCheckbox.isSelected());
     	}
     }
 
     public void lockAuxState(boolean val) {
-    	if(jCheckBox9.isEnabled()) {
-	    	this.lastUnlockedAux = jCheckBox9.isSelected();
-	    	jCheckBox9.setSelected(val);
-	    	jCheckBox9.setEnabled(false);
-	        arrayVisualizer.toggleExternalArrays(jCheckBox9.isSelected());
+    	if(auxCheckbox.isEnabled()) {
+	    	this.lastUnlockedAux = auxCheckbox.isSelected();
+	    	auxCheckbox.setSelected(val);
+	    	auxCheckbox.setEnabled(false);
+	        arrayVisualizer.toggleExternalArrays(auxCheckbox.isSelected());
     	}
     }
     public void unlockAuxState() {
-    	if(!jCheckBox9.isEnabled()) {
-	    	jCheckBox9.setEnabled(true);
-	    	jCheckBox9.setSelected(this.lastUnlockedAux);
-	        arrayVisualizer.toggleExternalArrays(jCheckBox9.isSelected());
+    	if(!auxCheckbox.isEnabled()) {
+	    	auxCheckbox.setEnabled(true);
+	    	auxCheckbox.setSelected(this.lastUnlockedAux);
+	        arrayVisualizer.toggleExternalArrays(auxCheckbox.isSelected());
     	}
     }
 
-    private void jButton1ActionPerformed() {//GEN-FIRST:event_jButton1ActionPerformed
+    private void sortButtonActionPerformed() {//GEN-FIRST:event_jButton1ActionPerformed
         //CHANGE SORT
         if (this.abstractFrame != null && abstractFrame.isVisible()){
             boolean tmp = this.abstractFrame instanceof SortPrompt;
             abstractFrame.dispose();
-            jButton1ResetText();
+            sortButtonResetText();
             if (tmp)
                 return;
         }
         this.abstractFrame = new SortPrompt(this.array, this.arrayVisualizer, this.frame, this);
-        jButton1.setText("Close");
-        jButton2ResetText();
-        jButton6ResetText();
+        sortButton.setText("Close");
+        visualButtonResetText();
+        shuffleButtonResetText();
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    public void jButton1ResetText() {
-        jButton1.setText("Choose Sort");
+    public void sortButtonResetText() {
+        sortButton.setText("Choose Sort");
     }
 
-    public void jButton1Enable() {
-        jButton1.setEnabled(true);
+    public void sortButtonEnable() {
+        sortButton.setEnabled(true);
     }
 
-    public void jButton1Disable() {
-        jButton1.setEnabled(false);
+    public void sortButtonDisable() {
+        sortButton.setEnabled(false);
     }
 
-    private void jButton2ActionPerformed() {//GEN-FIRST:event_jButton2ActionPerformed
+    private void visualButtonActionPerformed() {//GEN-FIRST:event_jButton2ActionPerformed
         //CHANGE VIEW
         if (this.abstractFrame != null && abstractFrame.isVisible()){
             boolean tmp = this.abstractFrame instanceof VisualPrompt;
-            jButton2ResetText();
+            visualButtonResetText();
             abstractFrame.dispose();
             if (tmp)
                 return;
         }
         this.abstractFrame = new VisualPrompt(this.arrayVisualizer, this.frame, this);
-        jButton2.setText("Close");
-        jButton1ResetText();
-        jButton6ResetText();
+        visualButton.setText("Close");
+        sortButtonResetText();
+        shuffleButtonResetText();
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    public void jButton2ResetText() {
-        jButton2.setText("Visual Style");
+    public void visualButtonResetText() {
+        visualButton.setText("Visual Style");
     }
 
-    private void jButton3ActionPerformed() {//GEN-FIRST:event_jButton3ActionPerformed
+    private void speedButtonActionPerformed() {//GEN-FIRST:event_jButton3ActionPerformed
         boolean speedPromptAllowed;
 
         if (this.abstractFrame == null) {
@@ -386,95 +394,99 @@ public final class UtilFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton3ActionPerformed
 
-    private void jCheckBox1ActionPerformed() {//GEN-FIRST:event_jCheckBox2ActionPerformed
-        arrayVisualizer.toggleShuffleAnimation(jCheckBox1.isSelected());
+    private void fixedDelayCheckboxActionPerformed() {
+        arrayVisualizer.toggleFixedDelays(fixedDelayCheckbox.isSelected());
+    }
+
+    private void shuffleCheckboxActionPerformed() {//GEN-FIRST:event_jCheckBox2ActionPerformed
+        arrayVisualizer.toggleShuffleAnimation(shuffleCheckbox.isSelected());
     }//GEN-LAST:event_jCheckBox1ActionPerformed
 
-    private void jCheckBox2ActionPerformed() {//GEN-FIRST:event_jCheckBox3ActionPerformed
-        arrayVisualizer.toggleLinkedDots(jCheckBox2.isSelected());
+    private void linkedDotsCheckboxActionPerformed() {//GEN-FIRST:event_jCheckBox3ActionPerformed
+        arrayVisualizer.toggleLinkedDots(linkedDotsCheckbox.isSelected());
     }//GEN-LAST:event_jCheckBox2ActionPerformed
 
-    private void jCheckBox3ActionPerformed() {//GEN-FIRST:event_jCheckBox3ActionPerformed
-        Highlights.toggleFancyFinishes(jCheckBox3.isSelected());
+    private void endSweepCheckboxActionPerformed() {//GEN-FIRST:event_jCheckBox3ActionPerformed
+        Highlights.toggleFancyFinishes(endSweepCheckbox.isSelected());
     }//GEN-LAST:event_jCheckBox3ActionPerformed
 
-    private void jButton4ActionPerformed() {//GEN-FIRST:event_jButton4ActionPerformed
+    private void cancelDelaysButtonActionPerformed() {//GEN-FIRST:event_jButton4ActionPerformed
         Delays.changeSkipped(true);
     }//GEN-LAST:event_jButton4ActionPerformed
 
-    private void jButton7ActionPerformed() {//GEN-FIRST:event_jButton4ActionPerformed
+    private void cancelSortButtonActionPerformed() {//GEN-FIRST:event_jButton4ActionPerformed
         arrayVisualizer.setCanceled(true);
     }//GEN-LAST:event_jButton4ActionPerformed
 
-    private void jCheckBox4ActionPerformed() {//GEN-FIRST:event_jButton4ActionPerformed
-        Timer.toggleRealTimer(jCheckBox4.isSelected());
+    private void realTimeCheckboxActionPerformed() {//GEN-FIRST:event_jButton4ActionPerformed
+        Timer.toggleRealTimer(realTimeCheckbox.isSelected());
     }//GEN-LAST:event_jCheckBox4ActionPerformed
 
-    private void jButton5ActionPerformed() {//GEN-FIRST:event_jButton4ActionPerformed
+    private void clearStatsButtonActionPerformed() {//GEN-FIRST:event_jButton4ActionPerformed
         arrayVisualizer.resetAllStatistics();
     }//GEN-LAST:event_jButton6ActionPerformed
 
-    private void jCheckBox5ActionPerformed() {//GEN-FIRST:event_jButton4ActionPerformed
-        Sounds.setSofterSounds(jCheckBox5.isSelected());
+    private void softerSoundsCheckboxActionPerformed() {//GEN-FIRST:event_jButton4ActionPerformed
+        Sounds.setSofterSounds(softerSoundsCheckbox.isSelected());
     }//GEN-LAST:event_jCheckBox5ActionPerformed
 
-    private void jButton6ActionPerformed() {//GEN-FIRST:event_jButton2ActionPerformed
+    private void shuffleButtonActionPerformed() {//GEN-FIRST:event_jButton2ActionPerformed
         //CHANGE SIZE
         if (this.abstractFrame != null && abstractFrame.isVisible()){
             boolean tmp = this.abstractFrame instanceof ShufflePrompt;
             abstractFrame.dispose();
-            jButton6ResetText();
+            shuffleButtonResetText();
             if (tmp)
                 return;
         }
         this.abstractFrame = new ShufflePrompt(this.arrayManager, this.arrayVisualizer, this.frame, this);
-        jButton6.setText("Close");
-        jButton1ResetText();
-        jButton2ResetText();
+        shuffleButton.setText("Close");
+        sortButtonResetText();
+        visualButtonResetText();
     }//GEN-LAST:event_jButton7ActionPerformed
 
-    public void jButton6ResetText() {
-        jButton6.setText("Choose Shuffle");
+    public void shuffleButtonResetText() {
+        shuffleButton.setText("Choose Shuffle");
     }
 
-    private void jCheckBox6ActionPerformed() {//GEN-FIRST:event_jButton4ActionPerformed
-        arrayVisualizer.toggleStatistics(jCheckBox6.isSelected());
+    private void statsCheckboxActionPerformed() {//GEN-FIRST:event_jButton4ActionPerformed
+        arrayVisualizer.toggleStatistics(statsCheckbox.isSelected());
     }//GEN-LAST:event_jCheckBox6ActionPerformed
 
-    private void jCheckBox7ActionPerformed() {//GEN-FIRST:event_jButton4ActionPerformed
-        Sounds.toggleSounds(jCheckBox7.isSelected());
+    private void soundsCheckboxActionPerformed() {//GEN-FIRST:event_jButton4ActionPerformed
+        Sounds.toggleSounds(soundsCheckbox.isSelected());
     }//GEN-LAST:event_jCheckBox7ActionPerformed
 
-    private void jCheckBox8ActionPerformed() {//GEN-FIRST:event_jButton4ActionPerformed
-        arrayVisualizer.toggleColor(jCheckBox8.isSelected());
+    private void colorCheckboxActionPerformed() {//GEN-FIRST:event_jButton4ActionPerformed
+        arrayVisualizer.toggleColor(colorCheckbox.isSelected());
     }//GEN-LAST:event_jCheckBox8ActionPerformed
 
-    private void jCheckBox9ActionPerformed() {//GEN-FIRST:event_jButton4ActionPerformed
-        if (!jCheckBox9WarningShown && jCheckBox9.isSelected()) {
+    private void auxCheckboxActionPerformed() {//GEN-FIRST:event_jButton4ActionPerformed
+        if (!auxCheckboxWarningShown && auxCheckbox.isSelected()) {
             if (JOptionPane.showConfirmDialog(
                 null,
                 "<html>This will cause some sorts have extreme strobing/flashing."
-                    + "<br><strong>It is highly recommended to NOT enable the \"" + jCheckBox9.getText() + "\" option if you may be at risk of seizures.</strong>"
+                    + "<br><strong>It is highly recommended to NOT enable the \"" + auxCheckbox.getText() + "\" option if you may be at risk of seizures.</strong>"
                     + "<br>Are you sure you wish to enable this option?</html>",
                 "Seizure Warning",
                 JOptionPane.YES_NO_OPTION,
                 JOptionPane.WARNING_MESSAGE
             ) == JOptionPane.NO_OPTION) {
-                jCheckBox9.setSelected(false);
+                auxCheckbox.setSelected(false);
                 return;
             }
-            jCheckBox9WarningShown = true;
+            auxCheckboxWarningShown = true;
         }
-        arrayVisualizer.toggleExternalArrays(jCheckBox9.isSelected());
+        arrayVisualizer.toggleExternalArrays(auxCheckbox.isSelected());
     }//GEN-LAST:event_jCheckBox8ActionPerformed
 
-    private void jComboBox1ActionPerformed() {//GEN-FIRST:event_jButton4ActionPerformed
+    private void modeBoxActionPerformed() {//GEN-FIRST:event_jButton4ActionPerformed
         //noinspection DataFlowIssue
-        switch ((String)jComboBox1.getSelectedItem()) {
+        switch ((String)modeBox.getSelectedItem()) {
             case "Sorting":
                 if (arrayVisualizer.enableBenchmarking(false))
                     break;
-                jButton6.setEnabled(true);
+                shuffleButton.setEnabled(true);
                 arrayVisualizer.setComparator(0);
                 break;
 
@@ -483,23 +495,23 @@ public final class UtilFrame extends javax.swing.JFrame {
                     break;
                 if (this.abstractFrame != null && abstractFrame.isVisible()){
                     abstractFrame.dispose();
-                    jButton6ResetText();
+                    shuffleButtonResetText();
                 }
-                jButton6.setEnabled(false);
+                shuffleButton.setEnabled(false);
                 arrayVisualizer.setComparator(1);
                 break;
 
             case "Stability Check":
                 if (arrayVisualizer.enableBenchmarking(false))
                     break;
-                jButton6.setEnabled(true);
+                shuffleButton.setEnabled(true);
                 arrayVisualizer.setComparator(2);
                 break;
 
             case "Sorting Networks":
                 if (arrayVisualizer.enableBenchmarking(false))
                     break;
-                jButton6.setEnabled(true);
+                shuffleButton.setEnabled(true);
                 arrayVisualizer.setComparator(4);
                 if (arrayVisualizer.getCurrentLength() > 1024) {
                     JOptionPane.showMessageDialog(
@@ -514,30 +526,30 @@ public final class UtilFrame extends javax.swing.JFrame {
             case "Reversed Sorting":
                 if (arrayVisualizer.enableBenchmarking(false))
                     break;
-                jButton6.setEnabled(true);
+                shuffleButton.setEnabled(true);
                 arrayVisualizer.setComparator(3);
                 break;
 
             case "*Simple* Benchmarking":
-                jButton6.setEnabled(true);
+                shuffleButton.setEnabled(true);
                 arrayVisualizer.setComparator(0);
                 arrayVisualizer.enableBenchmarking(true);
                 break;
         }
     }//GEN-LAST:event_jCheckBox8ActionPerformed
 
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JCheckBox jCheckBox1;
-    private javax.swing.JCheckBox jCheckBox2;
-    private javax.swing.JCheckBox jCheckBox3;
-    private javax.swing.JCheckBox jCheckBox4;
-    private javax.swing.JCheckBox jCheckBox5;
-    private javax.swing.JCheckBox jCheckBox6;
-    private javax.swing.JCheckBox jCheckBox7;
-    private javax.swing.JCheckBox jCheckBox8;
-    private javax.swing.JCheckBox jCheckBox9;
-    @SuppressWarnings("rawtypes")
-    private javax.swing.JComboBox jComboBox1;
+    private javax.swing.JComboBox modeBox;
+    private javax.swing.JButton visualButton;
+    private javax.swing.JCheckBox linkedDotsCheckbox;
+    private javax.swing.JCheckBox colorCheckbox;
+    private javax.swing.JCheckBox auxCheckbox;
+    private javax.swing.JButton sortButton;
+    private javax.swing.JButton shuffleButton;
+    private javax.swing.JCheckBox fixedDelayCheckbox;
+    private javax.swing.JCheckBox shuffleCheckbox;
+    private javax.swing.JCheckBox soundsCheckbox;
+    private javax.swing.JCheckBox softerSoundsCheckbox;
+    private javax.swing.JCheckBox endSweepCheckbox;
+    private javax.swing.JCheckBox statsCheckbox;
+    private javax.swing.JCheckBox realTimeCheckbox;
 }

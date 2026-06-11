@@ -189,8 +189,8 @@ public final class SortPrompt extends javax.swing.JFrame implements AppFrame {
                 "Install Extra Sorts Pack"
         );
         installExtraSortPackButton.addActionListener(e -> {
-            utilFrame.jButton1ResetText();
-            utilFrame.jButton1Disable();
+            utilFrame.sortButtonResetText();
+            utilFrame.sortButtonDisable();
             dispose();
             new Thread(() -> {
                 ProgressMonitor installProgress = new ProgressMonitor(
@@ -218,7 +218,7 @@ public final class SortPrompt extends javax.swing.JFrame implements AppFrame {
                     analyzer.analyzeSortsExtrasOnly();
                     analyzer.sortSorts();
                     arrayVisualizer.refreshTables();
-                    utilFrame.jButton1Enable();
+                    utilFrame.sortButtonEnable();
                     JOptionPane.showMessageDialog(
                         arrayVisualizer.getMainWindow(),
                         "Successfully installed and loaded extra sorts pack!",
@@ -226,7 +226,7 @@ public final class SortPrompt extends javax.swing.JFrame implements AppFrame {
                         JOptionPane.INFORMATION_MESSAGE
                     );
                 } else {
-                    utilFrame.jButton1Enable();
+                    utilFrame.sortButtonEnable();
                 }
             }, "ExtraSortsInstall").start();
         });
@@ -297,7 +297,7 @@ public final class SortPrompt extends javax.swing.JFrame implements AppFrame {
                 CATEGORY_SORT_THREADS.values().stream().map(Map.Entry::getKey).forEach(Runnable::run),
             true
         );
-        utilFrame.jButton1ResetText();
+        utilFrame.sortButtonResetText();
         dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -315,7 +315,7 @@ public final class SortPrompt extends javax.swing.JFrame implements AppFrame {
                 arrayVisualizer.getSortAnalyzer().importSort(f);
             }
         }.start();
-        utilFrame.jButton1ResetText();
+        utilFrame.sortButtonResetText();
         dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -326,7 +326,7 @@ public final class SortPrompt extends javax.swing.JFrame implements AppFrame {
             arrayVisualizer.setCategory(category);
             GroovyLocals.runGroupInThread(groupInfo.getValue(), groupInfo.getKey());
         }
-        utilFrame.jButton1ResetText();
+        utilFrame.sortButtonResetText();
         dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -348,7 +348,7 @@ public final class SortPrompt extends javax.swing.JFrame implements AppFrame {
                 sortThread.runSort(array, selection.getId());
             }
         }.start();
-        utilFrame.jButton1ResetText();
+        utilFrame.sortButtonResetText();
         dispose();
     }//GEN-LAST:event_jList1ValueChanged
 

@@ -34,6 +34,7 @@ SOFTWARE.
  */
 
 public final class Delays {
+    private final ArrayVisualizer arrayVisualizer;
     private volatile double sleepRatio;
     private volatile boolean skipped;
 
@@ -49,6 +50,7 @@ public final class Delays {
     private final Sounds Sounds;
 
     public Delays(ArrayVisualizer arrayVisualizer) {
+        this.arrayVisualizer = arrayVisualizer;
         this.sleepRatio = 1.0;
         this.skipped = false;
 
@@ -156,7 +158,9 @@ public final class Delays {
     }
 
     public void sleep(double millis) {
-        if (millis <= 0) {
+        if (this.arrayVisualizer.useFixedDelays() && this.arrayVisualizer.isSortActive()) {
+            millis = 1;
+        } else if (millis <= 0) {
             return;
         }
 
