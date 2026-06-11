@@ -97,7 +97,6 @@ public final class UtilFrame extends javax.swing.JFrame {
         javax.swing.JLabel jLabel1 = new javax.swing.JLabel();
         this.modeBox = new javax.swing.JComboBox();
         this.visualButton = new javax.swing.JButton();
-        this.linkedDotsCheckbox = new javax.swing.JCheckBox();
         this.colorCheckbox = new javax.swing.JCheckBox();
         this.auxCheckbox = new javax.swing.JCheckBox();
         JButton speedButton = new JButton();
@@ -133,10 +132,6 @@ public final class UtilFrame extends javax.swing.JFrame {
 
         visualButtonResetText();
         visualButton.addActionListener(evt -> visualButtonActionPerformed());
-
-        linkedDotsCheckbox.setSelected(false);
-        linkedDotsCheckbox.setText("Linked Dots");
-        linkedDotsCheckbox.addActionListener(evt -> linkedDotsCheckboxActionPerformed());
 
         colorCheckbox.setSelected(false);
         colorCheckbox.setText("Enable Color");
@@ -214,7 +209,6 @@ public final class UtilFrame extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, true)
                             .addComponent(this.fixedDelayCheckbox)
                             .addComponent(this.shuffleCheckbox)
-                            .addComponent(this.linkedDotsCheckbox)
                             .addComponent(this.endSweepCheckbox)
                             .addComponent(this.realTimeCheckbox)
                             .addComponent(this.statsCheckbox)
@@ -245,8 +239,6 @@ public final class UtilFrame extends javax.swing.JFrame {
                     .addGap(10, 10, 10)
                     .addComponent(this.visualButton)
                     .addGap(5, 5, 5)
-                    .addComponent(this.linkedDotsCheckbox)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                     .addComponent(this.colorCheckbox)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                     .addComponent(this.auxCheckbox)
@@ -402,10 +394,6 @@ public final class UtilFrame extends javax.swing.JFrame {
         arrayVisualizer.toggleShuffleAnimation(shuffleCheckbox.isSelected());
     }//GEN-LAST:event_jCheckBox1ActionPerformed
 
-    private void linkedDotsCheckboxActionPerformed() {//GEN-FIRST:event_jCheckBox3ActionPerformed
-        arrayVisualizer.toggleLinkedDots(linkedDotsCheckbox.isSelected());
-    }//GEN-LAST:event_jCheckBox2ActionPerformed
-
     private void endSweepCheckboxActionPerformed() {//GEN-FIRST:event_jCheckBox3ActionPerformed
         Highlights.toggleFancyFinishes(endSweepCheckbox.isSelected());
     }//GEN-LAST:event_jCheckBox3ActionPerformed
@@ -540,7 +528,6 @@ public final class UtilFrame extends javax.swing.JFrame {
 
     private javax.swing.JComboBox modeBox;
     private javax.swing.JButton visualButton;
-    private javax.swing.JCheckBox linkedDotsCheckbox;
     private javax.swing.JCheckBox colorCheckbox;
     private javax.swing.JCheckBox auxCheckbox;
     private javax.swing.JButton sortButton;

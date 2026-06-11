@@ -2,8 +2,6 @@ package io.github.arrayv.visuals.dots;
 
 import java.awt.Color;
 
-import com.scrtwpns.Mixbox;
-
 import io.github.arrayv.main.ArrayVisualizer;
 import io.github.arrayv.utils.Highlights;
 import io.github.arrayv.utils.Renderer;
@@ -36,26 +34,26 @@ SOFTWARE.
  *
  */
 
-public final class SpiralDots extends Visual {
+public final class DisparityDotsLinked extends Visual {
 
-    public SpiralDots(ArrayVisualizer arrayVisualizer) {
+    public DisparityDotsLinked(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 
-        this.setListName("Spiral Dots");
+        this.setListName("Disparity Dots (Linked)");
         this.setCategory("Dot Visuals");
         this.setOverlayable(true);
     }
-    
+
     public int[] getTopPosFor(int[] array, double idx, int val, ArrayVisualizer ArrayVisualizer, Renderer Renderer) {
     	int width  = ArrayVisualizer.windowWidth();
         int height = ArrayVisualizer.windowHeight();
         int n = ArrayVisualizer.getCurrentLength();
         double r = Math.min(width, height)/2.75;
-        double mult = (double) val / n - 1;
-        mult = 1 - mult * mult;
+        double disp = (1 + Math.cos((Math.PI * (val - idx)) / (ArrayVisualizer.getCurrentLength() * 0.5))) * 0.5;
+        int x =  width/2 + (int)(disp * r * Math.cos(Math.PI * (2d*idx / n - 0.5)));
+        int y = height/2 + (int)(disp * r * Math.sin(Math.PI * (2d*idx / n - 0.5)));
         return new int[] {
-        		width/2 + (int)(mult * r * Math.cos(Math.PI * (2d*idx / n - 0.5))),
-        		height/2 + (int)(mult * r * Math.sin(Math.PI * (2d*idx / n - 0.5)))
+        	x, y
         };
     }
     public int[] getBottomPosFor(int[] array, double idx, int val, ArrayVisualizer ArrayVisualizer, Renderer Renderer) {
@@ -75,39 +73,34 @@ public final class SpiralDots extends Visual {
         int n = arrayVisualizer.getCurrentLength();
         double r = Math.min(width, height)/2.5;
 
-        int dotS = renderer.getDotDimensions();
+        double disp = (1 + Math.cos((Math.PI * (array[n-1] - (n-1))) / (arrayVisualizer.getCurrentLength() * 0.5))) * 0.5;
+        int lastX =  width/2 + (int)(disp * r * Math.cos(Math.PI * (2d*(n-1) / n - 0.5)));
+        int lastY = height/2 + (int)(disp * r * Math.sin(Math.PI * (2d*(n-1) / n - 0.5)));
+        this.mainRender.setStroke(arrayVisualizer.getCustomStroke(2));
 
-            for (int i = 0; i < n; i++) {
-                if (Highlights.fancyFinishActive() && i < Highlights.getFancyFinishPosition())
-                    this.mainRender.setColor(Color.GREEN);
-                else if (arrayVisualizer.colorEnabled()) {
-                	if (Highlights.hasColor(array, i))
-                		this.mainRender.setColor(new Color(Mixbox.lerp(
-                			getIntColor(array[i], arrayVisualizer.getCurrentLength()).getRGB(),
-    	                	Highlights.colorAt(array, i).getRGB(),
-    	                	0.5f
-    	                )));
-                	else this.mainRender.setColor(getIntColor(array[i], arrayVisualizer.getCurrentLength()));
-                } else if (Highlights.hasColor(array, i)) {
-                    this.mainRender.setColor(Highlights.colorAt(array, i));
-                } else  this.mainRender.setColor(Color.WHITE);
+        for (int i = 0; i < n; i++) {
+            if (Highlights.fancyFinishActive() && i < Highlights.getFancyFinishPosition()) {
+                this.mainRender.setColor(Color.GREEN);
+                this.mainRender.setStroke(arrayVisualizer.getCustomStroke(4));
+            } else if (Highlights.containsPosition(i)) {
+                this.mainRender.setColor(arrayVisualizer.getHighlightColor());
+                this.mainRender.setStroke(arrayVisualizer.getCustomStroke(4));
+            } else if (arrayVisualizer.colorEnabled())
+                this.mainRender.setColor(getIntColor(array[i], arrayVisualizer.getCurrentLength()));
+            else if (Highlights.hasColor(array, i)) {
+                this.mainRender.setColor(Highlights.colorAt(array, i));
+            } else this.mainRender.setColor(Color.WHITE);
 
-                double mult = (double) array[i] / arrayVisualizer.getCurrentLength();
-                int x =  width/2 + (int)(mult * r * Math.cos(Math.PI * (2d*i / n - 0.5)));
-                int y = height/2 + (int)(mult * r * Math.sin(Math.PI * (2d*i / n - 0.5)));
+            disp = (1 + Math.cos((Math.PI * (array[i] - i)) / (arrayVisualizer.getCurrentLength() * 0.5))) * 0.5;
+            int x =  width/2 + (int)(disp * r * Math.cos(Math.PI * (2d*i / n - 0.5)));
+            int y = height/2 + (int)(disp * r * Math.sin(Math.PI * (2d*i / n - 0.5)));
 
-                this.mainRender.fillRect(x, y, dotS, dotS);
-            }
-            this.mainRender.setColor(arrayVisualizer.getHighlightColor());
+            this.mainRender.drawLine(lastX, lastY, x, y);
+            this.mainRender.setStroke(arrayVisualizer.getCustomStroke(2));
 
-            for (int i = 0; i < n; i++) {
-                if (Highlights.containsPosition(i)) {
-                    double mult = (double) array[i] / arrayVisualizer.getCurrentLength();
-                    int x =  width/2 + (int)(mult * r * Math.cos(Math.PI * (2d*i / n - 0.5)));
-                    int y = height/2 + (int)(mult * r * Math.sin(Math.PI * (2d*i / n - 0.5)));
-
-                    this.mainRender.fillRect(x - 2*dotS, y - 2*dotS, 4*dotS, 4*dotS);
-                }
-            }
+            lastX = x;
+            lastY = y;
+        }
+        this.mainRender.setStroke(arrayVisualizer.getDefaultStroke());
     }
 }

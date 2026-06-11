@@ -169,7 +169,7 @@ public final class ArrayVisualizer {
 
     private volatile boolean showStatistics;
     private volatile boolean showColor;
-    private volatile boolean showLines;
+
     private volatile boolean showExternalArrays;
 
     private volatile boolean useAntiQSort;
@@ -510,7 +510,6 @@ public final class ArrayVisualizer {
         this.showStatistics = true;
 
         this.showColor = false;
-        this.showLines = false;
         this.showExternalArrays = false;
 
         this.useAntiQSort = false;
@@ -1407,10 +1406,6 @@ public final class ArrayVisualizer {
     public void toggleSpiral(boolean spiral) {
     }
 
-    public void toggleLinkedDots(boolean showLines) {
-        this.showLines = showLines;
-    }
-
     public void toggleStatistics(boolean showStatistics) {
         this.showStatistics = showStatistics;
     }
@@ -1524,10 +1519,6 @@ public final class ArrayVisualizer {
     @Deprecated
     public boolean pixelsEnabled() {
         return false;
-    }
-
-    public boolean linesEnabled() {
-        return this.showLines;
     }
 
     /**
