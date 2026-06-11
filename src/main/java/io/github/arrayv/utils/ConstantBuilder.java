@@ -17,10 +17,10 @@ public class ConstantBuilder {
 			 current = getTotal();
 		
 		if(targetConstant == -1L)
-			return "Constant = ---";
-		
+			return "Constant \u2248 ---";
+
 		double m = current / (double) targetConstant;
-		
-		return "Constant = " + String.format("%.3f", m);
+
+		return "Constant \u2248 " + String.format("%.3f", m);
 	}
 }
