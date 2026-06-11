@@ -19,6 +19,7 @@ public final class KotaSort extends KotaSorting {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
+        this.setAuthors("aphitorite");
     }
 
     @Override

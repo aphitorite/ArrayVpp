@@ -23,6 +23,7 @@ public final class BitonicSortRecursive extends Sort {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
+        this.setAuthors("Ken Batcher");
     }
 
     private static int greatestPowerOfTwoLessThan(int n){

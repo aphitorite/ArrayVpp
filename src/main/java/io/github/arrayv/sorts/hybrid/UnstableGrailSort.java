@@ -62,7 +62,7 @@ public final class UnstableGrailSort extends UnstableGrailSorting {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
-        this.setAuthors("Andrey Astrelin");
+        this.setAuthors("Musicombo, aphitorite, Andrey Astrelin");
     }
 
     @Override

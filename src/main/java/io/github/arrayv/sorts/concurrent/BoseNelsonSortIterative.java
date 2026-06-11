@@ -16,6 +16,7 @@ public final class BoseNelsonSortIterative extends Sort {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
+        this.setAuthors("fungamer2, aphitorite");
     }
 
 	private int end;

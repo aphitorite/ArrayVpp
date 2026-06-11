@@ -39,7 +39,7 @@ public final class ThreeSmoothCombSortRecursive extends Sort {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
-        this.setAuthors("PiotrGrochowski, aphitorite");
+        this.setAuthors("Piotr Grochowski, aphitorite");
     }
 
     private void recursiveComb(int[] array, int pos, int gap, int end) {

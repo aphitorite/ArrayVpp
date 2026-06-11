@@ -31,8 +31,9 @@ public final class pcboygamesisyournewgodSortReleaseCandidate extends BestForNSo
 		this.setRadixSort(false);
 		this.setUnreasonablySlow(false);
 		this.setUnreasonableLimit(0);
-		this.setBogoSort(false);
-		/*
+        this.setBogoSort(false);
+        this.setAuthors("TEC-XX, Distray, PCBoyGames");
+        /*
 		this.setPathogenic(true);
 		this.setPathogenName("TEC-25 \"Iceberg\"");
 		 */

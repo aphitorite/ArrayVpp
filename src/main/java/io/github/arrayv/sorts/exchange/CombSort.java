@@ -42,7 +42,7 @@ public final class CombSort extends CombSorting {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
         this.setQuestion("Enter shrink factor (input/100):", 130);
-        this.setAuthors("Daniel Imms");
+        this.setAuthors("Włodzimierz Dobosiewicz, Artur Borowy");
     }
 
     @Override

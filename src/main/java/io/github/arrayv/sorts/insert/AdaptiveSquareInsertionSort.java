@@ -21,6 +21,7 @@ public class AdaptiveSquareInsertionSort extends Sort
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
+        this.setAuthors("Potassium");
     }
 
     public boolean inbetween(int a, int b, int c) {

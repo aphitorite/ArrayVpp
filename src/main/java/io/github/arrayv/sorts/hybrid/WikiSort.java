@@ -66,6 +66,7 @@ public class WikiSort extends Sort {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
+        this.setAuthors("MikeBonzai");
         this.setQuestion("Enter external buffer size (0 for in-place):", 0);
     }
 

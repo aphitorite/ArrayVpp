@@ -36,6 +36,7 @@ final public class MagneticaQuickSort extends Sort {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
+        this.setAuthors("Sanmayce, PCBoy");
         this.setQuestion("Enter variant:\n1: Mid Pivot Standalone\n2: Mid Pivot + Insertion\n3: Mo3/7 Pivot Standalone\n4: Mo3/7 Pivot + Insertion\n5: Random Pivot Standalone\n6: Random Pivot + Insertion\n(Default is 4)", 4);
     }
     

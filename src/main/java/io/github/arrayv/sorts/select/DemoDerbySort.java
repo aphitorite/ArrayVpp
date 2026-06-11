@@ -18,6 +18,7 @@ final public class DemoDerbySort extends Sort {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
+        this.setAuthors("Distray");
     }
     public void multiSwap(int[] array, int a, int b, int s) {
     	while(s-- > 0) Writes.swap(array, a++, b++, 1, true, false);

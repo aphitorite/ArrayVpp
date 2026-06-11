@@ -28,6 +28,7 @@ final public class CycleSort extends Sort {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
+        this.setAuthors("Musicombo");
     }
     public void cycleSort(int[] array, int start, int end, int filler) {
     	for (int cycleStart = start; cycleStart < end - 1; cycleStart++) {

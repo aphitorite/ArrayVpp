@@ -34,6 +34,7 @@ public class FastGrowingHierarchySort extends Sort {
         this.setUnreasonablySlow(true);
         this.setUnreasonableLimit(1);
         this.setBogoSort(false);
+        this.setAuthors("Tycho/Äonothem");
         this.setQuestion("Choose ordinal:\n1 is \u03C9\n2 is \u03B5_0\n3 is \u03C8(\u03B5_(\u03A9 + 1))\n Default is \u03C9", 1);
 	}
 	

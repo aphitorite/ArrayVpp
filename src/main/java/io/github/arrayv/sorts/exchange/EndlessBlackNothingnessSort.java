@@ -16,6 +16,7 @@ final public class EndlessBlackNothingnessSort extends Sort {
 		this.setUnreasonablySlow(true);
 		this.setUnreasonableLimit(1024);
 		this.setBogoSort(false);
+        this.setAuthors("Distray");
 	}
 	
 	// code taken from Buvusort

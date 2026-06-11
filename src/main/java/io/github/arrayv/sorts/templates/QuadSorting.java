@@ -4,7 +4,7 @@ import io.github.arrayv.main.ArrayVisualizer;
 import io.github.arrayv.utils.*;
 
 /*
-Copyright (C) 2014-2021 Igor van den Hoven ivdhoven@gmail.com
+Copyright (C) 2014-2021 Scandum
 */
 
 /*

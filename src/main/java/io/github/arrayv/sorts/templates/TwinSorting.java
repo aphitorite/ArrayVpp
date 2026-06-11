@@ -3,7 +3,7 @@ package io.github.arrayv.sorts.templates;
 import io.github.arrayv.main.ArrayVisualizer;
 
 /*
-    Copyright (C) 2014-2021 Igor van den Hoven ivdhoven@gmail.com
+    Copyright (C) 2014-2021 Scandum
 */
 
 /*

@@ -28,6 +28,7 @@ public final class CircleSortIterative extends IterativeCircleSorting {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
+        this.setAuthors("Musicombo");
     }
 
     public void singleRoutine(int[] array, int length) {

@@ -23,6 +23,7 @@ public class TourneyCaiSort extends GrailSorting {
         this.setQuestion("Set the base for this sort:", 3);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
+        this.setAuthors("Distray");
 	}
 	
 	public int buf, bufsz;

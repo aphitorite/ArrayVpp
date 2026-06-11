@@ -16,6 +16,7 @@ final public class TrulyNaturalSort extends Sort {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
+        this.setAuthors("Potassium");
     }
     
     public void selectionSort(int[] array, int length, int[] tmp) {

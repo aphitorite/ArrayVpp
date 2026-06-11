@@ -16,6 +16,7 @@ final public class SantaSort extends BogoSorting {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
+        this.setAuthors("Distray");
     }
     private void comp(int[] array, int start, int end) {
     	if(Reads.compareIndices(array, start, end, 0.5, true) == 1) {

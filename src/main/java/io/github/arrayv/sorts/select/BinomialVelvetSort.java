@@ -17,6 +17,7 @@ final public class BinomialVelvetSort extends Sort {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
+        this.setAuthors("Distray");
     }
     
     // Based off of Thehf Fiseg Wnida Dwoiqel (draft algorithm for The Epsilon Committee)

@@ -16,6 +16,7 @@ public final class RandomGuessSort extends BogoSorting {
         this.setUnreasonablySlow(true);
         this.setUnreasonableLimit(8);
         this.setBogoSort(false);
+        this.setAuthors("Emerald Block");
     }
 
     // PROGRAMMER'S NOTE: This sort is intentionally bad, it is purposefully un-optimized.

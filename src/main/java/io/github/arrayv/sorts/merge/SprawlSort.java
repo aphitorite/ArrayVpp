@@ -16,6 +16,7 @@ final public class SprawlSort extends MergeSorting {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
+        this.setAuthors("w0rthy");
     }
     void insert(int[] array, int key, int start, int end) {
     	while(end >= 0 && Reads.compareValues(key, array[end]) == -1) {

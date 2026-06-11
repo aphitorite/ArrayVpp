@@ -15,7 +15,9 @@ public final class GoofyAssaultSort extends BogoSorting {
         this.setUnreasonablySlow(true);
         this.setUnreasonableLimit(6);
         this.setBogoSort(true);
-    }
+    
+        this.setAuthors("Distray");
+}
     private int b;
     
     private void clear(int[] bits) {

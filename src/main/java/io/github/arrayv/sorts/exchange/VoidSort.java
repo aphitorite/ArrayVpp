@@ -16,6 +16,7 @@ final public class VoidSort extends Sort {
 		this.setUnreasonablySlow(true);
 		this.setUnreasonableLimit(1024);
 		this.setBogoSort(false);
+        this.setAuthors("Distray");
 	}
 	
 	private void voidSort(int[] A, int i, int j, int d, int o) {

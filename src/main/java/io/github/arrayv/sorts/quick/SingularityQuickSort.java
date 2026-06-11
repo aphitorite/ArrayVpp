@@ -20,6 +20,7 @@ public final class SingularityQuickSort extends Sort {
       this.setUnreasonablySlow(false);
       this.setUnreasonableLimit(0);
       this.setBogoSort(false);
+        this.setAuthors("PCBoy");
    }
 
    protected int log2(int x) {

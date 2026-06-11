@@ -15,6 +15,7 @@ final public class FladSort extends QuadSorting {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
+        this.setAuthors("Scandum");
     }
     private int cmp(int v0, int v1) {
     	return -(Reads.compareValues(v1, v0) >> 31);

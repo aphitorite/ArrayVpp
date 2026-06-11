@@ -21,6 +21,7 @@ final public class TournamergeSort extends Sort {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
+        this.setAuthors("Distray");
         Reads = arrayVisualizer.getReads();
     }
     

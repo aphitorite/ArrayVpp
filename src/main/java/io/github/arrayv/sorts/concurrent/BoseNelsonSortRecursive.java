@@ -17,6 +17,7 @@ public final class BoseNelsonSortRecursive extends Sort {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
+        this.setAuthors("fungamer2, aphitorite");
     }
 
     private void compareSwap(int[] array, int start, int end, double sleep) {

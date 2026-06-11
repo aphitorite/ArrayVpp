@@ -38,7 +38,7 @@ public final class PairwiseSortRecursive extends Sort {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
-        this.setAuthors("PiotrGrochowski");
+        this.setAuthors("Piotr Grochowski");
     }
 
     private void pairwiserecursive(int[] array, int start, int end, int gap, double sleep) {

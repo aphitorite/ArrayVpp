@@ -15,6 +15,7 @@ public final class TerrorismSort extends Sort {
 		this.setUnreasonablySlow(true);
 		this.setUnreasonableLimit(32);
 		this.setBogoSort(false);
+        this.setAuthors("Distray");
 	}
 
 	private void horror(int[] a, int i, int j, int k, int d) {

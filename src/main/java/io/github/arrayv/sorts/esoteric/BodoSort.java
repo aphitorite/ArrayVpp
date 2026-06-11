@@ -16,7 +16,9 @@
      this.setUnreasonablySlow(true);
      this.setUnreasonableLimit(32);
      this.setBogoSort(true);
-   }
+   
+        this.setAuthors("Distray");
+}
  
    
    public void runSort(int[] array, int length, int bucketCount) {

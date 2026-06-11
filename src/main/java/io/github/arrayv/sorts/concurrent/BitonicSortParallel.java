@@ -17,6 +17,7 @@ public final class BitonicSortParallel extends Sort {
         this.setUnreasonablySlow(true);
         this.setUnreasonableLimit(4096);
         this.setBogoSort(false);
+        this.setAuthors("Ken Batcher");
     }
 
     private class SortThread extends Thread {

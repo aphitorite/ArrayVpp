@@ -17,6 +17,7 @@ final public class BlockShellSort extends Sort {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
+        this.setAuthors("Distray");
     }
     
     private int gappedBinary(int[] A, int P, int l, int K, int G, boolean i) {

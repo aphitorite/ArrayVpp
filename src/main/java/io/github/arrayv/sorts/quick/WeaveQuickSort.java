@@ -17,6 +17,7 @@ public final class WeaveQuickSort extends Sort {
       this.setUnreasonablySlow(false);
       this.setUnreasonableLimit(0);
       this.setBogoSort(false);
+        this.setAuthors("aphitorite");
    }
 
    private int medianOf3(int[] array, int[] indices) {

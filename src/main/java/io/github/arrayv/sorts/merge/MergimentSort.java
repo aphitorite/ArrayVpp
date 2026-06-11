@@ -16,6 +16,7 @@ final public class MergimentSort extends Sort {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
+        this.setAuthors("Distray");
     }
     
     private void merge(int[] array, int[] tmp, int start, int mid, int end) {

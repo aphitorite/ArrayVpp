@@ -17,6 +17,7 @@ public final class RecursiveShellSort extends Sort {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
+        this.setAuthors("yuji");
     }
 
     public void gappedInsertionSort(int[] arr, int a, int b, int gap) {

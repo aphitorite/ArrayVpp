@@ -19,6 +19,7 @@ public final class CbrtSort extends Sort {
 		this.setUnreasonablySlow(false);
 		this.setUnreasonableLimit(0);
 		this.setBogoSort(false);
+        this.setAuthors("Control");
 	}
 	
 	private void sqrtSwap(int[] arr, int a, int b, boolean auxwrite) {

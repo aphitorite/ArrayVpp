@@ -32,6 +32,7 @@ public final class OptimizedFieldSort extends BogoSorting {
 		this.setUnreasonablySlow(false);
 		this.setUnreasonableLimit(0);
 		this.setBogoSort(false);
+        this.setAuthors("Potassium");
 		
 		this.verify = new BogoSort(this.arrayVisualizer);
 		this.fieldSortMaxDepth = 0;

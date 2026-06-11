@@ -154,7 +154,7 @@ public final class AmericanFlagSort extends Sort {
         public void runSort(int[] array, int sortLength, int bucketCount) throws Exception {
             this.NUMBER_OF_BUCKETS = bucketCount;
             this.setRunAllSortsName("American Flag Sort, " + this.NUMBER_OF_BUCKETS + " Buckets");
-        this.setAuthors("Justin Wetherell <phishman3579@gmail.com>");
+        this.setAuthors("Musicombo, Justin Wetherell <phishman3579@gmail.com>");
 
             this.customSort(array, 0, sortLength, bucketCount);
         }

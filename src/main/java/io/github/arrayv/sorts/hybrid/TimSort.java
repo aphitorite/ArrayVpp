@@ -39,7 +39,7 @@ public class TimSort extends Sort {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
-        this.setAuthors("The Android Open Source Project");
+        this.setAuthors("Tim Peters, The Android Open Source Project");
     }
 
     @Override

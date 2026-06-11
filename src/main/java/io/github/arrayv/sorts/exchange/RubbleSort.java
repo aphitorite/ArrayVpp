@@ -16,6 +16,7 @@ final public class RubbleSort extends Sort {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
+        this.setAuthors("Distray");
     }
     int sig(int a, int b, int d) {
     	return ((a + b) + d * Math.abs(a - b)) / 2;

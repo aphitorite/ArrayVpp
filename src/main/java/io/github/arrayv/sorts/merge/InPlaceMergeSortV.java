@@ -19,6 +19,7 @@ final public class InPlaceMergeSortV extends Sort {
 		this.setUnreasonablySlow(false);
 		this.setUnreasonableLimit(0);
 		this.setBogoSort(false);
+        this.setAuthors("Distray");
 	}
 	
 	// copied from aphitorite's In-Place Merge Sort III

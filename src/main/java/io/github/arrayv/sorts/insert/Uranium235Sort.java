@@ -18,6 +18,7 @@ final public class Uranium235Sort extends Sort {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
+        this.setAuthors("Distray");
     }
     
     private void omegaShell(int[] array, int start, int end, int gap, int d) {

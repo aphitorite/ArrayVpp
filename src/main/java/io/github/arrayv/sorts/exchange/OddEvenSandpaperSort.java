@@ -43,7 +43,7 @@ final public class OddEvenSandpaperSort extends Sort {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
-        this.setAuthors("w0rthy");
+        this.setAuthors("aphitorite, w0rthy");
     }
 	
 	private void compSwap(int[] array, int a, int b) {

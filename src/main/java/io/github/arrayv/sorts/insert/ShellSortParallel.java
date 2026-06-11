@@ -17,6 +17,7 @@ public final class ShellSortParallel extends ShellSorting {
 		this.setUnreasonablySlow(false);
 		this.setUnreasonableLimit(0);
 		this.setBogoSort(false);
+        this.setAuthors("Donald Shell");
 	}
 
 	private int[] array;

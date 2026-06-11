@@ -19,6 +19,7 @@ public final class FlashSort extends Sort {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
+        this.setAuthors("Musicombo");
     }
 
 	// The flashsort algorithm is attributed to Karl-Dietrich Neubert

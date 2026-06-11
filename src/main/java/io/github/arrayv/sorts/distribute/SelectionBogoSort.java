@@ -55,7 +55,7 @@ public final class SelectionBogoSort extends BogoSorting {
         this.setUnreasonablySlow(true);
         this.setUnreasonableLimit(4096);
         this.setBogoSort(true);
-        this.setAuthors("EmeraldBlock");
+        this.setAuthors("_fluffyy, EmeraldBlock");
     }
 
     @Override

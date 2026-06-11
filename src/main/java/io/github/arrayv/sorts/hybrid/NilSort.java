@@ -20,6 +20,7 @@ public class NilSort extends GrailSorting {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
+        this.setAuthors("Distray");
 	}
 	public int buf, bufsz;
 	private static final int minblinsert = 8;

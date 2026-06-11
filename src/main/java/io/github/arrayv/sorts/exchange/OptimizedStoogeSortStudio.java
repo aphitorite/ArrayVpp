@@ -28,7 +28,7 @@ public final class OptimizedStoogeSortStudio extends Sort {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
-        this.setAuthors("Anonymous0726, aphitorite, EilrahcF");
+        this.setAuthors("Musicombo, Anonymous0726, aphitorite, EilrahcF");
     }
 
 	private boolean compSwap(int[] array, int a, int b) {

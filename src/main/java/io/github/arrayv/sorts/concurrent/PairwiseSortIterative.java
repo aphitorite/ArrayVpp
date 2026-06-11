@@ -38,7 +38,7 @@ public final class PairwiseSortIterative extends Sort {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
-        this.setAuthors("PiotrGrochowski");
+        this.setAuthors("Piotr Grochowski");
     }
 
     private void iterativepairwise(int[] array, int length, double sleep) {

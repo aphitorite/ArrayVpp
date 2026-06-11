@@ -41,7 +41,7 @@ public final class ThreeSmoothCombSortIterative extends Sort {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
-        this.setAuthors("aphitorite");
+        this.setAuthors("Piotr Grochowski, aphitorite");
     }
 
     private void compSwap(int[] array, int a, int b) {

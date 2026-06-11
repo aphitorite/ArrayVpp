@@ -36,6 +36,7 @@ public final class DustSort extends Sort {
 		this.setUnreasonablySlow(false);
 		this.setUnreasonableLimit(0);
 		this.setBogoSort(false);
+        this.setAuthors("arctic");
 	}
 
 	static final int    MIN_RUN = 16,

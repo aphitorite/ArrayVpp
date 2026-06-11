@@ -37,7 +37,7 @@ public final class TournamentSort extends Sort {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
-        this.setAuthors("Guy Argo (rugyoga on GitHub)");
+        this.setAuthors("Musicombo, Guy Argo");
     }
 
     private int tourneyCompare(int a, int b) {

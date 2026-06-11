@@ -18,6 +18,7 @@ final public class LassoSort extends LassoSorting {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
+        this.setAuthors("Distray");
     }
     @Override
     public void runSort(int[] array, int length, int bucketCount) {

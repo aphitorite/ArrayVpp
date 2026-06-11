@@ -20,6 +20,7 @@ public class PruneSort extends Sort {
 		this.setUnreasonablySlow(false);
 		this.setUnreasonableLimit(0);
 		this.setBogoSort(false);
+        this.setAuthors("Distray");
 	}
 	
 	private int log2(int val) {

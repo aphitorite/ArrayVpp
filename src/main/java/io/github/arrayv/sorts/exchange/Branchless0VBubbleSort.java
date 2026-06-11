@@ -19,6 +19,7 @@ final public class Branchless0VBubbleSort extends Sort {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
+        this.setAuthors("Distray");
     }
     // Branchless Double Bubble allocation improvement: Down from 1 variable to 0, by abusing arguments and widening
     

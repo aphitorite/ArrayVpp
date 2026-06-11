@@ -20,6 +20,7 @@ public final class OptimizedRotateMergeSort extends Sort {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
+        this.setAuthors("Gaming32");
         this.setQuestion("How many items should the temp array contain? (must be a power of two) (default: 64)", 64);
     }
 

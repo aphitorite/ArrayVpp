@@ -42,7 +42,7 @@ public final class GravitySort extends Sort {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
-        this.setAuthors("aphitorite");
+        this.setAuthors("w0rthy, aphitorite");
     }
 
     @Override

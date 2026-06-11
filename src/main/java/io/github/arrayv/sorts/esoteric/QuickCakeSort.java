@@ -16,6 +16,7 @@ public final class QuickCakeSort extends Sort {
 		this.setUnreasonablySlow(false);
 		this.setUnreasonableLimit(0);
 		this.setBogoSort(false);
+        this.setAuthors("Potassium");
 	}
 
 	private int partition(int[] array, int lo, int hi) {

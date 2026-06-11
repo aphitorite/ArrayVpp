@@ -42,7 +42,7 @@ public final class RotateMergeSortParallel extends Sort {
         this.setUnreasonablySlow(true);
         this.setUnreasonableLimit(4096);
         this.setBogoSort(false);
-        this.setAuthors("aphitorite");
+        this.setAuthors("Andrey Astrelin, aphitorite");
     }
 
 	private int[] array;

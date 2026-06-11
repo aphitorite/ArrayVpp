@@ -26,6 +26,7 @@ final public class MiepurgeSort extends Sort {
         this.setUnreasonableLimit(0);
         this.setQuestion("Set the miepurge base of the sort:", 16);
         this.setBogoSort(false);
+        this.setAuthors("Distray");
     }
     public BinaryDoubleInsertionSort smallSort;
     public int threshold;

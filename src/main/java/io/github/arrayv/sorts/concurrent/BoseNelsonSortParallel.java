@@ -17,6 +17,7 @@ public final class BoseNelsonSortParallel extends Sort {
         this.setUnreasonablySlow(true);
         this.setUnreasonableLimit(4096);
         this.setBogoSort(false);
+        this.setAuthors("fungamer2, aphitorite");
     }
 
 	private int[] array;

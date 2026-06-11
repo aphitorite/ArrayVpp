@@ -44,7 +44,7 @@ public final class BufferPartitionMergeSort extends Sort {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
-        this.setAuthors("yuji, aphitorite");
+        this.setAuthors("aphitorite, yuji");
     }
 
 	private InsertionSort insSort;

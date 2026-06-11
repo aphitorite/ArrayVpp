@@ -19,6 +19,7 @@ final public class CaesiumSort extends GrailSorting {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
+        this.setAuthors("Distray");
     }
     
     private int logCub(int j) {

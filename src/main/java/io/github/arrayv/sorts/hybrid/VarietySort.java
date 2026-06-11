@@ -22,7 +22,9 @@ final public class VarietySort extends Sort {
         this.setUnreasonablySlow(true);
         this.setUnreasonableLimit(40);
         this.setBogoSort(true);
-    }
+    
+        this.setAuthors("Distray");
+}
 
     
     private void classicMerge(int[] array, int[] tmp, int start, int mid, int end) {

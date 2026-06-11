@@ -53,7 +53,7 @@ public final class FifthMergeSort extends Sort {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
-        this.setAuthors("Josiah (Gaming32) Glosson");
+        this.setAuthors("Gaming32, Flanlaina");
     }
 
     protected void mergeInPlaceForwards(int[] array, int buffer, int start, int mid, int end) {

@@ -42,7 +42,7 @@ public final class ImprovedInPlaceMergeSort extends Sort {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
-        this.setAuthors("w0rthy");
+        this.setAuthors("aphitorite, w0rthy");
     }
 
     private void push(int[] array, int p, int a, int b, double sleep) {

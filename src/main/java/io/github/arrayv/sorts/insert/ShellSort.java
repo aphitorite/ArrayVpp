@@ -20,6 +20,7 @@ public final class ShellSort extends ShellSorting {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
+        this.setAuthors("Donald Shell");
     }
 
     public void finishQuickShell(int[] array, int currentLen) {

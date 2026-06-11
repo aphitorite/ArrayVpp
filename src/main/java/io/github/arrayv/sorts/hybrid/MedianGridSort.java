@@ -18,6 +18,7 @@ final public class MedianGridSort extends Sort {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
+        this.setAuthors("Distray");
     }
     // I Can't Believe It's Not Izasort!
 	

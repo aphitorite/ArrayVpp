@@ -21,6 +21,7 @@ public final class SplaySort extends Sort {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
+        this.setAuthors("fungamer2");
     }
 
     // Splay tree code retrieved from https://www.geeksforgeeks.org/splay-tree-set-2-insert-delete/
