@@ -1,4 +1,4 @@
-package io.github.arrayv.sorts.hybrid;
+package io.github.arrayv.sorts.insert;
 
 import io.github.arrayv.main.ArrayVisualizer;
 import io.github.arrayv.sorts.templates.Sort;
@@ -36,7 +36,7 @@ public final class MergeInsertionSort extends Sort {
 		this.setSortListName("Merge-Insertion");//aka ford-johnson algorithm (in place version)
 		this.setRunAllSortsName("Merge-Insertion Sort");
 		this.setRunSortName("Merge-Insertsort");
-		this.setCategory("Hybrid Sorts");
+		this.setCategory("Insertion Sorts");
 		this.setBucketSort(false);
 		this.setRadixSort(false);
 		this.setUnreasonablySlow(false);
