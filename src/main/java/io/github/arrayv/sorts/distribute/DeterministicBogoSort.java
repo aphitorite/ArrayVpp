@@ -42,7 +42,7 @@ public final class DeterministicBogoSort extends BogoSorting {
         this.setUnreasonablySlow(true);
         this.setUnreasonableLimit(11);
         this.setBogoSort(true);
-        this.setAuthors("aphitorite, Walker Gray");
+        this.setAuthors("aphitorite");
     }
 
     private boolean permutationSort(int[] array, int depth, int length) {

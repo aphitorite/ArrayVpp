@@ -43,7 +43,7 @@ public final class StableQuickSortParallel extends Sort {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
-        this.setAuthors("Rodney Shaghoulian, aphitorite");
+        this.setAuthors("Rodney Shaghoulian");
     }
 
 	private int[] array;

@@ -41,7 +41,7 @@ public final class HybridCombSort extends CombSorting {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
-        this.setAuthors("Musicombo, Daniel Imms");
+        this.setAuthors("Musicombo");
     }
 
     @Override

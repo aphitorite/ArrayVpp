@@ -16,7 +16,7 @@ final public class BottleSort extends Sort {
         this.setUnreasonablySlow(true);
         this.setUnreasonableLimit(24);
         this.setBogoSort(false);
-        this.setAuthors("Distray");
+        this.setAuthors("Distray, Californium-252");
     }
     
     @Override

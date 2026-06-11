@@ -47,7 +47,7 @@ public final class StaticSort extends Sort {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
-        this.setAuthors("Amari, Gaming32, thatsOven");
+        this.setAuthors("Amari, Gaming32");
     }
 
     public int[] findMinMax(int[] array, int a, int b) {

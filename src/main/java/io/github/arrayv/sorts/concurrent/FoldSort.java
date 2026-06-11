@@ -42,7 +42,7 @@ public final class FoldSort extends Sort {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
-        this.setAuthors("MP, Marcel Pi Nacy");
+        this.setAuthors("MP");
     }
 
     int end;

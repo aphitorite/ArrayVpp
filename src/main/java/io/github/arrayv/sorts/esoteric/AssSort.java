@@ -18,7 +18,7 @@ public final class AssSort extends Sort {
 		this.setUnreasonablySlow(false);
 		this.setUnreasonableLimit(0);
 		this.setBogoSort(false);
-        this.setAuthors("Distray");
+        this.setAuthors("Distray, gooflang");
 	}
 	public void runSort(int[] array, int currentLength, int bucketCount) {
 		Distributions.BLANCMANGE.initializeArray(array, arrayVisualizer);

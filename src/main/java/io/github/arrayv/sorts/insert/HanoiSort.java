@@ -55,7 +55,7 @@ public final class HanoiSort extends Sort {
 		this.setUnreasonablySlow(true);
 		this.setUnreasonableLimit(32);
 		this.setBogoSort(false);
-        this.setAuthors("Anonymous0726");
+        this.setAuthors("Anonymous0726, Andrey Astrelin");
 	}
 
 	/**

@@ -41,7 +41,7 @@ public final class MergeSortParallel extends Sort {
 		this.setUnreasonablySlow(false);
 		this.setUnreasonableLimit(0);
 		this.setBogoSort(false);
-        this.setAuthors("John von Neumann, aphitorite");
+        this.setAuthors("John von Neumann");
 	}
 
 	private int[] array;

@@ -17,7 +17,7 @@ public final class BoseNelsonSortParallel extends Sort {
         this.setUnreasonablySlow(true);
         this.setUnreasonableLimit(4096);
         this.setBogoSort(false);
-        this.setAuthors("fungamer2, aphitorite");
+        this.setAuthors("fungamer2, aphitorite, Raj Chandra Bose, Raymond J. Nelson");
     }
 
 	private int[] array;

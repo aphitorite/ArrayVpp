@@ -40,7 +40,7 @@ final public class PatienceSort extends Sort {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
-        this.setAuthors("Musicombo, aphitorite");
+        this.setAuthors("Musicombo");
     }
 	
 	private int pileSearch(int[] array, int b, int val) {

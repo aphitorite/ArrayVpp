@@ -42,7 +42,7 @@ public final class CountingSort extends Sort {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
-        this.setAuthors("Harold H. Seward, w0rthy");
+        this.setAuthors("Harold H. Seward");
     }
 
     @Override

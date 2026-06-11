@@ -31,7 +31,7 @@ public final class MatrixSort extends Sort {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
-        this.setAuthors("Gaming32, aphitorite");
+        this.setAuthors("Gaming32, aphitorite, Control");
     }
 
     private void gapReverse(int[] array, int start, int end, int gap) {

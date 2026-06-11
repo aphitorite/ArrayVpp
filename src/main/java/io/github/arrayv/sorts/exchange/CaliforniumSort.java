@@ -17,7 +17,7 @@ final public class CaliforniumSort extends Sort {
 		this.setUnreasonablySlow(false);
 		this.setUnreasonableLimit(0);
 		this.setBogoSort(false);
-        this.setAuthors("Distray");
+        this.setAuthors("Distray, Californium-252");
 	}
 	private int sqrtrnd(int v) {
 		int p=0;

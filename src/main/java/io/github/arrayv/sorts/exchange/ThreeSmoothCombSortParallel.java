@@ -39,7 +39,7 @@ public final class ThreeSmoothCombSortParallel extends Sort {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
-        this.setAuthors("Piotr Grochowski, aphitorite");
+        this.setAuthors("Piotr Grochowski, Vaughan Pratt");
     }
 
 	private int[] array;

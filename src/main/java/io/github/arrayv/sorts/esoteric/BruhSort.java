@@ -16,7 +16,7 @@
      	  this.setUnreasonablySlow(false);
      	  this.setUnreasonableLimit(0);
      	  this.setBogoSort(false);
-        this.setAuthors("Distray");
+        this.setAuthors("Distray, EilrahcF");
 	  }
  
 	  // If it isn't sorted, decrease every number by 1 and cap it.

@@ -45,7 +45,7 @@ public final class OmegaFaithSort extends BogoSorting {
         this.setUnreasonablySlow(true);
         this.setUnreasonableLimit(10);
         this.setBogoSort(true);
-        this.setAuthors("Potassium, w0rthy");
+        this.setAuthors("Potassium");
     }
     
     private void omegaFaith(int[] array) {

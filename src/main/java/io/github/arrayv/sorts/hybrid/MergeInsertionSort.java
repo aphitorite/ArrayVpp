@@ -42,7 +42,7 @@ public final class MergeInsertionSort extends Sort {
 		this.setUnreasonablySlow(false);
 		this.setUnreasonableLimit(0);
 		this.setBogoSort(false);
-        this.setAuthors("aphitorite");
+        this.setAuthors("aphitorite, Lester Randolph Ford Jr., Selmer Martin Johnson");
 	}
 
 	private void blockSwap(int[] array, int a, int b, int s, double sleep) {

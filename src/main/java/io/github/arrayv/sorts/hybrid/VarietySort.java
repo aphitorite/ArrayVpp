@@ -23,7 +23,7 @@ final public class VarietySort extends Sort {
         this.setUnreasonableLimit(40);
         this.setBogoSort(true);
     
-        this.setAuthors("Distray");
+        this.setAuthors("Distray, u/josh65536 (meme)");
 }
 
     
