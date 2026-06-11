@@ -1,5 +1,14 @@
 package io.github.arrayv.frames;
 
+import java.awt.Toolkit;
+import java.io.File;
+import java.io.IOException;
+
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
 import io.github.arrayv.dialogs.RunScriptDialog;
 import io.github.arrayv.main.ArrayManager;
 import io.github.arrayv.main.ArrayVisualizer;
@@ -11,11 +20,6 @@ import io.github.arrayv.utils.Delays;
 import io.github.arrayv.utils.Highlights;
 import io.github.arrayv.utils.Sounds;
 import io.github.arrayv.utils.Timer;
-
-import javax.swing.*;
-import java.awt.*;
-import java.io.File;
-import java.io.IOException;
 
 /*
  *
@@ -101,8 +105,8 @@ public final class UtilFrame extends javax.swing.JFrame {
         this.auxCheckbox = new javax.swing.JCheckBox();
         JButton speedButton = new JButton();
         this.sortButton = new javax.swing.JButton();
-        JButton cancelSortButton = new JButton();
-        JButton cancelDelaysButton = new JButton();
+        JButton fastForwardButton = new JButton();
+        JButton stopButton = new JButton();
         this.shuffleButton = new javax.swing.JButton();
         this.fixedDelayCheckbox = new javax.swing.JCheckBox();
         this.shuffleCheckbox = new javax.swing.JCheckBox();
@@ -147,11 +151,13 @@ public final class UtilFrame extends javax.swing.JFrame {
         sortButtonResetText();
         sortButton.addActionListener(evt -> sortButtonActionPerformed());
 
-        cancelSortButton.setText("Cancel Sort");
-        cancelSortButton.addActionListener(evt -> cancelSortButtonActionPerformed());
+        fastForwardButton.setText("\u25B6\u25B6");
+        fastForwardButton.setToolTipText("Cancel Delays");
+        fastForwardButton.addActionListener(evt -> cancelDelaysButtonActionPerformed());
 
-        cancelDelaysButton.setText("Cancel Delays");
-        cancelDelaysButton.addActionListener(evt -> cancelDelaysButtonActionPerformed());
+        stopButton.setText("\u23F9");
+        stopButton.setToolTipText("Cancel Sort");
+        stopButton.addActionListener(evt -> cancelSortButtonActionPerformed());
 
         shuffleButtonResetText();
         shuffleButton.addActionListener(evt -> shuffleButtonActionPerformed());
@@ -218,10 +224,12 @@ public final class UtilFrame extends javax.swing.JFrame {
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, true)
                                 .addComponent(this.softerSoundsCheckbox)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                                    .addComponent(cancelSortButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(fastForwardButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(stopButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                     .addComponent(this.shuffleButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(clearStatsButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(cancelDelaysButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(speedButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(this.visualButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(this.sortButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -247,9 +255,9 @@ public final class UtilFrame extends javax.swing.JFrame {
                     .addGap(12, 12, 12)
                     .addComponent(this.sortButton)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(cancelSortButton)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(cancelDelaysButton)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(fastForwardButton)
+                        .addComponent(stopButton))
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                     .addComponent(this.shuffleButton)
                     .addGap(7, 7, 7)
