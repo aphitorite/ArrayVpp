@@ -30,6 +30,7 @@ public final class SortInfo {
     private final boolean bucketSort;
     private final String question;
     private final int defaultAnswer;
+    private final String authors;
     private final IntUnaryOperator answerValidator;
     private final boolean fromExtra;
 
@@ -49,6 +50,7 @@ public final class SortInfo {
         this.bucketSort = sort.bucketSort;
         this.question = sort.question;
         this.defaultAnswer = sort.defaultAnswer;
+        this.authors = sort.authors;
         this.answerValidator = sort.answerValidator;
         this.fromExtra = sort.fromExtra;
     }
@@ -77,6 +79,7 @@ public final class SortInfo {
             this.bucketSort = sort.usesBuckets();
             this.question = sort.getQuestion();
             this.defaultAnswer = sort.getDefaultAnswer();
+            this.authors = sort.getAuthors();
         } else {
             String name = normalizeName(metaAnnotation);
             this.disabled = metaAnnotation.disabled();
@@ -97,6 +100,7 @@ public final class SortInfo {
             this.bucketSort = metaAnnotation.bucketSort();
             this.question = metaAnnotation.question().isEmpty() ? null : metaAnnotation.question();
             this.defaultAnswer = metaAnnotation.defaultAnswer();
+            this.authors = sort.getAuthors();
         }
         try {
             this.answerValidator = new MethodAnswerValidator(sort);
@@ -129,6 +133,7 @@ public final class SortInfo {
             this.bucketSort = sort.usesBuckets();
             this.question = sort.getQuestion();
             this.defaultAnswer = sort.getDefaultAnswer();
+            this.authors = sort.getAuthors();
         } else {
             String name = normalizeName(metaAnnotation);
             this.disabled = metaAnnotation.disabled();
@@ -149,6 +154,7 @@ public final class SortInfo {
             this.bucketSort = metaAnnotation.bucketSort();
             this.question = metaAnnotation.question().isEmpty() ? null : metaAnnotation.question();
             this.defaultAnswer = metaAnnotation.defaultAnswer();
+            this.authors = sort.getAuthors();
         }
         try {
             this.answerValidator = new MethodAnswerValidator(sort);
@@ -175,6 +181,7 @@ public final class SortInfo {
         boolean bucketSort,
         String question,
         int defaultAnswer,
+        String authors,
         IntUnaryOperator answerValidator
     ) {
         this.id = id;
@@ -192,6 +199,7 @@ public final class SortInfo {
         this.bucketSort = bucketSort;
         this.question = question;
         this.defaultAnswer = defaultAnswer;
+        this.authors = authors;
         this.answerValidator = answerValidator;
         this.fromExtra = false; // Built sorts cannot come from extra
     }
@@ -295,6 +303,10 @@ public final class SortInfo {
 
     public int getDefaultAnswer() {
         return defaultAnswer;
+    }
+
+    public String getAuthors() {
+        return authors;
     }
 
     public IntUnaryOperator getAnswerValidator() {
@@ -454,6 +466,7 @@ public final class SortInfo {
         private boolean bucketSort = false;
         private String question = null;
         private int defaultAnswer = 0;
+        private String authors = "";
         private IntUnaryOperator answerValidator = IntUnaryOperator.identity();
 
         private Builder() {
@@ -477,6 +490,7 @@ public final class SortInfo {
                 bucketSort,
                 question,
                 defaultAnswer,
+                authors,
                 answerValidator
             );
         }
@@ -558,6 +572,11 @@ public final class SortInfo {
 
         public Builder defaultAnswer(int defaultAnswer) {
             this.defaultAnswer = defaultAnswer;
+            return this;
+        }
+
+        public Builder authors(String authors) {
+            this.authors = authors;
             return this;
         }
 
