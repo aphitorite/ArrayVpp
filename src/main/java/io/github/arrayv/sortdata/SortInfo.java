@@ -59,13 +59,12 @@ public final class SortInfo {
         this.internalName = sortClass.getSimpleName();
         try {
             this.instanceSupplier = new NewSortInstance(sortClass);
-            this.answerValidator = new MethodAnswerValidator(sortClass);
         } catch (NoSuchMethodException | IllegalAccessException e) {
             throw new Error(e);
         }
         SortMeta metaAnnotation = sortClass.getAnnotation(SortMeta.class);
+        Sort sort = getFreshInstance();
         if (metaAnnotation == null) {
-            Sort sort = getFreshInstance();
             this.disabled = !sort.isSortEnabled();
             this.unreasonableLimit = sort.getUnreasonableLimit();
             this.listName = sort.getSortListName();
@@ -99,6 +98,11 @@ public final class SortInfo {
             this.question = metaAnnotation.question().isEmpty() ? null : metaAnnotation.question();
             this.defaultAnswer = metaAnnotation.defaultAnswer();
         }
+        try {
+            this.answerValidator = new MethodAnswerValidator(sort);
+        } catch (NoSuchMethodException | IllegalAccessException e) {
+            throw new Error(e);
+        }
         this.fromExtra = ArrayVisualizer.getInstance().getSortAnalyzer().didSortComeFromExtra(sortClass);
     }
 
@@ -108,7 +112,6 @@ public final class SortInfo {
         this.internalName = sort.getClass().getSimpleName();
         try {
             this.instanceSupplier = new NewSortInstance(sort.getClass());
-            this.answerValidator = new MethodAnswerValidator(sort.getClass());
         } catch (NoSuchMethodException | IllegalAccessException e) {
             throw new Error(e);
         }
@@ -146,6 +149,11 @@ public final class SortInfo {
             this.bucketSort = metaAnnotation.bucketSort();
             this.question = metaAnnotation.question().isEmpty() ? null : metaAnnotation.question();
             this.defaultAnswer = metaAnnotation.defaultAnswer();
+        }
+        try {
+            this.answerValidator = new MethodAnswerValidator(sort);
+        } catch (NoSuchMethodException | IllegalAccessException e) {
+            throw new Error(e);
         }
         this.fromExtra = ArrayVisualizer.getInstance().getSortAnalyzer().didSortComeFromExtra(sort.getClass());
     }

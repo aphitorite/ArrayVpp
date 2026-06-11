@@ -27,7 +27,7 @@ public final class MethodAnswerValidator implements IntUnaryOperator {
     }
 
     public MethodAnswerValidator(Sort sort) throws IllegalAccessException, NoSuchMethodException {
-        this(sort.getClass());
+        this(LOOKUP.findVirtual(sort.getClass(), "validateAnswer", VALIDATOR_TYPE).bindTo(sort));
     }
 
     private static MethodHandle getMh(Class<? extends Sort> sortClass) throws NoSuchMethodException, IllegalAccessException {
