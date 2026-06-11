@@ -43,6 +43,7 @@ public class WeavedMergeSort extends Sort {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
+        this.setAuthors("EmeraldBlock");
     }
 
     private void merge(int[] array, int[] tmp, int length, int residue, int modulus) {

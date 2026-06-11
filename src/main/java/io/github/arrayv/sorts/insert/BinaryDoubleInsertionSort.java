@@ -43,6 +43,7 @@ public final class BinaryDoubleInsertionSort extends Sort {
 		this.setUnreasonablySlow(false);
 		this.setUnreasonableLimit(0);
 		this.setBogoSort(false);
+        this.setAuthors("Gaming32, Morewenn, aphitorite");
 	}
 
 	private int leftBinarySearch(int[] array, int a, int b, int val, double sleep) {

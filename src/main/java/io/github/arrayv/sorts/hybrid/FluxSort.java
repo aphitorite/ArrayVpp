@@ -47,6 +47,7 @@ public final class FluxSort extends QuadSorting {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
+        this.setAuthors("Igor van den Hoven ivdhoven@gmail.com");
     }
 
 	private final int FLUX_OUT = 24;

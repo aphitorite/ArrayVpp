@@ -43,6 +43,7 @@ public final class ChaliceSort extends BlockMergeSorting {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
+        this.setAuthors("aphitorite");
     }
 
 	//stable merge sort using O(cbrt n) dynamic external buffer

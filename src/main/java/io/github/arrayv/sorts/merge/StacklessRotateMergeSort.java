@@ -42,6 +42,7 @@ public final class StacklessRotateMergeSort extends Sort {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
+        this.setAuthors("aphitorite");
     }
 
     private void rotate(int[] array, int a, int m, int b) {

@@ -45,6 +45,7 @@ public final class MSDRadixSort extends Sort {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
+        this.setAuthors("w0rthy");
     }
 
     public void radixMSD(int[] array, int length, int min, int max, int radix, int pow) {

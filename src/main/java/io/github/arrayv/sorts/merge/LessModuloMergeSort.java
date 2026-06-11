@@ -40,6 +40,7 @@ public final class LessModuloMergeSort extends Sort {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
+        this.setAuthors("Distray");
     }
     private int log(int n) {
     	return 32-Integer.numberOfLeadingZeros(n-1);

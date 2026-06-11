@@ -42,6 +42,7 @@ public final class DiamondSortIterative extends Sort {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
+        this.setAuthors("_fluffyy, yuji, aphitorite");
     }
 
 	private void compSwap(int[] array, int a, int b) {

@@ -18,6 +18,7 @@ public final class OptimizedStoogeSort extends Sort {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
+        this.setAuthors("Professors Amit Kishor, Pankaj Pratap Singh");
     }
 
     private void forward(int[] array, int left, int right) {

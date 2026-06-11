@@ -43,6 +43,7 @@ final public class SwapMapSort2 extends Sort {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
+        this.setAuthors("aphitorite, Gaming32");
     }
 	
 	private boolean compSwap(int[] array, int a, int b) {

@@ -43,6 +43,7 @@ public final class SimplifiedLibrarySort extends Sort {
 		this.setUnreasonablySlow(false);
 		this.setUnreasonableLimit(0);
 		this.setBogoSort(false);
+        this.setAuthors("aphitorite");
 	}
 
 	//simple library sort with O(n) extra memory + counter & pointer array (n size combined)

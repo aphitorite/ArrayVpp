@@ -42,6 +42,7 @@ public final class SynchronousSqrtSort extends BlockMergeSorting {
 		this.setUnreasonablySlow(false);
 		this.setUnreasonableLimit(0);
 		this.setBogoSort(false);
+        this.setAuthors("The Holy Grail Sort Project, aphitorite");
 	}
 
 	private int smartMergeBW(int[] array, int a, int m, int b, int p, boolean rev) {

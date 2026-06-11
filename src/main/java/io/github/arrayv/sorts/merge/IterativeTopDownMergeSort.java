@@ -43,6 +43,7 @@ public class IterativeTopDownMergeSort extends Sort {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
+        this.setAuthors("EmeraldBlock");
     }
 
     private static int ceilPowerOfTwo(int x) {

@@ -33,6 +33,7 @@ public final class BinaryQuickSortRecursive extends BinaryQuickSorting {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
+        this.setAuthors("Skeen");
     }
 
     @Override

@@ -46,6 +46,7 @@ public final class MedianQuickBogoSort extends BogoSorting {
         this.setUnreasonablySlow(true);
         this.setUnreasonableLimit(23);
         this.setBogoSort(true);
+        this.setAuthors("EmeraldBlock");
     }
 
     private void medianQuickBogo(int[] array, int start, int end) {

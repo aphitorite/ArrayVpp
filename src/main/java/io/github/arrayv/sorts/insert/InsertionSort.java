@@ -43,6 +43,7 @@ public final class InsertionSort extends InsertionSorting {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
+        this.setAuthors("w0rthy");
     }
 
     public void customInsertSort(int[] array, int start, int end, double sleep, boolean auxwrite) {

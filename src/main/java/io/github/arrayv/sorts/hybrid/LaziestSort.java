@@ -41,6 +41,7 @@ public final class LaziestSort extends Sort {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
+        this.setAuthors("aphitorite");
     }
 
 	private void insertTo(int[] array, int a, int b) {

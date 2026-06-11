@@ -55,6 +55,7 @@ public final class BogoBogoSort extends BogoSorting {
         this.setUnreasonablySlow(true);
         this.setUnreasonableLimit(5);
         this.setBogoSort(true);
+        this.setAuthors("EmeraldBlock");
     }
 
     private int[][] tmp; //fix seizure aux using 2d array

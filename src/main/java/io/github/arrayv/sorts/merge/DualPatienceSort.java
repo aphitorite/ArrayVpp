@@ -40,6 +40,7 @@ final public class DualPatienceSort extends Sort {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
+        this.setAuthors("aphitorite");
     }
 	
 	private int pileSearch(int[] array, int a, int b, int val, boolean top) {

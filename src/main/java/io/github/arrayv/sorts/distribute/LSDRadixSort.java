@@ -49,6 +49,7 @@ public final class LSDRadixSort extends Sort {
     @Override
     public void runSort(int[] array, int sortLength, int bucketCount) throws Exception {
         this.setRunAllSortsName("Least Significant Digit Radix Sort, Base " + bucketCount);
+        this.setAuthors("w0rthy");
 
         int highestpower = Reads.analyzeMaxLog(array, sortLength, bucketCount, 0.5, true);
 

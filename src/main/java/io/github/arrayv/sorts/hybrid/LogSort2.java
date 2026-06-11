@@ -45,6 +45,7 @@ final public class LogSort2 extends Sort {
 		this.setUnreasonableLimit(0);
 		this.setBogoSort(false);
 		this.setQuestion("Set block size (default: calculates minimum block length for current length)", 1);
+        this.setAuthors("aphitorite");
 	}
 	
 	//calculations

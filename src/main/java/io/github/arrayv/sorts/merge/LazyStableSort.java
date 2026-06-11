@@ -51,6 +51,7 @@ public final class LazyStableSort extends GrailSorting {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
+        this.setAuthors("Andrey Astrelin");
     }
 
     @Override

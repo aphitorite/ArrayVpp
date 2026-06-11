@@ -45,6 +45,7 @@ public class ImprovedCubeRootQuickSort extends Sort {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
+        this.setAuthors("aphitorite");
     }
 	
 	private int binSearch(int[] array, int b, int val, boolean left) {

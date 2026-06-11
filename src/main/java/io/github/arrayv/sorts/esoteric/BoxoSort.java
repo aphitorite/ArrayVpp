@@ -46,6 +46,7 @@ public final class BoxoSort extends BogoSorting {
         this.setUnreasonablySlow(true);
         this.setUnreasonableLimit(100);
         this.setBogoSort(true);
+        this.setAuthors("w0rthy");
     }
     
     private int selectiveSwap(int[] array, int length, boolean k) {

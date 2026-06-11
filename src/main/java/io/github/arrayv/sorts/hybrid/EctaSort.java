@@ -43,6 +43,7 @@ public final class EctaSort extends Sort {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
+        this.setAuthors("aphitorite");
     }
 
 	private int getMinRun(int n) {

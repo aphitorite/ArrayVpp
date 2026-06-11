@@ -46,6 +46,7 @@ public final class LibrarySort extends Sort {
 		this.setUnreasonablySlow(false);
 		this.setUnreasonableLimit(0);
 		this.setBogoSort(false);
+        this.setAuthors("aphitorite");
 	}
 
 	//possible implementation of the library sort here https://en.wikipedia.org/wiki/Library_sort

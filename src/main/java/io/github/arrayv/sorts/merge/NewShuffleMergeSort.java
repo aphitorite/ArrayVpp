@@ -53,6 +53,7 @@ public class NewShuffleMergeSort extends IterativeTopDownMergeSort {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
+        this.setAuthors("EmeraldBlock");
     }
 
     private void rotateEqual(int[] array, int a, int b, int size, double sleep) {

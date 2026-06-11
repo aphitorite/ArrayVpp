@@ -42,6 +42,7 @@ public final class TableSort extends Sort {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
+        this.setAuthors("aphitorite");
     }
 
 	private boolean stableComp(int[] array, int[] table, int a, int b) {

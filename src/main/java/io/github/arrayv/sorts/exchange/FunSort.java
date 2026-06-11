@@ -39,6 +39,7 @@ public final class FunSort extends Sort {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
+        this.setAuthors("fungamer2");
     }
 
     /*

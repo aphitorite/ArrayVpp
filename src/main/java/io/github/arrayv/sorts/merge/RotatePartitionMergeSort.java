@@ -42,6 +42,7 @@ final public class RotatePartitionMergeSort extends Sort {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
+        this.setAuthors("Control, aphitorite");
     }
 	
     private void rotate(int[] array, int a, int m, int b) {

@@ -24,6 +24,7 @@ final public class ChekhovSort extends BogoSorting {
         this.setUnreasonablySlow(true);
         this.setUnreasonableLimit(1024);
         this.setBogoSort(true);
+        this.setAuthors("Blasterfreund, Sam Walko (Anonymous0726), EmeraldBlock");
     }
 
     @Override

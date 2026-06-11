@@ -42,6 +42,7 @@ final public class OptimizedLazyHeapSort extends Sort {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
+        this.setAuthors("aphitorite");
     }
 	
 	private int findMin(int[] array, int p, int a, int b, int s) {

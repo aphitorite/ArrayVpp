@@ -45,6 +45,7 @@ final public class AdvancedLogMergeSort extends Sort {
 		this.setUnreasonablySlow(false);
 		this.setUnreasonableLimit(0);
 		this.setBogoSort(false);
+		this.setAuthors("aphitorite");
 		//this.setQuestion("Set block size (default: calculates minimum block length for current length)", 1);
 	}
 	

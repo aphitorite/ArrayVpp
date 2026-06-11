@@ -42,6 +42,7 @@ public final class RemiSort extends MultiWayMergeSorting {
 		this.setUnreasonablySlow(false);
 		this.setUnreasonableLimit(0);
 		this.setBogoSort(false);
+        this.setAuthors("aphitorite");
 	}
 
 	//stable sorting algorithm that guarantees worst case performance of

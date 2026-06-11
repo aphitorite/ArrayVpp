@@ -45,6 +45,7 @@ public final class FlanSort2 extends Sort {
 		this.setUnreasonablySlow(false);
 		this.setUnreasonableLimit(0);
 		this.setBogoSort(false);
+        this.setAuthors("aphitorite, Flanlaina (a.k.a. Ayako-chan)");
 	}
 	
 	/**

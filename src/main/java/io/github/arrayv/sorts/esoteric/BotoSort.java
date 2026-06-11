@@ -47,6 +47,7 @@ public final class BotoSort extends BogoSorting {
         this.setUnreasonablySlow(true);
         this.setUnreasonableLimit(5);
         this.setBogoSort(true);
+        this.setAuthors("w0rthy");
     }
     
     /** Pushes start to end **/

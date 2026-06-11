@@ -42,6 +42,7 @@ public final class BinaryMergeSort extends MergeSorting {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
+        this.setAuthors("w0rthy");
     }
 
     @Override

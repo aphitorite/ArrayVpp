@@ -23,6 +23,7 @@ public final class TreeSort extends Sort {
 		this.setUnreasonablySlow(false);
 		this.setUnreasonableLimit(0);
 		this.setBogoSort(false);
+        this.setAuthors("Sam Walko (Anonymous0726)");
 	}
 
 	private Node NULL_NODE = new Node();

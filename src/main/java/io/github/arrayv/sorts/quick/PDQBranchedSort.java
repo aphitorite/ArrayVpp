@@ -34,6 +34,7 @@ final public class PDQBranchedSort extends PDQSorting {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
+        this.setAuthors("Orson Peters");
     }
     
     public void customSort(int[] array, int low, int high) {

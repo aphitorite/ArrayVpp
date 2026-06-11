@@ -43,6 +43,7 @@ final public class OptimizedBitonicSort extends Sort {
 		this.setUnreasonablySlow(false);
 		this.setUnreasonableLimit(0);
 		this.setBogoSort(false);
+        this.setAuthors("aphitorite");
 	}
 	
 	private void ce(int[] array, int a, int b) {

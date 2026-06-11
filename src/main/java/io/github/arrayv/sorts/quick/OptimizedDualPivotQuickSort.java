@@ -23,6 +23,7 @@ public final class OptimizedDualPivotQuickSort extends Sort {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
+        this.setAuthors("Vladimir Yaroslavskiy");
     }
 
     private void dualPivot(int[] array, int left, int right, int divisor) {

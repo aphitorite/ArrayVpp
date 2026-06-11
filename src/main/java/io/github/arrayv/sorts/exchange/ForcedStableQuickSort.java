@@ -42,6 +42,7 @@ public final class ForcedStableQuickSort extends Sort {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
+        this.setAuthors("aphitorite");
     }
 
 	private void medianOfThree(int[] array, int[] key, int a, int b) {

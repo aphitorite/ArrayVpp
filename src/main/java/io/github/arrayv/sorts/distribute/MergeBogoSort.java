@@ -46,6 +46,7 @@ public final class MergeBogoSort extends BogoSorting {
         this.setUnreasonablySlow(true);
         this.setUnreasonableLimit(22);
         this.setBogoSort(true);
+        this.setAuthors("EmeraldBlock");
     }
 
     private void bogoWeave(int[] array, int[] tmp, int start, int mid, int end) {

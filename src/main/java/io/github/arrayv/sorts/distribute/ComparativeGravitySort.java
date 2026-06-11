@@ -43,6 +43,7 @@ final public class ComparativeGravitySort extends Sort {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
+        this.setAuthors("aphitorite");
     }
     
     @Override
