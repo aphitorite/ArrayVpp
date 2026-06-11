@@ -1,15 +1,15 @@
 package io.github.arrayv.utils;
 
-import io.github.arrayv.dialogs.LoadCustomDistributionDialog;
-import io.github.arrayv.main.ArrayVisualizer;
-import io.github.arrayv.panes.JErrorPane;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
+
+import io.github.arrayv.dialogs.LoadCustomDistributionDialog;
+import io.github.arrayv.main.ArrayVisualizer;
+import io.github.arrayv.panes.JErrorPane;
 
 /*
  *
@@ -532,6 +532,7 @@ public enum Distributions {
         public void selectDistribution(int[] array, ArrayVisualizer arrayVisualizer) {
             LoadCustomDistributionDialog dialog = new LoadCustomDistributionDialog();
             File file = dialog.getFile();
+            if (file == null) return;
             Scanner scanner;
             try {
                 scanner = new Scanner(file);
@@ -550,6 +551,11 @@ public enum Distributions {
         }
         @Override
         public void initializeArray(int[] array, ArrayVisualizer arrayVisualizer) {
+            if (this.refarray == null) {
+                for (int i = 0; i < arrayVisualizer.getCurrentLength(); i++)
+                    array[i] = 0;
+                return;
+            }
             int currentLen = arrayVisualizer.getCurrentLength();
             double scale = (double)this.length / currentLen;
             for (int i = 0; i < currentLen; i++) {
