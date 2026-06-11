@@ -341,6 +341,7 @@ public final class SortPrompt extends javax.swing.JFrame implements AppFrame {
             }
         }
         final SortInfo selection = sortNotFinal;
+        UtilFrame.setLastSort(utilFrame, selection.getId());
         new Thread("SortingThread") {
             @Override
             public void run() {

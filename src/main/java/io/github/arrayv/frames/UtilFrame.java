@@ -12,6 +12,7 @@ import javax.swing.JOptionPane;
 import io.github.arrayv.dialogs.RunScriptDialog;
 import io.github.arrayv.main.ArrayManager;
 import io.github.arrayv.main.ArrayVisualizer;
+import io.github.arrayv.main.RunSort;
 import io.github.arrayv.panes.JErrorPane;
 import io.github.arrayv.prompts.ShufflePrompt;
 import io.github.arrayv.prompts.SortPrompt;
@@ -50,6 +51,8 @@ SOFTWARE.
 
 public final class UtilFrame extends javax.swing.JFrame {
     private static final long serialVersionUID = 1L;
+
+    public static int lastSortId = -1;
 
     private boolean auxCheckboxWarningShown = true; //set to false to enable warning
 
@@ -105,8 +108,9 @@ public final class UtilFrame extends javax.swing.JFrame {
         this.auxCheckbox = new javax.swing.JCheckBox();
         JButton speedButton = new JButton();
         this.sortButton = new javax.swing.JButton();
-        JButton fastForwardButton = new JButton();
-        JButton stopButton = new JButton();
+        this.fastForwardButton = new javax.swing.JButton();
+        this.stopButton = new javax.swing.JButton();
+        this.rerunButton = new javax.swing.JButton();
         this.shuffleButton = new javax.swing.JButton();
         this.fixedDelayCheckbox = new javax.swing.JCheckBox();
         this.shuffleCheckbox = new javax.swing.JCheckBox();
@@ -151,13 +155,24 @@ public final class UtilFrame extends javax.swing.JFrame {
         sortButtonResetText();
         sortButton.addActionListener(evt -> sortButtonActionPerformed());
 
-        fastForwardButton.setText("\u25B6\u25B6");
-        fastForwardButton.setToolTipText("Cancel Delays");
-        fastForwardButton.addActionListener(evt -> cancelDelaysButtonActionPerformed());
+        this.fastForwardButton.setText("\u25B6\u25B6");
+        this.fastForwardButton.setToolTipText("Cancel Delays");
+        this.fastForwardButton.setEnabled(false);
+        this.fastForwardButton.addActionListener(evt -> cancelDelaysButtonActionPerformed());
 
-        stopButton.setText("\u23F9");
-        stopButton.setToolTipText("Cancel Sort");
-        stopButton.addActionListener(evt -> cancelSortButtonActionPerformed());
+        this.stopButton.setText("\u23F9");
+        this.stopButton.setToolTipText("Cancel Sort");
+        this.stopButton.setEnabled(false);
+        this.stopButton.addActionListener(evt -> cancelSortButtonActionPerformed());
+
+        this.rerunButton.setText("Re-run Sort");
+        this.rerunButton.setEnabled(false);
+        this.rerunButton.addActionListener(evt -> {
+            if (lastSortId >= 0) {
+                RunSort sortThread = new RunSort(arrayVisualizer);
+                sortThread.runSort(array, lastSortId);
+            }
+        });
 
         shuffleButtonResetText();
         shuffleButton.addActionListener(evt -> shuffleButtonActionPerformed());
@@ -225,9 +240,10 @@ public final class UtilFrame extends javax.swing.JFrame {
                                 .addComponent(this.softerSoundsCheckbox)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(fastForwardButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(this.fastForwardButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(stopButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addComponent(this.stopButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addComponent(this.rerunButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(this.shuffleButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(clearStatsButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(speedButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -255,9 +271,11 @@ public final class UtilFrame extends javax.swing.JFrame {
                     .addGap(12, 12, 12)
                     .addComponent(this.sortButton)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(this.rerunButton)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(fastForwardButton)
-                        .addComponent(stopButton))
+                        .addComponent(this.fastForwardButton)
+                        .addComponent(this.stopButton))
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                     .addComponent(this.shuffleButton)
                     .addGap(7, 7, 7)
@@ -340,10 +358,23 @@ public final class UtilFrame extends javax.swing.JFrame {
 
     public void sortButtonEnable() {
         sortButton.setEnabled(true);
+        rerunButton.setEnabled(lastSortId >= 0);
+        fastForwardButton.setEnabled(false);
+        stopButton.setEnabled(false);
     }
 
     public void sortButtonDisable() {
         sortButton.setEnabled(false);
+        rerunButton.setEnabled(false);
+        fastForwardButton.setEnabled(true);
+        stopButton.setEnabled(true);
+    }
+
+    public static void setLastSort(UtilFrame instance, int sortId) {
+        lastSortId = sortId;
+        if (instance != null && instance.rerunButton != null && !instance.arrayVisualizer.isActive()) {
+            instance.rerunButton.setEnabled(true);
+        }
     }
 
     private void visualButtonActionPerformed() {//GEN-FIRST:event_jButton2ActionPerformed
@@ -540,6 +571,9 @@ public final class UtilFrame extends javax.swing.JFrame {
     private javax.swing.JCheckBox auxCheckbox;
     private javax.swing.JButton sortButton;
     private javax.swing.JButton shuffleButton;
+    private javax.swing.JButton rerunButton;
+    private javax.swing.JButton fastForwardButton;
+    private javax.swing.JButton stopButton;
     private javax.swing.JCheckBox fixedDelayCheckbox;
     private javax.swing.JCheckBox shuffleCheckbox;
     private javax.swing.JCheckBox soundsCheckbox;
