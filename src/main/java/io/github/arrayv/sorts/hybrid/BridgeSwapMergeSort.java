@@ -1,4 +1,4 @@
-package io.github.arrayv.sorts.merge;
+package io.github.arrayv.sorts.hybrid;
 
 import io.github.arrayv.main.ArrayVisualizer;
 import io.github.arrayv.sorts.insert.BinaryInsertionSort;
@@ -37,7 +37,7 @@ final public class BridgeSwapMergeSort extends Sort {
         this.setSortListName("Bridge-Swap Merge");
         this.setRunAllSortsName("Bridge-Swap Merge Sort");
         this.setRunSortName("Bridge-Swap Mergesort");
-        this.setCategory("Merge Sorts");
+        this.setCategory("Hybrid Sorts");
         this.setConstant("n log^2 n");
         this.setBucketSort(false);
         this.setRadixSort(false);
