@@ -44,7 +44,7 @@ final public class BridgeSwapMergeSort extends Sort {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
-		this.setQuestion("Set buffer size (default: 32, minimum: 1)", 32);
+		this.setQuestion("Set buffer size (default: 32, min: 3)", 32);
     }
 	
 	private void bridge_smallsort(int[] array, int a, int n) {
@@ -206,6 +206,6 @@ final public class BridgeSwapMergeSort extends Sort {
     
     @Override
     public void runSort(int[] array, int length, int bucketCount) {
-		bridge_swap_mergesort(array, 0, length, 32);
+		bridge_swap_mergesort(array, 0, length, Math.max(3, bucketCount));
     }
 }
