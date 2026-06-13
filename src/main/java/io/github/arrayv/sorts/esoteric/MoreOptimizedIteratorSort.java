@@ -1,8 +1,8 @@
  package io.github.arrayv.sorts.esoteric;
  
- import io.github.arrayv.main.ArrayVisualizer;
- import io.github.arrayv.sorts.insert.ShellSort;
- import io.github.arrayv.sorts.templates.Sort;
+import io.github.arrayv.main.ArrayVisualizer;
+import io.github.arrayv.sorts.insert.ShellSort;
+import io.github.arrayv.sorts.templates.Sort;
  
  public final class MoreOptimizedIteratorSort extends Sort {
 	private boolean direction = true;
@@ -72,6 +72,6 @@
 	public void runSort(int[] array, int sortLength, int bucketCount) throws Exception {
 		bitonicSort(array, 0, sortLength, this.direction);
 		ShellSort sort2 = new ShellSort(this.arrayVisualizer);
-		sort2.runSort(array, sortLength, 0);
+		sort2.runSort(array, sortLength);
 	}
 }

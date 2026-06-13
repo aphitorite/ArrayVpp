@@ -1,12 +1,13 @@
 package io.github.arrayv.sorts.insert;
 
 import io.github.arrayv.main.ArrayVisualizer;
-import io.github.arrayv.sorts.templates.ShellSorting;
+import io.github.arrayv.sorts.templates.Sort;
+import io.github.arrayv.utils.ShellsortGaps;
 
 // Shell sort variant retrieved from:
 // https://www.cs.princeton.edu/~rs/talks/shellsort.ps
 
-public final class ShellSort extends ShellSorting {
+public final class ShellSort extends Sort {
     public ShellSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 
@@ -23,12 +24,36 @@ public final class ShellSort extends ShellSorting {
         this.setAuthors("Donald Shell");
     }
 
-    public void finishQuickShell(int[] array, int currentLen) {
-        this.quickShellSort(array, 0, currentLen);
+    private void shellSort(int[] array, int n, int[] gaps) {
+        for(int k : gaps) {
+			for(int j = k; j < n; j++) {
+				if(Reads.compareIndices(array, j-k, j, 0.5, true) > 0) {
+					Highlights.clearMark(2);
+					
+					int i = j;
+					int t = array[j];
+					
+					do Writes.write(array, i, array[i -= k], 0.5, true, false);
+					while(i >= k && Reads.compareIndexValue(array, i-k, t, 0.5, true) > 0);
+					
+					Writes.write(array, i, t, 0.5, true, false);
+				}
+			}
+		}
+    }
+
+    public void runSort(int[] array, int currentLength) {
+        this.shellSort(array, currentLength, ShellsortGaps.DEFAULT.getGaps(currentLength));
+    }
+
+    public void runSort(int[] array, int currentLength, int[] gaps) {
+        this.shellSort(array, currentLength, gaps);
     }
 
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
-        this.shellSort(array, currentLength);
+        ShellsortGaps.Sequence seq = ShellsortGaps.showSelectionDialog();
+        this.arrayVisualizer.setHeading("Shellsort (" + seq.getName() + " gaps)");
+        this.runSort(array, currentLength, seq.getGaps(currentLength));
     }
 }
