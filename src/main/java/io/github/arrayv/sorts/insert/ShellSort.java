@@ -22,6 +22,7 @@ public final class ShellSort extends Sort {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
         this.setAuthors("Donald Shell");
+        this.setUseShellsortGaps(true);
     }
 
     private void shellSort(int[] array, int n, int[] gaps) {
@@ -43,7 +44,8 @@ public final class ShellSort extends Sort {
     }
 
     public void runSort(int[] array, int currentLength) {
-        this.shellSort(array, currentLength, ShellsortGaps.DEFAULT.getGaps(currentLength));
+        ShellsortGaps seq = this.arrayVisualizer.getSelectedGapSequence();
+        this.shellSort(array, currentLength, seq.getGaps(currentLength));
     }
 
     public void runSort(int[] array, int currentLength, int[] gaps) {
@@ -52,7 +54,7 @@ public final class ShellSort extends Sort {
 
     @Override
     public void runSort(int[] array, int currentLength, int bucketCount) {
-        ShellsortGaps.Sequence seq = ShellsortGaps.showSelectionDialog();
+        ShellsortGaps seq = this.arrayVisualizer.getSelectedGapSequence();
         this.arrayVisualizer.setHeading("Shellsort (" + seq.getName() + " gaps)");
         this.runSort(array, currentLength, seq.getGaps(currentLength));
     }

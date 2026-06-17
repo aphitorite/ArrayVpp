@@ -19,6 +19,7 @@ public final class ShellSortParallel extends Sort {
 		this.setUnreasonableLimit(0);
 		this.setBogoSort(false);
         this.setAuthors("Donald Shell");
+        this.setUseShellsortGaps(true);
 	}
 
 	private int[] array;
@@ -56,7 +57,7 @@ public final class ShellSortParallel extends Sort {
 	public void runSort(int[] array, int currentLength, int bucketCount) {
 		this.array = array;
 
-		ShellsortGaps.Sequence seq = ShellsortGaps.showSelectionDialog();
+		ShellsortGaps seq = this.arrayVisualizer.getSelectedGapSequence();
 		this.arrayVisualizer.setHeading("Parallel Shellsort (" + seq.getName() + " gaps)");
 
 		int[] gaps = seq.getGaps(currentLength);

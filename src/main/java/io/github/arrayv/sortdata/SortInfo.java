@@ -33,6 +33,7 @@ public final class SortInfo {
     private final String authors;
     private final IntUnaryOperator answerValidator;
     private final boolean fromExtra;
+    private final boolean useShellsortGaps;
 
     private SortInfo(int id, SortInfo sort) {
         this.id = id;
@@ -53,6 +54,7 @@ public final class SortInfo {
         this.authors = sort.authors;
         this.answerValidator = sort.answerValidator;
         this.fromExtra = sort.fromExtra;
+        this.useShellsortGaps = sort.useShellsortGaps;
     }
 
     @SuppressWarnings("deprecation")
@@ -80,6 +82,7 @@ public final class SortInfo {
             this.question = sort.getQuestion();
             this.defaultAnswer = sort.getDefaultAnswer();
             this.authors = sort.getAuthors();
+            this.useShellsortGaps = sort.getUseShellsortGaps();
         } else {
             String name = normalizeName(metaAnnotation);
             this.disabled = metaAnnotation.disabled();
@@ -101,6 +104,7 @@ public final class SortInfo {
             this.question = metaAnnotation.question().isEmpty() ? null : metaAnnotation.question();
             this.defaultAnswer = metaAnnotation.defaultAnswer();
             this.authors = sort.getAuthors();
+            this.useShellsortGaps = sort.getUseShellsortGaps();
         }
         try {
             this.answerValidator = new MethodAnswerValidator(sort);
@@ -134,6 +138,7 @@ public final class SortInfo {
             this.question = sort.getQuestion();
             this.defaultAnswer = sort.getDefaultAnswer();
             this.authors = sort.getAuthors();
+            this.useShellsortGaps = sort.getUseShellsortGaps();
         } else {
             String name = normalizeName(metaAnnotation);
             this.disabled = metaAnnotation.disabled();
@@ -155,6 +160,7 @@ public final class SortInfo {
             this.question = metaAnnotation.question().isEmpty() ? null : metaAnnotation.question();
             this.defaultAnswer = metaAnnotation.defaultAnswer();
             this.authors = sort.getAuthors();
+            this.useShellsortGaps = sort.getUseShellsortGaps();
         }
         try {
             this.answerValidator = new MethodAnswerValidator(sort);
@@ -182,7 +188,8 @@ public final class SortInfo {
         String question,
         int defaultAnswer,
         String authors,
-        IntUnaryOperator answerValidator
+        IntUnaryOperator answerValidator,
+        boolean useShellsortGaps
     ) {
         this.id = id;
         this.internalName = internalName;
@@ -202,6 +209,7 @@ public final class SortInfo {
         this.authors = authors;
         this.answerValidator = answerValidator;
         this.fromExtra = false; // Built sorts cannot come from extra
+        this.useShellsortGaps = useShellsortGaps;
     }
 
     public SortInfo(Class<? extends Sort> sort) {
@@ -323,6 +331,10 @@ public final class SortInfo {
 
     public boolean isFromExtra() {
         return fromExtra;
+    }
+
+    public boolean getUseShellsortGaps() {
+        return useShellsortGaps;
     }
 
     /**
@@ -468,6 +480,7 @@ public final class SortInfo {
         private int defaultAnswer = 0;
         private String authors = "";
         private IntUnaryOperator answerValidator = IntUnaryOperator.identity();
+        private boolean useShellsortGaps = false;
 
         private Builder() {
         }
@@ -491,7 +504,8 @@ public final class SortInfo {
                 question,
                 defaultAnswer,
                 authors,
-                answerValidator
+                answerValidator,
+                useShellsortGaps
             );
         }
 
@@ -582,6 +596,11 @@ public final class SortInfo {
 
         public Builder answerValidator(IntUnaryOperator answerValidator) {
             this.answerValidator = Objects.requireNonNull(answerValidator, "answerValidator");
+            return this;
+        }
+
+        public Builder useShellsortGaps(boolean useShellsortGaps) {
+            this.useShellsortGaps = useShellsortGaps;
             return this;
         }
     }

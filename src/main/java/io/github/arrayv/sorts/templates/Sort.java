@@ -20,6 +20,8 @@ public abstract class Sort {
     protected Reads Reads;
     protected Writes Writes;
 
+    private boolean useShellsortGaps;
+
     protected Sort(ArrayVisualizer arrayVisualizer) {
         this.arrayVisualizer = arrayVisualizer;
 
@@ -122,6 +124,10 @@ public abstract class Sort {
         return (String)deprecatedMetadataTable[12];
     }
 
+    public boolean getUseShellsortGaps() {
+        return this.useShellsortGaps;
+    }
+
     protected void enableSort(boolean enabled) {
         initDeprecatedMetadataTable();
         deprecatedMetadataTable[0] = enabled;
@@ -187,6 +193,10 @@ public abstract class Sort {
     protected void setBogoSort(boolean bogoSort) {
         initDeprecatedMetadataTable();
         deprecatedMetadataTable[8] = bogoSort;
+    }
+
+    public void setUseShellsortGaps(boolean useGaps) {
+        this.useShellsortGaps = useGaps;
     }
 
     protected void setQuestion(String question) {
