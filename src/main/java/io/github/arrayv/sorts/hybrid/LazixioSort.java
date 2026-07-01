@@ -10,7 +10,7 @@ final public class LazixioSort extends GrailSorting {
         this.setSortListName("Lazixio Stable");
         this.setRunAllSortsName("Lazixio Stable Sort");
         this.setRunSortName("Lazixio Sort");
-        this.setCategory("Lazy Sorts");
+        this.setCategory("Hybrid Sorts");
         this.setConstant("n sqrt n");
         this.setBucketSort(false);
         this.setRadixSort(false);

@@ -36,7 +36,7 @@ public final class ForcedStableQuickSort extends Sort {
         this.setSortListName("Forced Stable Quick");
         this.setRunAllSortsName("Forced Stable Quick Sort");
         this.setRunSortName("Forced Stable Quicksort");
-        this.setCategory("Exchange Sorts");
+        this.setCategory("Quick Sorts");
         this.setBucketSort(false);
         this.setRadixSort(false);
         this.setUnreasonablySlow(false);

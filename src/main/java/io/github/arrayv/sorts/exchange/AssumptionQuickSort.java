@@ -9,7 +9,7 @@ public final class AssumptionQuickSort extends BogoSorting {
       this.setSortListName("Assumption Quick");
       this.setRunAllSortsName("Assumption Quick Sort");
       this.setRunSortName("Assumption Quicksort");
-      this.setCategory("Exchange Sorts");
+      this.setCategory("Quick Sorts");
       this.setBucketSort(false);
       this.setRadixSort(false);
       this.setUnreasonablySlow(false);

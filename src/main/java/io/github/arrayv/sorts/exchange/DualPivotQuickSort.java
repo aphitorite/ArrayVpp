@@ -13,7 +13,7 @@ public final class DualPivotQuickSort extends Sort {
         this.setSortListName("Dual-Pivot Quick");
         this.setRunAllSortsName("Dual-Pivot Quick Sort");
         this.setRunSortName("Dual-Pivot Quicksort");
-        this.setCategory("Exchange Sorts");
+        this.setCategory("Quick Sorts");
         this.setBucketSort(false);
         this.setRadixSort(false);
         this.setUnreasonablySlow(false);

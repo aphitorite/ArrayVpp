@@ -37,7 +37,7 @@ public final class StableQuickSortParallel extends Sort {
         this.setSortListName("Stable Quick (Parallel)");
         this.setRunAllSortsName("Parallel Stable Quick Sort");
         this.setRunSortName("Parallel Stable Quicksort");
-        this.setCategory("Exchange Sorts");
+        this.setCategory("Quick Sorts");
         this.setBucketSort(false);
         this.setRadixSort(false);
         this.setUnreasonablySlow(false);
