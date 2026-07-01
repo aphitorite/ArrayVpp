@@ -98,9 +98,8 @@ public final class UtilFrame extends javax.swing.JFrame {
     }
 
     @SuppressWarnings({ "rawtypes", "unchecked" })
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        // Variables declaration - do not modify//GEN-BEGIN:variables
+        // Variables declaration - do not modify
         javax.swing.JLabel jLabel1 = new javax.swing.JLabel();
         this.modeBox = new javax.swing.JComboBox();
         this.visualButton = new javax.swing.JButton();
@@ -299,7 +298,7 @@ public final class UtilFrame extends javax.swing.JFrame {
         );
 
         pack();
-    }// </editor-fold>//GEN-END:initComponents
+    }
 
     public void setMode(String mode) {
         this.modeBox.setSelectedItem(mode);
@@ -346,7 +345,7 @@ public final class UtilFrame extends javax.swing.JFrame {
     	}
     }
 
-    private void sortButtonActionPerformed() {//GEN-FIRST:event_jButton1ActionPerformed
+    private void sortButtonActionPerformed() {
         //CHANGE SORT
         if (this.abstractFrame != null && abstractFrame.isVisible()){
             boolean tmp = this.abstractFrame instanceof SortPrompt;
@@ -359,7 +358,7 @@ public final class UtilFrame extends javax.swing.JFrame {
         sortButton.setText("Close");
         visualButtonResetText();
         shuffleButtonResetText();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }
 
     public void sortButtonResetText() {
         sortButton.setText("Choose Sort");
@@ -386,7 +385,7 @@ public final class UtilFrame extends javax.swing.JFrame {
         }
     }
 
-    private void visualButtonActionPerformed() {//GEN-FIRST:event_jButton2ActionPerformed
+    private void visualButtonActionPerformed() {
         //CHANGE VIEW
         if (this.abstractFrame != null && abstractFrame.isVisible()){
             boolean tmp = this.abstractFrame instanceof VisualPrompt;
@@ -399,13 +398,13 @@ public final class UtilFrame extends javax.swing.JFrame {
         visualButton.setText("Close");
         sortButtonResetText();
         shuffleButtonResetText();
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }
 
     public void visualButtonResetText() {
         visualButton.setText("Visual Style");
     }
 
-    private void speedButtonActionPerformed() {//GEN-FIRST:event_jButton3ActionPerformed
+    private void speedButtonActionPerformed() {
         boolean speedPromptAllowed;
 
         if (this.abstractFrame == null) {
@@ -432,41 +431,41 @@ public final class UtilFrame extends javax.swing.JFrame {
                 }
             }
         }
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }
 
     private void fixedDelayCheckboxActionPerformed() {
         arrayVisualizer.toggleFixedDelays(fixedDelayCheckbox.isSelected());
     }
 
-    private void shuffleCheckboxActionPerformed() {//GEN-FIRST:event_jCheckBox2ActionPerformed
+    private void shuffleCheckboxActionPerformed() {
         arrayVisualizer.toggleShuffleAnimation(shuffleCheckbox.isSelected());
-    }//GEN-LAST:event_jCheckBox1ActionPerformed
+    }
 
-    private void endSweepCheckboxActionPerformed() {//GEN-FIRST:event_jCheckBox3ActionPerformed
+    private void endSweepCheckboxActionPerformed() {
         Highlights.toggleFancyFinishes(endSweepCheckbox.isSelected());
-    }//GEN-LAST:event_jCheckBox3ActionPerformed
+    }
 
-    private void cancelDelaysButtonActionPerformed() {//GEN-FIRST:event_jButton4ActionPerformed
+    private void cancelDelaysButtonActionPerformed() {
         Delays.changeSkipped(true);
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }
 
-    private void cancelSortButtonActionPerformed() {//GEN-FIRST:event_jButton4ActionPerformed
+    private void cancelSortButtonActionPerformed() {
         arrayVisualizer.setCanceled(true);
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }
 
-    private void realTimeCheckboxActionPerformed() {//GEN-FIRST:event_jButton4ActionPerformed
+    private void realTimeCheckboxActionPerformed() {
         Timer.toggleRealTimer(realTimeCheckbox.isSelected());
-    }//GEN-LAST:event_jCheckBox4ActionPerformed
+    }
 
-    private void clearStatsButtonActionPerformed() {//GEN-FIRST:event_jButton4ActionPerformed
+    private void clearStatsButtonActionPerformed() {
         arrayVisualizer.resetAllStatistics();
-    }//GEN-LAST:event_jButton6ActionPerformed
+    }
 
-    private void softerSoundsCheckboxActionPerformed() {//GEN-FIRST:event_jButton4ActionPerformed
+    private void softerSoundsCheckboxActionPerformed() {
         Sounds.setSofterSounds(softerSoundsCheckbox.isSelected());
-    }//GEN-LAST:event_jCheckBox5ActionPerformed
+    }
 
-    private void shuffleButtonActionPerformed() {//GEN-FIRST:event_jButton2ActionPerformed
+    private void shuffleButtonActionPerformed() {
         //CHANGE SIZE
         if (this.abstractFrame != null && abstractFrame.isVisible()){
             boolean tmp = this.abstractFrame instanceof ShufflePrompt;
@@ -479,25 +478,25 @@ public final class UtilFrame extends javax.swing.JFrame {
         shuffleButton.setText("Close");
         sortButtonResetText();
         visualButtonResetText();
-    }//GEN-LAST:event_jButton7ActionPerformed
+    }
 
     public void shuffleButtonResetText() {
         shuffleButton.setText("Choose Shuffle");
     }
 
-    private void statsCheckboxActionPerformed() {//GEN-FIRST:event_jButton4ActionPerformed
+    private void statsCheckboxActionPerformed() {
         arrayVisualizer.toggleStatistics(statsCheckbox.isSelected());
-    }//GEN-LAST:event_jCheckBox6ActionPerformed
+    }
 
-    private void soundsCheckboxActionPerformed() {//GEN-FIRST:event_jButton4ActionPerformed
+    private void soundsCheckboxActionPerformed() {
         Sounds.toggleSounds(soundsCheckbox.isSelected());
-    }//GEN-LAST:event_jCheckBox7ActionPerformed
+    }
 
-    private void colorCheckboxActionPerformed() {//GEN-FIRST:event_jButton4ActionPerformed
+    private void colorCheckboxActionPerformed() {
         arrayVisualizer.toggleColor(colorCheckbox.isSelected());
-    }//GEN-LAST:event_jCheckBox8ActionPerformed
+    }
 
-    private void auxCheckboxActionPerformed() {//GEN-FIRST:event_jButton4ActionPerformed
+    private void auxCheckboxActionPerformed() {
         if (!auxCheckboxWarningShown && auxCheckbox.isSelected()) {
             if (JOptionPane.showConfirmDialog(
                 null,
@@ -514,9 +513,9 @@ public final class UtilFrame extends javax.swing.JFrame {
             auxCheckboxWarningShown = true;
         }
         arrayVisualizer.toggleExternalArrays(auxCheckbox.isSelected());
-    }//GEN-LAST:event_jCheckBox8ActionPerformed
+    }
 
-    private void modeBoxActionPerformed() {//GEN-FIRST:event_jButton4ActionPerformed
+    private void modeBoxActionPerformed() {
         //noinspection DataFlowIssue
         switch ((String)modeBox.getSelectedItem()) {
             case "Sorting":
@@ -572,7 +571,7 @@ public final class UtilFrame extends javax.swing.JFrame {
                 arrayVisualizer.enableBenchmarking(true);
                 break;
         }
-    }//GEN-LAST:event_jCheckBox8ActionPerformed
+    }
 
     private javax.swing.JComboBox modeBox;
     private javax.swing.JButton visualButton;
