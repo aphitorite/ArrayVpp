@@ -27,6 +27,7 @@ public final class StoogeSort extends Sort {
         this.setUnreasonablySlow(true);
         this.setUnreasonableLimit(1024);
         this.setBogoSort(false);
+        this.setAuthors("udiprod (stable version)");
     }
 
 	private void stoogeSort(int[] A, int i, int j) {

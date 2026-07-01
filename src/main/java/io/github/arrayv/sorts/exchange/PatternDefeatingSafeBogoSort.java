@@ -18,6 +18,7 @@ final public class PatternDefeatingSafeBogoSort extends Sort {
         this.setUnreasonablySlow(true);
         this.setUnreasonableLimit(1024);
         this.setBogoSort(false);
+        this.setAuthors("Distray");
     }
     int sig(int a, int b, int d) {
     	return ((a + b) + d * Math.abs(a - b)) / 2;

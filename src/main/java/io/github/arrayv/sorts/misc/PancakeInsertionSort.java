@@ -16,6 +16,7 @@ public final class PancakeInsertionSort extends Sort {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
+        this.setAuthors("Gaming32");
     }
 
     private int monoboundFw(int[] array, int start, int end, int value) {

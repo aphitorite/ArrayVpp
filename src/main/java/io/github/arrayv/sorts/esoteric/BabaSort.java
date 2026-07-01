@@ -145,6 +145,7 @@ final public class BabaSort extends BogoSorting {
         this.setUnreasonablySlow(true);
         this.setUnreasonableLimit(8);
         this.setBogoSort(false);
+        this.setAuthors("Distray");
     }
     private void compSwap(int[] array, int start, int end) {
     	if(Reads.compareIndices(array, start, end, 0.5, true) == 1) {

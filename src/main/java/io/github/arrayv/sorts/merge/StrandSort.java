@@ -42,6 +42,7 @@ public final class StrandSort extends Sort {
 		this.setUnreasonablySlow(false);
 		this.setUnreasonableLimit(0);
 		this.setBogoSort(false);
+        this.setAuthors("aphitorite, I.C. Gupta, Deepak Jaroliyam");
 	}
 
 	//reverses equal items order

@@ -45,6 +45,7 @@ public final class BouoSort extends BogoSorting {
         this.setUnreasonablySlow(true);
         this.setUnreasonableLimit(10);
         this.setBogoSort(true);
+        this.setAuthors("w0rthy");
     }
     
     private void selectiveSwap(int[] array, int length) {

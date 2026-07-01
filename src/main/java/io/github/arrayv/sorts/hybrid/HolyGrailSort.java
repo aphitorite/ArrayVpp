@@ -66,6 +66,7 @@ final public class HolyGrailSort extends HolyGrailSorting {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
+        this.setAuthors("Musicombo, Anonymous0726, Holy Grail Sort Project");
     }
     
     @Override

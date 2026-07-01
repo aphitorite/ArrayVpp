@@ -43,6 +43,7 @@ public final class BinaryInsertionSort extends BinaryInsertionSorting {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
+        this.setAuthors("w0rthy");
     }
 
     public void customBinaryInsert(int[] array, int start, int end, double sleep) {

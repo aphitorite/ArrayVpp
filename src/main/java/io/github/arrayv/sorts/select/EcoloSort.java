@@ -25,6 +25,7 @@ final public class EcoloSort extends Sort {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
+        this.setAuthors("PCBoy");
     }
 
     @Override

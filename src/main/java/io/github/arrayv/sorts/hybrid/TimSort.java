@@ -39,6 +39,7 @@ public class TimSort extends Sort {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
+        this.setAuthors("Tim Peters");
     }
 
     @Override

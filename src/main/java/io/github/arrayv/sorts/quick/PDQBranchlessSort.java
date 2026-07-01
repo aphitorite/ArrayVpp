@@ -34,6 +34,7 @@ final public class PDQBranchlessSort extends PDQSorting {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
+        this.setAuthors("Orson Peters");
     }
     
     @Override

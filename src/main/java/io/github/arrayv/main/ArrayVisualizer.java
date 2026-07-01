@@ -157,6 +157,7 @@ public final class ArrayVisualizer {
     private final DecimalFormat formatter;
 
     private volatile int currentGap;
+    private volatile ShellsortGaps selectedGapSequence = ShellsortGaps.DEFAULT;
 
     private boolean showShuffleAnimation;
     private boolean useFixedDelays;
@@ -1467,6 +1468,13 @@ public final class ArrayVisualizer {
     }
     public void setCurrentGap(int gap) {
         this.currentGap = gap;
+    }
+
+    public ShellsortGaps getSelectedGapSequence() {
+        return this.selectedGapSequence;
+    }
+    public void setSelectedGapSequence(ShellsortGaps seq) {
+        this.selectedGapSequence = seq;
     }
 
     public boolean sortCanceled() {

@@ -20,6 +20,7 @@ final public class OldFluxSort extends QuadSorting {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
+        this.setAuthors("Scandum, mg, aphitorite, Distray");
     }
     
     // Distray note: outputs 0 | 1 branchlessly,

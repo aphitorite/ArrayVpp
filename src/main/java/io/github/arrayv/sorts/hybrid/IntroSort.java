@@ -29,6 +29,7 @@ public final class IntroSort extends Sort {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
+        this.setAuthors("C++ STL, .NET runtime, David Musser");
     }
 
     private static int floorLogBaseTwo(int a) {

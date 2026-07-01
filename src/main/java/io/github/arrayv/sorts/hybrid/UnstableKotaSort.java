@@ -44,6 +44,7 @@ final public class UnstableKotaSort extends BlockMergeSorting {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
+        this.setAuthors("aphitorite");
     }
 	
 	@Override

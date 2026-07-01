@@ -43,6 +43,7 @@ final public class AdjacencyPancakeSort extends Sort {
 		this.setUnreasonablySlow(false);
 		this.setUnreasonableLimit(0);
 		this.setBogoSort(false);
+        this.setAuthors("aphitorite, Bill Gates, Christos Papadimitriou");
 	}
 	
 	// implementation of Bill Gate's improved pancake sort with at most 5/3 N + O(1) flips

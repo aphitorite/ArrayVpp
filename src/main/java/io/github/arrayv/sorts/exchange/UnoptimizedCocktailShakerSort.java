@@ -42,6 +42,7 @@ public final class UnoptimizedCocktailShakerSort extends Sort {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
+        this.setAuthors("w0rthy");
     }
 
     private void cocktailShaker(int[] array, int start, int end, double sleep) {

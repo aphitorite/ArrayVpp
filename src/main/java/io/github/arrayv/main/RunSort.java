@@ -1,14 +1,27 @@
 package io.github.arrayv.main;
 
+import java.util.ArrayList;
+
+import javax.swing.BorderFactory;
+import javax.swing.JDialog;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.ListSelectionModel;
+import javax.swing.SwingConstants;
+
 import io.github.arrayv.panes.JEnhancedOptionPane;
 import io.github.arrayv.panes.JErrorPane;
 import io.github.arrayv.sortdata.SortInfo;
 import io.github.arrayv.sorts.templates.Sort;
+import io.github.arrayv.utils.Delays;
+import io.github.arrayv.utils.ShellsortGaps;
+import io.github.arrayv.utils.SortingNetworkGenerator;
+import io.github.arrayv.utils.Sounds;
+import io.github.arrayv.utils.StopSort;
 import io.github.arrayv.utils.Timer;
-import io.github.arrayv.utils.*;
-
-import javax.swing.*;
-import java.util.ArrayList;
 
 /*
  *
@@ -106,6 +119,56 @@ public final class RunSort {
         return Math.abs(integer);
     }
 
+    private void selectGapSequence() {
+        ShellsortGaps[] values = ShellsortGaps.values();
+        ShellsortGaps current = this.arrayVisualizer.getSelectedGapSequence();
+        String[] names = new String[values.length];
+        int selectedIdx = 0;
+        for (int i = 0; i < values.length; i++) {
+            int limit = values[i].getLimit();
+            String name = limit > 0 ? values[i].getName() + " (\u2264 " + limit + ")" : values[i].getName();
+            names[i] = name;
+            if (values[i] == current) {
+                selectedIdx = i;
+            }
+        }
+
+        JList<String> list = new JList<>(names);
+        list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        list.setSelectedIndex(selectedIdx);
+
+        JLabel label = new JLabel("Select a gap sequence:", SwingConstants.CENTER);
+        JLabel currentLabel = new JLabel("(Current gaps: " + current.getName() + ")", SwingConstants.CENTER);
+        //currentLabel.setFont(currentLabel.getFont().deriveFont(java.awt.Font.PLAIN, currentLabel.getFont().getSize() - 1));
+        currentLabel.setBorder(BorderFactory.createEmptyBorder(0, 0, 8, 0));
+        JPanel northPanel = new JPanel(new java.awt.GridLayout(2, 1));
+        northPanel.add(label);
+        northPanel.add(currentLabel);
+        JPanel panel = new JPanel(new java.awt.BorderLayout());
+        panel.add(northPanel, java.awt.BorderLayout.NORTH);
+        panel.add(new JScrollPane(list), java.awt.BorderLayout.CENTER);
+
+        String defaultLabel = "Skip";
+        JOptionPane pane = new JOptionPane(panel, JOptionPane.PLAIN_MESSAGE, JOptionPane.DEFAULT_OPTION, null, new Object[]{defaultLabel}, defaultLabel);
+        JDialog dialog = pane.createDialog(null, "Customize Shellsort");
+        dialog.setModal(true);
+
+        list.addListSelectionListener(e -> {
+            if (!e.getValueIsAdjusting()) {
+                dialog.dispose();
+            }
+        });
+
+        dialog.setVisible(true);
+
+        int idx = list.getSelectedIndex();
+        if (idx >= 0) {
+            this.arrayVisualizer.setSelectedGapSequence(values[idx]);
+        } else {
+            this.arrayVisualizer.setSelectedGapSequence(ShellsortGaps.DEFAULT);
+        }
+    }
+
     public void runSort(int[] array, int selection) {
         if (arrayVisualizer.isActive())
             return;
@@ -155,6 +218,10 @@ public final class RunSort {
                         if (extra < 2) extra = 2;
                     } else {
                         extra = 0;
+                    }
+
+                    if (sortInfo.getUseShellsortGaps()) {
+                        selectGapSequence();
                     }
 
                     boolean goAhead;

@@ -17,6 +17,7 @@ public final class BoseNelsonSortRecursive extends Sort {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
+        this.setAuthors("fungamer2, aphitorite, Raj Chandra Bose, Raymond J. Nelson");
     }
 
     private void compareSwap(int[] array, int start, int end, double sleep) {

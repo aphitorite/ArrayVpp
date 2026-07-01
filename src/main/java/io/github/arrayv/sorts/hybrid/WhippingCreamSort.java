@@ -20,6 +20,7 @@ final public class WhippingCreamSort extends Sort {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
+        this.setAuthors("Distray");
     }
     
     public void M8FW(int[] array, int start, int mid, int end) {

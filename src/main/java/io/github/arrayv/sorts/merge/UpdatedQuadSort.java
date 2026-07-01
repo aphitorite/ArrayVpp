@@ -44,6 +44,7 @@ final public class UpdatedQuadSort extends Sort {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
+        this.setAuthors("Scandum, mg, Distray");
         
         this.Timer = arrayVisualizer.getTimer();
     }

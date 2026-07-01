@@ -42,6 +42,7 @@ public final class StablePermutationSort extends BogoSorting {
         this.setUnreasonablySlow(true);
         this.setUnreasonableLimit(11);
         this.setBogoSort(false);
+        this.setAuthors("Control, aphitorite");
     }
 
 	private int length;

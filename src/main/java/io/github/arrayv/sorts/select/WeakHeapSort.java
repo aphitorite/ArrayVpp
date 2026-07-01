@@ -18,6 +18,7 @@ public final class WeakHeapSort extends Sort {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
+        this.setAuthors("Musicombo, Ronald Dutton");
     }
 
     private static int getBitwiseFlag(int[] bits, int x) {

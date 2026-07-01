@@ -45,6 +45,7 @@ public final class PacheSort2 extends Sort {
 		this.setUnreasonablySlow(false);
 		this.setUnreasonableLimit(0);
 		this.setBogoSort(false);
+		this.setAuthors("aphitorite");
 	}
 	
 	//simple average case O(n log n) comps O(n) moves sort

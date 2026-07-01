@@ -15,6 +15,7 @@ public final class GuessSort extends BogoSorting {
         this.setUnreasonablySlow(true);
         this.setUnreasonableLimit(7);
         this.setBogoSort(false);
+        this.setAuthors("_fluffyy");
     }
 
     // PROGRAMMER'S NOTE: This sort is intentionally bad, it is purposefully un-optimized.

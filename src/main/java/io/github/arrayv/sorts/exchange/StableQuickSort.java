@@ -45,6 +45,7 @@ public final class StableQuickSort extends Sort {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
+        this.setAuthors("Rodney Shaghoulian");
     }
 
     // Author: Rodney Shaghoulian

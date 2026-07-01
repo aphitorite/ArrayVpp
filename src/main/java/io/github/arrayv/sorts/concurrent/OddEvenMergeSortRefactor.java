@@ -16,6 +16,7 @@ final public class OddEvenMergeSortRefactor extends Sort {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
+        this.setAuthors("Ken Batcher");
     }
     
     // compare and swap blocks of indices

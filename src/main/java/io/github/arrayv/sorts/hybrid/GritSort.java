@@ -1,9 +1,9 @@
 package io.github.arrayv.sorts.hybrid;
 
-import io.github.arrayv.sorts.templates.Sort;
-import io.github.arrayv.sorts.insert.BinaryInsertionSort;
-import io.github.arrayv.utils.IndexedRotations;
 import io.github.arrayv.main.ArrayVisualizer;
+import io.github.arrayv.sorts.insert.BinaryInsertionSort;
+import io.github.arrayv.sorts.templates.Sort;
+import io.github.arrayv.utils.IndexedRotations;
 
 /*
  * 
@@ -44,6 +44,7 @@ final public class GritSort extends Sort {
 		this.setUnreasonablySlow(false);
 		this.setUnreasonableLimit(0);
 		this.setBogoSort(false);
+		this.setAuthors("aphitorite");
 	}
 	
 	/**
@@ -75,8 +76,8 @@ final public class GritSort extends Sort {
 	
 	//calculates optimal segment size (result is order of O(sqrt(n log n)))
 	private int calcSLen(int n, int m) {
-		int a = 0, b = n;
-		int logN = this.log2(n-1)+1;
+		int a = 2, b = n;
+		int logN = this.log2(Math.max(n, 2)-1)+1;
 		
 		while(a < b) {
 			int ms = (a+b)/2, mq = n/(ms+1);
@@ -949,7 +950,7 @@ final public class GritSort extends Sort {
 		}
 		for(int i = m; i < b; i += s2+1) {
 			this.stableCycle(array, i, Math.min(i+s2, b), p+(i-a), piv, cmp);
-			if(i+s1 < b) Writes.swap(array, i+s1, p+(i+s1-a), 1, true, false);
+			if(i+s2 < b) Writes.swap(array, i+s2, p+(i+s2-a), 1, true, false);
 		}
 	}
 	
@@ -973,156 +974,58 @@ final public class GritSort extends Sort {
 				max = i;
 		}
 		
-		int m1 = (a+b)/2;
-		int med = array[this.selectRank(array, a, b, m1, min, max)];
+		int m = (a+b)/2;
+		int med = array[this.selectRank(array, a, b, m, min, max)];
 		
 		int lgBLen = this.productLog(length);
 		int[] tmp = Writes.createExternalArray(2*lgBLen);
 		
-		this.blockPartition(array, tmp, a, this.blockPartition(array, tmp, a, b, 2*lgBLen, med, 1), 2*lgBLen, med, 0);
+		int m2 = this.blockPartition(array, tmp, a, b, 2*lgBLen, med, 1);
+		int m1 = this.blockPartition(array, tmp, a, m2, 2*lgBLen, med, 0);
+		
 		if(Reads.compareIndices(array, a, b-1, 1, true) == 0) return;
 		
-		//find equal elements zone to be excluded from sorting
+		int h1 = m1-a, h2 = b-m2, hMax = Math.max(h1,h2);
+		int a1 = a+hMax, b1 = b-hMax;
 		
-		int m2 = m1+n%2;
-		while(Reads.compareIndices(array, m1-1, m2, 1, true) == 0) {
-			m1--; m2++;
-		}
-		Highlights.clearMark(2);
+		int s1 = this.calcSLen(h1/2, (h1+1)/2);
+		int s2 = this.calcSLen((h1+1)/2, h1/2);
 		
-		//depending on these comparisons we have to manage block E of equal elements on one partition
+		int s3 = this.calcSLen(h2/2, (h2+1)/2);
+		int s4 = this.calcSLen((h2+1)/2, h2/2);
 		
-		if(Reads.compareValues(array[m2], med) == 0) {
-			//[      A      ][ = ][ E ][   B    ]
-			//a   a1         m1   m2   m3
+		// sort runs
+		
+		this.gritSortRuns(array, a, a+h1, b1, s1, s2, med, -1);
+		this.blockSwap(array, a+h1, b1+h1, hMax-h1);
+		
+		this.blockSwap(array, a, b1, hMax-h2);
+		this.gritSortRuns(array, a1-h2, a1, b-h2, s3, s4, med, 1);
+		
+		if(Math.max(h1, h2) >= this.MIN_SORT) {
 			
-			int m3 = m2, bSize = 1;
-			while(++m3 < b && Reads.compareIndexValue(array, m3, med, 1, true) == 0)
-				bSize++;
+			// partiton buckets
 			
-			int a1 = a+bSize;
+			this.gritPartition(array, a, a+h1, b1, s1, s2, med, -1);
+			this.blockSwap(array, a+h1, b1+h1, hMax-h1);
 			
-			//calculate segment sizes for each half (total of 4)
+			this.blockSwap(array, a, b1, hMax-h2);
+			this.gritPartition(array, a1-h2, a1, b-h2, s3, s4, med, 1);
 			
-			int len1 = m1-a;
-			int s1 = this.calcSLen(len1/2, (len1+1)/2);
-			int s2 = this.calcSLen((len1+1)/2, len1/2);
+			// sort buckets
 			
-			int len2 = len1-bSize;
-			int s3 = this.calcSLen(len2/2, (len2+1)/2);
-			int s4 = this.calcSLen((len2+1)/2, len2/2);
+			this.gritSortBuckets(array, a, a+h1, b1, s1, s2, med, -1);
+			this.blockSwap(array, a+h1, b1+h1, hMax-h1);
 			
-			//sort runs
+			this.blockSwap(array, a, b1, hMax-h2);
+			this.gritSortBuckets(array, a1-h2, a1, b-h2, s3, s4, med, 1);
 			
-			this.gritSortRuns(array, a, m1, m2, s1, s2, med, -1);
-			this.blockSwap(array, a, m2, bSize);
-			this.gritSortRuns(array, a1, m1, m3, s3, s4, med, 1);
+			// merge
 			
-			if(Math.max(len1, len2) >= this.MIN_SORT) {
-					
-				//multiway stable partition around pivots
-				
-				this.gritPartition(array, a, m1, m2, s1, s2, med, -1);
-				this.blockSwap(array, a, m2, bSize);
-				this.gritPartition(array, a1, m1, m3, s3, s4, med, 1);
-				
-				//sort partitions
-				
-				this.gritSortBuckets(array, a, m1, m2, s1, s2, med, -1);
-				this.blockSwap(array, a, m2, bSize);
-				this.gritSortBuckets(array, a1, m1, m3, s3, s4, med, 1);
-				
-				//merge
-				
-				this.blockMerge(array, tmp, a,  (a+m1)/2, m1, m2, lgBLen, med, 0, 0);
-				this.blockMerge(array, tmp, m3, (m3+b)/2, b,  a,  lgBLen, med, 0, 1);
-			}
-		}
-		else if(Reads.compareValues(array[m1-1], med) == 0) {
-			//[   A    ][ E ][ = ][      B      ]
-			//a         m3   m1   m2        b1
-			
-			int m3 = m1, bSize = 1;
-			while(--m3 > a && Reads.compareIndexValue(array, m3-1, med, 1, true) == 0)
-				bSize++;
-			
-			int b1 = b-bSize;
-			
-			/*this.gritSortRuns(array, a, m3, m2, med, 1);
-			Highlights.clearAllMarks();
-			this.blockSwap(array, m3, b-bSize, bSize);
-			this.gritSortRuns(array, a, m1, m2, med, -1);*/
-			
-			
-			
-			//calculate segment sizes for each half (total of 4)
-			
-			int len1 = m3-a;
-			int s1 = this.calcSLen(len1/2, (len1+1)/2);
-			int s2 = this.calcSLen((len1+1)/2, len1/2);
-			
-			int len2 = len1+bSize;
-			int s3 = this.calcSLen(len2/2, (len2+1)/2);
-			int s4 = this.calcSLen((len2+1)/2, len2/2);
-			
-			//sort runs
-			
-			this.gritSortRuns(array, a, m3, m2, s1, s2, med, -1);
-			this.blockSwap(array, m3, b1, bSize);
-			this.gritSortRuns(array, a, m1, m2, s3, s4, med, 1);
-			
-			if(Math.max(len1, len2) >= this.MIN_SORT) {
-			
-				//multiway stable partition around pivots
-				
-				this.gritPartition(array, a, m3, m2, s1, s2, med, -1);
-				this.blockSwap(array, m3, b1, bSize);
-				this.gritPartition(array, a, m1, m2, s3, s4, med, 1);
-				
-				//sort partitions
-				
-				this.gritSortBuckets(array, a, m3, m2, s1, s2, med, -1);
-				this.blockSwap(array, m3, b1, bSize);
-				this.gritSortBuckets(array, a, m1, m2, s3, s4, med, 1);
-				
-				//merge
-				
-				this.blockMerge(array, tmp, a,  (a+m3)/2, m3, m2, lgBLen, med, 0, 0);
-				this.blockMerge(array, tmp, m2, (m2+b)/2, b,  a,  lgBLen, med, 1, 1);
-			}
-		}
-		else {
-			//[      A      ][ = ][      B      ] (E does not exist)
-			//a              m1   m2
-			
-			//calculate segment sizes for each half (total of 2 x2)
-			
-			int len1 = m1-a;
-			int s1 = this.calcSLen(len1/2, (len1+1)/2);
-			int s2 = this.calcSLen((len1+1)/2, len1/2);
-			
-			//sort runs
-			
-			this.gritSortRuns(array, a, m1, m2, s1, s2, med, -1);
-			this.gritSortRuns(array, a, m1, m2, s1, s2, med, 1);
-			
-			/*if(len1 >= this.MIN_SORT) {
-				
-				//multiway stable partition around pivots
-				
-				this.gritPartition(array, a, m1, m2, s1, s2, med, -1);
-				this.gritPartition(array, a, m1, m2, s1, s2, med, 1);
-				
-				//sort partitions
-				
-				this.gritSortBuckets(array, a, m1, m2, s1, s2, med, -1);
-				this.gritSortBuckets(array, a, m1, m2, s1, s2, med, 1);
-				
-				//merge
-				
-				this.blockMerge(array, tmp, a,  (a+m1)/2, m1, m2, lgBLen, med, 0, 0);
-				this.blockMerge(array, tmp, m2, (m2+b)/2, b,  a,  lgBLen, med, 0, 1);
-			}*/
+			if(h1 >= this.MIN_SORT) 
+				this.blockMerge(array, tmp,  a,  a+h1/2, m1, m1, lgBLen, med, 0, 0);
+			if(h2 >= this.MIN_SORT) 
+				this.blockMerge(array, tmp, m2, m2+h2/2,  b,  a, lgBLen, med, 1, 1);
 		}
 		Writes.deleteExternalArray(tmp);
 	}

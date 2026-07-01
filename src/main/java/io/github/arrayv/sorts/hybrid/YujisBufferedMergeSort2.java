@@ -45,6 +45,7 @@ public final class YujisBufferedMergeSort2 extends Sort {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
+        this.setAuthors("yuji, aphitorite, dani_dlg");
 	}
 
 	public static int ceilLog(int n) {

@@ -16,6 +16,7 @@ public final class TernaryHeapSort extends Sort {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
+        this.setAuthors("qbit");
     }
 
     // TERNARY HEAP SORT - written by qbit

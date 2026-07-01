@@ -39,6 +39,7 @@ public final class ClassicThreeSmoothCombSort extends Sort {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
+        this.setAuthors("aphitorite");
     }
 
 	private boolean is3Smooth(int n) {

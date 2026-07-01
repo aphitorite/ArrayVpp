@@ -42,6 +42,7 @@ public final class OutOfPlaceHeapSort extends Sort {
 		this.setUnreasonablySlow(false);
 		this.setUnreasonableLimit(0);
 		this.setBogoSort(false);
+        this.setAuthors("aphitorite");
 	}
 
 	//source: https://en.wikipedia.org/wiki/Heapsort#Bottom-up_heapsort

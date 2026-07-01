@@ -25,6 +25,7 @@ public final class PancakeSort extends Sort {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
+        this.setAuthors("Saurabh");
     }
 
     private boolean sorted(int[] array, int length) {

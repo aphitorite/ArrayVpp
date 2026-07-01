@@ -45,6 +45,7 @@ public final class BlockSwapMergeSort extends Sort {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
+        this.setAuthors("Piotr Grochowski, aphitorite");
     }
 
     private void multiSwap(int[] array, int a, int b, int len) {

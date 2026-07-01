@@ -20,6 +20,8 @@ public abstract class Sort {
     protected Reads Reads;
     protected Writes Writes;
 
+    private boolean useShellsortGaps;
+
     protected Sort(ArrayVisualizer arrayVisualizer) {
         this.arrayVisualizer = arrayVisualizer;
 
@@ -32,7 +34,7 @@ public abstract class Sort {
     private void initDeprecatedMetadataTable() {
         if (deprecatedMetadataTable != null) return;
         deprecatedMetadataTable = new Object[] {
-            true, "", "", "", "", (UnaryOperator<Long>) (n -> -1L), false, false, false, 0, null, 0
+            true, "", "", "", "", (UnaryOperator<Long>) (n -> -1L), false, false, false, 0, null, 0, ""
         };
     }
 
@@ -117,6 +119,15 @@ public abstract class Sort {
         return (int)deprecatedMetadataTable[11];
     }
 
+    public String getAuthors() {
+        initDeprecatedMetadataTable();
+        return (String)deprecatedMetadataTable[12];
+    }
+
+    public boolean getUseShellsortGaps() {
+        return this.useShellsortGaps;
+    }
+
     protected void enableSort(boolean enabled) {
         initDeprecatedMetadataTable();
         deprecatedMetadataTable[0] = enabled;
@@ -184,6 +195,10 @@ public abstract class Sort {
         deprecatedMetadataTable[8] = bogoSort;
     }
 
+    public void setUseShellsortGaps(boolean useGaps) {
+        this.useShellsortGaps = useGaps;
+    }
+
     protected void setQuestion(String question) {
         initDeprecatedMetadataTable();
         deprecatedMetadataTable[10] = question;
@@ -193,6 +208,11 @@ public abstract class Sort {
         initDeprecatedMetadataTable();
         deprecatedMetadataTable[10] = question;
         deprecatedMetadataTable[11] = defaultAnswer;
+    }
+
+    protected void setAuthors(String authors) {
+        initDeprecatedMetadataTable();
+        deprecatedMetadataTable[12] = authors;
     }
 
     public int validateAnswer(int answer) {

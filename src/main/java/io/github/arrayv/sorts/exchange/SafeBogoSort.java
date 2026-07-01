@@ -44,6 +44,7 @@ final public class SafeBogoSort extends Sort {
         this.setUnreasonablySlow(true);
         this.setUnreasonableLimit(1024);
         this.setBogoSort(false);
+        this.setAuthors("aphitorite");
     }
 	
 	private int findLastSorted(int[] array, int length) {

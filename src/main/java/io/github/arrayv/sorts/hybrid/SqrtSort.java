@@ -77,6 +77,7 @@ public final class SqrtSort extends Sort {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
+        this.setAuthors("Andrey Astrelin");
     }
 
     private void sqrtSwap(int[] arr, int a, int b, boolean auxwrite) {

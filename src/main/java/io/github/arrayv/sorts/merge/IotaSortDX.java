@@ -17,6 +17,7 @@ public final class IotaSortDX extends Sort {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
+        this.setAuthors("Distray");
     }
     private InsertionSort is;
     private int mergeBack(int[] array, int a, int p, int b, int q, int t) {

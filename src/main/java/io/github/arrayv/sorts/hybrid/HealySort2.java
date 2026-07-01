@@ -42,6 +42,7 @@ final public class HealySort2 extends MergeSortingHealy {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
+        this.setAuthors("w0rthy");
     }
     
     @Override

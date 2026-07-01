@@ -21,6 +21,7 @@ public final class TernaryLRQuickSort extends Sort {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
+        this.setAuthors("Timo Bingmann");
     }
 
     private int compare(int[] A, int lo, int hi) {

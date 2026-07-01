@@ -45,6 +45,7 @@ final public class AKSSortingNetwork extends Sort {
 		this.setUnreasonablySlow(false);
 		this.setUnreasonableLimit(0);
 		this.setBogoSort(false);
+        this.setAuthors("Control, aphitorite, M. Ajtai, J. Komlos, E. Szemeredl");
 	}
 	
 	/**

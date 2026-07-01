@@ -21,6 +21,7 @@ public final class BadSort extends Sort {
         this.setUnreasonablySlow(true);
         this.setUnreasonableLimit(2048);
         this.setBogoSort(false);
+        this.setAuthors("James Jensen");
     }
 
     @Override

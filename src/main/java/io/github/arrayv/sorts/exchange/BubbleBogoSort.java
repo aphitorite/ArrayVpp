@@ -45,6 +45,7 @@ public final class BubbleBogoSort extends BogoSorting {
         this.setUnreasonablySlow(true);
         this.setUnreasonableLimit(1024);
         this.setBogoSort(true);
+        this.setAuthors("w0rthy");
     }
 
     @Override

@@ -45,6 +45,7 @@ public final class BocfoSort extends BogoSorting {
         this.setUnreasonablySlow(true);
         this.setUnreasonableLimit(10);
         this.setBogoSort(true);
+        this.setAuthors("Distray");
     }
     private int sqrt(int n) {
     	return (int)Math.ceil(Math.sqrt(n));

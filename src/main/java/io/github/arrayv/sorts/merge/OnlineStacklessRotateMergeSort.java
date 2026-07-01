@@ -18,6 +18,7 @@ final public class OnlineStacklessRotateMergeSort extends Sort {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
+        this.setAuthors("Distray");
     }
     private int binSearch(int[] array, int l, int r, int k, int b) {
     	while(l < r) {

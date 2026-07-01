@@ -44,6 +44,7 @@ public final class MedianMergeSort extends Sort {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
+        this.setAuthors("aphitorite, yuji");
     }
 
 	private InsertionSort insSort;

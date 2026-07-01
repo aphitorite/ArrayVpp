@@ -20,6 +20,7 @@ public final class LinkedIterativeQuickSort extends Sort {
         setUnreasonablySlow(false);
         setUnreasonableLimit(0);
         setBogoSort(false);
+        this.setAuthors("McDude_73");
     }
 
     private class Task {

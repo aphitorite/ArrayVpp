@@ -18,6 +18,7 @@ public final class OptimizedBottomUpMergeSort extends Sort {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
+        this.setAuthors("gcc-4.5 STL");
     }
 
     /**

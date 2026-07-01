@@ -16,6 +16,7 @@ public final class DiamondSortRecursive extends Sort {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
+        this.setAuthors("_fluffyy");
     }
 
     private void sort(int[] arr, int start, int stop, boolean merge) {

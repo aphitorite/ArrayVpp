@@ -16,6 +16,7 @@ public final class GnomeSort extends Sort {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
+        this.setAuthors("Hamid Sarbazi-Azad");
     }
 
     // Code retrieved from http://www.algostructure.com/sorting/gnomesort.php

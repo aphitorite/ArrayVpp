@@ -42,6 +42,7 @@ public final class LazyHeapSort extends Sort {
 		this.setUnreasonablySlow(false);
 		this.setUnreasonableLimit(0);
 		this.setBogoSort(false);
+        this.setAuthors("aphitorite");
 	}
 
 	private void maxToFront(int[] array, int a, int b) {

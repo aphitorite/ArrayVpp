@@ -1463,8 +1463,7 @@ public enum Shuffles {
     	}
     	public void shuffleArray(int[] array, ArrayVisualizer arrayVisualizer, Delays Delays, Highlights Highlights, Writes Writes) {
             int n = arrayVisualizer.getCurrentLength();
-    		int[] gaps = {1247501165, 561937462, 253124983, 114020263, 51360479, 23135351, 10528127, 4697153, 2131981, 973657, 443557, 197803, 89129, 40354,
-					   18118, 8129, 3659, 1636, 701, 301, 132, 57, 23, 10, 4, 1};
+    		int[] gaps = arrayVisualizer.getSelectedGapSequence().getGaps(n);
     		int[] cnts = Writes.createExternalArray(n);
     		int[] tmp = Writes.createExternalArray(n);
     		int x = gaps.length;
@@ -1507,8 +1506,7 @@ public enum Shuffles {
     	}
     	public void shuffleArray(int[] array, ArrayVisualizer arrayVisualizer, Delays Delays, Highlights Highlights, Writes Writes) {
             int n = arrayVisualizer.getCurrentLength();
-    		int[] gaps = {1247501165, 561937462, 253124983, 114020263, 51360479, 23135351, 10528127, 4697153, 2131981, 973657, 443557, 197803, 89129, 40354,
-					   18118, 8129, 3659, 1636, 701, 301, 132, 57, 23, 10, 4, 1};
+    		int[] gaps = arrayVisualizer.getSelectedGapSequence().getGaps(n);
     		int[] cnts = Writes.createExternalArray(n);
     		int[] tmp = Writes.createExternalArray(n);
     		int x = gaps.length;

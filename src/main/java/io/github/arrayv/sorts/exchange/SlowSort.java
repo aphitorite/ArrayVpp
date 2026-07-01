@@ -18,6 +18,7 @@ public final class SlowSort extends Sort {
         this.setUnreasonablySlow(true);
         this.setUnreasonableLimit(150);
         this.setBogoSort(false);
+        this.setAuthors("Andrei Broder, Jorge Stolfi");
     }
 
 	private void slowSort(int[] A, int i, int j) {

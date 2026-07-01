@@ -20,6 +20,7 @@ final public class JugglingQuickSort extends Sort {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
+        this.setAuthors("Distray");
     }
 	
 	private void pass(int[] array, int left, int right) {

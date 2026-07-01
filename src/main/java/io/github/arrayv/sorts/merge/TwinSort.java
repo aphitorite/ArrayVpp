@@ -49,6 +49,7 @@ public final class TwinSort extends TwinSorting {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
+        this.setAuthors("Scandum, mg, Amari");
     }
 
     @Override

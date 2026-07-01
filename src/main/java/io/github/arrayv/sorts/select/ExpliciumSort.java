@@ -20,6 +20,7 @@ final public class ExpliciumSort extends Sort {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
+        this.setAuthors("Distray");
     }
     
     // Expliciumsort: A variant of Classic Tournament Sort that runs faster.

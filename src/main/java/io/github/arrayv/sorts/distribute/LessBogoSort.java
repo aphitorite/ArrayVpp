@@ -20,7 +20,9 @@ public final class LessBogoSort extends BogoSorting {
         this.setUnreasonablySlow(true);
         this.setUnreasonableLimit(512);
         this.setBogoSort(true);
-    }
+    
+        this.setAuthors("Musicombo");
+}
 
     @Override
     public void runSort(int[] array, int length, int bucketCount) {

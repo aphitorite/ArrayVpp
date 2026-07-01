@@ -6,7 +6,7 @@ import io.github.arrayv.sorts.templates.Sort;
 /**
  * An implementation of a tree sort using an AA tree.
  *
- * @author Sam Walko (Anonymous0726)
+ * @author Anonymous0726
  */
 public final class AATreeSort extends Sort {
 	public AATreeSort(ArrayVisualizer arrayVisualizer) {
@@ -22,6 +22,7 @@ public final class AATreeSort extends Sort {
 		this.setUnreasonablySlow(false);
 		this.setUnreasonableLimit(0);
 		this.setBogoSort(false);
+        this.setAuthors("Anonymous0726");
 	}
 
 	private Node NULL_NODE = new Node(); // (sub)tree of size 0

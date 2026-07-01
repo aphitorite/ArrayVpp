@@ -20,6 +20,7 @@ public final class TriangularHeapSort extends Sort {
 		this.setUnreasonablySlow(false);
 		this.setUnreasonableLimit(0);
 		this.setBogoSort(false);
+        this.setAuthors("aphitorite, EilrahcF");
 	}
 
 	public static int triangularRoot(int val) {

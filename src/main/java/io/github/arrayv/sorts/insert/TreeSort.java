@@ -7,7 +7,7 @@ import io.github.arrayv.sorts.templates.Sort;
  * An implementation of a tree sort using an unbalanced
  * (aka naive) binary search tree (BST)
  *
- * @author Sam Walko (Anonymous0726)
+ * @author Anonymous0726
  */
 public final class TreeSort extends Sort {
 	public TreeSort(ArrayVisualizer arrayVisualizer) {
@@ -23,6 +23,7 @@ public final class TreeSort extends Sort {
 		this.setUnreasonablySlow(false);
 		this.setUnreasonableLimit(0);
 		this.setBogoSort(false);
+        this.setAuthors("Anonymous0726");
 	}
 
 	private Node NULL_NODE = new Node();

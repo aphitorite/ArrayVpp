@@ -21,6 +21,7 @@ final public class SinglePivotPacheSortLazyHeap extends Sort {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
+        this.setAuthors("Distray");
     }
 
     private static final boolean deterministic = false;

@@ -29,6 +29,7 @@ public final class IntroCircleSortRecursive extends CircleSorting {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
+        this.setAuthors("Musicombo");
     }
 
     @Override

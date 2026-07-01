@@ -51,6 +51,7 @@ public final class OptimizedLazyStableSort extends GrailSorting {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
+        this.setAuthors("Andrey Astrelin");
     }
 
     public void insertionSort(int[] array, int a, int b, double sleep, boolean auxwrite) {

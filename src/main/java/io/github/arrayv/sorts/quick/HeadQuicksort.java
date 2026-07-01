@@ -20,6 +20,7 @@ final public class HeadQuicksort extends Sort {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
+        this.setAuthors("Distray");
     }
     private InsertionSort insert;
     private class Head implements Comparable<Head> {

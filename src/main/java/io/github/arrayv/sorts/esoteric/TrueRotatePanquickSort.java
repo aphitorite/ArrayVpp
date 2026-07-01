@@ -17,6 +17,7 @@ public final class TrueRotatePanquickSort extends Sort {
 		this.setUnreasonablySlow(false);
 		this.setUnreasonableLimit(0);
 		this.setBogoSort(false);
+        this.setAuthors("Distray");
 	}
 	
 	private int start = 0;

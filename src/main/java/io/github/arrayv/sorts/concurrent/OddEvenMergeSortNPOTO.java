@@ -16,6 +16,7 @@ final public class OddEvenMergeSortNPOTO extends Sort {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
+        this.setAuthors("Ken Batcher");
     }
     
     private void compSwapRange(int[] array, int a, int b, int end, int s) {

@@ -21,6 +21,7 @@ public final class ShoveSort extends Sort {
         setUnreasonablySlow(true);
         setUnreasonableLimit(512);
         setBogoSort(false);
+        this.setAuthors("Piotr Grochowski, frankblob");
 
     }
 

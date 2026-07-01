@@ -27,6 +27,7 @@ public final class AdaptiveBinaryInsertionSort extends Sort {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
+        this.setAuthors("Piotr Grochowski");
     }
     
     public void abinaryinsert(int[] array, int start, int end, double sleep) {

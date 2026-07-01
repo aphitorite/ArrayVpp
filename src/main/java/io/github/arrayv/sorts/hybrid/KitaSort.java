@@ -45,6 +45,7 @@ final public class KitaSort extends Sort {
 		this.setUnreasonablySlow(false);
 		this.setUnreasonableLimit(0);
 		this.setBogoSort(false);
+        this.setAuthors("aphitorite, Control");
 	}
 	
 	private void mergeTo(int[] from, int[] to, int a, int m, int b, int p, boolean auxwrite) {

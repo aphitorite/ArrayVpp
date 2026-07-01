@@ -44,6 +44,7 @@ public final class StacklessDualPivotQuickSort extends Sort {
 		this.setUnreasonablySlow(false);
 		this.setUnreasonableLimit(0);
 		this.setBogoSort(false);
+        this.setAuthors("aphitorite");
 	}
 
 	private int partition(int[] array, int a, int b, int p) {

@@ -43,6 +43,7 @@ final public class SynchronousEctaSort extends BlockMergeSorting {
 		this.setUnreasonablySlow(false);
 		this.setUnreasonableLimit(0);
 		this.setBogoSort(false);
+        this.setAuthors("aphitorite");
 	}
 	
 	private void writeTo(int[] array, int to, int from) {

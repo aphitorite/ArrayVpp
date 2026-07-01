@@ -26,6 +26,7 @@ final public class OptimizedPancakeSort2 extends Sort {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
+        this.setAuthors("Saurabh");
     }
 	
 	private void flip(int[] array, int n) {

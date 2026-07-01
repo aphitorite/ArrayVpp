@@ -18,6 +18,7 @@ public final class BlockInsertionSort extends GrailSorting {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
+        this.setAuthors("Gaming32");
     }
 
     protected void grailRotate(int[] array, int pos, int lenA, int lenB) {

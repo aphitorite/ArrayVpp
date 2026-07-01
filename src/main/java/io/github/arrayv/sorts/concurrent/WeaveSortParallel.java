@@ -18,6 +18,7 @@ public final class WeaveSortParallel extends Sort {
         this.setUnreasonablySlow(true);
         this.setUnreasonableLimit(4096);
         this.setBogoSort(false);
+        this.setAuthors("aphitorite");
     }
 
     private class SortThread extends Thread {

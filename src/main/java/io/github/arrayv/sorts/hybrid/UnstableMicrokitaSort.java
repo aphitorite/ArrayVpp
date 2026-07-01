@@ -43,6 +43,7 @@ final public class UnstableMicrokitaSort extends Sort {
 		this.setUnreasonablySlow(false);
 		this.setUnreasonableLimit(0);
 		this.setBogoSort(false);
+        this.setAuthors("Distray");
 	}
 	/*
 	 * Unstable Microkita: Unstable Kita, golfed down to only 2x sqrt n buffer

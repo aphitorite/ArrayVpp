@@ -17,7 +17,9 @@ public final class OddEvenDandelionSort extends Sort {
         setUnreasonableLimit(0);
         setBogoSort(false);
 
-    }
+    
+        this.setAuthors("Distray");
+}
 
     @Override
     public void runSort(int[] array, int sortLength, int bucketCount) {

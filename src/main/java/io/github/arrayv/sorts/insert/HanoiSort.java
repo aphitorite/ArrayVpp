@@ -21,7 +21,7 @@ import io.github.arrayv.sorts.templates.Sort;
  * ensure all consecutive identical items were moved together. But I made it work, and
  * thus here I present the first implementation of this sort that I am aware of.
  *
- * @author Sam Walko (Anonymous0726)
+ * @author Anonymous0726
  * @see <a href="https://sudonull.com/post/7575-Sort-Tower-of-Hanoi">
  * Mrrl's Hanoi Sort pseudocode</a>
  * @see <a href="https://stackoverflow.com/a/12348866">
@@ -55,6 +55,7 @@ public final class HanoiSort extends Sort {
 		this.setUnreasonablySlow(true);
 		this.setUnreasonableLimit(32);
 		this.setBogoSort(false);
+        this.setAuthors("Anonymous0726, Andrey Astrelin");
 	}
 
 	/**

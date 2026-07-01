@@ -47,6 +47,7 @@ public final class QuickBogoSort extends BogoSorting {
         this.setUnreasonablySlow(true);
         this.setUnreasonableLimit(22);
         this.setBogoSort(true);
+        this.setAuthors("Emerald Block");
     }
 
     private int quickBogoSwap(int[] array, int start, int pivot, int end){

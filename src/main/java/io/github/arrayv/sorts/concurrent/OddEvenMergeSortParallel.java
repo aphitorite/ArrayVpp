@@ -43,6 +43,7 @@ public final class OddEvenMergeSortParallel extends Sort {
         this.setUnreasonablySlow(true);
         this.setUnreasonableLimit(4096);
         this.setBogoSort(false);
+        this.setAuthors("Ken Batcher");
     }
 
 	private int[] array;

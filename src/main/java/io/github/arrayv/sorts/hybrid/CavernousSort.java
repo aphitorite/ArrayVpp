@@ -20,6 +20,7 @@ public final class CavernousSort extends Sort {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
+        this.setAuthors("Distray");
     }
     
     // Cavernoussort: A rewrite of Unstable Lovern to try to get it to work

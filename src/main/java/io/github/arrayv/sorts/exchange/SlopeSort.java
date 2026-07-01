@@ -27,6 +27,7 @@ public final class SlopeSort extends Sort {
 		setUnreasonablySlow(true);
 		setUnreasonableLimit(16384);
 		setBogoSort(false);
+		this.setAuthors("McDude_73, Flanlaina, EilrahcF");
 
 	}
 

@@ -18,6 +18,7 @@ final public class UnstableLogPartitionSort extends GrailSorting {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
+        this.setAuthors("Distray");
     }
     
     private int log(int v) {

@@ -29,7 +29,9 @@ import io.github.arrayv.sorts.templates.BogoSorting;
      this.setUnreasonablySlow(true);
      this.setUnreasonableLimit(5);
      this.setBogoSort(true);
-   }
+   
+        this.setAuthors("Distray, naoan1201, Californium-252");
+}
 
    private void getpermutations(int[] array, int depth, int length, ArrayList<int[]> p) {
        if (depth >= length-1) {

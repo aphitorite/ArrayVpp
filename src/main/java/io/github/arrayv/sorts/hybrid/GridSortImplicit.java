@@ -19,6 +19,7 @@ final public class GridSortImplicit extends Sort {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
+        this.setAuthors("Scandum, aphitorite, Distray");
     }
     
     private void tailmerge(int[] array, int[] tmp, int start, int mid, int end, int t2, int p) {

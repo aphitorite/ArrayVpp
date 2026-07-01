@@ -17,6 +17,7 @@ public final class BinomialSmoothSort extends Sort {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
+        this.setAuthors("talinuva");
     }
 
     private int height(int node){

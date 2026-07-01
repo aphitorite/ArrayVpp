@@ -20,7 +20,9 @@ public final class BowoSort extends BogoSorting {
         this.setUnreasonablySlow(true);
         this.setUnreasonableLimit(10);
         this.setBogoSort(true);
-    }
+    
+        this.setAuthors("Distray");
+}
 
     @Override
     public void runSort(int[] array, int length, int bucketCount) {

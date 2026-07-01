@@ -16,6 +16,7 @@ final public class StacklessStoogeSort extends Sort {
         this.setUnreasonablySlow(true);
         this.setUnreasonableLimit(256);
         this.setBogoSort(false);
+        this.setAuthors("Distray");
     }
 
     // equivalent to (ternary) (v & (1 << s)) >> s

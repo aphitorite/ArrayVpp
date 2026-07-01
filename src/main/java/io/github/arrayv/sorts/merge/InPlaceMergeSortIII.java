@@ -45,6 +45,7 @@ final public class InPlaceMergeSortIII extends Sort {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
+        this.setAuthors("aphitorite");
     }
 	
 	private void inPlaceMerge3(int[] array, int a, int m, int b) {

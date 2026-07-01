@@ -42,6 +42,7 @@ public final class CreaseSort extends Sort {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
+        this.setAuthors("aphitorite, MP");
     }
 
 	private void compSwap(int[] array, int a, int b) {

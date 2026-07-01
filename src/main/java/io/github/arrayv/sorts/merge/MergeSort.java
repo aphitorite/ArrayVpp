@@ -43,6 +43,7 @@ public final class MergeSort extends MergeSorting {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
+        this.setAuthors("John von Neumann");
     }
 
     @Override

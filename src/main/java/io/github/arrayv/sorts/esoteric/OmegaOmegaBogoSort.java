@@ -45,6 +45,7 @@ public final class OmegaOmegaBogoSort extends BogoSorting {
         this.setUnreasonablySlow(true);
         this.setUnreasonableLimit(10);
         this.setBogoSort(true);
+        this.setAuthors("w0rthy");
     }
     
     private void omegaOmegaBogo(int[] array, int start, int end) {

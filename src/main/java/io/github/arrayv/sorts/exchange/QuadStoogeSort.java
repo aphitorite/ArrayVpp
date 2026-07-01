@@ -27,6 +27,7 @@ public final class QuadStoogeSort extends Sort {
 		setUnreasonablySlow(true);
 		setUnreasonableLimit(2048);
 		setBogoSort(false);
+		this.setAuthors("aphitorite, EilrahcF");
 
 	}
 

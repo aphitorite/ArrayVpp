@@ -17,6 +17,7 @@ final public class BinomialVelvetSortStackless extends Sort {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
+        this.setAuthors("Distray");
     }
     
     // Based off of Binomial Velvet, which is based off of Adaptive Velvet, which is

@@ -42,6 +42,7 @@ public final class WeaveMergeSort extends Sort {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
+        this.setAuthors("w0rthy");
     }
 
     private void weaveInsert(int[] arr, int start, int end) {

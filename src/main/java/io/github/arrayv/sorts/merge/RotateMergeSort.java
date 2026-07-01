@@ -45,6 +45,7 @@ public final class RotateMergeSort extends Sort {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
+        this.setAuthors("Andrey Astrelin, aphitorite");
     }
 
     private void multiSwap(int[] array, int a, int b, int len) {

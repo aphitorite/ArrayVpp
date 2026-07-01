@@ -1,5 +1,30 @@
 package io.github.arrayv.prompts;
 
+import java.awt.Component;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
+import java.io.File;
+import java.util.AbstractMap.SimpleImmutableEntry;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.Map;
+
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListCellRenderer;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JFrame;
+import javax.swing.JList;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextField;
+import javax.swing.ProgressMonitor;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+
 import io.github.arrayv.dialogs.ImportSortDialog;
 import io.github.arrayv.frames.AppFrame;
 import io.github.arrayv.frames.UtilFrame;
@@ -9,17 +34,6 @@ import io.github.arrayv.main.RunSort;
 import io.github.arrayv.main.SortAnalyzer;
 import io.github.arrayv.panes.JErrorPane;
 import io.github.arrayv.sortdata.SortInfo;
-
-import javax.swing.*;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
-import java.awt.*;
-import java.io.File;
-import java.util.AbstractMap.SimpleImmutableEntry;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.Map;
 
 /*
  *
@@ -88,6 +102,7 @@ public final class SortPrompt extends javax.swing.JFrame implements AppFrame {
     private static final long serialVersionUID = 1L;
 
     private static final Map<String, Map.Entry<Runnable, Integer>> CATEGORY_SORT_THREADS = new LinkedHashMap<>();
+    private static final String UNKNOWN_AUTHOR_LABEL = "(Unknown)";
 
     private final int[] array;
 
@@ -149,9 +164,24 @@ public final class SortPrompt extends javax.swing.JFrame implements AppFrame {
         jComboBox1.setModel(new DefaultComboBoxModel<>(SortInfo.getCategories(arrayVisualizer.getSorts())));
         jComboBox1.insertItemAt("All Sorts", 0);
 
-        jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
         jList1.addListSelectionListener(this::jList1ValueChanged);
+        jList1.setCellRenderer(new DefaultListCellRenderer() {
+            @Override
+            public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+                String listName = (String) value;
+                SortInfo sort = null;
+                for (SortInfo s : arrayVisualizer.getSorts()) {
+                    if (s.getListName().equals(listName)) {
+                        sort = s;
+                        break;
+                    }
+                }
+                String authors = sort != null && !sort.getAuthors().isEmpty() ? sort.getAuthors() : UNKNOWN_AUTHOR_LABEL;
+                return super.getListCellRendererComponent(list, "<html><b>" + listName + "</b> ~ " + authors + "</html>", index, isSelected, cellHasFocus);
+            }
+        });
 
         jScrollPane1.setViewportView(this.jList1);
 
@@ -364,7 +394,10 @@ public final class SortPrompt extends javax.swing.JFrame implements AppFrame {
         for (SortInfo sort : arrayVisualizer.getSorts()) {
             if (index == 0 || sort.getCategory().equals(category)) {
                 if (!showExtraSorts && sort.isFromExtra()) continue;
-                if (isSearching && !sort.getListName().toLowerCase().contains(searchTerms)) continue;
+                if (isSearching && 
+                    !sort.getListName().toLowerCase().contains(searchTerms) && 
+                    !sort.getAuthors().toLowerCase().contains(searchTerms) && 
+                    !(sort.getAuthors().isEmpty() && UNKNOWN_AUTHOR_LABEL.toLowerCase().contains(searchTerms))) continue;
                 sorts.add(sort.getListName());
             }
         }

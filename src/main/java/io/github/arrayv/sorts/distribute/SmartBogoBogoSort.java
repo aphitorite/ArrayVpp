@@ -52,6 +52,7 @@ public final class SmartBogoBogoSort extends BogoSorting {
         this.setUnreasonablySlow(true);
         this.setUnreasonableLimit(11);
         this.setBogoSort(true);
+        this.setAuthors("Emerald Block");
     }
 
     private void smartBogoBogo(int[] array, int length) {

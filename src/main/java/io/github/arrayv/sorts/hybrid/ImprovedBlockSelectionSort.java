@@ -42,6 +42,7 @@ public final class ImprovedBlockSelectionSort extends Sort {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
+        this.setAuthors("aphitorite");
     }
 
     public static int sqrt(int n) {

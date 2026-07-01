@@ -8,7 +8,7 @@ import io.github.arrayv.sorts.templates.BogoSorting;
  * randomly walks within the sorted section until it is in the correct position.
  * 
  * @author invented by Blasterfreund
- * @author implemented in Java by Sam Walko (Anonymous0726)
+ * @author implemented in Java by Anonymous0726
  * @author refactored by EmeraldBlock
  */
 final public class ChekhovSort extends BogoSorting {
@@ -24,6 +24,7 @@ final public class ChekhovSort extends BogoSorting {
         this.setUnreasonablySlow(true);
         this.setUnreasonableLimit(1024);
         this.setBogoSort(true);
+        this.setAuthors("Blasterfreund, Anonymous0726, EmeraldBlock");
     }
 
     @Override

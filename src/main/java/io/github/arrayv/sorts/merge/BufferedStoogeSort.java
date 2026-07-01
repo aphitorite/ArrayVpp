@@ -28,6 +28,7 @@ public final class BufferedStoogeSort extends Sort {
 		this.setUnreasonablySlow(false);
 		this.setUnreasonableLimit(0);
 		this.setBogoSort(false);
+        this.setAuthors("_fluffyy, Amari");
 	}
 
 	private int compare(int[] arr, int x, int y) {

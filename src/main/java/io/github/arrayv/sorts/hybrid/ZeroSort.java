@@ -19,6 +19,7 @@ public class ZeroSort extends GrailSorting {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
+        this.setAuthors("Distray");
 	}
 	private int buf, bufsz;
 	private static final int minBinsert = 8;

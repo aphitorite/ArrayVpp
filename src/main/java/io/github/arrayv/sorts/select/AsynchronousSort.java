@@ -43,6 +43,7 @@ public final class AsynchronousSort extends Sort {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
+        this.setAuthors("Gaming32");
     }
 
     @Override

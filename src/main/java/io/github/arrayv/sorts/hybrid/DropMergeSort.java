@@ -42,6 +42,7 @@ public final class DropMergeSort extends Sort {
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
+        this.setAuthors("fungamer2, Emil Ernerfeldt");
     }
 
     private final int RECENCY = 8;
