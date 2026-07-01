@@ -33,9 +33,9 @@ public final class MergeInsertionSort3 extends Sort {
 	public MergeInsertionSort3(ArrayVisualizer arrayVisualizer) {
 		super(arrayVisualizer);
 
-		this.setSortListName("Merge-Insertion (Out-of-Place)");
-		this.setRunAllSortsName("Merge-Insertion Sort (Out-of-Place)");
-		this.setRunSortName("Merge-Insertion Sort (Out-of-Place)");
+		this.setSortListName("Merge-Insertion");
+		this.setRunAllSortsName("Merge-Insertion Sort");
+		this.setRunSortName("Merge-Insertion Sort");
 		this.setCategory("Insertion Sorts");
 		this.setBucketSort(false);
 		this.setRadixSort(false);
@@ -129,7 +129,7 @@ public final class MergeInsertionSort3 extends Sort {
 		int[] table = Writes.createExternalArray(length);
 		
 		for(int i = 0; i < length; i++)
-			Writes.write(keys, i, i, 1, true, true);
+			Writes.write(keys, i, i, 0.5, true, true);
 		
 		this.mergeInsertion(array, keys, table, length);
 		
