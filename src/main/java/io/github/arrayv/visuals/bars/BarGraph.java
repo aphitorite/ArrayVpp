@@ -6,6 +6,8 @@ import io.github.arrayv.main.ArrayVisualizer;
 import io.github.arrayv.utils.Highlights;
 import io.github.arrayv.utils.Renderer;
 import io.github.arrayv.visuals.Visual;
+import io.github.arrayv.visuals.features.HeatMap;
+
 import com.scrtwpns.Mixbox;
 
 public final class BarGraph extends Visual {
@@ -16,6 +18,7 @@ public final class BarGraph extends Visual {
         this.setCategory("Bar Visuals");
         this.setAuxable(true);
         this.setOverlayable(true);
+        this.addSupportedFeatures("heat");
     }
 
     public int[] getTopPosFor(int[] array, double idx, int val, ArrayVisualizer ArrayVisualizer, Renderer Renderer) {
@@ -61,19 +64,17 @@ public final class BarGraph extends Visual {
     	boolean fancy = Highlights.fancyFinishActive(),
     			color = arrayVisualizer.colorEnabled(),
     			change = fancy || color,
-    			useAltVals = arrayVisualizer.doingStabilityCheck() && color;
+    			useAltVals = arrayVisualizer.doingStabilityCheck() && color,
+    			heatMap = arrayVisualizer.queryFeatureState("heat") > 0;
 
     	// calculate the min and max of the scales
     	double[] scl = scales(xScale, 1);
     	// keep the intended "indice length"
     	int m = Math.min(boundingBox[1] - boundingBox[0], n);
     	int val;
-    	
+
     	// change the array color at the start
-    	if(fancy)
-            this.mainRender.setColor(Color.GREEN);
-    	else
-    		this.mainRender.setColor(Color.WHITE);
+		Color col = fancy ? Color.GREEN : Color.WHITE;
     	for (int i = 0, j = 0; i < m; i++) {
     		// get the width of the indice
     		int width = (int) ((i + 1) * scl[1] - j);
@@ -81,32 +82,35 @@ public final class BarGraph extends Visual {
     		// turn it back into a raw value
     		int hm = Highlights.containsMax(array, i, n, scl[0]), v = hm < 0 ? ~hm : hm;
     		boolean hl = hm >= 0;
-    		if(hl || Highlights.hasColor(array, v)) {
-    			// set highlight color if highlighted
-				if(hl)
-					this.mainRender.setColor(arrayVisualizer.getHighlightColor());
-				else if(color) {
-					// transparent colorcode if list in color
-					val = useAltVals ? arrayVisualizer.getIndexValue(array[v]) : array[v];
-	                this.mainRender.setColor(new Color(Mixbox.lerp(
-	                	getIntColor(val, arrayVisualizer.getCurrentLength()).getRGB(),
-	                	Highlights.colorAt(array, v).getRGB(),
-	                	0.5f
-	                )));
-				} else
-					this.mainRender.setColor(Highlights.colorAt(array, v));
-				change = true;
-			} else if(change) {
-	            if (!fancy || v >= Highlights.getFancyFinishPosition()) {
-	            	if (color) {
-	            		val = useAltVals ? arrayVisualizer.getIndexValue(array[v]) : array[v];
-		                this.mainRender.setColor(getIntColor(val, arrayVisualizer.getCurrentLength()));
-	            	} else {
-	            		this.mainRender.setColor(Color.WHITE);
-	            		change = false;
-	            	}
+    		if (heatMap) col = HeatMap.getColor(array, v);
+    		if (!heatMap || col == null) {
+    			if (hl || Highlights.hasColor(array, v)) {
+	    			// set highlight color if highlighted
+					if (hl)
+						col = arrayVisualizer.getHighlightColor();
+					else if (color) {
+						// transparent colorcode if list in color
+						val = useAltVals ? arrayVisualizer.getIndexValue(array[v]) : array[v];
+		                col = new Color(Mixbox.lerp(
+		                	getIntColor(val, arrayVisualizer.getCurrentLength()).getRGB(),
+		                	Highlights.colorAt(array, v).getRGB(),
+		                	0.5f
+		                ));
+					} else col = Highlights.colorAt(array, v);
+					change = true;
+				} else if (change) {
+		            if (!fancy || v >= Highlights.getFancyFinishPosition()) {
+		            	if (color) {
+		            		val = useAltVals ? arrayVisualizer.getIndexValue(array[v]) : array[v];
+			                col = getIntColor(val, arrayVisualizer.getCurrentLength());
+		            	} else {
+		            		col = Color.WHITE;
+		            		change = false;
+		            	}
+		            }
 	            }
-            }
+    		}
+    		this.mainRender.setColor(col);
             try {
             	val = useAltVals ? arrayVisualizer.getStabilityValue(array[v]) : array[v];
             } catch(ArrayIndexOutOfBoundsException e) {

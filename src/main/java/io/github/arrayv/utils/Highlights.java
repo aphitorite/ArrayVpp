@@ -77,7 +77,6 @@ public final class Highlights {
     
     private volatile boolean retainColorMarks = false;
     public static volatile boolean fancyFinishFix = true;
-    public static volatile boolean lazyCooling = false;
 
     private final ArrayVisualizer arrayVisualizer;
     private Delays Delays;
@@ -665,21 +664,13 @@ public final class Highlights {
 		thisHM[heatPosition] = 1f - ((1f - thisHM[heatPosition]) * (1f - HEAT));
     }
     
-    public synchronized void coolDown(int[] array, int n, double scale) {
+    public synchronized void coolDown(int[] array, int n) {
     	float[] thisHM = heatVals.get(array);
     	if (thisHM == null)
             return;
-    	if (lazyCooling) // This is a horrible way to speed it up for large n. Until a better system is in place, please don't use this.
-    		for (int i = 0, j = ind(i, scale); j < n; j = ind(++i, scale)) {
-    			if (containsMax(array, i, n, scale) >= 0)
-    				for (int k = ind(i - 1, scale); ++k < j;)
-    					thisHM[i] *= 1f - COOL;
-    			thisHM[j] *= 1f - COOL;
-    		}
-    	else
-    		for (int i = 0; i < n; i++) {
-    			if (!containsPosition(array, i))
-    				thisHM[i] *= 1f - COOL;
-    		}
+		for (int i = 0; i < n; i++) {
+			if (!containsPosition(array, i))
+				thisHM[i] *= 1f - COOL;
+		}
     }
 }

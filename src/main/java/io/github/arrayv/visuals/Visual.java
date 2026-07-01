@@ -6,6 +6,7 @@ import io.github.arrayv.utils.Renderable;
 import io.github.arrayv.utils.Renderer;
 
 import java.awt.RenderingHints;
+import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.IdentityHashMap;
 import java.util.Map.Entry;
@@ -31,6 +32,7 @@ public abstract class Visual {
     private boolean auxable;
     private int maxAuxLists;
     private IdentityHashMap<RenderingHints.Key, Object> renderingHints;
+    private String[] featuresSupported;
     
     protected Graphics2D mainRender;
     protected Graphics2D extraRender;
@@ -46,6 +48,7 @@ public abstract class Visual {
         this.setOverlayable(false);
         this.setMaximumAuxLists(7);
         this.setUpRenderingHints();
+        this.addSupportedFeatures();
     }
 
     protected void enableVisual(boolean Bool) {
@@ -74,6 +77,17 @@ public abstract class Visual {
 
     protected void setOverlayable(boolean overlayable) {
         this.overlayable = overlayable;
+    }
+    
+    @SuppressWarnings("serial")
+	protected void addSupportedFeatures(String... fids) {
+    	if (this.featuresSupported == null)
+    		this.featuresSupported = new String[0];
+    	String[] prevFeatures = this.featuresSupported;
+    	this.featuresSupported = new ArrayList<String>() {{
+    		addAll(Arrays.asList(prevFeatures));
+    		addAll(Arrays.asList(fids));
+    	}}.toArray(new String[0]);
     }
     
     private void setUpRenderingHints() {
@@ -107,7 +121,6 @@ public abstract class Visual {
     public boolean isAuxable() {
         return this.auxable;
     }
-
     public int getMaximumAuxLists() {
         return this.maxAuxLists;
     }
@@ -115,6 +128,11 @@ public abstract class Visual {
     public boolean isOverlayable() {
         return this.overlayable;
     }
+    
+    public boolean supportsExtraFeature(String name) {
+    	return Arrays.asList(this.featuresSupported).contains(name);
+    }
+
     
     public Object[][] getRenderingHints() {
     	ArrayList<Object[]> ents = new ArrayList<>();

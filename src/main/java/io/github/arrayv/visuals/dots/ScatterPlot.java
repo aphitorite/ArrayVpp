@@ -43,6 +43,7 @@ public final class ScatterPlot extends Visual {
         this.setCategory("Dot Visuals");
         this.setAuxable(true);
         this.setOverlayable(true);
+        this.addSupportedFeatures("linkeddots");
     }
 
     public int[] getTopPosFor(int[] array, double idx, int val, ArrayVisualizer ArrayVisualizer, Renderer Renderer) {
@@ -64,7 +65,47 @@ public final class ScatterPlot extends Visual {
     public void drawVisual(int[] array, int[] boundingBox, ArrayVisualizer arrayVisualizer, Renderer renderer, Highlights Highlights) {
         int offset = 20 + (int) (renderer.getXScale()/2);
 
-        int dotS = renderer.getDotDimensions();
+        if (arrayVisualizer.queryFeatureState("linkeddots") > 0) {
+            int lastX = 0;
+            int lastY = (int) (((renderer.getViewSize() - 20)) - (array[0] + 1) * renderer.getYScale());
+            this.mainRender.setStroke(arrayVisualizer.getCustomStroke(2));
+
+            for (int i = 1, j = (int) renderer.getXScale(); i < renderer.getArrayLength(); i++) {
+                if (Highlights.fancyFinishActive() && i < Highlights.getFancyFinishPosition()) {
+                    this.mainRender.setColor(Color.GREEN);
+                    this.mainRender.setStroke(arrayVisualizer.getCustomStroke(4));
+                } else if (Highlights.containsPosition(i)) {
+                    this.mainRender.setColor(arrayVisualizer.getHighlightColor());
+                    this.mainRender.setStroke(arrayVisualizer.getCustomStroke(4));
+                } else if (arrayVisualizer.colorEnabled()) {
+                    int val = arrayVisualizer.doingStabilityCheck() && arrayVisualizer.colorEnabled() ? arrayVisualizer.getIndexValue(array[i]): array[i];
+                	if (Highlights.hasColor(array, i))
+                		this.mainRender.setColor(new Color(Mixbox.lerp(
+                			getIntColor(val, arrayVisualizer.getCurrentLength()).getRGB(),
+    	                	Highlights.colorAt(array, i).getRGB(),
+    	                	0.5f
+    	                )));
+                	else this.mainRender.setColor(getIntColor(val, arrayVisualizer.getCurrentLength()));
+                } else if (Highlights.hasColor(array, i)) {
+                    this.mainRender.setColor(Highlights.colorAt(array, i));
+                } else this.mainRender.setColor(Color.WHITE);
+
+                int val = arrayVisualizer.doingStabilityCheck() && arrayVisualizer.colorEnabled() ? arrayVisualizer.getStabilityValue(array[i]): array[i];
+                int y = (int) (((renderer.getViewSize() - 20)) - (val + 1) * renderer.getYScale());
+
+                this.mainRender.drawLine(lastX + offset, renderer.getYOffset() + lastY, j + offset, renderer.getYOffset() + y);
+
+                lastX = j;
+                lastY = y;
+
+                this.mainRender.setStroke(arrayVisualizer.getCustomStroke(2));
+
+                int width = (int) (renderer.getXScale() * (i + 1)) - j;
+                j += width;
+            }
+            this.mainRender.setStroke(arrayVisualizer.getDefaultStroke());
+        } else {
+            int dotS = renderer.getDotDimensions();
 
             for (int i = 0, j = 0; i < renderer.getArrayLength(); i++) {
                 if (Highlights.fancyFinishActive() && i < Highlights.getFancyFinishPosition())
@@ -101,6 +142,7 @@ public final class ScatterPlot extends Visual {
                 int width = (int) (renderer.getXScale() * (i + 1)) - j;
                 j += width;
             }
+        }
         if (arrayVisualizer.externalArraysEnabled()) {
             this.mainRender.setColor(Color.BLUE);
             this.mainRender.fillRect(0, renderer.getYOffset() + renderer.getViewSize() - 20, arrayVisualizer.currentWidth(), 1);

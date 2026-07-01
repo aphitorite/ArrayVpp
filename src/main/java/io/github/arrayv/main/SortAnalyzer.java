@@ -9,6 +9,7 @@ import io.github.arrayv.sortdata.VisualInfo;
 import io.github.arrayv.sorts.templates.Sort;
 import io.github.arrayv.utils.CommonUtils;
 import io.github.arrayv.visuals.Visual;
+import io.github.arrayv.visuals.VisualFeature;
 import io.github.classgraph.ClassGraph;
 import io.github.classgraph.ClassInfo;
 import io.github.classgraph.ScanResult;
@@ -18,6 +19,8 @@ import javax.tools.*;
 import javax.tools.JavaCompiler.CompilationTask;
 import java.awt.*;
 import java.io.*;
+import java.lang.invoke.MethodHandles;
+import java.lang.invoke.MethodType;
 import java.lang.reflect.Method;
 import java.net.*;
 import java.nio.file.Files;
@@ -89,7 +92,8 @@ public final class SortAnalyzer {
     }
 
     private final ArrayList<SortInfo> sorts;
-    public ArrayList<VisualInfo> visuals;
+    private final ArrayList<VisualInfo> visuals;
+    private final ArrayList<VisualFeature> features;
     private final ArrayList<String> invalidSorts;
     private final ArrayList<String> suggestions;
 
@@ -100,6 +104,7 @@ public final class SortAnalyzer {
     SortAnalyzer(ArrayVisualizer arrayVisualizer) {
         this.sorts = new ArrayList<>();
         this.visuals = new ArrayList<>();
+        this.features = new ArrayList<>();
         this.invalidSorts = new ArrayList<>();
         this.suggestions = new ArrayList<>();
 
@@ -221,6 +226,33 @@ public final class SortAnalyzer {
         return true;
     }
 
+    private boolean compileSingleVisualFeature(Class<? extends VisualFeature> vslfClass) {
+        try {
+            VisualFeature feature;
+            try {
+            	feature = (VisualFeature) (MethodHandles.publicLookup().findConstructor(vslfClass, MethodType.methodType(void.class, ArrayVisualizer.class)).invoke(arrayVisualizer));
+            } catch (Throwable t) {
+            	throw new Exception("piss");
+            }
+
+            try {
+                if (verifyVisualFeature(feature)) {
+                    features.add(feature);
+                } else {
+                    throw new Exception(sortErrorMsg);
+                }
+            } catch (Exception e) {
+                invalidSorts.add(vslfClass.getName() + " (" + e.getMessage() + ")");
+                return false;
+            }
+        } catch (Exception e) {
+            JErrorPane.invokeErrorMessage(e, "Could not load " + vslfClass.getName());
+            invalidSorts.add(vslfClass.getName() + " (failed to load)");
+            return false;
+        }
+        return true;
+    }
+
     private Map<String, SortInfo> getSortNameCategory(SortNameType type) {
         return sortsByName.computeIfAbsent(type, k -> new HashMap<>());
     }
@@ -256,6 +288,7 @@ public final class SortAnalyzer {
     public void analyzeSorts(boolean includeExtras) {
         this.sorts.clear();
         this.visuals.clear();
+        this.features.clear();
         this.invalidSorts.clear();
         this.suggestions.clear();
         this.sortErrorMsg = null;
@@ -269,7 +302,8 @@ public final class SortAnalyzer {
             	"visuals",           "io.github.arrayv.visuals"
             )
             .rejectClasses(
-            	"visuals.Visual",    "io.github.arrayv.visuals.Visual"
+            	"visuals.Visual",        "io.github.arrayv.visuals.Visual",
+            	"visuals.VisualFeature", "io.github.arrayv.visuals.VisualFeature"
             )
             .rejectPackages(
             	"visuals.templates", "io.github.arrayv.visuals.templates"
@@ -283,9 +317,13 @@ public final class SortAnalyzer {
             for (int i = 0; i < visualFiles.size(); i++) {
                 ClassInfo visualFile = visualFiles.get(i);
                 if (visualFile.getName().contains("$")) continue; // Ignore inner classes
-                this.compileSingleVisual(visualFile.loadClass(Visual.class));
+                // visualFile.extendsSuperclass(VisualFeature.class) didn't work, and i'm not even going to try and pretend i know why
+                if (visualFile.loadClass().getSuperclass().equals(VisualFeature.class))
+                    this.compileSingleVisualFeature(visualFile.loadClass(VisualFeature.class));
+                else
+                    this.compileSingleVisual(visualFile.loadClass(Visual.class));
             }
-            sortSorts();
+            sortVisuals();
         } catch (Exception e) {
             JErrorPane.invokeErrorMessage(e);
         }
@@ -795,6 +833,22 @@ public final class SortAnalyzer {
         return true;
     }
 
+    private boolean verifyVisualFeature(VisualFeature feature) {
+        if (feature.isDisabled()) {
+            this.sortErrorMsg = "manually disabled";
+            return false;
+        }
+        if (feature.getListName().isEmpty()) {
+            this.sortErrorMsg = "missing feature name";
+            return false;
+        }
+        if (feature.getListID().isEmpty()) {
+            this.sortErrorMsg = "missing feature ID";
+            return false;
+        }
+        return true;
+    }
+
     private static String checkForSuggestions(SortInfo sort) {
         StringBuilder suggestions = new StringBuilder();
         boolean warned = false;
@@ -815,11 +869,15 @@ public final class SortAnalyzer {
     }
 
     public SortInfo[] getSorts() {
-        return sorts.toArray(new SortInfo[this.sorts.size()]);
+        return sorts.toArray(new SortInfo[0]);
     }
 
     public VisualInfo[] getVisuals() {
-        return visuals.toArray(new VisualInfo[this.visuals.size()]);
+        return visuals.toArray(new VisualInfo[0]);
+    }
+    
+    public VisualFeature[] getVisualFeatures() {
+    	return features.toArray(new VisualFeature[0]);
     }
 
     public String[] getInvalidSorts() {

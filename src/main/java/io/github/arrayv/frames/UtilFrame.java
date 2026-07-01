@@ -313,6 +313,10 @@ public final class UtilFrame extends javax.swing.JFrame {
 	        arrayVisualizer.toggleColor(colorCheckbox.isSelected());
     	}
     }
+    public void setColorState(boolean val) {
+    	colorCheckbox.setSelected(this.lastUnlockedColor = val);
+        arrayVisualizer.toggleColor(colorCheckbox.isSelected());
+    }
     public void unlockColorState() {
     	if(!colorCheckbox.isEnabled()) {
 	    	colorCheckbox.setEnabled(true);
@@ -328,6 +332,11 @@ public final class UtilFrame extends javax.swing.JFrame {
 	    	auxCheckbox.setEnabled(false);
 	        arrayVisualizer.toggleExternalArrays(auxCheckbox.isSelected());
     	}
+    }
+
+    public void setAuxState(boolean val) {
+    	auxCheckbox.setSelected(this.lastUnlockedAux = val);
+	    arrayVisualizer.toggleExternalArrays(auxCheckbox.isSelected());
     }
     public void unlockAuxState() {
     	if(!auxCheckbox.isEnabled()) {

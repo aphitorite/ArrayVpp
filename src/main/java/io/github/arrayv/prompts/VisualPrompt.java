@@ -5,6 +5,9 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.IdentityHashMap;
+import java.util.function.Function;
+import java.util.function.UnaryOperator;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.GroupLayout.Alignment;
@@ -83,10 +86,35 @@ public final class VisualPrompt extends javax.swing.JFrame implements AppFrame {
     private static int lastCategory = -1;
 
     private static final long serialVersionUID = 1L;
+    
+    private static final int ROW = 3;
 
     private ArrayVisualizer arrayVisualizer;
     private JFrame frame;
     private UtilFrame utilFrame;
+    private IdentityHashMap<String, javax.swing.JCheckBox> jCheckBoxes;
+    
+    private javax.swing.JCheckBox byIndex(int i) {
+        String id = arrayVisualizer.getVisualFeatures()[i].getListID();
+        if (jCheckBoxes.containsKey(id)) return jCheckBoxes.get(id);
+        int q = arrayVisualizer.queryFeatureState(id);
+        javax.swing.JCheckBox n = new javax.swing.JCheckBox();
+        n.setText(arrayVisualizer.getVisualFeatures()[i].getListName());
+        n.setSelected(q > 0);
+        n.setEnabled(Math.abs(q) < 2);
+        n.addActionListener(evt -> {
+            arrayVisualizer.setVisualFeature(id, n.isSelected() ? 1 : -1);
+            for (String I : jCheckBoxes.keySet()) {
+                int v = arrayVisualizer.queryFeatureState(I);
+                if (jCheckBoxes.get(I).isSelected() ^ (v > 0)) {
+                    jCheckBoxes.get(I).setSelected(v > 0);
+                }
+                jCheckBoxes.get(I).setEnabled(Math.abs(v) < 2);
+            }
+        });
+        jCheckBoxes.put(id, n);
+        return n;
+    }
 
     public VisualPrompt(ArrayVisualizer arrayVisualizer, JFrame frame, UtilFrame utilFrame) {
         this.arrayVisualizer = arrayVisualizer;
@@ -120,11 +148,11 @@ public final class VisualPrompt extends javax.swing.JFrame implements AppFrame {
     @SuppressWarnings({ "unchecked", "rawtypes" })
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-
         this.jComboBox1 = new javax.swing.JComboBox();
         this.jScrollPane1 = new javax.swing.JScrollPane();
         this.jList1 = new javax.swing.JList();
         this.jTextField1 = new PlaceholderTextField();
+        this.jCheckBoxes = new IdentityHashMap<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -166,25 +194,55 @@ public final class VisualPrompt extends javax.swing.JFrame implements AppFrame {
         });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        
+        UnaryOperator<javax.swing.GroupLayout.ParallelGroup> boxesH = g -> {
+            int n = arrayVisualizer.getVisualFeatures().length;
+            for (int i = 0; i < n; i += ROW) {
+                javax.swing.GroupLayout.SequentialGroup s = layout.createSequentialGroup().addGap(25, 25, 25);
+                for (int j = i; j < i + ROW && j < n; j++) {
+                    if (j != i) s.addGap(5, 5, 5);
+                    s.addComponent(byIndex(j));
+                }
+                g.addGroup(Alignment.CENTER, s.addGap(25, 25, 25));
+            }
+            return g;
+        };
+        
+        UnaryOperator<javax.swing.GroupLayout.SequentialGroup> boxesV = G -> {
+            int n = arrayVisualizer.getVisualFeatures().length;
+            javax.swing.GroupLayout.ParallelGroup p = layout.createParallelGroup(Alignment.CENTER);
+            for (int j = 0; j < ROW; j++) {
+                javax.swing.GroupLayout.SequentialGroup g = layout.createSequentialGroup();
+                for (int i = j; i < n; i += ROW) {
+                    g.addGap(5, 5, 5).addComponent(byIndex(i));
+                }
+                if (j < n) p.addGroup(g);
+            }
+            if (n > 0) G.addGroup(p);
+            return G.addGap(25, 25, 25);
+        };
+        
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
+            boxesH.apply(
             layout.createParallelGroup(Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addComponent(this.jComboBox1)
-                .addGap(25, 25, 25))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(45, 45, 45)
-                .addComponent(this.jTextField1)
-                .addGap(45, 45, 45))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addComponent(this.jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(25, 25, 25))
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(25, 25, 25)
+                    .addComponent(this.jComboBox1)
+                    .addGap(25, 25, 25))
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(45, 45, 45)
+                    .addComponent(this.jTextField1)
+                    .addGap(45, 45, 45))
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(25, 25, 25)
+                    .addComponent(this.jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(25, 25, 25))
+           )
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
+                .addGroup(boxesV.apply(layout.createSequentialGroup()
                     .addContainerGap()
                     .addGroup(layout.createParallelGroup(Alignment.BASELINE)
                         .addComponent(this.jComboBox1))
@@ -194,8 +252,7 @@ public final class VisualPrompt extends javax.swing.JFrame implements AppFrame {
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                     .addGroup(layout.createParallelGroup(Alignment.LEADING, false)
                         .addComponent(this.jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE))
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGap(25, 25, 25))
+                ))
         );
 
         pack();
@@ -213,20 +270,20 @@ public final class VisualPrompt extends javax.swing.JFrame implements AppFrame {
         }
         arrayVisualizer.setActiveVisual(vslNotFinal);
         switch(vslNotFinal.getColorability()) {
-        	case NEVER:
-        		utilFrame.lockColorState(false);
-        		break;
-        	case AGNOSTIC:
-        		utilFrame.unlockColorState();
-        		break;
-        	case ALWAYS:
-        		utilFrame.lockColorState(true);
-        		break;
+            case NEVER:
+                utilFrame.lockColorState(false);
+                break;
+            case AGNOSTIC:
+                utilFrame.unlockColorState();
+                break;
+            case ALWAYS:
+                utilFrame.lockColorState(true);
+                break;
         }
         if(vslNotFinal.isAuxable()) {
-        	utilFrame.unlockAuxState();
+            utilFrame.unlockAuxState();
         } else {
-        	utilFrame.lockAuxState(false);
+            utilFrame.lockAuxState(false);
         }
         utilFrame.visualButtonResetText();
         dispose();

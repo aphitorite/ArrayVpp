@@ -184,10 +184,6 @@ public final class ShufflePrompt extends javax.swing.JFrame implements AppFrame 
     	                    .addGroup(layout.createSequentialGroup()
     	                            .addComponent(jCheckBox1)))
                     )
-                    /*
-                    .addGroup(javax.swing.GroupLayout.Alignment.CENTER, layout.createSequentialGroup()
-                            .addComponent(this.jButton1)
-                            .addComponent(this.jCheckBox1)))*/
             );
             layout.setVerticalGroup(
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

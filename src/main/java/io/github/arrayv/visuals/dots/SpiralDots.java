@@ -44,6 +44,7 @@ public final class SpiralDots extends Visual {
         this.setListName("Spiral Dots");
         this.setCategory("Dot Visuals");
         this.setOverlayable(true);
+        this.addSupportedFeatures("linkeddots");
     }
     
     public int[] getTopPosFor(int[] array, double idx, int val, ArrayVisualizer ArrayVisualizer, Renderer Renderer) {
@@ -75,7 +76,44 @@ public final class SpiralDots extends Visual {
         int n = arrayVisualizer.getCurrentLength();
         double r = Math.min(width, height)/2.5;
 
-        int dotS = renderer.getDotDimensions();
+        if (arrayVisualizer.queryFeatureState("linkeddots") > 0) {
+            double mult = (double) array[n-1] / arrayVisualizer.getCurrentLength();
+            int lastX =  width/2 + (int)(mult * r * Math.cos(Math.PI * (2d*(n-1) / n - 0.5)));
+            int lastY = height/2 + (int)(mult * r * Math.sin(Math.PI * (2d*(n-1) / n - 0.5)));
+            this.mainRender.setStroke(arrayVisualizer.getCustomStroke(2));
+
+            for (int i = 0; i < n; i++) {
+                if (Highlights.fancyFinishActive() && i < Highlights.getFancyFinishPosition())
+                    this.mainRender.setColor(Color.GREEN);
+
+                if (Highlights.containsPosition(i)) {
+                    this.mainRender.setColor(arrayVisualizer.getHighlightColor());
+                    this.mainRender.setStroke(arrayVisualizer.getCustomStroke(4));
+                } else if (arrayVisualizer.colorEnabled()) {
+                	if (Highlights.hasColor(array, i))
+                		this.mainRender.setColor(new Color(Mixbox.lerp(
+                			getIntColor(array[i], arrayVisualizer.getCurrentLength()).getRGB(),
+    	                	Highlights.colorAt(array, i).getRGB(),
+    	                	0.5f
+    	                )));
+                	else this.mainRender.setColor(getIntColor(array[i], arrayVisualizer.getCurrentLength()));
+                } else if (Highlights.hasColor(array, i)) {
+                    this.mainRender.setColor(Highlights.colorAt(array, i));
+                } else  this.mainRender.setColor(Color.WHITE);
+
+                mult = (double) array[i] / arrayVisualizer.getCurrentLength();
+                int x =  width/2 + (int)(mult * r * Math.cos(Math.PI * (2d*i / n - 0.5)));
+                int y = height/2 + (int)(mult * r * Math.sin(Math.PI * (2d*i / n - 0.5)));
+
+                this.mainRender.drawLine(lastX, lastY, x, y);
+                this.mainRender.setStroke(arrayVisualizer.getCustomStroke(2));
+
+                lastX = x;
+                lastY = y;
+            }
+            this.mainRender.setStroke(arrayVisualizer.getDefaultStroke());
+        } else {
+            int dotS = renderer.getDotDimensions();
 
             for (int i = 0; i < n; i++) {
                 if (Highlights.fancyFinishActive() && i < Highlights.getFancyFinishPosition())
@@ -109,5 +147,6 @@ public final class SpiralDots extends Visual {
                     this.mainRender.fillRect(x - 2*dotS, y - 2*dotS, 4*dotS, 4*dotS);
                 }
             }
+        }
     }
 }

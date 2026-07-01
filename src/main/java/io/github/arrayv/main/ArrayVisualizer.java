@@ -1,5 +1,58 @@
 package io.github.arrayv.main;
 
+import java.awt.BasicStroke;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.KeyboardFocusManager;
+import java.awt.RenderingHints;
+import java.awt.Shape;
+import java.awt.Stroke;
+import java.awt.Toolkit;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.dnd.DnDConstants;
+import java.awt.dnd.DropTarget;
+import java.awt.dnd.DropTargetDropEvent;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
+import java.awt.event.InputEvent;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.WindowEvent;
+import java.awt.font.TextLayout;
+import java.awt.geom.AffineTransform;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.text.NumberFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Hashtable;
+import java.util.IdentityHashMap;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Properties;
+import java.util.Scanner;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.function.UnaryOperator;
+
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.UIManager;
+import javax.swing.WindowConstants;
+
 import io.github.arrayv.dialogs.FileDialog;
 import io.github.arrayv.dialogs.SaveArrayDialog;
 import io.github.arrayv.frames.ArrayFrame;
@@ -10,30 +63,21 @@ import io.github.arrayv.groovyapi.ScriptManager;
 import io.github.arrayv.panes.JErrorPane;
 import io.github.arrayv.sortdata.SortInfo;
 import io.github.arrayv.sortdata.VisualInfo;
+import io.github.arrayv.utils.AntiQSort;
+import io.github.arrayv.utils.ArrayFileWriter;
+import io.github.arrayv.utils.ArrayVList;
+import io.github.arrayv.utils.ConstantBuilder;
+import io.github.arrayv.utils.Delays;
+import io.github.arrayv.utils.Highlights;
+import io.github.arrayv.utils.Reads;
 import io.github.arrayv.utils.Renderer;
+import io.github.arrayv.utils.ShellsortGaps;
+import io.github.arrayv.utils.Sounds;
+import io.github.arrayv.utils.Statistics;
 import io.github.arrayv.utils.Timer;
-import io.github.arrayv.utils.*;
+import io.github.arrayv.utils.Writes;
 import io.github.arrayv.visuals.Visual;
-
-import javax.swing.*;
-import java.awt.*;
-import java.awt.datatransfer.DataFlavor;
-import java.awt.dnd.DnDConstants;
-import java.awt.dnd.DropTarget;
-import java.awt.dnd.DropTargetDropEvent;
-import java.awt.event.*;
-import java.awt.font.TextLayout;
-import java.awt.geom.AffineTransform;
-import java.awt.image.BufferedImage;
-import java.io.*;
-import java.math.RoundingMode;
-import java.text.DecimalFormat;
-import java.text.DecimalFormatSymbols;
-import java.text.NumberFormat;
-import java.util.List;
-import java.util.*;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.function.UnaryOperator;
+import io.github.arrayv.visuals.VisualFeature;
 
 /*
  *
@@ -170,7 +214,6 @@ public final class ArrayVisualizer {
 
     private volatile boolean showStatistics;
     private volatile boolean showColor;
-
     private volatile boolean showExternalArrays;
 
     private volatile boolean useAntiQSort;
@@ -203,6 +246,8 @@ public final class ArrayVisualizer {
 
     private VisualInfo[] visuals;
     private Visual runningVisual;
+    private VisualFeature[] features;
+    private IdentityHashMap<String, Integer> featureStates;
 
     private final AtomicInteger updateVisualsForced;
     private volatile boolean benchmarking;
@@ -521,6 +566,8 @@ public final class ArrayVisualizer {
 
         this.updateVisualsForced = new AtomicInteger();
         this.benchmarking = false;
+        
+        this.featureStates = new IdentityHashMap<>();
 
         this.cx = 0;
         this.cy = 0;
@@ -565,7 +612,7 @@ public final class ArrayVisualizer {
                             int[][] arrays = ArrayVisualizer.this.arrays.toArray(new int[ttl][]);
                             int count = ArrayVisualizer.this.arrays.size();
                             for(int v = 0; count < ttl; v++, count++) {
-                            	arrays[count] = ArrayVisualizer.this.arrayVLists.get(v).__internal_array();
+                                arrays[count] = ArrayVisualizer.this.arrayVLists.get(v).__internal_array();
                             }
                             ArrayVisualizer.this.renderer.drawVisual(ArrayVisualizer.this.runningVisual, arrays, ArrayVisualizer.this, ArrayVisualizer.this.Highlights);
 
@@ -607,12 +654,13 @@ public final class ArrayVisualizer {
     public void refreshTables() {
         this.sorts = this.sortAnalyzer.getSorts();
         this.visuals = this.sortAnalyzer.getVisuals();
+        this.features = this.sortAnalyzer.getVisualFeatures();
         this.invalidSorts = this.sortAnalyzer.getInvalidSorts();
         this.sortSuggestions = this.sortAnalyzer.getSuggestions();
     }
     
     private void drawString(String text, int x, int y, boolean dropShadow) {
-    	if(dropShadow) return;
+        if(dropShadow) return;
         Stroke stroke = this.mainRender.getStroke();
         Color color = this.mainRender.getColor();
         this.mainRender.setStroke(new BasicStroke(5f, BasicStroke.CAP_SQUARE, BasicStroke.JOIN_ROUND));
@@ -639,7 +687,7 @@ public final class ArrayVisualizer {
             yOffset += 3;
         }
 
-    	int fHeight = this.mainRender.getFontMetrics().getHeight();
+        int fHeight = this.mainRender.getFontMetrics().getHeight();
         int yPos = this.mainRender.getFontMetrics().getAscent(), fyPos = yPos;
         
         this.mainRender.setColor(textColor);
@@ -681,11 +729,11 @@ public final class ArrayVisualizer {
                     stat = statSnapshot.getReversalCount();
                     break;
                 case AUX_STATS:
-                	for(String neostat : statSnapshot.parseMap()) {
-                    	wMax = Math.max(wMax, this.mainRender.getFontMetrics().stringWidth(neostat));
+                    for(String neostat : statSnapshot.parseMap()) {
+                        wMax = Math.max(wMax, this.mainRender.getFontMetrics().stringWidth(neostat));
                         mainRender.drawString(neostat, xOffset, yPos + yOffset);
                         yPos += fHeight - 2;
-                	}
+                    }
                     continue statLoop;
                 case CONSTANT:
                     stat = statSnapshot.getConstant();
@@ -711,9 +759,9 @@ public final class ArrayVisualizer {
                 default:
                     stat = null; // Unreachable
             }
-        	wMax = Math.max(wMax, this.mainRender.getFontMetrics().stringWidth(stat));
+            wMax = Math.max(wMax, this.mainRender.getFontMetrics().stringWidth(stat));
             //mainRender.drawString(stat, xOffset, (int)(windowRatio * yPos) + yOffset);
-        	drawString(stat, xOffset, yPos + yOffset, dropShadow);
+            drawString(stat, xOffset, yPos + yOffset, dropShadow);
             yPos += fHeight - 2;
         }
         if (Highlights.getDeclaredColors().size() > 0) {
@@ -735,7 +783,7 @@ public final class ArrayVisualizer {
                 if (!dropShadow)
                     mainRender.setColor(textColor);
                 //mainRender.drawString(color, startOffset + metricFontHeight + xOffset - 9, copyYPos);
-            	drawString(color, startOffset + fHeight + xOffset - 9, copyYPos, dropShadow);
+                drawString(color, startOffset + fHeight + xOffset - 9, copyYPos, dropShadow);
             }
         }
     }
@@ -876,6 +924,90 @@ public final class ArrayVisualizer {
 
     public VisualInfo[] getVisuals() {
         return this.visuals;
+    }
+    
+    public VisualFeature[] getVisualFeatures() {
+        return this.features;
+    }
+    
+    public int queryFeatureState(String id) {
+        return this.featureStates.getOrDefault(id, -1);
+    }
+    
+    public VisualFeature getVisualFeatureById(String id) {
+        for (VisualFeature f : this.features) {
+            if (f.getListID() == id) {
+                return f;
+            }
+        }
+        return null;
+    }
+    
+    public void setVisualFeature(String id, int state) {
+        // the worst, least reliable code i have ever written
+        int prevState = this.queryFeatureState(id);
+        if (id == "$color") {
+            switch (state) {
+                case -2: utilFrame.lockColorState(false); break;
+                case -1: utilFrame.setColorState(false); break;
+                case 0: if (prevState <= 2 && prevState >= -2) utilFrame.unlockColorState(); break;
+                case 1: utilFrame.setColorState(true); break;
+                case 2: utilFrame.lockColorState(true); break;
+            }
+        } else if (id == "$aux") {
+            switch (state) {
+                case -2: utilFrame.lockAuxState(false); break;
+                case -1: utilFrame.setAuxState(false); break;
+                case 0: if (prevState <= 2 && prevState >= -2) utilFrame.unlockAuxState(); break;
+                case 1: utilFrame.setAuxState(true); break;
+                case 2: utilFrame.lockAuxState(true); break;
+            }
+        } else {
+            VisualFeature f = this.getVisualFeatureById(id);
+            if (f == null) return;
+            if (Math.signum(prevState) != Math.signum(state)) {
+                if (state >= 1) {
+                    for (String dep : f.getIDsPulledUp()) {
+                        this.setVisualFeature(dep, 2);
+                    }
+                    for (String dep : f.getIDsPulledDown()) {
+                        this.setVisualFeature(dep, 0);
+                    }
+                    for (String dep : f.getIDsFlippedDown()) {
+                        this.setVisualFeature(dep, -2);
+                    }
+                    for (String dep : f.getIDsFlippedUp()) {
+                        this.setVisualFeature(dep, 0);
+                    }
+                    f.pullUp();
+                } else if (state <= -1) {
+                    f.pullDown();
+                    for (String dep : f.getIDsPulledDown()) {
+                        this.setVisualFeature(dep, -2);
+                    }
+                    for (String dep : f.getIDsPulledUp()) {
+                        this.setVisualFeature(dep, 0);
+                    }
+                    for (String dep : f.getIDsFlippedUp()) {
+                        this.setVisualFeature(dep, 2);
+                    }
+                    for (String dep : f.getIDsFlippedDown()) {
+                        this.setVisualFeature(dep, 0);
+                    }
+                }
+            }
+        }
+        if (Math.abs(prevState) == 2 && Math.abs(state) == 1) {
+        	state = prevState;
+        } else if (Math.abs(prevState) > 2 || (Math.abs(prevState) == 2 && Math.abs(state) == 0)) {
+        	if (Math.abs(state) != 1) {
+                if (Math.signum(prevState) == Math.signum(state))
+                    state = (int) Math.signum(prevState) * (Math.abs(prevState) + 1);
+                else
+                    state = (int) Math.signum(prevState) * (Math.abs(prevState) - 1);
+        	} else  state = prevState;
+        }
+        this.featureStates.put(id, state == 0 ? prevState : state);
     }
 
     public UtilFrame getUtilFrame() {
@@ -1148,7 +1280,7 @@ public final class ArrayVisualizer {
         return new BasicStroke((float) (size * this.getWindowRatio()));
     }
     public BufferedImage getFramebuffer() {
-    	return this.img;
+        return this.img;
     }
     public Graphics2D getMainRender() {
         return this.mainRender;
@@ -1157,28 +1289,28 @@ public final class ArrayVisualizer {
         return this.extraRender;
     }
     @SuppressWarnings("serial")
-	public void setMainRender() {
+    public void setMainRender() {
         this.mainRender = (Graphics2D) this.img.getGraphics();
         if (this.runningVisual != null)
-        	this.runningVisual.updateRender(INSTANCE);
+            this.runningVisual.updateRender(INSTANCE);
         this.mainRender.addRenderingHints(new IdentityHashMap<RenderingHints.Key,Object>() {{
-        	if (runningVisual != null) {
-        		for (Object[] pair : runningVisual.getRenderingHints()) {
-            		put((RenderingHints.Key) pair[0], pair[1]);
-            	}
-        	}
-        	putIfAbsent(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_LCD_HRGB);
-        	putIfAbsent(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        	putIfAbsent(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY);
-        	putIfAbsent(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_NEAREST_NEIGHBOR);
-        	// put(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+            if (runningVisual != null) {
+                for (Object[] pair : runningVisual.getRenderingHints()) {
+                    put((RenderingHints.Key) pair[0], pair[1]);
+                }
+            }
+            putIfAbsent(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_LCD_HRGB);
+            putIfAbsent(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+            putIfAbsent(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY);
+            putIfAbsent(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_NEAREST_NEIGHBOR);
+            // put(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
         }});
     }
     public void setExtraRender() {
         this.extraRender = (Graphics2D) this.img.getGraphics();
     }
     public void updateRendersForActiveVisual() {
-    	this.runningVisual.updateRender(INSTANCE);
+        this.runningVisual.updateRender(INSTANCE);
     }
     
     public void resetMainStroke() {
@@ -1372,54 +1504,12 @@ public final class ArrayVisualizer {
         this.Highlights.clearAllMarks();
     }
 
-    /**
-     * @deprecated No longer does anything
-     */
-    @Deprecated
-    public void togglePointer(boolean showPointer) {
-    }
-
-    /**
-     * @deprecated No longer does anything
-     */
-    @Deprecated
-    public void toggleDistance(boolean unused) {
-    }
-
-    /**
-     * @deprecated No longer does anything
-     */
-    @Deprecated
-    public void togglePixels(boolean usePixels) {
-    }
-
-    /**
-     * @deprecated No longer does anything
-     */
-    @Deprecated
-    public void toggleRainbow(boolean rainbow) {
-    }
-
-    /**
-     * @deprecated No longer does anything
-     */
-    @Deprecated
-    public void toggleSpiral(boolean spiral) {
-    }
-
     public void toggleStatistics(boolean showStatistics) {
         this.showStatistics = showStatistics;
     }
 
     public void toggleColor(boolean showColor) {
         this.showColor = showColor;
-    }
-
-    /**
-     * @deprecated No longer does anything
-     */
-    @Deprecated
-    public void toggleWave(boolean useWave) {
     }
 
     public void toggleExternalArrays(boolean showExternalArrays) {
@@ -1431,36 +1521,42 @@ public final class ArrayVisualizer {
     }
     
     public void setActiveVisual(VisualInfo visual) {
-    	this.runningVisual.pullDown();
-    	this.runningVisual = visual.getFreshInstance();
-    	this.setMainRender();
-    	this.runningVisual.bringUp();
+    	if (this.runningVisual != null) this.runningVisual.pullDown();
+        this.runningVisual = visual.getFreshInstance();
+        this.setMainRender();
+        this.runningVisual.bringUp();
+        for (VisualFeature f : this.features) {
+        	this.setVisualFeature(f.getListID(), this.runningVisual.supportsExtraFeature("*") || this.runningVisual.supportsExtraFeature(f.getListID()) ? 0 : -2);
+        }
         synchronized (this) {
             this.updateNow();
         }
     }
     
     public void setActiveVisual(Visual visual) {
-    	this.runningVisual.pullDown();
-    	this.runningVisual = visual;
-    	this.setMainRender();
-    	this.runningVisual.bringUp();
+        if (this.runningVisual != null) this.runningVisual.pullDown();
+        this.runningVisual = visual;
+        this.setMainRender();
+        this.runningVisual.bringUp();
+        for (VisualFeature f : this.features) {
+        	this.setVisualFeature(f.getListID(), this.runningVisual.supportsExtraFeature("*") || this.runningVisual.supportsExtraFeature(f.getListID()) ? 0 : -2);
+        }
         synchronized (this) {
             this.updateNow();
         }
     }
     
     public int[] getTopPos(int[] array, int idx) {
-    	return this.runningVisual.getTopPos(array, idx, this, this.renderer);
+        return this.runningVisual.getTopPos(array, idx, this, this.renderer);
     }
     public int[] getTopPosFor(int[] array, double idx, int val) {
-    	return this.runningVisual.getTopPosFor(array, idx, val, this, this.renderer);
+        return this.runningVisual.getTopPosFor(array, idx, val, this, this.renderer);
     }
     public int[] getBottomPos(int[] array, int idx) {
-    	return this.runningVisual.getBottomPos(array, idx, this, this.renderer);
+        return this.runningVisual.getBottomPos(array, idx, this, this.renderer);
     }
     public int[] getBottomPosFor(int[] array, double idx, int val) {
-    	return this.runningVisual.getBottomPosFor(array, idx, val, this, this.renderer);
+        return this.runningVisual.getBottomPosFor(array, idx, val, this, this.renderer);
     }
 
     public int getCurrentGap() {
@@ -1489,53 +1585,8 @@ public final class ArrayVisualizer {
         this.utilFrame.reposition(this.arrayFrame);
     }
 
-    /**
-     * @deprecated No longer does anything (always returns {@code false})
-     * @return {@code false}
-     */
-    @Deprecated
-    public boolean rainbowEnabled() {
-        return false;
-    }
-
     public boolean colorEnabled() {
         return this.showColor;
-    }
-
-    /**
-     * @deprecated No longer does anything (always returns {@code false})
-     * @return {@code false}
-     */
-    @Deprecated
-    public boolean spiralEnabled() {
-        return false;
-    }
-
-    /**
-     * @deprecated No longer does anything (always returns {@code false})
-     * @return {@code false}
-     */
-    @Deprecated
-    public boolean distanceEnabled() {
-        return false;
-    }
-
-    /**
-     * @deprecated No longer does anything (always returns {@code false})
-     * @return {@code false}
-     */
-    @Deprecated
-    public boolean pixelsEnabled() {
-        return false;
-    }
-
-    /**
-     * @deprecated No longer does anything (always returns {@code false})
-     * @return {@code false}
-     */
-    @Deprecated
-    public boolean waveEnabled() {
-        return false;
     }
 
     public boolean externalArraysEnabled() {
@@ -1554,8 +1605,10 @@ public final class ArrayVisualizer {
         return parsed.toString();
     }
 
+    public void fillVisual() {
+        if (this.runningVisual == null) this.setActiveVisual(new io.github.arrayv.visuals.bars.BarGraphTiled(this));
+    }
     private void drawWindows() {
-    	this.runningVisual = new io.github.arrayv.visuals.bars.BarGraphTiled(this);
         this.category = "Select a Sort";
 
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();

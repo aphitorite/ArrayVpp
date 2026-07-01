@@ -2,6 +2,7 @@ package io.github.arrayv.utils;
 
 import io.github.arrayv.main.ArrayVisualizer;
 import io.github.arrayv.visuals.Visual;
+import io.github.arrayv.visuals.VisualFeature;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -178,6 +179,7 @@ public final class Renderer {
 
     public static void createRenders(ArrayVisualizer arrayVisualizer) {
         arrayVisualizer.createImage();
+        arrayVisualizer.fillVisual();
         arrayVisualizer.setMainRender();
         arrayVisualizer.setExtraRender();
         arrayVisualizer.updateRendersForActiveVisual();
@@ -272,13 +274,25 @@ public final class Renderer {
     	int vis_count = countLast = arrayVisualizer.externalArraysEnabled() ? Math.min(arrays.length - 1, activeVisual.getMaximumAuxLists()) : 0;
     	int arrays_count = arrayVisualizer.getArrays().size();
     	int[] box;
+        for (VisualFeature f : arrayVisualizer.getVisualFeatures()) {
+        	if (arrayVisualizer.queryFeatureState(f.getListID()) > 0)
+        		f.globalPrerender();
+        }
         if (arrayVisualizer.externalArraysEnabled()) {
             this.auxActive = true;
             for (int i = vis_count; i > 0; i--) {
                 if (arrays[i] != null) {
                     this.updateVisualsPerArray(arrayVisualizer, arrays[i], i >= arrays_count ? arrayVisualizer.getArrayVLists().get(i - arrays_count).size() : arrays[i].length);
                     box = activeVisual.getBoundingBox(arrays, vis_count - i, i, vis_count, arrayVisualizer, this);
+                    for (VisualFeature f : arrayVisualizer.getVisualFeatures()) {
+                    	if (arrayVisualizer.queryFeatureState(f.getListID()) > 0)
+                    		f.localPrerender(arrays[i], this.length);
+                    }
                     activeVisual.drawVisual(arrays[i], box, arrayVisualizer, this, Highlights);
+                    for (VisualFeature f : arrayVisualizer.getVisualFeatures()) {
+                    	if (arrayVisualizer.queryFeatureState(f.getListID()) > 0)
+                    		f.localPostrender(arrays[i], this.length);
+                    }
                     this.yoffset.addAndGet(this.vsize); // for compatibility
                 }
             }
@@ -286,7 +300,15 @@ public final class Renderer {
         }
         this.updateVisualsPerArray(arrayVisualizer, arrays[0], arrayVisualizer.getCurrentLength());
         box = activeVisual.getBoundingBox(arrays, vis_count, 0, vis_count, arrayVisualizer, this);
+        for (VisualFeature f : arrayVisualizer.getVisualFeatures()) {
+        	if (arrayVisualizer.queryFeatureState(f.getListID()) > 0)
+        		f.localPostrender(arrays[0], this.length);
+        }
         activeVisual.drawVisual(arrays[0], box, arrayVisualizer, this, Highlights);
+        for (VisualFeature f : arrayVisualizer.getVisualFeatures()) {
+        	if (arrayVisualizer.queryFeatureState(f.getListID()) > 0)
+        		f.localPostrender(arrays[0], this.length);
+        }
         if(visualSupportsRenderables()) {
 	        for(int i = 0; i < renderables.size(); i++) {
 	        	try {
@@ -295,6 +317,10 @@ public final class Renderer {
 	        		System.out.println(e);
 	        	}
 	        }
+        }
+        for (VisualFeature f : arrayVisualizer.getVisualFeatures()) {
+        	if (arrayVisualizer.queryFeatureState(f.getListID()) > 0)
+        		f.globalPostrender();
         }
     }
 
