@@ -1,9 +1,10 @@
 package io.github.arrayv.sorts.insert;
 
 import io.github.arrayv.main.ArrayVisualizer;
-import io.github.arrayv.sorts.templates.ShellSorting;
+import io.github.arrayv.sorts.templates.Sort;
+import io.github.arrayv.utils.ShellsortGaps;
 
-public final class ShellSortParallel extends ShellSorting {
+public final class ShellSortParallel extends Sort {
 	public ShellSortParallel(ArrayVisualizer arrayVisualizer) {
 		super(arrayVisualizer);
 
@@ -18,10 +19,10 @@ public final class ShellSortParallel extends ShellSorting {
 		this.setUnreasonableLimit(0);
 		this.setBogoSort(false);
         this.setAuthors("Donald Shell");
+        this.setUseShellsortGaps(true);
 	}
 
 	private int[] array;
-	private int[] gaps;
 
 	private class GappedInsertionSort extends Thread {
 		private int a, b, g;
@@ -55,13 +56,15 @@ public final class ShellSortParallel extends ShellSorting {
 	@Override
 	public void runSort(int[] array, int currentLength, int bucketCount) {
 		this.array = array;
-		this.gaps = this.ExtendedCiuraGaps;
 
-		int k = 0;
+		ShellsortGaps seq = this.arrayVisualizer.getSelectedGapSequence();
+		this.arrayVisualizer.setHeading("Parallel Shellsort (" + seq.getName() + " gaps)");
 
-		for(; this.gaps[k] >= currentLength; k++);
-		for(; k < this.gaps.length; k++) {
-			int g = this.gaps[k];
+		int[] gaps = seq.getGaps(currentLength);
+
+		for (int g : gaps) {
+			if(g >= currentLength) continue;
+
 			int t = Math.min(g, currentLength-g);
 
 			GappedInsertionSort[] ins = new GappedInsertionSort[t];

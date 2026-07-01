@@ -1,7 +1,7 @@
 package io.github.arrayv.sorts.insert;
 
-import io.github.arrayv.sorts.templates.Sort;
 import io.github.arrayv.main.ArrayVisualizer;
+import io.github.arrayv.sorts.templates.Sort;
 
 final public class BlockShellSort extends Sort {
     public BlockShellSort(ArrayVisualizer arrayVisualizer)  {
@@ -18,6 +18,7 @@ final public class BlockShellSort extends Sort {
         this.setUnreasonableLimit(0);
         this.setBogoSort(false);
         this.setAuthors("Distray");
+		this.setUseShellsortGaps(true);
     }
     
     private int gappedBinary(int[] A, int P, int l, int K, int G, boolean i) {
@@ -132,15 +133,6 @@ final public class BlockShellSort extends Sort {
     	return len;
     }
     
-    int[] gaps = {1, 4, 10, 23, 57, 132, 301, 701, 1636, 3659, 8129, 18118, 40354, 89129, 197803, 443557, 973657, 2131981, 4697153, 10528127, 23135351, 51360479, 114020263, 253124983, 561937462, 1247501165};
-    
-    private int ciura(int n) {
-        if (n <= gaps.length) {
-            return gaps[n - 1];
-        }
-        return (int)(Math.pow(2.14, n - gaps.length + 1) * gaps[gaps.length - 1]);
-    }
-    
     public void shellPass(int[] array, int start, int end, int gap) {
     	if(end-start < gap)
     		return;
@@ -170,10 +162,12 @@ final public class BlockShellSort extends Sort {
     }
     
     public void shellSort(int[] array, int start, int end) {
-    	int k=1;
-    	while(ciura(k++) < end - start);
-    	while(--k > 1)
-    		shellPass(array, start, end, ciura(k-1));
+    	int[] gaps = this.arrayVisualizer.getSelectedGapSequence().getGaps(end - start);
+    	for (int g : gaps) {
+    	    if (g < end - start) {
+    	        shellPass(array, start, end, g);
+    	    }
+    	}
     }
     
     @Override
