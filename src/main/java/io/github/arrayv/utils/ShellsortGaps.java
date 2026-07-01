@@ -16,6 +16,8 @@ public enum ShellsortGaps {
             return result;
         }
         @Override
+        public boolean isDynamic() { return true; }
+        @Override
         public String getName() { return "Shell's Original"; }
     },
     FRANKLAZ {
@@ -31,6 +33,8 @@ public enum ShellsortGaps {
             }
             return result;
         }
+        @Override
+        public boolean isDynamic() { return true; }
         @Override
         public String getName() { return "Frank and Lazarus"; }
     },
@@ -89,6 +93,8 @@ public enum ShellsortGaps {
             }
             return result;
         }
+        @Override
+        public boolean isDynamic() { return true; }
         @Override
         public String getName() { return "Gonnet and Baeza-Yates"; }
     },
@@ -386,6 +392,8 @@ public enum ShellsortGaps {
             return sequences[sequences.length - 1];
         }
         @Override
+        public boolean isDynamic() { return true; }
+        @Override
         public String getName() { return "Machoota's Best"; }
     },
     MCH_BEST_WORST {
@@ -446,6 +454,8 @@ public enum ShellsortGaps {
         }
         @Override
         public String getName() { return "Machoota's Best Worst-Case"; }
+        @Override
+        public boolean isDynamic() { return true; }
         @Override
         public int getLimit() { return 128; }
     },
@@ -556,6 +566,7 @@ public enum ShellsortGaps {
 
     public abstract String getName();
     public abstract int[] getGaps(int n);
+    public boolean isDynamic() { return false; }
     public int getLimit() { return 0; }
 
 }

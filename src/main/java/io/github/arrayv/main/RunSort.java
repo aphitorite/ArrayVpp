@@ -126,7 +126,14 @@ public final class RunSort {
         int selectedIdx = 0;
         for (int i = 0; i < values.length; i++) {
             int limit = values[i].getLimit();
-            String name = limit > 0 ? values[i].getName() + " (\u2264 " + limit + ")" : values[i].getName();
+            boolean dynamic = values[i].isDynamic();
+            String name = values[i].getName();
+            if (limit > 0) {
+                name += " (\u2264 " + limit + ")";
+            }
+            if (dynamic) {
+                name = "<html>" + name + " <i>(dynamic)</i></html>";
+            }
             names[i] = name;
             if (values[i] == current) {
                 selectedIdx = i;
