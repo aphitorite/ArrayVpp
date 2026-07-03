@@ -487,6 +487,17 @@ public enum Distributions {
             for (int i = 0; i < n; i++) array[i] = 2*(n%(i+1));
         }
     },
+    MODULO_NEGATIVE {
+        public String getName() {
+            return "Modulo Function (Negative)";
+        }
+        @Override
+        public void initializeArray(int[] array, ArrayVisualizer arrayVisualizer) {
+            int n = arrayVisualizer.getCurrentLength();
+
+            for (int i = 0; i < n; i++) array[i] = i-n%(i+1);
+        }
+    },
     TOTIENT { // O(n)
         @Override
         public String getName() {
