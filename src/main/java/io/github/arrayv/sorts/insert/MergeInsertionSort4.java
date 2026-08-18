@@ -112,7 +112,7 @@ public final class MergeInsertionSort4 extends Sort {
 				this.bitReversal(array, j+k/2, j+k, s);
 				
 				Highlights.clearMark(2);
-				IndexedRotations.simpleBeaker(array, (j-m)*s, j*s, (j+k/2)*s, 0.5, true, false);
+				IndexedRotations.beaker(array, (j-m)*s, j*s, (j+k/2)*s, 0.5, true, false);
 
 				m += k/2;
 				j += k;

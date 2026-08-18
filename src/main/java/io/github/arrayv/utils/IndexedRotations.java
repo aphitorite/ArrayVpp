@@ -28,6 +28,10 @@ public final class IndexedRotations {
         Rotations.cycleReverse(array, start, mid - start, end - mid, pause, mark, auxwrite);
     }
 
+    public static void beaker(int[] array, int start, int mid, int end, double pause, boolean mark, boolean auxwrite) {
+        Rotations.beaker(array, start, mid - start, end - mid, pause, mark, auxwrite);
+    }
+
     public static void uniBeaker(int[] array, int start, int mid, int end, double pause, boolean mark, boolean auxwrite) {
         Rotations.uniBeaker(array, start, mid - start, end - mid, pause, mark, auxwrite);
     }
