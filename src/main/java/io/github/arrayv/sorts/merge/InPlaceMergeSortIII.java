@@ -39,7 +39,8 @@ final public class InPlaceMergeSortIII extends Sort {
         this.setRunAllSortsName("In-Place Merge Sort III");
         this.setRunSortName("In-Place Merge Sort III");
         this.setCategory("Merge Sorts");
-        this.setComparisonBased(true);
+        this.setAuthors("aphitorite");
+        this.setConstant("n^2");
         this.setBucketSort(false);
         this.setRadixSort(false);
         this.setUnreasonablySlow(false);

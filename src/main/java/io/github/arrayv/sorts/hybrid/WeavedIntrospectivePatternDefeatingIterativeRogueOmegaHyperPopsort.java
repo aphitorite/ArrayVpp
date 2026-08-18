@@ -10,6 +10,7 @@ public class WeavedIntrospectivePatternDefeatingIterativeRogueOmegaHyperPopsort 
         this.setRunAllSortsName("Weaved Introspective Pattern Defeating Iterative Rogue Omega Hyper Pop Sort");
         this.setRunSortName("Weaved Introspective Pattern Defeating Iterative Rogue \u03a9 Hyperpopsort");
         this.setCategory("Hybrid Sorts");
+        this.setAuthors("Distray");
         this.setConstant("n^n");
         this.setBucketSort(false);
         this.setRadixSort(false);

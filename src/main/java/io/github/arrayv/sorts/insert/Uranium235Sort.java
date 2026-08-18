@@ -12,6 +12,7 @@ final public class Uranium235Sort extends Sort {
         this.setRunAllSortsName("Uranium-235 Sort");
         this.setRunSortName("Uranium-235~sort");
         this.setCategory("Insertion Sorts");
+        this.setAuthors("Distray");
         this.setConstant("n^n");
         this.setBucketSort(false);
         this.setRadixSort(false);

@@ -13,6 +13,7 @@ final public class GridSortImplicit extends Sort {
         this.setRunAllSortsName("Gridsort");
         this.setRunSortName("\"Gridsort\"");
         this.setCategory("Hybrid Sorts");
+        this.setAuthors("Scandum, aphitorite, Distray");
         this.setConstant("n log n");
         this.setBucketSort(false);
         this.setRadixSort(false);

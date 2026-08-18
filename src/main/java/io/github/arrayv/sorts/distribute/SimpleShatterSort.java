@@ -37,6 +37,7 @@ public final class SimpleShatterSort extends ShatterSorting {
         this.setRunAllSortsName("Simple Shatter Sort");
         this.setRunSortName("Simple Shatter Sort");
         this.setCategory("Distribution Sorts");
+        this.setAuthors("w0rthy");
         this.setBucketSort(true);
         this.setRadixSort(false);
         this.setUnreasonablySlow(false);

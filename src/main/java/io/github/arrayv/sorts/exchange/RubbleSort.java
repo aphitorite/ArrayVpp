@@ -11,6 +11,8 @@ final public class RubbleSort extends Sort {
         this.setRunAllSortsName("Rubble Sort");
         this.setRunSortName("Rubblesort");
         this.setCategory("Exchange Sorts");
+        this.setAuthors("Distray");
+        this.setConstant("n^2");
         this.setBucketSort(false);
         this.setRadixSort(false);
         this.setUnreasonablySlow(false);

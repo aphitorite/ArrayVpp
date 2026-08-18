@@ -14,6 +14,8 @@ final public class EquaLogSort extends Sort {
 		this.setRunAllSortsName("Equal Optimized Logsort (EquaLogsort)");
 		this.setRunSortName("EquaLog Sort");
 		this.setCategory("Hybrid Sorts");
+        this.setAuthors("Distray");
+        this.setConstant("n log n");
 		this.setBucketSort(false);
 		this.setRadixSort(false);
 		this.setUnreasonablySlow(false);

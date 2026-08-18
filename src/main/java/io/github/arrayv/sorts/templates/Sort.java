@@ -8,7 +8,6 @@ import io.github.arrayv.utils.Delays;
 import io.github.arrayv.utils.Highlights;
 import io.github.arrayv.utils.Reads;
 import io.github.arrayv.utils.Writes;
-import io.github.arrayv.sortdata.SortMeta;
 
 public abstract class Sort {
     private Object[] deprecatedMetadataTable = null;
@@ -69,9 +68,15 @@ public abstract class Sort {
         return (String)deprecatedMetadataTable[4];
     }
 
-    public UnaryOperator<Long> getConstant() {
+    public String getAuthors() {
         initDeprecatedMetadataTable();
-        return (UnaryOperator)deprecatedMetadataTable[5];
+        return (String)deprecatedMetadataTable[12];
+    }
+
+    @SuppressWarnings("unchecked")
+	public UnaryOperator<Long> getConstant() {
+        initDeprecatedMetadataTable();
+        return (UnaryOperator<Long>)deprecatedMetadataTable[5];
     }
 
     /**
@@ -151,6 +156,11 @@ public abstract class Sort {
     protected void setCategory(String category) {
         initDeprecatedMetadataTable();
         deprecatedMetadataTable[4] = category;
+    }
+
+    protected void setAuthors(String authors) {
+        initDeprecatedMetadataTable();
+        deprecatedMetadataTable[12] = authors;
     }
 
     protected void setConstant(String alias) {

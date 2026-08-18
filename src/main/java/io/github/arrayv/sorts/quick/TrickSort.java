@@ -12,6 +12,7 @@ final public class TrickSort extends Sort {
         this.setRunAllSortsName("Trick Sort");
         this.setRunSortName("Tricksort");
         this.setCategory("Quick Sorts");
+        this.setAuthors("Distray");
         this.setConstant("n log n");
         this.setBucketSort(false);
         this.setRadixSort(false);

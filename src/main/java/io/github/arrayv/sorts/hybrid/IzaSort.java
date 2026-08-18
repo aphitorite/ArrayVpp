@@ -38,6 +38,7 @@ final public class IzaSort extends Sort {
 		this.setRunAllSortsName("Iza Sort");
 		this.setRunSortName("Izasort");
 		this.setCategory("Hybrid Sorts");
+	    this.setAuthors("aphitorite");
         this.setConstant("n log n");
 		this.setBucketSort(false);
 		this.setRadixSort(false);

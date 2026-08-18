@@ -14,6 +14,7 @@ public final class CavernousSort extends Sort {
         this.setRunAllSortsName("Cavernous Sort");
         this.setRunSortName("Cavernoussort");
         this.setCategory("Hybrid Sorts");
+        this.setAuthors("Distray");
         this.setConstant("n log n");
         this.setBucketSort(false);
         this.setRadixSort(false);

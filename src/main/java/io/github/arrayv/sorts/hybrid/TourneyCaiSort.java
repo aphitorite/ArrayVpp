@@ -16,6 +16,7 @@ public class TourneyCaiSort extends GrailSorting {
         this.setRunAllSortsName("Tourney-Cai Sort");
         this.setRunSortName("Tourney-Caisort");
         this.setCategory("Golf Sorts");
+        this.setAuthors("Distray");
         this.setConstant("n sqrt n");
         this.setBucketSort(false);
         this.setRadixSort(false);

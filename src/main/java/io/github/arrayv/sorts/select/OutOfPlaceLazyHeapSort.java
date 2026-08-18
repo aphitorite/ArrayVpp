@@ -13,6 +13,7 @@ final public class OutOfPlaceLazyHeapSort extends GrailSorting {
 		this.setRunAllSortsName("Out-Of-Place Lazy Heap Sort");
 		this.setRunSortName("OOP Lazy Heapsort");
 		this.setCategory("Selection Sorts");
+  	    this.setAuthors("Distray");
 		this.setBucketSort(false);
 		this.setRadixSort(false);
 		this.setUnreasonablySlow(false);

@@ -37,6 +37,7 @@ final public class HealySort extends MergeSortingHealy {
         this.setRunAllSortsName("Healy Sort");
         this.setRunSortName("Healysort");
         this.setCategory("Hybrid Sorts");
+        this.setAuthors("PiotrGrochowski");
         this.setBucketSort(false);
         this.setRadixSort(false);
         this.setUnreasonablySlow(false);

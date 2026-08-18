@@ -40,6 +40,7 @@ public final class OmegaFaithSort extends BogoSorting {
         this.setRunAllSortsName("Omega Faith Sort");
         this.setRunSortName("Ω Faithsort");
         this.setCategory("Impractical Sorts");
+        this.setAuthors("Potassium");
         this.setBucketSort(false);
         this.setRadixSort(false);
         this.setUnreasonablySlow(true);

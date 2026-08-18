@@ -24,6 +24,8 @@ public final class IntroSort extends Sort {
         this.setRunAllSortsName("Introspective Sort");
         this.setRunSortName("Introsort");
         this.setCategory("Hybrid Sorts");
+        this.setAuthors("C++ STL, .NET runtime, David Musser");
+        this.setConstant("n log n");
         this.setBucketSort(false);
         this.setRadixSort(false);
         this.setUnreasonablySlow(false);

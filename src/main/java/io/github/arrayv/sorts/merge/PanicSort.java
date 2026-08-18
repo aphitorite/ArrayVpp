@@ -11,6 +11,7 @@ public final class PanicSort extends MergeSorting2 {
 		this.setRunAllSortsName("Panic Sort");
 		this.setRunSortName("Adaptive Dependency Mergesort");
 		this.setCategory("Merge Sorts");
+	    this.setAuthors("Potassium");
 		this.setConstant("n log n");
 		this.setBucketSort(false);
 		this.setRadixSort(false);

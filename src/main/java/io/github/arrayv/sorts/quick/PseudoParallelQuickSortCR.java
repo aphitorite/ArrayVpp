@@ -13,6 +13,8 @@ final public class PseudoParallelQuickSortCR extends Sort {
         this.setRunAllSortsName("Pseudo-Parallel Cube Root Quicksort");
         this.setRunSortName("Pseudo-Parallel Cube Root Quicksort");
         this.setCategory("Quick Sorts");
+  	    this.setAuthors("Distray");
+  	    this.setConstant("n log n");
         this.setBucketSort(false);
         this.setRadixSort(false);
         this.setUnreasonablySlow(false);

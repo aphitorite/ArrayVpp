@@ -11,6 +11,8 @@ public final class FieldSort4321 extends Sort {
 		this.setRunAllSortsName("Optimized 4321 Field Sort");
 		this.setRunSortName("Optimized 4321 Fieldsort");
 		this.setCategory("Hybrid Sorts");
+		this.setAuthors("Potassium");
+		this.setConstant("n log n");
 		this.setBucketSort(false);
 		this.setRadixSort(false);
 		this.setUnreasonablySlow(false);

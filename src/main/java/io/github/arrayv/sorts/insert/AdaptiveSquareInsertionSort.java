@@ -15,6 +15,7 @@ public class AdaptiveSquareInsertionSort extends Sort
         this.setRunAllSortsName("Adaptive Square Insertion Sort");
         this.setRunSortName("Adaptive Square Insertsort");
         this.setCategory("Insertion Sorts");
+        this.setAuthors("Potassium");
         this.setConstant("n^2");
         this.setBucketSort(false);
         this.setRadixSort(false);

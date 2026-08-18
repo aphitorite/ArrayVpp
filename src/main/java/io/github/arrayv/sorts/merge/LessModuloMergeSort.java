@@ -32,9 +32,10 @@ public final class LessModuloMergeSort extends Sort {
 
         this.setSortListName("Less Modulo Merge");
         this.setRunAllSortsName("Less Modulo Merge Sort");
-        this.setRunSortName("Mergesort");
+        this.setRunSortName("Less Modulo Mergesort");
         this.setCategory("Merge Sorts");
-        this.setConstant("n log n");
+	    this.setAuthors("Distray");
+        this.setConstant("n log^1.5 n");
         this.setBucketSort(false);
         this.setRadixSort(false);
         this.setUnreasonablySlow(false);

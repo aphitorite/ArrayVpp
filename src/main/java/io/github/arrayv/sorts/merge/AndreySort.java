@@ -11,6 +11,7 @@ public class AndreySort extends Sort {
         this.setRunAllSortsName("Andrey Astrelin's In-Place Merge Sort");
         this.setRunSortName("Andreysort");
         this.setCategory("Merge Sorts");
+	    this.setAuthors("Andrey Astrelin");
         this.setBucketSort(false);
         this.setRadixSort(false);
         this.setUnreasonablySlow(false);

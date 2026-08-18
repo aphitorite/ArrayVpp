@@ -14,6 +14,7 @@ final public class DeltaSort extends BogoSorting {
         this.setRunAllSortsName("Delta Sort");
         this.setRunSortName("Deltasort");
         this.setCategory("Esoteric Sorts");
+        this.setAuthors("Distray");
         this.setBucketSort(false);
         this.setRadixSort(false);
         this.setUnreasonablySlow(true);

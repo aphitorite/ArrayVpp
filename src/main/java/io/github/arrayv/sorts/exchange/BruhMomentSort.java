@@ -10,6 +10,8 @@ final public class BruhMomentSort extends Sort {
         this.setRunAllSortsName("Bruh Moment Sort");
         this.setRunSortName("Bruh Moment Sort");
         this.setCategory("Exchange Sorts");
+        this.setAuthors("Distray");
+        this.setConstant("n^n");
         this.setBucketSort(false);
         this.setRadixSort(false);
         this.setUnreasonablySlow(false);

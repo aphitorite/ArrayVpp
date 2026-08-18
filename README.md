@@ -20,6 +20,9 @@ ArrayV++ is based on the master branch of ArrayV 5.2-SNAPSHOT, taking features a
 ### Public ArrayV strains
 - [PCBoyGames' ArrayV 4.0 fork](https://github.com/PCBoyGames/ArrayV-v4.0)
 - [Flanlaina's ArrayV 4.0 fork](https://github.com/Flanlaina/ArrayV-v4.0)
+#### Downstream
+- [Flanlaina's ArrayV++ fork](https://github.com/Flanlaina/ArrayVpp)
+- [aphitorite's ArrayV++ fork](https://github.com/aphitorite/ArrayVpp)
 
 ### Private ArrayV strains
 - AmongV (based on ArrayV 4.0)
@@ -27,7 +30,7 @@ ArrayV++ is based on the master branch of ArrayV 5.2-SNAPSHOT, taking features a
 	- Based on ArrayV 4.0.
 	- Started August 2021. Contains initial implementations of:
 	    - Subarray marking (initially made through absurd generic typechecks and hardcoded highlight limits)
-	    - ArrayList visualization (implemented in ArrayV5)
+	    - ArrayList visualization (implemented in ArrayV5.0)
 	    - Big-O based calculations (eventually evolved into the constant calculator)
 		- Custom statistics
 	    - Per-sort rendering extensions ("Renderables")
@@ -43,8 +46,13 @@ ArrayV++ is based on the master branch of ArrayV 5.2-SNAPSHOT, taking features a
 
 ### Unique to ArrayV++
 - VisualStyles gutted and replaced with a modified version of SortAnalyzer, enabling:
-     - Enforcement of which features the visual allows or operates with
-     - Control over how the visual partitions screenspace for auxiliary lists
+    - Enforcement of which features the visual allows or operates with
+    - Control over how the visual partitions screenspace for auxiliary lists
+        - By extension, per-visual control over the maximum amount of displayable auxiliary lists
+- VisualFeatures added as part of the same push for modularity, allowing:
+    - Finer-grain control over which features Visuals support
+    - A way to merge Visual offshoots with their bases
+    - A way to congregate mode-specific methods (like Heat Map's) under generalized classes
 - Window graphics patched to use *BufferedImage*s instead, granting framebuffer capabilities to Renderables
 
 ## Legacy changelog

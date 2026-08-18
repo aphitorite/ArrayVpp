@@ -9,6 +9,7 @@ public class BeatingADeadSort extends Sort {
         this.setRunAllSortsName("Beating A Dead Sort");
         this.setRunSortName("Beating A Dead Sort");
         this.setCategory("Esoteric Sorts");
+        this.setAuthors("Distray");
         this.setBucketSort(false);
         this.setRadixSort(false);
         this.setUnreasonablySlow(true);

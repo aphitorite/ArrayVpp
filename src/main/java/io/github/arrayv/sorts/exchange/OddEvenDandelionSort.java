@@ -11,6 +11,8 @@ public final class OddEvenDandelionSort extends Sort {
         setRunAllSortsName("Odd-Even Dandelion Sort");
         setRunSortName("Odd-Even Dandelion Sort");
         setCategory("Exchange Sorts");
+		setAuthors("Distray");
+		setConstant("n^2");
         setBucketSort(false);
         setRadixSort(false);
         setUnreasonablySlow(false);

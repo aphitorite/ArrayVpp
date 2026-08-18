@@ -11,6 +11,8 @@ final public class SprawlSort extends MergeSorting {
         this.setRunAllSortsName("Sprawl Sort");
         this.setRunSortName("Sprawlsort");
         this.setCategory("Merge Sorts");
+		this.setAuthors("Distray");
+		this.setConstant("n log n");
         this.setBucketSort(false);
         this.setRadixSort(false);
         this.setUnreasonablySlow(false);

@@ -37,6 +37,8 @@ public final class BinaryMergeSort extends MergeSorting {
         this.setRunAllSortsName("Binary Merge Sort");
         this.setRunSortName("Binary Mergesort");
         this.setCategory("Hybrid Sorts");
+        this.setAuthors("w0rthy");
+        this.setConstant("n log n");
         this.setBucketSort(false);
         this.setRadixSort(false);
         this.setUnreasonablySlow(false);

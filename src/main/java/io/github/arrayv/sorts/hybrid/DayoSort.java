@@ -15,6 +15,7 @@ final public class DayoSort extends Sort {
         this.setRunAllSortsName("Dayo Sort");
         this.setRunSortName("Dayosort");
         this.setCategory("Hybrid Sorts");
+        this.setAuthors("Distray");
         this.setBucketSort(false);
         this.setRadixSort(false);
         this.setUnreasonablySlow(false);

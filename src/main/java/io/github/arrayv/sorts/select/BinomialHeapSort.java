@@ -11,6 +11,7 @@ public final class BinomialHeapSort extends Sort {
 		this.setRunAllSortsName("Binomial Heap Sort");
 		this.setRunSortName("Binomial Heapsort");
 		this.setCategory("Selection Sorts");
+        this.setAuthors("talinuva");
 		this.setConstant("n log n");
 		this.setBucketSort(false);
 		this.setRadixSort(false);

@@ -12,6 +12,7 @@ final public class ImageLassoSort extends PingPongMergeSorting {
         this.setRunAllSortsName("Image Lasso Sort");
         this.setRunSortName("Image-Lassosort");
         this.setCategory("Hybrid Sorts");
+        this.setAuthors("Distray");
         this.setBucketSort(false);
         this.setRadixSort(false);
         this.setUnreasonablySlow(false);

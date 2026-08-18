@@ -39,6 +39,8 @@ final public class InPlaceStableCycleSort extends Sort {
 		this.setRunAllSortsName("In-Place Stable Cycle Sort");
 		this.setRunSortName("In-Place Stable Cyclesort");
 		this.setCategory("Hybrid Sorts");
+		this.setAuthors("aphitorite");
+		this.setConstant("n^2");
 		this.setBucketSort(false);
 		this.setRadixSort(false);
 		this.setUnreasonablySlow(false);

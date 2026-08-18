@@ -15,6 +15,8 @@ public final class SingularityQuickSort extends Sort {
       this.setRunAllSortsName("Singularity Quick Sort");
       this.setRunSortName("Singularity Quicksort");
       this.setCategory("Quick Sorts");
+      this.setAuthors("PCBoy");
+      this.setConstant("n log n");
       this.setBucketSort(false);
       this.setRadixSort(false);
       this.setUnreasonablySlow(false);

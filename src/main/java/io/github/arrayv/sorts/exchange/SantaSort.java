@@ -11,6 +11,7 @@ final public class SantaSort extends BogoSorting {
         this.setRunAllSortsName("Santa Sort");
         this.setRunSortName("Santasort");
         this.setCategory("Impractical Sorts");
+		this.setAuthors("Distray");
         this.setBucketSort(false);
         this.setRadixSort(false);
         this.setUnreasonablySlow(false);

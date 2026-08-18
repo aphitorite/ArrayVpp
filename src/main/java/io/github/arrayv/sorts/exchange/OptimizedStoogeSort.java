@@ -13,6 +13,8 @@ public final class OptimizedStoogeSort extends Sort {
         this.setRunAllSortsName("Optimized Stooge Sort");
         this.setRunSortName("Optimized Stoogesort");
         this.setCategory("Exchange Sorts");
+        this.setAuthors("Musicombo, Amit Kishor, Pankaj Pratap Singh");
+        this.setConstant("n^2");
         this.setBucketSort(false);
         this.setRadixSort(false);
         this.setUnreasonablySlow(false);

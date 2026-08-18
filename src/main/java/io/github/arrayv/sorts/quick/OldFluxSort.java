@@ -15,6 +15,8 @@ final public class OldFluxSort extends QuadSorting {
         this.setRunAllSortsName("Flux Sort (Old)");
         this.setRunSortName("Fluxsort (Old)");
         this.setCategory("Quick Sorts");
+        this.setAuthors("Scandum");
+        this.setConstant("n log n");
         this.setBucketSort(false);
         this.setRadixSort(false);
         this.setUnreasonablySlow(false);

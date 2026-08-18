@@ -17,6 +17,7 @@ final public class UnstablePolymergeSortDistayStyle extends Sort {
 		this.setRunAllSortsName("Unstable Polymerge Sort (Distay Private)");
 		this.setRunSortName("Unstable Polymerge Sort (DistayStyle)");
 		this.setCategory("Merge Sorts");
+        this.setAuthors("Distray");
 		this.setConstant("n log^3 n");
 		this.setBucketSort(false);
 		this.setRadixSort(false);

@@ -11,6 +11,8 @@ final public class FastMergimentSort extends Sort {
         this.setRunAllSortsName("Fast Mergiment Sort");
         this.setRunSortName("Fast Mergiment Sort");
         this.setCategory("Merge Sorts");
+        this.setAuthors("Distray");
+        this.setConstant("n log n");
         this.setBucketSort(false);
         this.setRadixSort(false);
         this.setUnreasonablySlow(false);

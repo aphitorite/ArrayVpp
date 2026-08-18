@@ -17,6 +17,7 @@ final public class PackedLogMergeSortUF extends Sort {
         this.setRunAllSortsName("Uncomfortably Fancy Packed Log Merge Sort");
         this.setRunSortName("Uncomfortably Fancy Packed Log Mergesort");
         this.setCategory("Hybrid Sorts");
+        this.setAuthors("Distray");
         this.setConstant("n log n");
         this.setBucketSort(false);
         this.setRadixSort(false);

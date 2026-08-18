@@ -12,6 +12,8 @@ final public class StacklessQuickSortII extends Sort {
         this.setRunAllSortsName("Stackless Quick Sort II");
         this.setRunSortName("Stackless Quicksort II");
         this.setCategory("Quick Sorts");
+        this.setAuthors("Distray");
+        this.setConstant("n log n");
         this.setBucketSort(false);
         this.setRadixSort(false);
         this.setUnreasonablySlow(false);

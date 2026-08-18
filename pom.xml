@@ -6,11 +6,11 @@
 
   <groupId>io.github.arrayv</groupId>
   <artifactId>ArrayVpp</artifactId>
-  <version>5.2</version>
+  <version>5.3</version>
 
   <name>ArrayV++</name>
   <description>Sorting algorithm visualizer written in Java, with a whole bunch of edits</description>
-  <url>https://github.com/Gaming32/ArrayV</url>
+  <url>https://github.com/distray0xGit/ArrayVpp</url>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

@@ -14,6 +14,7 @@ final public class TournamergeSort extends Sort {
         this.setRunAllSortsName("Tournamerge Sort");
         this.setRunSortName("Tournamergesort");
         this.setCategory("Merge Sorts");
+  	    this.setAuthors("Distray");
         this.setConstant("n log n");
         this.setQuestion("Set the base of this sort:", 5);
         this.setBucketSort(false);

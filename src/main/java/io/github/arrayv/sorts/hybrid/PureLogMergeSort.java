@@ -39,6 +39,8 @@ final public class PureLogMergeSort extends Sort {
 		this.setRunAllSortsName("Pure Log Merge Sort");
 		this.setRunSortName("Pure Log Mergesort");
 		this.setCategory("Hybrid Sorts");
+        this.setAuthors("aphitorite");
+        this.setConstant("n log n");
 		this.setBucketSort(false);
 		this.setRadixSort(false);
 		this.setUnreasonablySlow(false);

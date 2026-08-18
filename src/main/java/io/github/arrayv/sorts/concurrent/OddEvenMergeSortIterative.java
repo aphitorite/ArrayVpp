@@ -19,6 +19,8 @@ public final class OddEvenMergeSortIterative extends Sort {
         this.setRunAllSortsName("Iterative Odd-Even Merge Sort");
         this.setRunSortName("Iterative Odd-Even Mergesort");
         this.setCategory("Concurrent Sorts");
+        this.setAuthors("Ken Batcher");
+        this.setConstant("n log^2 n");
         this.setBucketSort(false);
         this.setRadixSort(false);
         this.setUnreasonablySlow(false);

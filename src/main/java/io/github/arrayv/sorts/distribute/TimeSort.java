@@ -48,6 +48,7 @@ public final class TimeSort extends Sort {
         this.setRunAllSortsName("Time Sort, Mul 10");
         this.setRunSortName("Timesort");
         this.setCategory("Distribution Sorts");
+        this.setAuthors("w0rthy");
         this.setBucketSort(false); // *Does not* use buckets! "magnitude" is only a multiplier.
         this.setRadixSort(false);
         this.setUnreasonablySlow(true);

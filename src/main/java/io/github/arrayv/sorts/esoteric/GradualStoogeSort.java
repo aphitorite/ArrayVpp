@@ -11,6 +11,7 @@ public final class GradualStoogeSort extends Sort {
 		 this.setRunAllSortsName("Gradually More & More Terrifying Stooge Sort");
 		 this.setRunSortName("G.M&M.T. Stoogesort");
 		 this.setCategory("Esoteric Sorts");
+	     this.setAuthors("Potassium");
 		 this.setBucketSort(false);
 		 this.setRadixSort(false);
 		 this.setUnreasonablySlow(true);

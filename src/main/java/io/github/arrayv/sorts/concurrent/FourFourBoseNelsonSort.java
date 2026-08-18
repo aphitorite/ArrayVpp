@@ -12,6 +12,7 @@ final public class FourFourBoseNelsonSort extends Sort {
     	this.setRunAllSortsName("[4,4] Bose-Nelson Sorting Network");
     	this.setRunSortName("[4,4] Bose-Nelson Sort");
         this.setCategory("Concurrent Sorts");
+        this.setAuthors("Distray");
         this.setBucketSort(false);
         this.setRadixSort(false);
         this.setUnreasonablySlow(false);

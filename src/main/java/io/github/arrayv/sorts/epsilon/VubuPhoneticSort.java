@@ -10,6 +10,7 @@ public final class VubuPhoneticSort extends BogoSorting {
 		this.setRunAllSortsName("[v\u026F\u03B2u] Sort");
       	this.setRunSortName("[v\u026F\u03B2u]sort");
       	this.setCategory("Epsilon Committee Sorts");
+	    this.setAuthors("Distray");
       	this.setBucketSort(false);
       	this.setRadixSort(false);
       	this.setUnreasonablySlow(false);

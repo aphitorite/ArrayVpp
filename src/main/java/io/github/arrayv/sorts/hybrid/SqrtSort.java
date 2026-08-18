@@ -67,11 +67,11 @@ public final class SqrtSort extends Sort {
         super(arrayVisualizer);
 
         this.setSortListName("Sqrt");
-        //this.setRunAllID("Square Root Sort (Block Merge Sort)");
-        //this.setRunAllSortsName("Square Root Sort [Block Merge Sort]");
         this.setRunAllSortsName("Sqrtsort");
         this.setRunSortName("Sqrtsort");
-        this.setCategory("Hybrid Sorts");
+        this.setCategory("Block Merge Sorts");
+        this.setAuthors("Andrey Astrelin");
+        this.setConstant("n log n");
         this.setBucketSort(false);
         this.setRadixSort(false);
         this.setUnreasonablySlow(false);

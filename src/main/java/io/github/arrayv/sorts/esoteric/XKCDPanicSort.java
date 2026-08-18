@@ -12,7 +12,8 @@ public final class XKCDPanicSort extends BogoSorting {
 		this.setSortListName("Panic (xkcd)");
 		this.setRunAllSortsName("xkcd's Panic Sort");
 		this.setRunSortName("xkcd Panicsort");
-		this.setCategory("Esoteric Sorts");
+		this.setCategory("Grossly Impractical Sorts");
+        this.setAuthors("Randall Munroe");
 		this.setBucketSort(false);
 		this.setRadixSort(false);
 		this.setUnreasonablySlow(false);

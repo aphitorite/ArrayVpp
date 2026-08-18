@@ -12,6 +12,7 @@ public class IssaSort extends BogoSorting {
         this.setRunAllSortsName("\"Issa\" Sort (Disw0rthyV port)");
         this.setRunSortName("Issasort");
         this.setCategory("Esoteric Sorts");
+        this.setAuthors("Distray");
         this.setBucketSort(false);
         this.setRadixSort(false);
         this.setUnreasonablySlow(false);

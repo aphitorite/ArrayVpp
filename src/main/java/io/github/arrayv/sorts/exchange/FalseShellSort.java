@@ -12,6 +12,7 @@ public final class FalseShellSort extends BogoSorting {
       this.setRunAllSortsName("False Shell Sort");
       this.setRunSortName("False Shellsort");
       this.setCategory("Exchange Sorts");
+      this.setAuthors("Distray");
       this.setBucketSort(false);
       this.setRadixSort(false);
       this.setUnreasonablySlow(false);

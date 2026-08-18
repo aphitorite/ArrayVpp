@@ -12,6 +12,8 @@ final public class StableQuickSortEvenMoreParallel extends Sort implements Paral
         this.setRunAllSortsName("Even More Parahell Stable Quicksort");
         this.setRunSortName("Even More Parallel Stable Quicksort");
         this.setCategory("Quick Sorts");
+        this.setAuthors("Distray");
+        this.setConstant("n log n");
         this.setBucketSort(false);
         this.setRadixSort(false);
         this.setUnreasonablySlow(false);

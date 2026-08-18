@@ -11,6 +11,8 @@ final public class BottleSort extends Sort {
         this.setRunAllSortsName("Bottle Sort");
         this.setRunSortName("Bottlesort");
         this.setCategory("Impractical Sorts");
+		this.setAuthors("Distray");
+		this.setConstant("2^n");
         this.setBucketSort(false);
         this.setRadixSort(false);
         this.setUnreasonablySlow(true);

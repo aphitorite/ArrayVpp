@@ -39,6 +39,7 @@ final public class CrumSort extends Sort {
         this.setRunAllSortsName("Crum Sort");
         this.setRunSortName("Crumsort");
         this.setCategory("Quick Sorts");
+        this.setAuthors("Scandum");
         this.setConstant("n log n");
         this.setBucketSort(false);
         this.setRadixSort(false);

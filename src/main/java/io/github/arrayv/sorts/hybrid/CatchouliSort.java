@@ -1,7 +1,6 @@
 package io.github.arrayv.sorts.hybrid;
 
 import io.github.arrayv.main.ArrayVisualizer;
-import io.github.arrayv.sorts.insert.BinaryInsertionSort;
 import io.github.arrayv.sorts.templates.Sort;
 
 public final class CatchouliSort extends Sort {
@@ -11,6 +10,7 @@ public final class CatchouliSort extends Sort {
         this.setRunAllSortsName("Catchouli Sort");
         this.setRunSortName("Cachesort");
         this.setCategory("Hybrid Sorts");
+        this.setAuthors("Distray");
         this.setConstant("n log n");
         this.setBucketSort(false);
         this.setRadixSort(false);

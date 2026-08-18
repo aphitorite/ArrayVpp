@@ -13,6 +13,7 @@ final public class SussiestBakaSort extends Sort {
         this.setRunAllSortsName("SussiestBakasort");
         this.setRunSortName("Sussiestbakasort");
         this.setCategory("Quick Sorts");
+        this.setAuthors("Distray");
         this.setConstant("n log n");
         this.setBucketSort(false);
         this.setRadixSort(false);

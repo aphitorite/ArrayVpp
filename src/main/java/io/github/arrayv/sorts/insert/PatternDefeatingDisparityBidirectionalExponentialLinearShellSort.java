@@ -12,6 +12,7 @@ final public class PatternDefeatingDisparityBidirectionalExponentialLinearShellS
         this.setRunAllSortsName("Pattern-Defeating Disparity Bidirectional Exponential Linear Shell Sort");
         this.setRunSortName("Pattern-Defeating Disparity Bidirectional Exponential Linear Shellsort");
         this.setCategory("Insertion Sorts");
+        this.setAuthors("Distray");
         this.setConstant("n cbrt n");
         this.setBucketSort(false);
         this.setRadixSort(false);

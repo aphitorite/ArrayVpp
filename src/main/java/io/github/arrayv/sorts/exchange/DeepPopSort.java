@@ -10,6 +10,7 @@ final public class DeepPopSort extends Sort {
         this.setRunAllSortsName("Deep Pop Sort");
         this.setRunSortName("Deep Popsort");
         this.setCategory("Exchange Sorts");
+		this.setAuthors("Distray");
         this.setBucketSort(false);
         this.setRadixSort(false);
         this.setUnreasonablySlow(false);

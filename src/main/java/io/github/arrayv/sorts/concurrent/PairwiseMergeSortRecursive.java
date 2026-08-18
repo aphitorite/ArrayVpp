@@ -37,6 +37,8 @@ public final class PairwiseMergeSortRecursive extends Sort {
         this.setRunAllSortsName("Recursive Pairwise Merge Sort");
         this.setRunSortName("Recursive Pairwise Mergesort");
         this.setCategory("Concurrent Sorts");
+        this.setAuthors("aphitorite");
+        this.setConstant("n log^2 n");
         this.setBucketSort(false);
         this.setRadixSort(false);
         this.setUnreasonablySlow(false);

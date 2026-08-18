@@ -11,6 +11,7 @@ final public class MergimentSort extends Sort {
         this.setRunAllSortsName("Mergiment Sort");
         this.setRunSortName("Mergiment Sort");
         this.setCategory("Merge Sorts");
+        this.setAuthors("Distray");
         this.setBucketSort(false);
         this.setRadixSort(false);
         this.setUnreasonablySlow(false);

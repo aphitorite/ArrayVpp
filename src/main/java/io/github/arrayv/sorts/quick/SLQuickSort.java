@@ -15,6 +15,8 @@ final public class SLQuickSort extends Sort {
         this.setRunAllSortsName("SL Quicksort");
         this.setRunSortName("SL Quicksort");
         this.setCategory("Quick Sorts");
+		this.setAuthors("Distray");
+		this.setConstant("n log n");
         this.setBucketSort(false);
         this.setRadixSort(false);
         this.setUnreasonablySlow(false);

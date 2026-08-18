@@ -12,6 +12,7 @@ final public class SussyBakaSort extends BogoSorting {
         this.setRunAllSortsName("SussyBakasort");
         this.setRunSortName("Sussybakasort");
         this.setCategory("Quick Sorts");
+        this.setAuthors("Distray");
         this.setConstant("n log n");
         this.setBucketSort(false);
         this.setRadixSort(false);

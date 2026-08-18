@@ -11,6 +11,7 @@ final public class GridAVLSort extends Sort {
         this.setRunAllSortsName("Gridded Gapped AVL Tree Sort");
         this.setRunSortName("Gridded Gapped AVL Treesort");
         this.setCategory("Hybrid Sorts");
+        this.setAuthors("Distray");
         this.setConstant("n log n");
         this.setBucketSort(false);
         this.setRadixSort(false);

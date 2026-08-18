@@ -11,6 +11,8 @@ public final class SmoothSort extends Sort {
         this.setRunAllSortsName("Smooth Sort");
         this.setRunSortName("Smoothsort");
         this.setCategory("Selection Sorts");
+        this.setAuthors("Edsger Dijkstra");
+        this.setConstant("n log n");
         this.setBucketSort(false);
         this.setRadixSort(false);
         this.setUnreasonablySlow(false);

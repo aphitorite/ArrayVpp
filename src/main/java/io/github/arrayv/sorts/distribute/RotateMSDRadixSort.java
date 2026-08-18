@@ -37,6 +37,7 @@ public final class RotateMSDRadixSort extends Sort {
         this.setRunAllSortsName("Rotate MSD Radix Sort, Base 4");
         this.setRunSortName("Rotate MSD Radixsort");
         this.setCategory("Distribution Sorts");
+        this.setAuthors("aphitorite");
         this.setBucketSort(true);
         this.setRadixSort(true);
         this.setUnreasonablySlow(false);

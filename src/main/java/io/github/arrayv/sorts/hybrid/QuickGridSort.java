@@ -14,6 +14,7 @@ final public class QuickGridSort extends Sort {
         this.setRunAllSortsName("Quick Grid Sort");
         this.setRunSortName("Quick Gridsort");
         this.setCategory("Hybrid Sorts");
+        this.setAuthors("Distray");
         this.setConstant("n log n");
         this.setBucketSort(false);
         this.setRadixSort(false);

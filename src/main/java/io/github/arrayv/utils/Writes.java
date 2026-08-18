@@ -5,6 +5,7 @@ import io.github.arrayv.main.ArrayVisualizer;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -92,7 +93,7 @@ public final class Writes {
     public String getReversals() {
         if (this.reversals.get() < 0) {
             this.reversals.set(Long.MIN_VALUE);
-            return "Over " + this.formatter.format(Long.MAX_VALUE);
+            return "Over " + this.formatter.format(Long.MAX_VALUE) + " Reversals";
         } else {
             if (reversals.get() == 1) return this.reversals + " Reversal";
             else                      return this.formatter.format(this.reversals) + " Reversals";
@@ -102,7 +103,7 @@ public final class Writes {
     public String getSwaps() {
         if (this.swaps.get() < 0) {
             this.swaps.set(Long.MIN_VALUE);
-            return "Over " + this.formatter.format(Long.MAX_VALUE);
+            return "Over " + this.formatter.format(Long.MAX_VALUE) + " Swaps";
         } else {
             if (swaps.get() == 1) return this.swaps + " Swap";
             else                  return this.formatter.format(this.swaps) + " Swaps";
@@ -112,7 +113,7 @@ public final class Writes {
     public String getAuxWrites() {
         if (this.auxWrites.get() < 0) {
             this.auxWrites.set(Long.MIN_VALUE);
-            return "Over " + this.formatter.format(Long.MAX_VALUE);
+            return "Over " + this.formatter.format(Long.MAX_VALUE) + " Writes to Auxiliary Array(s)";
         } else {
             if (auxWrites.get() == 1) return this.auxWrites + " Write to Auxiliary Array(s)";
             else                      return this.formatter.format(this.auxWrites) + " Writes to Auxiliary Array(s)";
@@ -122,7 +123,7 @@ public final class Writes {
     public String getMainWrites() {
         if (this.writes.get() < 0) {
             this.writes.set(Long.MIN_VALUE);
-            return "Over " + this.formatter.format(Long.MAX_VALUE);
+            return "Over " + this.formatter.format(Long.MAX_VALUE) + " Writes to Main Array";
         } else {
             if (writes.get() == 1) return this.writes + " Write to Main Array";
             else                   return this.formatter.format(this.writes) + " Writes to Main Array";
@@ -132,7 +133,7 @@ public final class Writes {
     public String getAllocAmount() {
         if (this.allocAmount.get() < 0) {
             this.allocAmount.set(Long.MIN_VALUE);
-            return "Over " + this.formatter.format(Long.MAX_VALUE);
+            return "Over " + this.formatter.format(Long.MAX_VALUE) + " Items in External Arrays";
         } else {
             if (allocAmount.get() == 1) return this.allocAmount + " Item in External Arrays";
             else                        return this.formatter.format(this.allocAmount) + " Items in External Arrays";
@@ -152,7 +153,7 @@ public final class Writes {
 	public String getRecursionDepth() {
 	    if(this.recDepth.get() < 0) {
 	        this.recDepth.set(Long.MIN_VALUE);
-	        return "WTF (Over " + this.formatter.format(Long.MAX_VALUE) + " depth)";
+	        return "why (Over " + this.formatter.format(Long.MAX_VALUE) + " depth)";
 	    } else {
 	        return this.formatter.format(this.recDepth) + " Max Call Depth";
 	    }
@@ -484,7 +485,10 @@ public final class Writes {
     public int[] createExternalArray(int length) {
         this.allocAmount.addAndGet(length);
         int[] result = new int[length];
-        arrayVisualizer.getArrays().add(result);
+    	List<int[]> arrs = arrayVisualizer.getArrays();
+    	synchronized (arrs) {
+    		arrs.add(result);
+    	}
         Highlights.registerMarks(result);
         Highlights.registerHeat(result);
         // [colors would be a bit much]
@@ -495,14 +499,20 @@ public final class Writes {
     public int[] createBareExternalArray(int length) {
         this.allocAmount.addAndGet(length);
         int[] result = new int[length];
-        arrayVisualizer.getArrays().add(result);
+    	List<int[]> arrs = arrayVisualizer.getArrays();
+    	synchronized (arrs) {
+    		arrs.add(result);
+    	}
         arrayVisualizer.updateNow();
         return result;
     }
 
     public void deleteExternalArray(int[] array) {
         this.allocAmount.addAndGet(-array.length);
-        arrayVisualizer.getArrays().remove(array);
+    	List<int[]> arrs = arrayVisualizer.getArrays();
+    	synchronized (arrs) {
+    		arrs.remove(array);
+    	}
         Highlights.unregisterMarks(array);
         Highlights.unregisterColors(array);
         arrayVisualizer.updateNow();
@@ -511,7 +521,10 @@ public final class Writes {
     public void deleteExternalArrays(int[]... arrays) {
         this.allocAmount.addAndGet(-Arrays.stream(arrays).reduce(0, (a, b) -> (a + b.length), Integer::sum));
         Arrays.stream(arrays).forEach((array) -> {
-        	arrayVisualizer.getArrays().remove(array);
+        	List<int[]> arrs = arrayVisualizer.getArrays();
+        	synchronized (arrs) {
+        		arrs.remove(array);
+        	}
             Highlights.unregisterMarks(array);
             Highlights.unregisterColors(array);
         });
@@ -519,10 +532,19 @@ public final class Writes {
     }
 
     public void deleteAllExternalArrays() {
-    	int[][] arrays = arrayVisualizer.getArrays().toArray(new int[0][]);
-    	for(int[] a : arrays) {
-    		if(a != arrayVisualizer.getArray())
-    			this.deleteExternalArray(a);
+    	List<int[]> arrs = arrayVisualizer.getArrays();
+    	synchronized (arrs) {
+    		// ConcurrentModificationException if done as before
+    		Iterator<int[]> nyon = arrs.iterator();
+    		ArrayList<int[]> marked = new ArrayList<>();
+    		int[] v;
+	    	while(nyon.hasNext()) {
+	    		if((v = nyon.next()) != arrayVisualizer.getArray())
+	    			marked.add(v);
+	    	}
+	    	for (int[] A : marked) {
+	    		this.deleteExternalArray(A);
+	    	}
     	}
     }
 

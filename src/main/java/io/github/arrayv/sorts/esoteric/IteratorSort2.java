@@ -13,6 +13,7 @@ public final class IteratorSort2 extends Sort {
 		this.setRunAllSortsName("Iterator Sort 2");
 		this.setRunSortName("Iterator Sort 2");
 		this.setCategory("Esoteric Sorts");
+        this.setAuthors("Potassium");
 		this.setBucketSort(false);
 		this.setRadixSort(false);
 		this.setUnreasonablySlow(true);

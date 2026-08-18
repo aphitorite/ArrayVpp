@@ -12,6 +12,8 @@ final public class CaliforniumSort extends Sort {
 		this.setRunAllSortsName("Californium Sort");
 		this.setRunSortName("Californiumsort");
 		this.setCategory("Exchange Sorts");
+		this.setAuthors("Californium-252, Distray");
+		this.setConstant("n^2.5");
 		this.setBucketSort(false);
 		this.setRadixSort(false);
 		this.setUnreasonablySlow(false);

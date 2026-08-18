@@ -39,6 +39,8 @@ final public class GritSort extends Sort {
 		this.setRunAllSortsName("Grit Sort");
 		this.setRunSortName("Gritsort");
 		this.setCategory("Hybrid Sorts");
+	    this.setAuthors("aphitorite");
+	    this.setConstant("n^1.5 log^0.5 n");
 		this.setBucketSort(false);
 		this.setRadixSort(false);
 		this.setUnreasonablySlow(false);

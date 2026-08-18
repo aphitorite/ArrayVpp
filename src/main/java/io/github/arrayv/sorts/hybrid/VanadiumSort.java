@@ -37,6 +37,7 @@ final public class VanadiumSort extends Sort {
 		this.setRunAllSortsName("Vanadium Sort");
 		this.setRunSortName("Vanadium Sort");
 		this.setCategory("Block Merge Sorts");
+        this.setAuthors("Distray");
 		this.setConstant("n log n");
 		this.setBucketSort(false);
 		this.setRadixSort(false);
@@ -618,6 +619,7 @@ final public class VanadiumSort extends Sort {
 		}
 	}
 	private void blockMergeInternal(int[] array, int t, final int s, int a, int m, int b, int p, int piv, int pCmp, int bit) {
+		if (Reads.compareIndices(array, m - 1, m, 0.5, true) <= 0) return;
 		if (m - a == s || b - m == s) {
 			mergeStatic(array, a, m, b, t, true, 0);
 			return;

@@ -1,7 +1,6 @@
 package io.github.arrayv.sorts.merge;
 
 import io.github.arrayv.main.ArrayVisualizer;
-import io.github.arrayv.sorts.insert.BinaryInsertionSort;
 import io.github.arrayv.sorts.insert.InsertionSort;
 import io.github.arrayv.sorts.templates.GrailSorting;
 import io.github.arrayv.utils.IndexedRotations;
@@ -13,6 +12,8 @@ public final class IotaSort extends GrailSorting {
         this.setRunAllSortsName("Iota Sort");
         this.setRunSortName("Iotasort");
         this.setCategory("Merge Sorts");
+        this.setAuthors("Distray");
+        this.setConstant("n log n");
         this.setBucketSort(false);
         this.setRadixSort(false);
         this.setUnreasonablySlow(false);

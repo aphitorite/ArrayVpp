@@ -34,6 +34,7 @@ public class TimSort extends Sort {
         this.setRunAllSortsName("Tim Sort");
         this.setRunSortName("Timsort");
         this.setCategory("Hybrid Sorts");
+        this.setAuthors("Tim Peters");
         this.setBucketSort(false);
         this.setRadixSort(false);
         this.setUnreasonablySlow(false);

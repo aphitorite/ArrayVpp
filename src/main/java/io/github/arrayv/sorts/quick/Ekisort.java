@@ -21,6 +21,7 @@ final public class Ekisort extends Sort {
 		this.setRunAllSortsName("Eki Sort");
 		this.setRunSortName("Ekisort");
 		this.setCategory("Quick Sorts");
+        this.setAuthors("Distray");
 		this.setBucketSort(false);
 		this.setRadixSort(false);
 		this.setUnreasonablySlow(false);

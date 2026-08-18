@@ -126,12 +126,16 @@ public class ArrayVList extends AbstractList<Integer> implements RandomAccess, C
     }
     
     public void show() {
-        ArrayList<ArrayVList> lst = arrayVisualizer.getArrayVLists();
-        if(!lst.contains(this)) lst.add(this);
+        List<ArrayVList> lst = arrayVisualizer.getArrayVLists();
+        synchronized (lst) {
+        	if(!lst.contains(this)) lst.add(this);
+        }
     }
     public void hide() {
-        ArrayList<ArrayVList> lst = arrayVisualizer.getArrayVLists();
-        while(lst.contains(this)) lst.remove(this);
+        List<ArrayVList> lst = arrayVisualizer.getArrayVLists();
+        synchronized (lst) {
+        	if(!lst.contains(this)) lst.remove(this);
+        }
     }
 
     protected void grow() {

@@ -20,6 +20,7 @@ import io.github.arrayv.sorts.templates.BogoSorting;
 		    this.setRunAllSortsName("Packwatch Sort");
 		    this.setRunSortName("Packwatch Sort"); // TECRipbozo
 		    this.setCategory("Epsilon Committee Sorts");
+		    this.setAuthors("Distray");
 		    this.setBucketSort(false);
 		    this.setRadixSort(false);
 		    this.setUnreasonablySlow(true);

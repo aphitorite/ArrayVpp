@@ -11,6 +11,7 @@ final public class VoidSort extends Sort {
 		this.setRunAllSortsName("Void Sort");
 		this.setRunSortName("Voidsort");
 		this.setCategory("Impractical Sorts");
+		this.setAuthors("Distray");
 		this.setBucketSort(false);
 		this.setRadixSort(false);
 		this.setUnreasonablySlow(true);

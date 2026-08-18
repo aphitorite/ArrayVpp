@@ -38,6 +38,8 @@ public final class ChaliceSort extends BlockMergeSorting {
         this.setRunAllSortsName("Chalice Sort");
         this.setRunSortName("Chalicesort");
         this.setCategory("Hybrid Sorts");
+        this.setAuthors("aphitorite");
+        this.setConstant("n log n");
         this.setBucketSort(false);
         this.setRadixSort(false);
         this.setUnreasonablySlow(false);

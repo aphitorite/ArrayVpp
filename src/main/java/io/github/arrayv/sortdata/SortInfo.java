@@ -1,15 +1,14 @@
 package io.github.arrayv.sortdata;
 
-import io.github.arrayv.main.ArrayVisualizer;
-import io.github.arrayv.sorts.templates.Sort;
-import io.github.arrayv.utils.Constants;
-
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Objects;
-import java.util.function.IntUnaryOperator;
 import java.util.function.Supplier;
 import java.util.function.UnaryOperator;
+
+import io.github.arrayv.main.ArrayVisualizer;
+import io.github.arrayv.sorts.templates.Sort;
+import io.github.arrayv.utils.Constants;
 
 public final class SortInfo {
     private static final String NAME_MUST_BE_SPECIFIED =
@@ -23,6 +22,7 @@ public final class SortInfo {
     private final String listName;
     private final String runName;
     private final String runAllName;
+    private final String authors;
     private final String category;
     private final UnaryOperator<Long> constant;
     private final boolean bogoSort;
@@ -30,8 +30,7 @@ public final class SortInfo {
     private final boolean bucketSort;
     private final String question;
     private final int defaultAnswer;
-    private final String authors;
-    private final IntUnaryOperator answerValidator;
+    private final UnaryOperator<Integer> answerValidator;
     private final boolean fromExtra;
     private final boolean useShellsortGaps;
 
@@ -45,19 +44,18 @@ public final class SortInfo {
         this.runName = sort.runName;
         this.runAllName = sort.runAllName;
         this.category = sort.category;
+        this.authors = sort.authors;
         this.constant = sort.constant;
         this.bogoSort = sort.bogoSort;
         this.radixSort = sort.radixSort;
         this.bucketSort = sort.bucketSort;
         this.question = sort.question;
         this.defaultAnswer = sort.defaultAnswer;
-        this.authors = sort.authors;
         this.answerValidator = sort.answerValidator;
         this.fromExtra = sort.fromExtra;
         this.useShellsortGaps = sort.useShellsortGaps;
     }
 
-    @SuppressWarnings("deprecation")
     public SortInfo(int id, Class<? extends Sort> sortClass) {
         this.id = id;
         this.internalName = sortClass.getSimpleName();
@@ -75,13 +73,13 @@ public final class SortInfo {
             this.runName = sort.getRunSortName();
             this.runAllName = sort.getRunAllSortsName();
             this.category = sort.getCategory();
+            this.authors = sort.getAuthors();
             this.constant = sort.getConstant();
             this.bogoSort = sort.isBogoSort();
             this.radixSort = sort.isRadixSort();
             this.bucketSort = sort.usesBuckets();
             this.question = sort.getQuestion();
             this.defaultAnswer = sort.getDefaultAnswer();
-            this.authors = sort.getAuthors();
             this.useShellsortGaps = sort.getUseShellsortGaps();
         } else {
             String name = normalizeName(metaAnnotation);
@@ -97,13 +95,13 @@ public final class SortInfo {
                 ? requireName(name) + " Sort"
                 : metaAnnotation.showcaseName();
             this.category = metaAnnotation.category().isEmpty() ? findSortCategory(sortClass) : metaAnnotation.category();
+            this.authors = metaAnnotation.authors();
             this.constant = Constants.constants.getOrDefault(metaAnnotation.constantName(), n -> -1L);
             this.bogoSort = metaAnnotation.bogoSort();
             this.radixSort = metaAnnotation.radixSort();
             this.bucketSort = metaAnnotation.bucketSort();
             this.question = metaAnnotation.question().isEmpty() ? null : metaAnnotation.question();
             this.defaultAnswer = metaAnnotation.defaultAnswer();
-            this.authors = sort.getAuthors();
             this.useShellsortGaps = sort.getUseShellsortGaps();
         }
         try {
@@ -114,7 +112,6 @@ public final class SortInfo {
         this.fromExtra = ArrayVisualizer.getInstance().getSortAnalyzer().didSortComeFromExtra(sortClass);
     }
 
-    @SuppressWarnings("deprecation")
     public SortInfo(int id, Sort sort) {
         this.id = id;
         this.internalName = sort.getClass().getSimpleName();
@@ -131,13 +128,13 @@ public final class SortInfo {
             this.runName = sort.getRunSortName();
             this.runAllName = sort.getRunAllSortsName();
             this.category = sort.getCategory();
+            this.authors = sort.getAuthors();
             this.constant = sort.getConstant();
             this.bogoSort = sort.isBogoSort();
             this.radixSort = sort.isRadixSort();
             this.bucketSort = sort.usesBuckets();
             this.question = sort.getQuestion();
             this.defaultAnswer = sort.getDefaultAnswer();
-            this.authors = sort.getAuthors();
             this.useShellsortGaps = sort.getUseShellsortGaps();
         } else {
             String name = normalizeName(metaAnnotation);
@@ -153,13 +150,13 @@ public final class SortInfo {
                 ? requireName(name) + " Sort"
                 : metaAnnotation.showcaseName();
             this.category = metaAnnotation.category().isEmpty() ? findSortCategory(sort.getClass()) : metaAnnotation.category();
+            this.authors = metaAnnotation.authors();
             this.constant = Constants.constants.getOrDefault(metaAnnotation.constantName(), n -> -1L);
             this.bogoSort = metaAnnotation.bogoSort();
             this.radixSort = metaAnnotation.radixSort();
             this.bucketSort = metaAnnotation.bucketSort();
             this.question = metaAnnotation.question().isEmpty() ? null : metaAnnotation.question();
             this.defaultAnswer = metaAnnotation.defaultAnswer();
-            this.authors = sort.getAuthors();
             this.useShellsortGaps = sort.getUseShellsortGaps();
         }
         try {
@@ -180,6 +177,7 @@ public final class SortInfo {
         String runName,
         String runAllName,
         String category,
+        String authors,
         UnaryOperator<Long> constant,
         boolean slowSort,
         boolean bogoSort,
@@ -187,8 +185,7 @@ public final class SortInfo {
         boolean bucketSort,
         String question,
         int defaultAnswer,
-        String authors,
-        IntUnaryOperator answerValidator,
+        UnaryOperator<Integer> answerValidator,
         boolean useShellsortGaps
     ) {
         this.id = id;
@@ -200,13 +197,13 @@ public final class SortInfo {
         this.runName = runName;
         this.runAllName = runAllName;
         this.category = category;
+        this.authors = authors;
         this.constant = constant;
         this.bogoSort = bogoSort;
         this.radixSort = radixSort;
         this.bucketSort = bucketSort;
         this.question = question;
         this.defaultAnswer = defaultAnswer;
-        this.authors = authors;
         this.answerValidator = answerValidator;
         this.fromExtra = false; // Built sorts cannot come from extra
         this.useShellsortGaps = useShellsortGaps;
@@ -285,6 +282,10 @@ public final class SortInfo {
         return category;
     }
 
+    public String getAuthors() {
+        return authors;
+    }
+
     public UnaryOperator<Long> getConstant() {
         return constant;
     }
@@ -313,11 +314,7 @@ public final class SortInfo {
         return defaultAnswer;
     }
 
-    public String getAuthors() {
-        return authors;
-    }
-
-    public IntUnaryOperator getAnswerValidator() {
+    public UnaryOperator<Integer> getAnswerValidator() {
         return answerValidator;
     }
 
@@ -326,7 +323,7 @@ public final class SortInfo {
     }
 
     public int validateAnswer(int answer) {
-        return answerValidator.applyAsInt(answer);
+        return answerValidator.apply(answer);
     }
 
     public boolean isFromExtra() {
@@ -471,6 +468,7 @@ public final class SortInfo {
         private String runName = null;
         private String runAllName = null;
         private String category; // Required
+        private String authors = null;
         private UnaryOperator<Long> constant = n -> -1L;
         private boolean slowSort = false;
         private boolean bogoSort = false;
@@ -478,8 +476,7 @@ public final class SortInfo {
         private boolean bucketSort = false;
         private String question = null;
         private int defaultAnswer = 0;
-        private String authors = "";
-        private IntUnaryOperator answerValidator = IntUnaryOperator.identity();
+        private UnaryOperator<Integer> answerValidator = UnaryOperator.identity();
         private boolean useShellsortGaps = false;
 
         private Builder() {
@@ -496,6 +493,7 @@ public final class SortInfo {
                 runName != null ? runName : (listName + "sort"),
                 runAllName != null ? runAllName : (listName + " Sort"),
                 Objects.requireNonNull(category, "category"),
+                authors,
                 constant,
                 slowSort,
                 bogoSort,
@@ -503,7 +501,6 @@ public final class SortInfo {
                 bucketSort,
                 question,
                 defaultAnswer,
-                authors,
                 answerValidator,
                 useShellsortGaps
             );
@@ -554,6 +551,11 @@ public final class SortInfo {
             return this;
         }
 
+        public Builder authors(String authors) {
+            this.authors = authors;
+            return this;
+        }
+
         public Builder constant(UnaryOperator<Long> constant) {
             this.constant = constant;
             return this;
@@ -589,12 +591,7 @@ public final class SortInfo {
             return this;
         }
 
-        public Builder authors(String authors) {
-            this.authors = authors;
-            return this;
-        }
-
-        public Builder answerValidator(IntUnaryOperator answerValidator) {
+        public Builder answerValidator(UnaryOperator<Integer> answerValidator) {
             this.answerValidator = Objects.requireNonNull(answerValidator, "answerValidator");
             return this;
         }

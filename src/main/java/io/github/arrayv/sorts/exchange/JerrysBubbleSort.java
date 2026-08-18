@@ -1,10 +1,9 @@
 package io.github.arrayv.sorts.exchange;
 
-import io.github.arrayv.sorts.templates.Sort;
-
 import java.util.HashMap;
 
 import io.github.arrayv.main.ArrayVisualizer;
+import io.github.arrayv.sorts.templates.Sort;
 
 final public class JerrysBubbleSort extends Sort {
     public JerrysBubbleSort(ArrayVisualizer arrayVisualizer) {
@@ -14,6 +13,7 @@ final public class JerrysBubbleSort extends Sort {
         this.setRunAllSortsName("Jerry's Bubble Sort (you know the place)");
         this.setRunSortName("Jerry's Bubblesort (you know the place)");
         this.setCategory("Exchange Sorts");
+		this.setAuthors("Distray");
         this.setConstant("n^3");
         this.setBucketSort(false);
         this.setRadixSort(false);

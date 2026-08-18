@@ -8,6 +8,7 @@ import io.github.arrayv.main.ArrayVisualizer;
 import io.github.arrayv.utils.Highlights;
 import io.github.arrayv.utils.Renderer;
 import io.github.arrayv.visuals.Visual;
+import io.github.arrayv.visuals.templates.Colorize;
 
 /*
  *
@@ -65,20 +66,14 @@ public final class SineWave extends Visual {
     @Override
     public void drawVisual(int[] array, int[] boundingBox, ArrayVisualizer arrayVisualizer, Renderer renderer, Highlights Highlights) {
         for (int i = 0, j = 0; i < renderer.getArrayLength(); i++) {
-            if (Highlights.fancyFinishActive() && i < Highlights.getFancyFinishPosition())
-                this.mainRender.setColor(Color.GREEN);
-
-            else if (arrayVisualizer.colorEnabled()) {
-            	if (Highlights.hasColor(array, i))
-            		this.mainRender.setColor(new Color(Mixbox.lerp(
-            			getIntColor(array[i], arrayVisualizer.getCurrentLength()).getRGB(),
-	                	Highlights.colorAt(array, i).getRGB(),
-	                	0.5f
-	                )));
-            	else this.mainRender.setColor(getIntColor(array[i], arrayVisualizer.getCurrentLength()));
-            } else if (Highlights.hasColor(array, i)) {
-                this.mainRender.setColor(Highlights.colorAt(array, i));
-            } else this.mainRender.setColor(Color.WHITE);
+    		this.mainRender.setColor(
+    			Colorize.bestFit(array, i, arrayVisualizer.getCurrentLength(),
+    				Colorize::heatmap,
+    				Colorize::fancyFinish,
+    				Colorize::hue,
+    				Colorize::snow
+    			)
+    		);
 
             int width = (int) (renderer.getXScale() * (i + 1)) - j;
 

@@ -14,6 +14,7 @@ final public class ExpliciumSort extends Sort {
         this.setRunAllSortsName("Explicium Sort");
         this.setRunSortName("Expliciumsort");
         this.setCategory("Selection Sorts");
+        this.setAuthors("Distray");
         this.setConstant("n log n");
         this.setBucketSort(false);
         this.setRadixSort(false);
@@ -22,9 +23,6 @@ final public class ExpliciumSort extends Sort {
         this.setBogoSort(false);
         this.setAuthors("Distray");
     }
-    
-    // Expliciumsort: A variant of Classic Tournament Sort that runs faster.
-    // *Made by Distray*
 
     private void make(int[] array, int[] tree, int start, int end, int index) {
     	if(end <= start) {

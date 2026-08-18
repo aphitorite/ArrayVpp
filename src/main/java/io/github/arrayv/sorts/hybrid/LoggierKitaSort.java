@@ -12,6 +12,7 @@ final public class LoggierKitaSort extends Sort {
 		this.setRunAllSortsName("Loggier Kita Sort");
 		this.setRunSortName("Loggier Kitasort");
 		this.setCategory("Hybrid Sorts");
+        this.setAuthors("Distray");
 		this.setConstant("n log n");
 		this.setBucketSort(false);
 		this.setRadixSort(false);

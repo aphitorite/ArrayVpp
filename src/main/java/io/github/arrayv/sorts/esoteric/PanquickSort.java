@@ -11,6 +11,7 @@ public final class PanquickSort extends Sort {
 		this.setRunAllSortsName("Panquick Sort");
 		this.setRunSortName("Panquick Sort");
 		this.setCategory("Esoteric Sorts");
+		this.setAuthors("Potassium");
 		this.setConstant("n log^2 n");
 		this.setBucketSort(false);
 		this.setRadixSort(false);
@@ -19,7 +20,6 @@ public final class PanquickSort extends Sort {
 		this.setBogoSort(false);
         this.setAuthors("Potassium");
 	}
-
 
 	private void quickSort(int[] a, int p, int r) {
 		int pivot = p + (r - p + 1) / 2;
@@ -43,7 +43,6 @@ public final class PanquickSort extends Sort {
 			}
 
 			if (i <= j) {
-
 				if (i == pivot) {
 					Highlights.markArray(3, j);
 				}

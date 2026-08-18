@@ -34,6 +34,7 @@ final public class CobaltSortMkII extends Sort {
         this.setRunAllSortsName("Cobalt Sort II (Block Merge Sort)");
         this.setRunSortName("Cobalt Sort II");
         this.setCategory("Block Merge Sorts");
+        this.setAuthors("Distray");
         this.setConstant("n log n");
         this.setBucketSort(false);
         this.setRadixSort(false);

@@ -40,6 +40,7 @@ final public class PacheSort extends Sort {
 		this.setRunAllSortsName("Pache Sort");
 		this.setRunSortName("Pachesort");
 		this.setCategory("Hybrid Sorts");
+		this.setAuthors("aphitorite");
 		this.setConstant("n log n");
 		this.setBucketSort(false);
 		this.setRadixSort(false);

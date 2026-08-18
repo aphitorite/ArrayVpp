@@ -36,6 +36,7 @@ public final class DropMergeSort extends Sort {
         this.setRunAllSortsName("Drop Merge Sort");
         this.setRunSortName("Drop Mergesort");
         this.setCategory("Hybrid Sorts");
+        this.setAuthors("fungamer2, Emil Ernerfeldt");
         this.setConstant("n log n");
         this.setBucketSort(false);
         this.setRadixSort(false);

@@ -12,6 +12,7 @@ final public class HerringSort extends BogoSorting {
         this.setRunAllSortsName("Herring Sort");
         this.setRunSortName("Herringsort");
         this.setCategory("Esoteric Sorts");
+        this.setAuthors("Distray");
         this.setBucketSort(false);
         this.setRadixSort(false);
         this.setUnreasonablySlow(false);

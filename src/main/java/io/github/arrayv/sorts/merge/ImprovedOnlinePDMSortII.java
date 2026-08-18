@@ -11,6 +11,7 @@ final public class ImprovedOnlinePDMSortII extends Sort {
         this.setRunAllSortsName("Improved Online Pattern-Defeating Merge Sort II");
         this.setRunSortName("Improved Online PDMsort II");
         this.setCategory("Merge Sorts");
+        this.setAuthors("Distray");
         this.setConstant("n log n");
         this.setBucketSort(false);
         this.setRadixSort(false);

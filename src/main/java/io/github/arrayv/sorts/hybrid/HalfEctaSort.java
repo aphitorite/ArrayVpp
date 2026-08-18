@@ -38,6 +38,7 @@ final public class HalfEctaSort extends Sort {
         this.setRunAllSortsName("Half Ectasort");
         this.setRunSortName("Half Ectasort");
         this.setCategory("Hybrid Sorts");
+        this.setAuthors("aphitorite");
         this.setConstant("n log n");
         this.setBucketSort(false);
         this.setRadixSort(false);

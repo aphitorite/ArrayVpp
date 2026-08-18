@@ -41,7 +41,8 @@ public final class BotoSort extends BogoSorting {
         this.setSortListName("Boto");
         this.setRunAllSortsName("Boto Sort");
         this.setRunSortName("Botosort");
-        this.setCategory("Esoteric Sorts");
+        this.setCategory("Bogo Sorts");
+        this.setAuthors("Distray");
         this.setBucketSort(false);
         this.setRadixSort(false);
         this.setUnreasonablySlow(true);

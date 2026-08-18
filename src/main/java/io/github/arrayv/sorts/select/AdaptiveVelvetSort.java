@@ -11,6 +11,8 @@ final public class AdaptiveVelvetSort extends Sort {
         this.setRunAllSortsName("Adaptive Velvet Sort");
         this.setRunSortName("Adaptive Velvet Sort");
         this.setCategory("Selection Sorts");
+  	    this.setAuthors("Distray");
+  	    this.setConstant("n^2");
         this.setBucketSort(false);
         this.setRadixSort(false);
         this.setUnreasonablySlow(false);

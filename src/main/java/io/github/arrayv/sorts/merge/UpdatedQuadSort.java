@@ -39,6 +39,7 @@ final public class UpdatedQuadSort extends Sort {
         this.setRunAllSortsName("Quad Sort (Updated)");
         this.setRunSortName("Updated Quadsort");
         this.setCategory("Merge Sorts");
+  	    this.setAuthors("Scandum, Distray");
         this.setBucketSort(false);
         this.setRadixSort(false);
         this.setUnreasonablySlow(false);

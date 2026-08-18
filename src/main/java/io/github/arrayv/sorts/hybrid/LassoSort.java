@@ -3,7 +3,7 @@ package io.github.arrayv.sorts.hybrid;
 import io.github.arrayv.main.ArrayVisualizer;
 import io.github.arrayv.sorts.templates.LassoSorting;
 
-
+//i'm_old!
 final public class LassoSort extends LassoSorting {
     public LassoSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
@@ -12,6 +12,7 @@ final public class LassoSort extends LassoSorting {
         this.setRunAllSortsName("Lasso Sort");
         this.setRunSortName("Lassosort");
         this.setCategory("Hybrid Sorts");
+        this.setAuthors("Distray");
         this.setConstant("n log n");
         this.setBucketSort(false);
         this.setRadixSort(false);

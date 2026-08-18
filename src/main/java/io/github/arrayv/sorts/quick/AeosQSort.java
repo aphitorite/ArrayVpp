@@ -22,6 +22,8 @@ public class AeosQSort extends Sort {
         this.setRunAllSortsName("Aeos Quick Sort");
         this.setRunSortName("Aeos Quicksort");
         this.setCategory("Quick Sorts");
+  	    this.setAuthors("Anonymous0726");
+  	    this.setConstant("n log n");
         this.setBucketSort(false);
         this.setRadixSort(false);
         this.setUnreasonablySlow(false);

@@ -15,7 +15,8 @@ public class StableCaiSort extends GrailSorting {
         this.setSortListName("Stable Cai");
         this.setRunAllSortsName("Stable Cai Sort");
         this.setRunSortName("Stable Caisort");
-        this.setCategory("Golf Sorts");
+        this.setCategory("Hybrid Sorts");
+        this.setAuthors("Distray");
         this.setConstant("n sqrt n");
         this.setBucketSort(false);
         this.setRadixSort(false);

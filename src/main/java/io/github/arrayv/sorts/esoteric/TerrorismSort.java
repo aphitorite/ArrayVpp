@@ -10,6 +10,7 @@ public final class TerrorismSort extends Sort {
 		this.setRunAllSortsName("Terrorism Sort");
 		this.setRunSortName("Terrorismsort");
 		this.setCategory("Esoteric Sorts");
+        this.setAuthors("Distray");
 		this.setBucketSort(false);
 		this.setRadixSort(false);
 		this.setUnreasonablySlow(true);

@@ -11,6 +11,7 @@ final public class LazicciSort extends GrailSorting {
         this.setRunAllSortsName("Lazicci Stable Sort");
         this.setRunSortName("Lazicci Sort");
         this.setCategory("Hybrid Sorts");
+        this.setAuthors("Distray");
         this.setConstant("n sqrt n");
         this.setBucketSort(false);
         this.setRadixSort(false);

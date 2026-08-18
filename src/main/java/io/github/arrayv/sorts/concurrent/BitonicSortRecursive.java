@@ -18,6 +18,8 @@ public final class BitonicSortRecursive extends Sort {
         this.setRunAllSortsName("Batcher's Bitonic Sort");
         this.setRunSortName("Recursive Bitonic Sort");
         this.setCategory("Concurrent Sorts");
+        this.setAuthors("Ken Batcher");
+        this.setConstant("n log^2 n");
         this.setBucketSort(false);
         this.setRadixSort(false);
         this.setUnreasonablySlow(false);

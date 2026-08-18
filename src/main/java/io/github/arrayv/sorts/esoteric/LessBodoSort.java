@@ -11,13 +11,13 @@
 		 this.setRunAllSortsName("Less Bodo Sort");
 		 this.setRunSortName("Less Bodo Sort");
 		 this.setCategory("Esoteric Sorts");
+		 this.setAuthors("Distray");
 		 this.setBucketSort(false);
 		 this.setRadixSort(false);
 		 this.setUnreasonablySlow(true);
 		 this.setUnreasonableLimit(2048);
 		 this.setBogoSort(true);
 	 }
- 
 	 
 	 public void runSort(int[] array, int length, int bucketCount) {
 	 int s = 0;

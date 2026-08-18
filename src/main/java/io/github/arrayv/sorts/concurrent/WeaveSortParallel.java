@@ -13,6 +13,8 @@ public final class WeaveSortParallel extends Sort {
         this.setRunAllSortsName("Parallel Weave Sort");
         this.setRunSortName("Parallel Weave Sort");
         this.setCategory("Concurrent Sorts");
+        this.setAuthors("aphitorite");
+        this.setConstant("n log^2 n");
         this.setBucketSort(false);
         this.setRadixSort(false);
         this.setUnreasonablySlow(true);

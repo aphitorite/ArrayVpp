@@ -15,6 +15,7 @@ final public class SimpleTreeSortDistayPrivate extends Sort {
 		this.setRunAllSortsName("Simple Tree Sort (Distay Private)");
 		this.setRunSortName("Simple Treesort (Distay Private)");
 		this.setCategory("Insertion Sorts");
+        this.setAuthors("Distray");
         this.setConstant("n log n");
 		this.setBucketSort(false);
 		this.setRadixSort(false);

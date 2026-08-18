@@ -10,6 +10,7 @@ public class WeavedIntrospectivePatternDefeatingIterativeHyperPopsort2 extends S
         this.setRunAllSortsName("Weaved Introspective Pattern Defeating Iterative Hyper Pop Sort");
         this.setRunSortName("Weaved Introspective Pattern Defeating Iterative Hyper-Popsort");
         this.setCategory("Hybrid Sorts");
+        this.setAuthors("Distray");
         this.setConstant("n^n");
         this.setBucketSort(false);
         this.setRadixSort(false);

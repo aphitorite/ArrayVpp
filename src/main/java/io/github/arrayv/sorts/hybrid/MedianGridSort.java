@@ -12,6 +12,7 @@ final public class MedianGridSort extends Sort {
         this.setRunAllSortsName("Median Grid Sort");
         this.setRunSortName("Median Gridsort");
         this.setCategory("Hybrid Sorts");
+        this.setAuthors("Distray");
         this.setConstant("n log n");
         this.setBucketSort(false);
         this.setRadixSort(false);

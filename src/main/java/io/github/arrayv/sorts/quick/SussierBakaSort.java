@@ -13,6 +13,7 @@ final public class SussierBakaSort extends Sort {
         this.setRunAllSortsName("SussierBakasort");
         this.setRunSortName("Sussierbakasort");
         this.setCategory("Quick Sorts");
+        this.setAuthors("Distray");
         this.setConstant("n log n");
         this.setBucketSort(false);
         this.setRadixSort(false);

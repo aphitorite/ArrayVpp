@@ -11,6 +11,7 @@ public final class MegaMessSort extends BogoSorting {
 		this.setRunAllSortsName("Mega Mess Sort");
 		this.setRunSortName("Mega Mess Sort");
 		this.setCategory("Esoteric Sorts");
+		this.setAuthors("Potassium");
 		this.setBucketSort(false);
 		this.setRadixSort(false);
 		this.setUnreasonablySlow(true);

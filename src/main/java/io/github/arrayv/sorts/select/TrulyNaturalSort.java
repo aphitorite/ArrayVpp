@@ -11,6 +11,7 @@ final public class TrulyNaturalSort extends Sort {
         this.setRunAllSortsName("Truly Natural Sort");
         this.setRunSortName("TNSort");
         this.setCategory("Selection Sorts");
+  	    this.setAuthors("Potassium");
         this.setBucketSort(false);
         this.setRadixSort(false);
         this.setUnreasonablySlow(false);

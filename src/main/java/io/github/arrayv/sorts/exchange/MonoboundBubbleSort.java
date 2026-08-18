@@ -11,6 +11,7 @@ final public class MonoboundBubbleSort extends Sort {
         this.setRunAllSortsName("Monobound Bubble Sort");
         this.setRunSortName("Monobound Bubblesort");
         this.setCategory("Exchange Sorts");
+        this.setAuthors("Distray");
         this.setBucketSort(false);
         this.setRadixSort(false);
         this.setUnreasonablySlow(false);

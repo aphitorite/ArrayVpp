@@ -37,6 +37,7 @@ public final class StacklessAmericanFlagSort extends Sort {
         this.setRunAllSortsName("Stackless American Flag Sort");
         this.setRunSortName("Stackless American Flag Sort");
         this.setCategory("Distribution Sorts");
+        this.setAuthors("aphitorite");
         this.setBucketSort(true);
         this.setRadixSort(true);
         this.setUnreasonablySlow(false);

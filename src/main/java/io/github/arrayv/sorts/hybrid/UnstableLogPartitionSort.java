@@ -12,6 +12,7 @@ final public class UnstableLogPartitionSort extends GrailSorting {
         this.setRunAllSortsName("Unstable Log Partition Sort");
         this.setRunSortName("Unstable Log Partition Sort");
         this.setCategory("Hybrid Sorts");
+        this.setAuthors("Distray");
         this.setConstant("n log n");
         this.setBucketSort(false);
         this.setRadixSort(false);

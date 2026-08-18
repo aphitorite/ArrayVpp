@@ -11,6 +11,7 @@ final public class FactorialHeapSortII extends Sort {
         this.setRunAllSortsName("Factorial Heap Sort II");
         this.setRunSortName("Factorial Heapsort II");
         this.setCategory("Selection Sorts");
+  	    this.setAuthors("Distray");
         this.setConstant("n log^2 n");
         this.setBucketSort(false);
         this.setRadixSort(false);

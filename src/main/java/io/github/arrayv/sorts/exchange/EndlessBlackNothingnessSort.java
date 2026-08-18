@@ -11,6 +11,7 @@ final public class EndlessBlackNothingnessSort extends Sort {
 		this.setRunAllSortsName("Endless Black Nothingness Sort (Void Sort III)");
 		this.setRunSortName("EBNsort (Voidsort III)");
 		this.setCategory("Impractical Sorts");
+		this.setAuthors("Distray");
 		this.setBucketSort(false);
 		this.setRadixSort(false);
 		this.setUnreasonablySlow(true);

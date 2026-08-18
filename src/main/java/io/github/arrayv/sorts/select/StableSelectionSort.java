@@ -34,6 +34,8 @@ public final class StableSelectionSort extends Sort {
         this.setRunAllSortsName("Stable Selection Sort");
         this.setRunSortName("Stable Selection Sort");
         this.setCategory("Selection Sorts");
+        this.setAuthors("fungamer2");
+        this.setConstant("n^2");
         this.setBucketSort(false);
         this.setRadixSort(false);
         this.setUnreasonablySlow(false);

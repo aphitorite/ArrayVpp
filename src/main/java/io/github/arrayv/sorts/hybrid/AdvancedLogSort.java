@@ -13,6 +13,7 @@ final public class AdvancedLogSort extends Sort {
 		this.setRunAllSortsName("Advanced Log Sort");
 		this.setRunSortName("Advanced Logsort");
 		this.setCategory("Hybrid Sorts");
+        this.setAuthors("Distray");
 		this.setConstant("n log n");
 		this.setBucketSort(false);
 		this.setRadixSort(false);

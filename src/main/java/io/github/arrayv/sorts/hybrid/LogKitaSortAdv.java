@@ -12,6 +12,7 @@ final public class LogKitaSortAdv extends Sort {
 		this.setRunAllSortsName("Advanced Log Kita Sort");
 		this.setRunSortName("Advanced Log Kitasort");
 		this.setCategory("Hybrid Sorts");
+        this.setAuthors("Distray");
 		this.setConstant("n log n");
 		this.setBucketSort(false);
 		this.setRadixSort(false);

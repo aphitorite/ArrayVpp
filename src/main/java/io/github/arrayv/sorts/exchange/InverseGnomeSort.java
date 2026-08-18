@@ -11,6 +11,7 @@ final public class InverseGnomeSort extends Sort {
         this.setRunAllSortsName("Inverse Gnome Sort");
         this.setRunSortName("Inverse Gnomesort");
         this.setCategory("Exchange Sorts");
+		this.setAuthors("Distray");
         this.setBucketSort(false);
         this.setRadixSort(false);
         this.setUnreasonablySlow(false);

@@ -16,6 +16,8 @@ public final class BadSort extends Sort {
         this.setRunAllSortsName("Bad Sort");
         this.setRunSortName("Badsort");
         this.setCategory("Selection Sorts");
+        this.setAuthors("James Jensen");
+        this.setConstant("n^3");
         this.setBucketSort(false);
         this.setRadixSort(false);
         this.setUnreasonablySlow(true);

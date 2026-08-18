@@ -13,6 +13,7 @@ public final class AntichristSort extends Sort {
 		this.setRunAllSortsName("Antichrist Sort");
 		this.setRunSortName("Antichrist Sort");
 		this.setCategory("Esoteric Sorts");
+		this.setAuthors("Distray");
 		this.setBucketSort(false);
 		this.setRadixSort(false);
 		this.setUnreasonablySlow(false);

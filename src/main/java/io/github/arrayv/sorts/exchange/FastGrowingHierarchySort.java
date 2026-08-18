@@ -29,6 +29,7 @@ public class FastGrowingHierarchySort extends Sort {
         this.setRunAllSortsName("Fast-growing Hierarchy Sort");
         this.setRunSortName("Fast-growing Hierarchy Sort");
         this.setCategory("Esoteric Sorts");
+        this.setAuthors("Tycho/Äonothem");
         this.setBucketSort(false);
         this.setRadixSort(false);
         this.setUnreasonablySlow(true);

@@ -41,9 +41,16 @@ public @interface SortMeta {
      * @return The sort's explicit Showcase Sorts name, if it has one. {@code ""} otherwise.
      */
     String showcaseName() default "";
+    
+    /**
+     * Any and all authors.
+     * @return The sort's authors.
+     */
+    String authors() default "";
 
     /**
      * The sort's constant. Unlike the constructor, only aliases can be used.
+     * @return Which prefab constant the algorithm falls under.
      */
     String constantName() default "unknown";
 

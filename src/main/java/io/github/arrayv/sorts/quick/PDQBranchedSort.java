@@ -28,7 +28,9 @@ final public class PDQBranchedSort extends PDQSorting {
         this.setSortListName("Pattern-Defeating Quick (PDQ)");
         this.setRunAllSortsName("Pattern-Defeating Quick Sort");
         this.setRunSortName("Pattern-Defeating Quicksort");
-        this.setCategory("Quick Sorts");
+        this.setCategory("Quick/Hybrid Sorts");
+        this.setAuthors("Orson Peters");
+        this.setConstant("n log n");
         this.setBucketSort(false);
         this.setRadixSort(false);
         this.setUnreasonablySlow(false);

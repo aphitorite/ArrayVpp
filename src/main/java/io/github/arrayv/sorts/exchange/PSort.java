@@ -55,6 +55,8 @@ final public class PSort extends BogoSorting {
         this.setRunAllSortsName("P Sort");
         this.setRunSortName("P-Sort");
         this.setCategory("Impractical Sorts");
+		this.setAuthors("Distray");
+		this.setConstant("bogo");
         this.setBucketSort(false);
         this.setRadixSort(false);
         this.setUnreasonablySlow(true);

@@ -140,6 +140,7 @@ final public class BabaSort extends BogoSorting {
         this.setRunAllSortsName("Baba Is Sort");
         this.setRunSortName("Babasort");
         this.setCategory("Esoteric Sorts");
+        this.setAuthors("Distray");
         this.setBucketSort(false);
         this.setRadixSort(false);
         this.setUnreasonablySlow(true);

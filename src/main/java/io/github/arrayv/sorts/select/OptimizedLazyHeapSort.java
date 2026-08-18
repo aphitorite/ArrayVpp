@@ -37,6 +37,8 @@ final public class OptimizedLazyHeapSort extends Sort {
         this.setRunAllSortsName("Optimized Lazy Heap Sort");
         this.setRunSortName("Optimized Lazy Heapsort");
         this.setCategory("Selection Sorts");
+        this.setAuthors("aphitorite");
+        this.setConstant("n sqrt n");
         this.setBucketSort(false);
         this.setRadixSort(false);
         this.setUnreasonablySlow(false);

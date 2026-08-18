@@ -57,11 +57,12 @@ public final class GrailSort extends GrailSorting {
         this.setRunAllSortsName("Grailsort");
         this.setRunSortName("Grailsort");
         this.setCategory("Block Merge Sorts");
+	    this.setAuthors("Andrey Astrelin");
+        this.setConstant("n log n");
         this.setBucketSort(false);
         this.setRadixSort(false);
         this.setUnreasonablySlow(false);
         this.setUnreasonableLimit(0);
-        this.setConstant("n log n");
         this.setBogoSort(false);
         this.setQuestion("Enter external buffer type (0 = in-place, 1 = static, 2 = dynamic):", 0);
         this.setAuthors("Andrey Astrelin");

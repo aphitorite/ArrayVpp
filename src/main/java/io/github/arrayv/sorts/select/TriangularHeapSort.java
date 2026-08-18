@@ -15,6 +15,8 @@ public final class TriangularHeapSort extends Sort {
 		this.setRunAllSortsName("Triangular Heap Sort");
 		this.setRunSortName("Triangular Heapsort");
 		this.setCategory("Selection Sorts");
+        this.setAuthors("aphitorite, EilrahcF");
+        this.setConstant("n sqrt n");
 		this.setBucketSort(false);
 		this.setRadixSort(false);
 		this.setUnreasonablySlow(false);

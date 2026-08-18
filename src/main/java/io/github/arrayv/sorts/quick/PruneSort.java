@@ -14,7 +14,8 @@ public class PruneSort extends Sort {
 		this.setRunAllSortsName("Prune Sort");
 		this.setRunSortName("Prunesort");
 		this.setCategory("Quick Sorts");
-		this.setConstant("n log n");
+  	    this.setAuthors("Distray");
+  	    this.setConstant("n log n");
 		this.setBucketSort(false);
 		this.setRadixSort(false);
 		this.setUnreasonablySlow(false);

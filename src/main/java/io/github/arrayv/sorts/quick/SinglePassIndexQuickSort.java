@@ -11,7 +11,8 @@ final public class SinglePassIndexQuickSort extends Sort {
         this.setRunAllSortsName("Single-Pass Index Quick Sort");
         this.setRunSortName("Single-Pass Index Quicksort");
         this.setCategory("Quick Sorts");
-		this.setConstant("n log n");
+  	    this.setAuthors("Distray");
+  	    this.setConstant("n log n");
         this.setBucketSort(false);
         this.setRadixSort(false);
         this.setUnreasonablySlow(false);

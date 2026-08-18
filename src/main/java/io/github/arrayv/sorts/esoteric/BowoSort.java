@@ -13,7 +13,8 @@ public final class BowoSort extends BogoSorting {
         this.setSortListName("Bowo");
         this.setRunAllSortsName("Bowo Sort");
         this.setRunSortName("Bowosort");
-        this.setCategory("Esoteric Sorts");
+        this.setCategory("Bogo Sorts");
+        this.setAuthors("Distray");
         this.setConstant("bogo");
         this.setBucketSort(false);
         this.setRadixSort(false);

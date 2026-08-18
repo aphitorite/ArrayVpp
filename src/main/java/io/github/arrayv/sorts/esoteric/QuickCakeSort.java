@@ -11,6 +11,7 @@ public final class QuickCakeSort extends Sort {
 		this.setRunAllSortsName("QuickCake Sort");
 		this.setRunSortName("QuickCake Sort");
 		this.setCategory("Esoteric Sorts");
+		this.setAuthors("Potassium");
 		this.setBucketSort(false);
 		this.setRadixSort(false);
 		this.setUnreasonablySlow(false);

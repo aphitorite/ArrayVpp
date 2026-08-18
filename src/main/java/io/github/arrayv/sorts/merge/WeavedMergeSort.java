@@ -38,6 +38,8 @@ public class WeavedMergeSort extends Sort {
         this.setRunAllSortsName("Weaved Merge Sort");
         this.setRunSortName("Weaved Mergesort");
         this.setCategory("Merge Sorts");
+        this.setAuthors("Emerald Block");
+        this.setConstant("n log n");
         this.setBucketSort(false);
         this.setRadixSort(false);
         this.setUnreasonablySlow(false);

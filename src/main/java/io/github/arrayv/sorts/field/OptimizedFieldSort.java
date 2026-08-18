@@ -2,7 +2,7 @@ package io.github.arrayv.sorts.field;
 
 import io.github.arrayv.main.ArrayVisualizer;
 import io.github.arrayv.sorts.distribute.MSDRadixSort;
-import io.github.arrayv.sorts.distribute.BogoSort;
+import io.github.arrayv.sorts.esoteric.BogoSort;
 import io.github.arrayv.sorts.hybrid.GrailSort;
 import io.github.arrayv.sorts.insert.InsertionSort;
 import io.github.arrayv.sorts.merge.PanicSort;
@@ -27,6 +27,8 @@ public final class OptimizedFieldSort extends BogoSorting {
 		this.setRunAllSortsName("Optimized Field Sort"); 
 		this.setRunSortName("Optimized Fieldsort"); 
 		this.setCategory("Hybrid Sorts");
+		this.setAuthors("Potassium");
+		this.setConstant("n log n");
 		this.setBucketSort(false);
 		this.setRadixSort(false);
 		this.setUnreasonablySlow(false);

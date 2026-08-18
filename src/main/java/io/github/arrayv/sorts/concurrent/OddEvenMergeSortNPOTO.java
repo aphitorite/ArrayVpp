@@ -11,6 +11,8 @@ final public class OddEvenMergeSortNPOTO extends Sort {
         this.setRunAllSortsName("Odd-Even Merge Sort (Non-PowerOfTwo Optimized)");
         this.setRunSortName("Odd-Even Mergesort (Non-POT Optimized)");
         this.setCategory("Concurrent Sorts");
+        this.setAuthors("Ken Batcher");
+        this.setConstant("n log^2 n");
         this.setBucketSort(false);
         this.setRadixSort(false);
         this.setUnreasonablySlow(false);

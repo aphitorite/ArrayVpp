@@ -14,7 +14,8 @@ public class PseudoPDPruneSort extends Sort {
 		this.setRunAllSortsName("Pseudo-Pattern-Defeating Prune Sort");
 		this.setRunSortName("Pseudo-PD Prunesort");
 		this.setCategory("Quick Sorts");
-		this.setConstant("n log n");
+  	    this.setAuthors("Distray");
+  	    this.setConstant("n log n");
 		this.setBucketSort(false);
 		this.setRadixSort(false);
 		this.setUnreasonablySlow(false);

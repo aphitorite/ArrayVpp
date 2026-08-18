@@ -102,7 +102,7 @@ public abstract class BogoSorting extends Sort {
      * @param end the end of the range, exclusive
      * @param aux whether the array is auxililary
      */
-    protected void bogoSwap(int[] array, int start, int end, boolean aux){
+    public void bogoSwap(int[] array, int start, int end, boolean aux){
         for (int i = start; i < end; ++i)
             Writes.swap(array, i, BogoSorting.randInt(i, end), this.delay, true, aux);
     }
@@ -139,7 +139,7 @@ public abstract class BogoSorting extends Sort {
      * @param markLast whether to mark the element that is not sorted
      * @return whether the range is sorted
      */
-    protected boolean isRangeSorted(int[] array, int start, int end, boolean mark, boolean markLast) {
+    public boolean isRangeSorted(int[] array, int start, int end, boolean mark, boolean markLast) {
         for (int i = start; i < end - 1; ++i) {
             if (Reads.compareIndices(array, i, i + 1, this.delay, mark) > 0) {
                 if (markLast) Highlights.markArray(3, i + 1);
@@ -173,7 +173,7 @@ public abstract class BogoSorting extends Sort {
      *
      * @see #isRangeSorted(int[], int, int, boolean, boolean)
      */
-    protected boolean isRangeSorted(int[] array, int start, int end) {
+    public boolean isRangeSorted(int[] array, int start, int end) {
         return isRangeSorted(array, start, end, true, false);
     }
 
@@ -185,7 +185,7 @@ public abstract class BogoSorting extends Sort {
      * @param length the length of the array or prefix
      * @return whether the array or prefix is sorted
      */
-    protected boolean isArraySorted(int[] array, int length) {
+    public boolean isArraySorted(int[] array, int length) {
         return isRangeSorted(array, 0, length);
     }
 

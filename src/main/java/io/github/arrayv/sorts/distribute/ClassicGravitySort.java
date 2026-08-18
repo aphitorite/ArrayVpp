@@ -37,6 +37,7 @@ public final class ClassicGravitySort extends Sort {
         this.setRunAllSortsName("Classic Gravity (Bead) Sort");
         this.setRunSortName("Classic Beadsort");
         this.setCategory("Distribution Sorts");
+        this.setAuthors("Gaming32, Joshua J. Arulanandham, Cristian S. Calude, Michael J. Dinneen");
         this.setBucketSort(false);
         this.setRadixSort(false);
         this.setUnreasonablySlow(false);

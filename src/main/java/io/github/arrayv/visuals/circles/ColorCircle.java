@@ -5,8 +5,8 @@ import java.awt.Color;
 import io.github.arrayv.main.ArrayVisualizer;
 import io.github.arrayv.utils.Highlights;
 import io.github.arrayv.utils.Renderer;
+import io.github.arrayv.visuals.templates.Colorize;
 import io.github.arrayv.visuals.templates.VisualNoAntialiasing;
-import com.scrtwpns.Mixbox;
 
 /*
  *
@@ -42,7 +42,6 @@ public final class ColorCircle extends VisualNoAntialiasing {
 
         this.setListName("Color Circle");
         this.setCategory("Circle Visuals");
-        this.setColorable(stance.ALWAYS);
         this.setOverlayable(true);
     }
 
@@ -96,36 +95,32 @@ public final class ColorCircle extends VisualNoAntialiasing {
             x[2] =  width/2 + (int)(r * Math.cos(Math.PI * (2d*i / n - 0.5)));
             y[2] = height/2 + (int)(r * Math.sin(Math.PI * (2d*i / n - 0.5)));
 
-            if (Highlights.fancyFinishActive() && i < Highlights.getFancyFinishPosition())
-                this.mainRender.setColor(Color.GREEN);
+            if (Highlights.containsPosition(i) && (!Highlights.fancyFinishActive() || i >= Highlights.getFancyFinishPosition())) {
+                if (arrayVisualizer.analysisEnabled()) this.extraRender.setColor(Color.LIGHT_GRAY);
+                else                                   this.extraRender.setColor(Color.WHITE);
 
-            else {
-            	if (Highlights.hasColor(array, i))
-            		this.mainRender.setColor(new Color(Mixbox.lerp(
-            			getIntColor(array[i], arrayVisualizer.getCurrentLength()).getRGB(),
-	                	Highlights.colorAt(array, i).getRGB(),
-	                	0.5f
-	                )));
-            	else this.mainRender.setColor(getIntColor(array[i], arrayVisualizer.getCurrentLength()));
+                px[0] =  width/2 + (int)((r + p/4) * Math.cos(Math.PI * ((2d*i - 1) / n - 0.5)));
+                py[0] = height/2 + (int)((r + p/4) * Math.sin(Math.PI * ((2d*i - 1) / n - 0.5)));
 
-                if (Highlights.containsPosition(i)) {
-                    if (arrayVisualizer.analysisEnabled()) this.extraRender.setColor(Color.LIGHT_GRAY);
-                    else                                  this.extraRender.setColor(Color.WHITE);
+                px[1] = px[0] + (int)(p * Math.cos(Math.PI * ((2d*i - 1) / n - 0.67)));
+                py[1] = py[0] + (int)(p * Math.sin(Math.PI * ((2d*i - 1) / n - 0.67)));
 
-                    px[0] =  width/2 + (int)((r + p/4) * Math.cos(Math.PI * ((2d*i - 1) / n - 0.5)));
-                    py[0] = height/2 + (int)((r + p/4) * Math.sin(Math.PI * ((2d*i - 1) / n - 0.5)));
+                px[2] = px[0] + (int)(p * Math.cos(Math.PI * ((2d*i - 1) / n - 0.33)));
+                py[2] = py[0] + (int)(p * Math.sin(Math.PI * ((2d*i - 1) / n - 0.33)));
 
-                    px[1] = px[0] + (int)(p * Math.cos(Math.PI * ((2d*i - 1) / n - 0.67)));
-                    py[1] = py[0] + (int)(p * Math.sin(Math.PI * ((2d*i - 1) / n - 0.67)));
-
-                    px[2] = px[0] + (int)(p * Math.cos(Math.PI * ((2d*i - 1) / n - 0.33)));
-                    py[2] = py[0] + (int)(p * Math.sin(Math.PI * ((2d*i - 1) / n - 0.33)));
-
-                    this.extraRender.fillPolygon(px, py, 3);
-                }
+                this.extraRender.fillPolygon(px, py, 3);
             }
 
-            if (x[1] != x[2] || y[1] != y[2]) this.mainRender.fillPolygon(x, y, 3);
+            if (x[1] != x[2] || y[1] != y[2]) {
+        		this.mainRender.setColor(
+        			Colorize.bestFit(array, i, n,
+        				Colorize::fancyFinish,
+        				Colorize::hue,
+        				Colorize::graybright
+        			)
+        		);
+            	this.mainRender.fillPolygon(x, y, 3);
+            }
         }
     }
 }

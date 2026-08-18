@@ -10,6 +10,7 @@ public final class FizzySort extends Sort {
       this.setRunAllSortsName("Fizzy Sort");
       this.setRunSortName("Fizzysort");
       this.setCategory("Exchange Sorts");
+      this.setAuthors("Potassium");
       this.setBucketSort(false);
       this.setRadixSort(false);
       this.setUnreasonablySlow(false);

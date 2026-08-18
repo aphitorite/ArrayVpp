@@ -14,6 +14,7 @@ final public class MorePatternDefeatingDisparityBidirectionalExponentialBranchle
         this.setRunAllSortsName("More Pattern-Defeating Disparity Bidirectional Exponential Branchless Binary/Linear Hell Sort with Improved Deweave");
         this.setRunSortName("More Pattern-Defeating Disparity Bidirectional Exponential Branchless Binary/Linear Shellsort (+ Improved Deweave)");
         this.setCategory("Insertion Sorts");
+        this.setAuthors("Distray");
         this.setConstant("n cbrt n");
         this.setBucketSort(false);
         this.setRadixSort(false);

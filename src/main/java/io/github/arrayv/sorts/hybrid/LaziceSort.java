@@ -10,6 +10,7 @@ final public class LaziceSort extends GrailSorting {
         this.setSortListName("Lazice Stable");
         this.setRunAllSortsName("Lazice Stable Sort");
         this.setRunSortName("Lazice Sort");
+        this.setAuthors("Distray");
         this.setCategory("Hybrid Sorts");
         this.setBucketSort(false);
         this.setRadixSort(false);

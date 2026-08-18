@@ -21,7 +21,8 @@ public final class OmegaBotoSort extends BogoSorting {
         this.setSortListName("Omega Boto");
         this.setRunAllSortsName("Omega Boto Sort");
         this.setRunSortName("\u03A9 Botosort");
-        this.setCategory("Esoteric Sorts");
+        this.setCategory("Bogo Sorts");
+        this.setAuthors("Distray");
         this.setBucketSort(false);
         this.setRadixSort(false);
         this.setUnreasonablySlow(true);

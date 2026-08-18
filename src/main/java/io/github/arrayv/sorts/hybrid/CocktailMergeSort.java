@@ -28,6 +28,8 @@ public class CocktailMergeSort extends Sort {
         this.setRunAllSortsName("Cocktail Merge Sort");
         this.setRunSortName("Cocktail Mergesort");
         this.setCategory("Hybrid Sorts");
+        this.setAuthors("Musicombo, Sorting Stuff");
+        this.setConstant("n log n");
         this.setBucketSort(false);
         this.setRadixSort(false);
         this.setUnreasonablySlow(false);

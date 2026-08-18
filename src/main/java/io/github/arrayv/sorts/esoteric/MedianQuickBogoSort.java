@@ -1,4 +1,4 @@
-package io.github.arrayv.sorts.distribute;
+package io.github.arrayv.sorts.esoteric;
 
 import io.github.arrayv.main.ArrayVisualizer;
 import io.github.arrayv.sorts.templates.BogoSorting;
@@ -30,55 +30,40 @@ SOFTWARE.
  */
 
 /**
- * Quick Bogosort is like Quicksort, but after selecting a pivot,
- * it randomly shuffles the array until the pivot partitions the array.
- * The pivot is tracked as the array is shuffled.
+ * Median Quick Bogosort repeatedly shuffles the array until the left and right halves are split.
+ * It then recursively sorts each half.
  */
-public final class QuickBogoSort extends BogoSorting {
-    public QuickBogoSort(ArrayVisualizer arrayVisualizer) {
+public final class MedianQuickBogoSort extends BogoSorting {
+    public MedianQuickBogoSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 
-        this.setSortListName("Quick Bogo");
-        this.setRunAllSortsName("Quick Bogo Sort");
-        this.setRunSortName("Quick Bogosort");
-        this.setCategory("Impractical Sorts");
+        this.setSortListName("Median Quick Bogo");
+        this.setRunAllSortsName("Median Quick Bogo Sort");
+        this.setRunSortName("Median Quick Bogosort");
+        this.setCategory("Bogo Sorts");
+        this.setAuthors("Emerald Block");
         this.setBucketSort(false);
         this.setRadixSort(false);
         this.setUnreasonablySlow(true);
-        this.setUnreasonableLimit(22);
+        this.setUnreasonableLimit(23);
         this.setBogoSort(true);
         this.setAuthors("Emerald Block");
     }
 
-    private int quickBogoSwap(int[] array, int start, int pivot, int end){
-        for(int i = start; i < end; i++) {
-            int j = BogoSorting.randInt(i, end);
-            if (pivot == i)
-                pivot = j;
-            else if (pivot == j)
-                pivot = i;
-            Writes.swap(array, i, j, this.delay, true, false);
-        }
-        return pivot;
-    }
-
-    private void quickBogo(int[] array, int start, int end) {
+    private void medianQuickBogo(int[] array, int start, int end) {
         if (start >= end-1)
             return;
 
-        int pivot = start;
-        // worst-case pivot (linear distribution)
-        // for (; pivot < end; ++pivot)
-        //     if (array[pivot] == (start+end)/2) break;
-        while (!isRangePartitioned(array, start, pivot, end))
-            pivot = quickBogoSwap(array, start, pivot, end);
+        int mid = (start+end)/2;
+        while (!isRangeSplit(array, start, mid, end))
+            this.bogoSwap(array, start, end, false);
 
-        quickBogo(array, start, pivot);
-        quickBogo(array, pivot+1, end);
+        medianQuickBogo(array, start, mid);
+        medianQuickBogo(array, mid, end);
     }
 
     @Override
     public void runSort(int[] array, int sortLength, int bucketCount) {
-        quickBogo(array, 0, sortLength);
+        medianQuickBogo(array, 0, sortLength);
     }
 }

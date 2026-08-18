@@ -13,6 +13,7 @@ final public class MiniKitaSort extends Sort {
         this.setRunAllSortsName("Mini Kita Sort");
         this.setRunSortName("Mini Kitasort");
         this.setCategory("Block Merge Sorts");
+        this.setAuthors("Distray");
         this.setBucketSort(false);
         this.setRadixSort(false);
         this.setUnreasonablySlow(false);

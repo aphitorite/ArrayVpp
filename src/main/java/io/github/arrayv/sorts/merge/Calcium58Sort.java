@@ -12,6 +12,7 @@ public final class Calcium58Sort extends Sort {
 		this.setRunAllSortsName("Calcium-58 Sort");
 		this.setRunSortName("Calcium-58sort");
 		this.setCategory("Impractical Sorts");
+        this.setAuthors("Distray");
 		this.setBucketSort(false);
 		this.setRadixSort(false);
 		this.setUnreasonablySlow(false);

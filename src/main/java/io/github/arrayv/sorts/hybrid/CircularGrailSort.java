@@ -37,6 +37,7 @@ public final class CircularGrailSort extends Sort {
         this.setRunAllSortsName("Circular Grail Sort");
         this.setRunSortName("Circular Grailsort");
         this.setCategory("Hybrid Sorts");
+        this.setAuthors("aphitorite");
         this.setConstant("n log n");
         this.setBucketSort(false);
         this.setRadixSort(false);

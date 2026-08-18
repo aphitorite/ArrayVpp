@@ -13,6 +13,7 @@ public class BufferedWeavedMergeSort extends Sort {
         this.setRunAllSortsName("Buffered Weaved Merge Sort");
         this.setRunSortName("Buffered Weaved Mergesort");
         this.setCategory("Merge Sorts");
+        this.setAuthors("Distray");
         this.setConstant("n log n");
         this.setBucketSort(false);
         this.setRadixSort(false);

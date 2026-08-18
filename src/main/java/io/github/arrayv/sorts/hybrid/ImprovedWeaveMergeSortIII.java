@@ -11,6 +11,8 @@ final public class ImprovedWeaveMergeSortIII extends Sort {
         this.setRunAllSortsName("Improved Weave Merge Sort III");
         this.setRunSortName("Improved Weave Mergesort III");
         this.setCategory("Hybrid Sorts");
+        this.setAuthors("Distray");
+        this.setConstant("n log^2 n");
         this.setBucketSort(false);
         this.setRadixSort(false);
         this.setUnreasonablySlow(false);

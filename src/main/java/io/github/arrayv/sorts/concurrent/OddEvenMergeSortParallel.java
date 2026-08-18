@@ -38,6 +38,8 @@ public final class OddEvenMergeSortParallel extends Sort {
         this.setRunAllSortsName("Parallel Odd-Even Merge Sort");
         this.setRunSortName("Parallel Odd-Even Mergesort");
         this.setCategory("Concurrent Sorts");
+        this.setAuthors("Ken Batcher");
+        this.setConstant("n log^2 n");
         this.setBucketSort(false);
         this.setRadixSort(false);
         this.setUnreasonablySlow(true);

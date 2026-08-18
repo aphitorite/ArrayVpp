@@ -19,6 +19,7 @@ public final class WatermelonWavesSort extends BogoSorting {
         this.setRunAllSortsName("Watermelon Waves Sort");
         this.setRunSortName("Watermelon Waves Sort");
         this.setCategory("Bogo Sorts");
+        this.setAuthors("PiotrGrochowski, fungamer2");
         this.setBucketSort(false);
         this.setRadixSort(false);
         this.setUnreasonablySlow(true);

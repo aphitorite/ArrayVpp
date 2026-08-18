@@ -12,6 +12,8 @@ final public class PseudoParallelQuickSortLL extends Sort {
         this.setRunAllSortsName("Pseudo-Parallel Quicksort (Left/Left)");
         this.setRunSortName("Pseudo-Parallel Quicksort (Left/Left)");
         this.setCategory("Quick Sorts");
+  	    this.setAuthors("Distray");
+  	    this.setConstant("n log n");
         this.setBucketSort(false);
         this.setRadixSort(false);
         this.setUnreasonablySlow(false);

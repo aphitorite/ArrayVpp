@@ -11,6 +11,8 @@ public final class DiamondSortRecursive extends Sort {
         this.setRunAllSortsName("Recursive Diamond Sort");
         this.setRunSortName("Recursive Diamondsort");
         this.setCategory("Concurrent Sorts");
+        this.setAuthors("_fluffyy");
+        this.setConstant("n^2");
         this.setBucketSort(false);
         this.setRadixSort(false);
         this.setUnreasonablySlow(false);

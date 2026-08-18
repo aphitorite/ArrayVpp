@@ -11,6 +11,7 @@ public final class MandelbrotSort extends BogoSorting {
 		this.setRunAllSortsName("Mandelbrot Sort");
 		this.setRunSortName("Mandelbrot Srot");
 		this.setCategory("Esoteric Sorts");
+		this.setAuthors("Distray");
 		this.setBucketSort(false);
 		this.setRadixSort(false);
 		this.setUnreasonablySlow(true);

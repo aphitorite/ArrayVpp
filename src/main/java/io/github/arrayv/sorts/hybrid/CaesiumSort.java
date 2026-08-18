@@ -12,8 +12,9 @@ final public class CaesiumSort extends GrailSorting {
         this.setSortListName("Caesium");
         this.setRunAllSortsName("Caesium Sort");
         this.setRunSortName("Caesiumsort");
-        this.setConstant("n fcrt n");
         this.setCategory("Hybrid Sorts");
+        this.setAuthors("Distray");
+        this.setConstant("n fcrt n");
         this.setBucketSort(false);
         this.setRadixSort(false);
         this.setUnreasonablySlow(false);

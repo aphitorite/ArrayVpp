@@ -14,6 +14,7 @@ import io.github.arrayv.sorts.templates.Sort;
 		this.setRunAllSortsName("More Optimized Iterator Sort");
 		this.setRunSortName("More Optimized Iterator Sort");
 		this.setCategory("Esoteric Sorts");
+		this.setAuthors("Potassium");
 		this.setBucketSort(false);
 		this.setRadixSort(false);
 		this.setUnreasonablySlow(true);

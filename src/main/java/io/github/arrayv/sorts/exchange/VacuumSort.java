@@ -20,6 +20,7 @@ final public class VacuumSort extends BogoSorting {
         this.setRunAllSortsName("Vacuum Sort");
         this.setRunSortName("Vacuum Sort");
         this.setCategory("Exchange Sorts");
+        this.setAuthors("Distray");
         this.setBucketSort(false);
         this.setRadixSort(false);
         this.setUnreasonablySlow(false);

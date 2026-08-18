@@ -4,15 +4,13 @@ import io.github.arrayv.main.ArrayVisualizer;
 import io.github.arrayv.sorts.templates.BogoSorting;
 
 final public class ChiselSort extends BogoSorting {
-
-
     public ChiselSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Chisel");
         this.setRunAllSortsName("Chisel Sort");
         this.setRunSortName("Chisel Sort");
         this.setCategory("Exchange Sorts");
-        this.setComparisonBased(true);
+        this.setAuthors("Distray");
         this.setBucketSort(false);
         this.setRadixSort(false);
         this.setUnreasonablySlow(false);

@@ -12,6 +12,8 @@ final public class DualPivotTernaryRotateQuickSort extends Sort {
         this.setRunAllSortsName("Dual-Pivot Ternary Rotate Quick Sort");
         this.setRunSortName("Dual-Pivot Ternary Rotate Quicksort");
         this.setCategory("Quick Sorts");
+		this.setAuthors("Distray");
+		this.setConstant("n log n");
         this.setBucketSort(false);
         this.setRadixSort(false);
         this.setUnreasonablySlow(false);

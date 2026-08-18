@@ -12,6 +12,7 @@ class BoundariesKey {
 		keysloc = keysloc0; start = start0; mid = mid0; end = end0; keys = keys0; tails = tails0;
 	}
 }
+//i'm_old!
 final public class EspressoSort extends GrailSorting {
     public EspressoSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
@@ -20,6 +21,7 @@ final public class EspressoSort extends GrailSorting {
         this.setRunAllSortsName("Espresso Sort");
         this.setRunSortName("Espressort");
         this.setCategory("Hybrid Sorts");
+        this.setAuthors("Distray");
         this.setBucketSort(false);
         this.setRadixSort(false);
         this.setUnreasonablySlow(false);

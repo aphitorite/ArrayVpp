@@ -37,6 +37,8 @@ public final class BottomUpHeapSort extends Sort {
 		this.setRunAllSortsName("Bottom-up Heap Sort");
 		this.setRunSortName("Bottom-up Heapsort");
 		this.setCategory("Selection Sorts");
+        this.setAuthors("aphitorite");
+        this.setConstant("n log n");
 		this.setBucketSort(false);
 		this.setRadixSort(false);
 		this.setUnreasonablySlow(false);

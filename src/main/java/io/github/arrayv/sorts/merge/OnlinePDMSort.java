@@ -1,10 +1,8 @@
 package io.github.arrayv.sorts.merge;
 
-
 import io.github.arrayv.main.ArrayVisualizer;
 import io.github.arrayv.utils.IndexedRotations;
 import io.github.arrayv.sorts.templates.Sort;
-
 
 final public class OnlinePDMSort extends Sort {
     public OnlinePDMSort(ArrayVisualizer arrayVisualizer) {
@@ -14,6 +12,7 @@ final public class OnlinePDMSort extends Sort {
         this.setRunAllSortsName("Online Pattern-Defeating Merge Sort");
         this.setRunSortName("Online PDMsort");
         this.setCategory("Merge Sorts");
+        this.setAuthors("Distray");
         this.setConstant("n log n");
         this.setBucketSort(false);
         this.setRadixSort(false);

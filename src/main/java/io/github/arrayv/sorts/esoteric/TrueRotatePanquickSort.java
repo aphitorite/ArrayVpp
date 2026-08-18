@@ -12,6 +12,7 @@ public final class TrueRotatePanquickSort extends Sort {
 		this.setRunSortName("True Rotate Panquick Sort");
 		this.setCategory("Esoteric Sorts");
 		this.setConstant("n log^2 n");
+        this.setAuthors("Distray");
 		this.setBucketSort(false);
 		this.setRadixSort(false);
 		this.setUnreasonablySlow(false);

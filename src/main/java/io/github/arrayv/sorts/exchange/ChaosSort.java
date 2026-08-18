@@ -38,6 +38,7 @@ final public class ChaosSort extends Sort {
 		this.setRunAllSortsName("Chaos Sort");
 		this.setRunSortName("Chaos Sort");
 		this.setCategory("Exchange Sorts");
+		this.setAuthors("aphitorite");
 		this.setBucketSort(false);
 		this.setRadixSort(false);
 		this.setUnreasonablySlow(false);

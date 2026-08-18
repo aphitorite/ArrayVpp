@@ -12,6 +12,8 @@ final public class StacklessQuickSortIII extends Sort {
         this.setRunAllSortsName("Stackless Quick Sort III");
         this.setRunSortName("Stackless Quicksort III");
         this.setCategory("Quick Sorts");
+        this.setAuthors("Distray");
+        this.setConstant("n log n");
         this.setBucketSort(false);
         this.setRadixSort(false);
         this.setUnreasonablySlow(false);

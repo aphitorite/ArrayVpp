@@ -24,6 +24,7 @@ import io.github.arrayv.sorts.templates.BogoSorting;
      this.setRunAllSortsName("The Epsilon Committee's Bogo Sort");
      this.setRunSortName("The Epsilon Committee's Bogo Sort");
      this.setCategory("Epsilon Committee Sorts");
+     this.setAuthors("Naoan, Californium-252, Distray");
      this.setBucketSort(false);
      this.setRadixSort(false);
      this.setUnreasonablySlow(true);

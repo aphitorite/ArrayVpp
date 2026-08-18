@@ -20,6 +20,7 @@ import io.github.arrayv.sorts.templates.BogoSorting;
 		    this.setRunAllSortsName("Ripbozo Sort (Linear Memory)");
 		    this.setRunSortName("Linear Ripbozosort");
 		    this.setCategory("Epsilon Committee Sorts");
+		    this.setAuthors("Distray");
 		    this.setBucketSort(false);
 		    this.setRadixSort(false);
 		    this.setUnreasonablySlow(true);

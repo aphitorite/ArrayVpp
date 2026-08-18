@@ -13,6 +13,7 @@ final public class LaziteSort extends GrailSorting {
         this.setRunAllSortsName("Lazite Sort");
         this.setRunSortName("Lazite Sort");
         this.setCategory("Hybrid Sorts");
+        this.setAuthors("Distray");
         this.setBucketSort(false);
         this.setRadixSort(false);
         this.setUnreasonablySlow(false);

@@ -13,6 +13,7 @@ final public class AdvancedLogSortOldPartition extends Sort {
 		this.setRunAllSortsName("Advanced Log Sort (Old Fragment Fallback)");
 		this.setRunSortName("Advanced Logsort (Old Fragment Fallback)");
 		this.setCategory("Hybrid Sorts");
+        this.setAuthors("Distray");
 		this.setConstant("n log n");
 		this.setBucketSort(false);
 		this.setRadixSort(false);

@@ -35,6 +35,8 @@ public class PoplarHeapSort extends Sort {
         this.setRunAllSortsName("Poplar Heap Sort");
         this.setRunSortName("Poplar Heapsort");
         this.setCategory("Selection Sorts");
+        this.setAuthors("Morwenn, aphitorite");
+        this.setConstant("n log n");
         this.setBucketSort(false);
         this.setRadixSort(false);
         this.setUnreasonablySlow(false);

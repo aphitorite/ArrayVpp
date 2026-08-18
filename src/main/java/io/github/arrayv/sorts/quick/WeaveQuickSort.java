@@ -12,6 +12,8 @@ public final class WeaveQuickSort extends Sort {
       this.setRunAllSortsName("Weave Quick Sort");
       this.setRunSortName("Weave Quicksort");
       this.setCategory("Hybrid Sorts");
+      this.setAuthors("aphitorite");
+      this.setConstant("n^2");
       this.setBucketSort(false);
       this.setRadixSort(false);
       this.setUnreasonablySlow(false);

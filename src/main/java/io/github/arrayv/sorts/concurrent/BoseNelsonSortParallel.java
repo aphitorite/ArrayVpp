@@ -12,6 +12,8 @@ public final class BoseNelsonSortParallel extends Sort {
     	this.setRunAllSortsName("Parallel Bose-Nelson Sorting Network");
     	this.setRunSortName("Parallel Bose-Nelson Sort");
         this.setCategory("Concurrent Sorts");
+        this.setAuthors("fungamer2, aphitorite, Raj Chandra Bose, Raymond J. Nelson");
+        this.setConstant("bosenelson");
         this.setBucketSort(false);
         this.setRadixSort(false);
         this.setUnreasonablySlow(true);

@@ -10,6 +10,7 @@ public final class OgreLesserGenericManKsort extends BogoSorting {
         this.setRunAllSortsName("Ogre Lesser Generic Man K-Sort");
         this.setRunSortName("Ogre Lesser Generic Man K-Sort");
         this.setCategory("Bogo Sorts");
+		this.setAuthors("Distray");
         this.setBucketSort(false);
         this.setRadixSort(false);
         this.setUnreasonablySlow(true);

@@ -6,9 +6,9 @@ import java.lang.invoke.MethodHandle;
 import java.lang.invoke.MethodHandles;
 import java.lang.invoke.MethodType;
 import java.lang.reflect.Method;
-import java.util.function.IntUnaryOperator;
+import java.util.function.UnaryOperator;
 
-public final class MethodAnswerValidator implements IntUnaryOperator {
+public final class MethodAnswerValidator implements UnaryOperator<Integer> {
     private static final MethodHandles.Lookup LOOKUP = MethodHandles.publicLookup();
     private static final MethodType VALIDATOR_TYPE = MethodType.methodType(int.class, int.class);
 
@@ -38,8 +38,7 @@ public final class MethodAnswerValidator implements IntUnaryOperator {
         return mh;
     }
 
-    @Override
-    public int applyAsInt(int answer) {
+    public Integer apply(Integer answer) {
         try {
             return (int)mh.invokeExact(answer);
         } catch (RuntimeException | Error e) {

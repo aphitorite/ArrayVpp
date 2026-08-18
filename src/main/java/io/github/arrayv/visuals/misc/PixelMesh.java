@@ -7,6 +7,8 @@ import io.github.arrayv.main.ArrayVisualizer;
 import io.github.arrayv.utils.Highlights;
 import io.github.arrayv.utils.Renderer;
 import io.github.arrayv.visuals.Visual;
+import io.github.arrayv.visuals.templates.Colorize;
+
 import com.scrtwpns.Mixbox;
 
 /*
@@ -105,26 +107,11 @@ final public class PixelMesh extends Visual {
 				int xi  = (int)(x * xScale);
 				int idx = (int)((yi*sqrt + xi) * scale);
 				
-				if(ArrayVisualizer.colorEnabled()) {
-					if(Highlights.containsPosition(idx)) {
-						if(ArrayVisualizer.analysisEnabled()) currColor = Color.LIGHT_GRAY;
-						else								  currColor = Color.WHITE;
-					} else currColor = getIntColor(array[idx], length);
-				} else {
-					if(Highlights.containsPosition(idx)) {
-						if(ArrayVisualizer.analysisEnabled()) currColor = Color.BLUE;
-						else								  currColor = Color.RED;
-					} else currColor = getGray(array[idx], length);
-				}
-				Color c = null;
-				
-				if(Highlights.fancyFinishActive() && idx < Highlights.getFancyFinishPosition()) {
-					c = Color.GREEN;
-				} else if(Highlights.hasColor(array, idx)) {
-		            c = Highlights.colorAt(array, idx);
-				}
-				
-				if(c != null) currColor = new Color(Mixbox.lerp(currColor.getRGB(), c.getRGB(), 0.5f));
+				currColor = Colorize.bestFit(array, idx, length,
+    				Colorize::fancyFinish,
+    				Colorize::hue,
+    				Colorize::gray
+        		);
 				
 				img.setRGB(x, y, currColor.getRGB());
 			}

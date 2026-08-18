@@ -12,6 +12,8 @@ public final class IotaSortDX extends Sort {
         this.setRunAllSortsName("Iota Sort DX");
         this.setRunSortName("Iotasort DX");
         this.setCategory("Merge Sorts");
+        this.setAuthors("Distray");
+        this.setConstant("n log n");
         this.setBucketSort(false);
         this.setRadixSort(false);
         this.setUnreasonablySlow(false);

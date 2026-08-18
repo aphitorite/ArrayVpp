@@ -37,6 +37,7 @@ final public class SynchronousEctaSort extends BlockMergeSorting {
 		this.setRunAllSortsName("Synchronous Ecta Sort");
 		this.setRunSortName("Synchronous Ectasort");
 		this.setCategory("Hybrid Sorts");
+		this.setAuthors("aphitorite");
 		this.setConstant("n log n");
 		this.setBucketSort(false);
 		this.setRadixSort(false);

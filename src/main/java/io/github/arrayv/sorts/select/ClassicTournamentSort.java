@@ -37,6 +37,8 @@ public final class ClassicTournamentSort extends Sort {
         this.setRunAllSortsName("Classic Tournament Sort");
         this.setRunSortName("Classic Tournament Sort");
         this.setCategory("Selection Sorts");
+        this.setAuthors("aphitorite");
+        this.setConstant("n log n");
         this.setBucketSort(false);
         this.setRadixSort(false);
         this.setUnreasonablySlow(false);

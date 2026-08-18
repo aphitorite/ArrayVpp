@@ -12,6 +12,7 @@ public final class DunningKrugerSort extends BogoSorting {
 		this.setRunAllSortsName("Dunning-Kruger Effect Sort");
 		this.setRunSortName("Dunning-Kruger Sort");
 		this.setCategory("Impractical Sorts");
+        this.setAuthors("Potassium");
 		this.setBucketSort(false);
 		this.setRadixSort(false);
 		this.setUnreasonablySlow(false);

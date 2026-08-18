@@ -200,6 +200,7 @@ public final class RunSort {
                         try {
                             extra = sortInfo.validateAnswer(getCustomInput(sortInfo.getQuestion()));
                         } catch (Exception e) {
+                        	// e.printStackTrace();
                             extra = sortInfo.getDefaultAnswer();
                         }
                     } else if (sortInfo.isBucketSort()) {

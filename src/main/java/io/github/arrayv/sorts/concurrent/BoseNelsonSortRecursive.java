@@ -12,6 +12,8 @@ public final class BoseNelsonSortRecursive extends Sort {
     	this.setRunAllSortsName("Recursive Bose-Nelson Sorting Network");
     	this.setRunSortName("Recursive Bose-Nelson Sort");
         this.setCategory("Concurrent Sorts");
+        this.setAuthors("fungamer2, aphitorite, Raj Chandra Bose, Raymond J. Nelson");
+        this.setConstant("bosenelson");
         this.setBucketSort(false);
         this.setRadixSort(false);
         this.setUnreasonablySlow(false);

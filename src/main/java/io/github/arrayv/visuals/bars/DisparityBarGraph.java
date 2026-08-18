@@ -9,6 +9,7 @@ import io.github.arrayv.utils.Highlights;
 import io.github.arrayv.utils.Renderer;
 import io.github.arrayv.visuals.Visual;
 import io.github.arrayv.visuals.features.HeatMap;
+import io.github.arrayv.visuals.templates.Colorize;
 
 public final class DisparityBarGraph extends Visual {
 
@@ -50,7 +51,7 @@ public final class DisparityBarGraph extends Visual {
     		top = boundingBox[2], bottom = boundingBox[3];
     	double xScale = (double) (right - left) / (double) (renderer.getArrayLength());
 		// get lengths
-		int n = renderer.getArrayLength();
+		int n = renderer.getArrayLength(), nmain = arrayVisualizer.getCurrentLength();
 		// keep booleans we're accessing here
     	boolean fancy = Highlights.fancyFinishActive(),
     			color = arrayVisualizer.colorEnabled(),
@@ -64,8 +65,6 @@ public final class DisparityBarGraph extends Visual {
     	int m = Math.min(boundingBox[1] - boundingBox[0], n);
     	int val;
 
-    	// change the array color at the start
-		Color col = fancy ? Color.GREEN : Color.WHITE;
     	for (int i = 0, j = 0; i < m; i++) {
     		// get the width of the indice
     		int width = (int) ((i + 1) * scl[1] - j);
@@ -73,35 +72,14 @@ public final class DisparityBarGraph extends Visual {
     		// turn it back into a raw value
     		int hm = Highlights.containsMax(array, i, n, scl[0]), v = hm < 0 ? ~hm : hm;
     		boolean hl = hm >= 0;
-    		if (heatMap) col = HeatMap.getColor(array, v);
-    		if (!heatMap || col == null) {
-    			if (hl || Highlights.hasColor(array, v)) {
-	    			// set highlight color if highlighted
-					if (hl)
-						col = arrayVisualizer.getHighlightColor();
-					else if (color) {
-						// transparent colorcode if list in color
-						val = useAltVals ? arrayVisualizer.getIndexValue(array[v]) : array[v];
-		                col = new Color(Mixbox.lerp(
-		                	getIntColor(val, arrayVisualizer.getCurrentLength()).getRGB(),
-		                	Highlights.colorAt(array, v).getRGB(),
-		                	0.5f
-		                ));
-					} else col = Highlights.colorAt(array, v);
-					change = true;
-				} else if (change) {
-		            if (!fancy || v >= Highlights.getFancyFinishPosition()) {
-		            	if (color) {
-		            		val = useAltVals ? arrayVisualizer.getIndexValue(array[v]) : array[v];
-			                col = getIntColor(val, arrayVisualizer.getCurrentLength());
-		            	} else {
-		            		col = Color.WHITE;
-		            		change = false;
-		            	}
-		            }
-	            }
-    		}
-    		this.mainRender.setColor(col);
+    		this.mainRender.setColor(
+    			Colorize.bestFit(array, v, nmain,
+    				Colorize::heatmap,
+    				Colorize::fancyFinish,
+    				Colorize::hue,
+    				Colorize::snow
+    			)
+    		);
             try {
             	val = useAltVals ? arrayVisualizer.getStabilityValue(array[v]) : array[v];
             } catch(ArrayIndexOutOfBoundsException e) {
@@ -110,7 +88,7 @@ public final class DisparityBarGraph extends Visual {
             }
             int nw = hl && width == 1 ? 1 : 0;
 
-            double disp = (1 + Math.sin((Math.PI * (array[v] - v)) / arrayVisualizer.getCurrentLength())) * 0.5;
+            double disp = (1 + Math.sin((Math.PI * (val - v)) / arrayVisualizer.getCurrentLength())) * 0.5;
             int h = (int) (disp * (bottom - top));
 
             this.mainRender.fillRect(j + left - nw, bottom - h, width + nw, h);

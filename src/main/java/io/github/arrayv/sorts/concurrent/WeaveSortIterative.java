@@ -37,6 +37,8 @@ public final class WeaveSortIterative extends Sort {
         this.setRunAllSortsName("Iterative Weave Sorting Network");
         this.setRunSortName("Iterative Weave Sort");
         this.setCategory("Concurrent Sorts");
+        this.setAuthors("aphitorite");
+        this.setConstant("n log^2 n");
         this.setBucketSort(false);
         this.setRadixSort(false);
         this.setUnreasonablySlow(false);

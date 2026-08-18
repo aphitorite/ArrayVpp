@@ -14,6 +14,7 @@ final public class ThehfFisegWnidaDwoiqelSort extends BogoSorting {
         this.setRunAllSortsName("Thehf Fiseg Wnida Dwoiqel Sort");
         this.setRunSortName("Thehf Fiseg Wnida Dwoiqelsort");
         this.setCategory("Impractical Sorts");
+  	    this.setAuthors("Distray");
         this.setBucketSort(false);
         this.setRadixSort(false);
         this.setUnreasonablySlow(false);

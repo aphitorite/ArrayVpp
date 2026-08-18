@@ -12,6 +12,7 @@ public final class OptimizedSnailSort extends Sort {
 		this.setRunAllSortsName("Optimized Snail sort");
 		this.setRunSortName("Optimized Snailsort");
 		this.setCategory("Esoteric Sorts");
+        this.setAuthors("Potassium");
 		this.setBucketSort(false);
 		this.setRadixSort(false);
 		this.setUnreasonablySlow(false);

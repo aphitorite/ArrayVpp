@@ -11,6 +11,7 @@ final public class BlockShellSort extends Sort {
         this.setRunAllSortsName("Block Shell Sort");
         this.setRunSortName("Block Shell Sort");
         this.setCategory("Insertion Sorts");
+        this.setAuthors("Distray");
         this.setConstant("n cbrt n");
         this.setBucketSort(false);
         this.setRadixSort(false);

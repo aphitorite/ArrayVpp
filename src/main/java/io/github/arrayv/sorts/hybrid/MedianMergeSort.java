@@ -39,6 +39,8 @@ public final class MedianMergeSort extends Sort {
         this.setRunAllSortsName("Median Mergesort");
         this.setRunSortName("Median Mergesort");
         this.setCategory("Hybrid Sorts");
+        this.setConstant("aphitorite, yuji");
+        this.setConstant("n log n");
         this.setBucketSort(false);
         this.setRadixSort(false);
         this.setUnreasonablySlow(false);

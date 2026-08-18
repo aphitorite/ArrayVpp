@@ -10,6 +10,7 @@ public final class CatchouliSort2 extends Sort {
         this.setRunAllSortsName("Catchouli Sort II");
         this.setRunSortName("Cachesort II");
         this.setCategory("Hybrid Sorts");
+        this.setAuthors("Distray");
         this.setConstant("n log n");
         this.setBucketSort(false);
         this.setRadixSort(false);

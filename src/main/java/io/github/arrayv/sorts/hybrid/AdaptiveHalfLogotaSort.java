@@ -28,6 +28,7 @@ public class AdaptiveHalfLogotaSort extends Sort {
         this.setRunAllSortsName("Adaptive Half Logota Sort");
         this.setRunSortName("Adaptive Half Logotasort");
         this.setCategory("Hybrid Sorts");
+        this.setAuthors("Flanlaina, aphitorite");
         this.setConstant("n log n");
         this.setBucketSort(false);
         this.setRadixSort(false);

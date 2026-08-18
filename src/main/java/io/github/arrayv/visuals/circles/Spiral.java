@@ -1,12 +1,10 @@
 package io.github.arrayv.visuals.circles;
 
-import java.awt.Color;
-
 import io.github.arrayv.main.ArrayVisualizer;
 import io.github.arrayv.utils.Highlights;
 import io.github.arrayv.utils.Renderer;
+import io.github.arrayv.visuals.templates.Colorize;
 import io.github.arrayv.visuals.templates.VisualNoAntialiasing;
-import com.scrtwpns.Mixbox;
 
 /*
  *
@@ -43,6 +41,7 @@ public final class Spiral extends VisualNoAntialiasing {
         this.setListName("Spiral");
         this.setCategory("Circle Visuals");
         this.setOverlayable(true);
+        this.addSupportedFeatures("heat");
     }
 
     public int[] getTopPosFor(int[] array, double idx, int val, ArrayVisualizer ArrayVisualizer, Renderer Renderer) {
@@ -96,23 +95,14 @@ public final class Spiral extends VisualNoAntialiasing {
             x[2] =  width/2 + (int)(mult * r * Math.cos(Math.PI * (2d*i / n - 0.5)));
             y[2] = height/2 + (int)(mult * r * Math.sin(Math.PI * (2d*i / n - 0.5)));
 
-            if (Highlights.fancyFinishActive() && i < Highlights.getFancyFinishPosition())
-                this.mainRender.setColor(Color.GREEN);
-
-            else if (Highlights.containsPosition(i)) {
-                this.mainRender.setColor(arrayVisualizer.getHighlightColor());
-                this.extraRender.drawPolygon(x, y, 3);
-            } else if (arrayVisualizer.colorEnabled()) {
-            	if (Highlights.hasColor(array, i))
-            		this.mainRender.setColor(new Color(Mixbox.lerp(
-            			getIntColor(array[i], arrayVisualizer.getCurrentLength()).getRGB(),
-	                	Highlights.colorAt(array, i).getRGB(),
-	                	0.5f
-	                )));
-            	else this.mainRender.setColor(getIntColor(array[i], arrayVisualizer.getCurrentLength()));
-            } else if (Highlights.hasColor(array, i)) {
-                this.mainRender.setColor(Highlights.colorAt(array, i));
-            } else this.mainRender.setColor(Color.WHITE);
+    		this.mainRender.setColor(
+    			Colorize.bestFit(array, i, n,
+    				Colorize::heatmap,
+    				Colorize::fancyFinish,
+    				Colorize::hue,
+    				Colorize::snow
+    			)
+    		);
 
             this.mainRender.fillPolygon(x, y, 3);
         }

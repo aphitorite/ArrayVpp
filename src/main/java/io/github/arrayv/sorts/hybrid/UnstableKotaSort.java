@@ -38,6 +38,7 @@ final public class UnstableKotaSort extends BlockMergeSorting {
         this.setRunAllSortsName("Unstable Kota Sort");
         this.setRunSortName("Unstable Kotasort");
         this.setCategory("Hybrid Sorts");
+        this.setAuthors("aphitorite");
         this.setConstant("n log n");
         this.setBucketSort(false);
         this.setRadixSort(false);

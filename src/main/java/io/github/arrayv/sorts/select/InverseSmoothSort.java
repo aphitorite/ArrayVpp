@@ -11,6 +11,7 @@ final public class InverseSmoothSort extends Sort {
         this.setRunAllSortsName("Inverse Smooth Sort");
         this.setRunSortName("Inverse Smoothsort");
         this.setCategory("Selection Sorts");
+  	    this.setAuthors("Distray");
         this.setConstant("n log n");
         this.setBucketSort(false);
         this.setRadixSort(false);

@@ -14,6 +14,7 @@ final public class LatiosSort extends Sort {
         this.setRunAllSortsName("Latios Sort");
         this.setRunSortName("Latios Sort");
         this.setCategory("Quick Sorts");
+        this.setAuthors("Distray");
         this.setConstant("n log n");
         this.setBucketSort(false);
         this.setRadixSort(false);

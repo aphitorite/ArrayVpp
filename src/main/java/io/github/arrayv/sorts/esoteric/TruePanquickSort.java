@@ -11,6 +11,7 @@ public final class TruePanquickSort extends Sort {
 		this.setRunAllSortsName("True Panquick Sort");
 		this.setRunSortName("True Panquick Sort");
 		this.setCategory("Esoteric Sorts");
+        this.setAuthors("Distray");
 		this.setConstant("n log^3 n");
 		this.setBucketSort(false);
 		this.setRadixSort(false);

@@ -5,7 +5,6 @@ import io.github.arrayv.sorts.templates.Sort;
 import io.github.arrayv.utils.IndexedRotations;
 
 final public class HeavyCreamSort extends Sort {
-
     public HeavyCreamSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
 
@@ -13,6 +12,7 @@ final public class HeavyCreamSort extends Sort {
         this.setRunAllSortsName("Heavy Cream Sort");
         this.setRunSortName("Heavy Cream Sort");
         this.setCategory("Hybrid Sorts");
+        this.setAuthors("Distray");
         this.setBucketSort(false);
         this.setRadixSort(false);
         this.setUnreasonablySlow(false);

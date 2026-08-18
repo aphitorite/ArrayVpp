@@ -12,6 +12,7 @@ final public class PackederLogMergeSort extends Sort {
         this.setRunAllSortsName("Packeder Log Merge Sort");
         this.setRunSortName("Packeder Log Mergesort");
         this.setCategory("Hybrid Sorts");
+        this.setAuthors("Distray");
         this.setConstant("n log n");
         this.setBucketSort(false);
         this.setRadixSort(false);

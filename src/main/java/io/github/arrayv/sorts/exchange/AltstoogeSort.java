@@ -22,6 +22,7 @@ final public class AltstoogeSort extends Sort {
         this.setRunAllSortsName("Altstooge Sort");
         this.setRunSortName("Altstoogesort");
         this.setCategory("Impractical Sorts");
+		this.setAuthors("Distray");
         this.setBucketSort(false);
         this.setRadixSort(false);
         this.setUnreasonablySlow(true);

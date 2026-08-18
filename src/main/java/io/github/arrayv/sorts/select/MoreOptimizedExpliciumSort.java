@@ -12,6 +12,7 @@ final public class MoreOptimizedExpliciumSort extends Sort {
         this.setRunAllSortsName("More Optimized Explicium Sort");
         this.setRunSortName("More Optimized Expliciumsort");
         this.setCategory("Selection Sorts");
+  	    this.setAuthors("Distray");
         this.setConstant("n log n");
         this.setBucketSort(false);
         this.setRadixSort(false);

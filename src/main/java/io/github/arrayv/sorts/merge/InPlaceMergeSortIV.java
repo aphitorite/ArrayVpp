@@ -14,6 +14,7 @@ final public class InPlaceMergeSortIV extends Sort {
 		this.setRunAllSortsName("In-Place Merge Sort IV");
 		this.setRunSortName("In-Place Merge Sort IV");
 		this.setCategory("Merge Sorts");
+        this.setAuthors("Distray");
 		this.setConstant("n log^2 n");
 		this.setBucketSort(false);
 		this.setRadixSort(false);

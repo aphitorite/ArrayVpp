@@ -1,6 +1,3 @@
-/**
- * 
- */
 package io.github.arrayv.sorts.insert;
 
 import io.github.arrayv.main.ArrayVisualizer;
@@ -11,16 +8,13 @@ import io.github.arrayv.sorts.templates.Sort;
  *
  */
 public final class AdaptiveBinaryInsertionSort extends Sort {
-
-    /**
-     * @param arrayVisualizer
-     */
     public AdaptiveBinaryInsertionSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
         this.setSortListName("Adaptive Binary Insert");
         this.setRunAllSortsName("Adaptive Binary Insertion Sort");
         this.setRunSortName("Adaptive Binary Insertsort");
         this.setCategory("Insertion Sorts");
+        this.setAuthors("PiotrGrochowski");
         this.setConstant("n^2");
         this.setBucketSort(false);
         this.setRadixSort(false);

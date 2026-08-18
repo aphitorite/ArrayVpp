@@ -19,6 +19,8 @@ public final class BitonicSortIterative extends Sort {
         this.setRunAllSortsName("Iterative Bitonic Sort");
         this.setRunSortName("Iterative Bitonic Sort");
         this.setCategory("Concurrent Sorts");
+        this.setAuthors("Ken Batcher");
+        this.setConstant("n log^2 n");
         this.setBucketSort(false);
         this.setRadixSort(false);
         this.setUnreasonablySlow(false);

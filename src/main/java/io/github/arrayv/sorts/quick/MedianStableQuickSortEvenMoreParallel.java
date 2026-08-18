@@ -12,6 +12,8 @@ final public class MedianStableQuickSortEvenMoreParallel extends Sort implements
         this.setRunAllSortsName("Even More Parallel Median Stable Quicksort");
         this.setRunSortName("Median Stable Quicksort (Extra-Parallel)");
         this.setCategory("Quick Sorts");
+        this.setAuthors("Distray");
+        this.setConstant("n log n");
         this.setBucketSort(false);
         this.setRadixSort(false);
         this.setUnreasonablySlow(false);

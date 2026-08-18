@@ -14,7 +14,8 @@ final public class WhippingCreamSort extends Sort {
         this.setRunAllSortsName("Whipping Cream Sort");
         this.setRunSortName("Whipping Cream Sort");
         this.setCategory("Hybrid Sorts");
-        this.setConstant("n sqrt n");
+        this.setAuthors("Distray");
+        this.setConstant("n^2");
         this.setBucketSort(false);
         this.setRadixSort(false);
         this.setUnreasonablySlow(false);

@@ -10,6 +10,8 @@ final public class FladSort extends QuadSorting {
         this.setRunAllSortsName("Flad Sort");
         this.setRunSortName("Fladsort");
         this.setCategory("Quick Sorts");
+  	    this.setAuthors("Distray");
+  	    this.setConstant("n log n");
         this.setBucketSort(false);
         this.setRadixSort(false);
         this.setUnreasonablySlow(false);

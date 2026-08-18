@@ -11,6 +11,7 @@ public final class OptiTerrorismSort extends Sort {
 		this.setRunAllSortsName("Optimized Terrorism Sort");
 		this.setRunSortName("Optimized Terrorismsort");
 		this.setCategory("Esoteric Sorts");
+        this.setAuthors("Distray");
 		this.setBucketSort(false);
 		this.setRadixSort(false);
 		this.setUnreasonablySlow(true);

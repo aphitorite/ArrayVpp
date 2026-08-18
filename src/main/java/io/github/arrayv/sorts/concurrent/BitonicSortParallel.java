@@ -12,6 +12,8 @@ public final class BitonicSortParallel extends Sort {
         this.setRunAllSortsName("Parallel Bitonic Sort");
         this.setRunSortName("Parallel Bitonic Sort");
         this.setCategory("Concurrent Sorts");
+        this.setAuthors("Ken Batcher");
+        this.setConstant("n log^2 n");
         this.setBucketSort(false);
         this.setRadixSort(false);
         this.setUnreasonablySlow(true);

@@ -13,6 +13,7 @@ public final class HorrorSort extends Sort {
 		this.setRunAllSortsName("Horror Sort");
 		this.setRunSortName("Horrorsort");
 		this.setCategory("Esoteric Sorts");
+        this.setAuthors("Potassium");
 		this.setBucketSort(false);
 		this.setRadixSort(false);
 		this.setUnreasonablySlow(true);

@@ -44,8 +44,8 @@ SOFTWARE.
 *
 * @author aphitorite
 */
-public abstract class KotaSorting extends Sort {
-	protected KotaSorting(ArrayVisualizer arrayVisualizer) {
+public abstract class KotaSortingLegacy extends Sort {
+	protected KotaSortingLegacy(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
     }
 

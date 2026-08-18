@@ -37,6 +37,7 @@ public final class RotateLSDRadixSort extends Sort {
         this.setRunAllSortsName("Rotate LSD Radix Sort, Base 4");
         this.setRunSortName("Rotate LSD Radixsort");
         this.setCategory("Distribution Sorts");
+        this.setAuthors("aphitorite");
         this.setBucketSort(true);
         this.setRadixSort(true);
         this.setUnreasonablySlow(false);

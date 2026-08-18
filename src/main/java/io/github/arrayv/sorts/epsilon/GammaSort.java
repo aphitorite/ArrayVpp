@@ -23,6 +23,7 @@ import io.github.arrayv.sorts.templates.BogoSorting;
      this.setRunAllSortsName("Gamma Sort");
      this.setRunSortName("Gamma Sort");
      this.setCategory("Epsilon Committee Sorts");
+     this.setAuthors("Naoan, Californium-252, Distray");
      this.setBucketSort(false);
      this.setRadixSort(false);
      this.setUnreasonablySlow(true);

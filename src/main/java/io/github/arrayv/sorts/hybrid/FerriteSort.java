@@ -34,6 +34,7 @@ final public class FerriteSort extends Sort {
         this.setRunAllSortsName("Ferrite Sort (Block Merge Sort)");
         this.setRunSortName("Ferrite Sort");
         this.setCategory("Block Merge Sorts");
+        this.setAuthors("Distray");
         this.setConstant("n log n");
         this.setBucketSort(false);
         this.setRadixSort(false);

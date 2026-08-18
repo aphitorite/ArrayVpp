@@ -40,6 +40,8 @@ public class ImprovedCubeRootQuickSort extends Sort {
         this.setRunAllSortsName("Improved Cube Root Quick Sort");
         this.setRunSortName("Improved Cube Root Quick Sort");
         this.setCategory("Quick Sorts");
+  	    this.setAuthors("aphitorite");
+  	    this.setConstant("n log n");
         this.setBucketSort(false);
         this.setRadixSort(false);
         this.setUnreasonablySlow(false);

@@ -14,6 +14,8 @@ final public class Branchless2VBubbleSort extends Sort {
         this.setRunAllSortsName("Branchless Double Bubble Sort");
         this.setRunSortName("Branchless Double Bubblesort");
         this.setCategory("Exchange Sorts");
+        this.setAuthors("Distray");
+        this.setConstant("n^2");
         this.setBucketSort(false);
         this.setRadixSort(false);
         this.setUnreasonablySlow(false);

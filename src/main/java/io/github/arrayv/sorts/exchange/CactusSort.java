@@ -10,6 +10,7 @@ final public class CactusSort extends BogoSorting {
         this.setRunAllSortsName("Cactus Sort");
         this.setRunSortName("Cactus Sort");
         this.setCategory("Exchange Sorts");
+		this.setAuthors("Distray");
         this.setConstant("n^3");
         this.setBucketSort(false);
         this.setRadixSort(false);

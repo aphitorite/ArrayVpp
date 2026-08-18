@@ -14,6 +14,8 @@ final public class MedCreamSort extends Sort {
         this.setRunAllSortsName("Med-Cream Sort");
         this.setRunSortName("Medium Cream Sort");
         this.setCategory("Hybrid Sorts");
+        this.setAuthors("Distray");
+        this.setConstant("n^2");
         this.setBucketSort(false);
         this.setRadixSort(false);
         this.setUnreasonablySlow(false);

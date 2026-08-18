@@ -21,6 +21,7 @@ final public class UnnecessaryDistractionSort extends Sort {
 		this.setRunAllSortsName("Unnecessary Distraction Sort");
 		this.setRunSortName("Unnecessary Distraction Sort");
 		this.setCategory("Esoteric Sorts");
+		this.setAuthors("aphitorite" /*base algo*/ +", Distray");
 		this.setBucketSort(false);
 		this.setRadixSort(false);
 		this.setUnreasonablySlow(false);

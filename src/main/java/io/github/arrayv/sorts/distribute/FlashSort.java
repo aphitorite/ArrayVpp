@@ -14,6 +14,7 @@ public final class FlashSort extends Sort {
         this.setRunAllSortsName("Flash Sort");
         this.setRunSortName("Flashsort");
         this.setCategory("Distribution Sorts");
+        this.setAuthors("Musicombo, Karl-Dietrich Neubert");
         this.setBucketSort(false);
         this.setRadixSort(false);
         this.setUnreasonablySlow(false);

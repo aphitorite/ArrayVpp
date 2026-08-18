@@ -168,8 +168,8 @@ public final class ArrayVisualizer {
     final int[] validateArray;
     final int[] stabilityTable;
     final int[] indexTable;
-    final ArrayList<int[]> arrays;
-    final ArrayList<ArrayVList> arrayVLists;
+    final List<int[]> arrays;
+    final List<ArrayVList> arrayVLists;
     private final StatisticType[] statsConfig;
     
     private UnaryOperator<Long> constant;
@@ -389,11 +389,11 @@ public final class ArrayVisualizer {
 
         this.sortLength = this.maxArrayVal;
 
-        this.arrays = new ArrayList<>();
-        this.arrayVLists = new ArrayList<>();
+        this.arrays = Collections.synchronizedList(new ArrayList<>());
+        this.arrayVLists = Collections.synchronizedList(new ArrayList<>());
         this.arrays.add(this.array);
 
-        this.fontSelection = "Times New Roman";
+        this.fontSelection = System.getProperty("os.name").startsWith("Windows") ? "Times New Roman" : "Liberation Serif";
         this.fontSelectionScale = 25;
         List<StatisticType> statsInfoList = new ArrayList<>();
         Throwable statsLoadException = null;
@@ -608,11 +608,21 @@ public final class ArrayVisualizer {
                         if (ArrayVisualizer.this.updateVisualsForced.get() > 0) {
                             ArrayVisualizer.this.updateVisualsForced.decrementAndGet();
                             ArrayVisualizer.this.renderer.updateVisualsStart(ArrayVisualizer.this);
-                            int ttl = ArrayVisualizer.this.arrays.size() + ArrayVisualizer.this.arrayVLists.size();
-                            int[][] arrays = ArrayVisualizer.this.arrays.toArray(new int[ttl][]);
-                            int count = ArrayVisualizer.this.arrays.size();
-                            for(int v = 0; count < ttl; v++, count++) {
-                                arrays[count] = ArrayVisualizer.this.arrayVLists.get(v).__internal_array();
+                            
+                            int[][] arrays;
+                            synchronized (ArrayVisualizer.this.arrays) {
+                            	synchronized (ArrayVisualizer.this.arrayVLists) {
+                            		int count, ttl;
+                            		do {
+                            			count = ArrayVisualizer.this.arrays.size();
+                            			ttl = count + ArrayVisualizer.this.arrayVLists.size();
+                            		} while (ttl == 0);
+                                    arrays = ArrayVisualizer.this.arrays.toArray(new int[ttl][]);
+                                    Iterator<ArrayVList> it = ArrayVisualizer.this.arrayVLists.iterator();
+                                    while (it.hasNext()) {
+                                    	arrays[count++] = it.next().__internal_array();
+                                    }
+                            	}
                             }
                             ArrayVisualizer.this.renderer.drawVisual(ArrayVisualizer.this.runningVisual, arrays, ArrayVisualizer.this, ArrayVisualizer.this.Highlights);
 
@@ -883,10 +893,10 @@ public final class ArrayVisualizer {
         return this.array;
     }
 
-    public ArrayList<int[]> getArrays() {
+    public List<int[]> getArrays() {
         return this.arrays;
     }
-    public ArrayList<ArrayVList> getArrayVLists() {
+    public List<ArrayVList> getArrayVLists() {
         return this.arrayVLists;
     }
 
@@ -1364,8 +1374,12 @@ public final class ArrayVisualizer {
         this.Highlights.resetFancyFinish();
         this.Highlights.clearColorList();
         this.Highlights.clearAllColorsReferenced();
-        this.Writes.deleteAllExternalArrays();
-        this.arrayVLists.clear();
+        synchronized (this.arrays) {
+        	this.Writes.deleteAllExternalArrays();
+        }
+        synchronized (this.arrayVLists) {
+        	this.arrayVLists.clear();
+        }
         Renderer.unregisterAllRenderables();
 
         this.Delays.setSleepRatio(1);
@@ -1619,7 +1633,7 @@ public final class ArrayVisualizer {
         title.append(" Sorts, ");
         title.append(this.visuals.length);
         title.append(" Visual Styles, and Infinite Inputs to Sort");
-        title.append(" (v5.2");
+        title.append(" (v5.3");
         String versionSha = buildInfo.getProperty("commitId");
         if (!versionSha.equals("${git.commit.id.abbrev}") && !versionSha.equals("unknown")) // Hash not loaded
             title.append(", commit ").append(versionSha);

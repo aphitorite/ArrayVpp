@@ -11,6 +11,8 @@ public final class FieldSort2100 extends Sort {
 		this.setRunAllSortsName("Optimized 2100 Field Sort");
 		this.setRunSortName("Optimized 2100 Fieldsort");
 		this.setCategory("Hybrid Sorts");
+		this.setAuthors("Potassium");
+		this.setConstant("n log n");
 		this.setBucketSort(false);
 		this.setRadixSort(false);
 		this.setUnreasonablySlow(false);

@@ -71,7 +71,7 @@ public final class Reads {
     public String getStats() {
         if (this.comparisons.get() < 0) {
             this.comparisons.set(Long.MIN_VALUE);
-            return "Over " + this.formatter.format(Long.MAX_VALUE);
+            return "Over " + this.formatter.format(Long.MAX_VALUE) + " Comparisons";
         } else {
             if (this.comparisons.get() == 1) return this.comparisons + " Comparison";
             else                             return this.formatter.format(this.comparisons) + " Comparisons";

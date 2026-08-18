@@ -253,8 +253,8 @@ public final class Highlights {
     // this costs O(h) best and O(n / w) worst [without fancy finish fix], h = highlight count
     public int containsMax(int[] array, int i, int n, double scale) {
     	byte[] thisMC = markCounts.get(array);
-    	int ii = ind(i, scale);
-    	if (thisMC == null || (ii >= n && n > 0)) return ~ii;
+    	int ii = Math.min(ind(i, scale), n - 1);
+    	if (thisMC == null) return ~ii;
     	int[] thisHL = highlights.get(array);
     	if (thisHL == null) return ~ii;
     	if (scale == 1) {
@@ -269,7 +269,7 @@ public final class Highlights {
 	     		return containsPosition(array, ii) ? ii : ~ii;
     		} else {
 	    		int v = ind(i - 1, scale), m = ii;
-	    		for (; ++v < ii;) {
+	    		for (; ++v <= ii;) {
 	    			if (thisMC[v] != 0 && array[v] > array[m]) m = v;
 	    		}
 	    		return thisMC[m] != 0 ? m : ~ii;
@@ -406,12 +406,12 @@ public final class Highlights {
         int[] thisHL = highlights.get(array);
         byte[] thisMC = markCounts.get(array);
         if(thisHL == null) return;
-        for (int i = 0; i < this.maxHighlightMarked; i++) {
+        for (int i = 0; i < Math.min(this.maxHighlightMarked, thisHL.length); i++) {
             if (thisHL[i] != -1) {
                 thisMC[thisHL[i]] = 0;
             }
     	}
-        Arrays.fill(thisHL, 0, this.maxHighlightMarked, -1);
+        Arrays.fill(thisHL, 0, Math.min(this.maxHighlightMarked, thisHL.length), -1);
         this.markCount.put(array, 0);
 
       decMax:

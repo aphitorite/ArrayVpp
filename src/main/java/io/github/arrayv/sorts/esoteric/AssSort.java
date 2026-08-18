@@ -13,6 +13,7 @@ public final class AssSort extends Sort {
 		this.setRunAllSortsName("Ass Sort");
 		this.setRunSortName("Ass Sort");
 		this.setCategory("Esoteric Sorts");
+        this.setAuthors("Gooflang");
 		this.setBucketSort(false);
 		this.setRadixSort(false);
 		this.setUnreasonablySlow(false);

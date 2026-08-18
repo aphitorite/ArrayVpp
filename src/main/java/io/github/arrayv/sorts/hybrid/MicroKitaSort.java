@@ -4,7 +4,6 @@ import io.github.arrayv.sorts.templates.Sort;
 import io.github.arrayv.main.ArrayVisualizer;
 import io.github.arrayv.sorts.insert.BinaryInsertionSort;
 
-
 // - [Control/Jay 2022, impl. aphitorite 2022.] -
 final public class MicroKitaSort extends Sort {
 	public MicroKitaSort(ArrayVisualizer arrayVisualizer) {
@@ -14,6 +13,7 @@ final public class MicroKitaSort extends Sort {
 		this.setRunAllSortsName("Micro-Kita Sort");
 		this.setRunSortName("Microkitasort");
 		this.setCategory("Block Merge Sorts");
+        this.setAuthors("Distray");
 		this.setConstant("n log n");
 		this.setBucketSort(false);
 		this.setRadixSort(false);

@@ -27,6 +27,7 @@ public final class pcboygamesisyournewgodSortReleaseCandidate extends BestForNSo
 		this.setRunAllSortsName("&pcboygamesisyournewgod Sort, Release Candidate");
 		this.setRunSortName("&pcboygamesisyournewgod Sort (Release Candidate)");
 		this.setCategory("Epsilon Committee Sorts");
+	    this.setAuthors("Distray, PCBoy, Californium-252");
 		this.setBucketSort(false);
 		this.setRadixSort(false);
 		this.setUnreasonablySlow(false);

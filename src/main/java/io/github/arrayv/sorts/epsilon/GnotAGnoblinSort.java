@@ -22,6 +22,7 @@ import io.github.arrayv.sorts.templates.Parallelize;
      this.setRunAllSortsName("Gnot A Gnoblin Sort");
      this.setRunSortName("Gnot A Gnoblin Sort");
      this.setCategory("Epsilon Committee Sorts");
+     this.setAuthors("Distray");
      this.setConstant("goblin");
      this.setBucketSort(false);
      this.setRadixSort(false);

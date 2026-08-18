@@ -20,6 +20,7 @@ final public class UnheapSort extends BogoSorting {
         this.setRunAllSortsName("Unheap Sort");
         this.setRunSortName("Unheap Sort");
         this.setCategory("Selection Sorts");
+  	    this.setAuthors("Distray");
         this.setBucketSort(false);
         this.setRadixSort(false);
         this.setUnreasonablySlow(false);

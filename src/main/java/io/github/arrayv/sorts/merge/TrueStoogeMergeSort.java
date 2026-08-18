@@ -14,6 +14,7 @@ final public class TrueStoogeMergeSort extends Sort {
         this.setRunAllSortsName("True Stooge Merge Sort");
         this.setRunSortName("True Stooge Mergesort");
         this.setCategory("Merge Sorts");
+        this.setAuthors("Distray");
         this.setConstant("n log n");
         this.setBucketSort(false);
         this.setRadixSort(false);

@@ -37,6 +37,7 @@ public final class CountingSort extends Sort {
         this.setRunAllSortsName("Counting Sort");
         this.setRunSortName("Counting Sort");
         this.setCategory("Distribution Sorts");
+        this.setAuthors("Harold H. Seward");
         this.setBucketSort(false);
         this.setRadixSort(false);
         this.setUnreasonablySlow(false);

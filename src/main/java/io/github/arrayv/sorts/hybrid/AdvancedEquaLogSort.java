@@ -13,6 +13,7 @@ final public class AdvancedEquaLogSort extends Sort {
 		this.setRunAllSortsName("Advanced Equalog Sort");
 		this.setRunSortName("Advanced Equalogsort");
 		this.setCategory("Hybrid Sorts");
+        this.setAuthors("Distray");
 		this.setConstant("n log n");
 		this.setBucketSort(false);
 		this.setRadixSort(false);

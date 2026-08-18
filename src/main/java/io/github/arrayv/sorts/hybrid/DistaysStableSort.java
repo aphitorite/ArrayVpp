@@ -10,8 +10,9 @@ final public class DistaysStableSort extends Sort {
         this.setSortListName("Distay's Stable");
         this.setRunAllSortsName("Distay's Stable Sort");
         this.setRunSortName("Distay's Stable Sort");
-        this.setConstant("n log n");
         this.setCategory("Hybrid Sorts");
+        this.setAuthors("Distray");
+        this.setConstant("n log n");
         this.setBucketSort(false);
         this.setRadixSort(false);
         this.setUnreasonablySlow(false);

@@ -16,6 +16,7 @@ public final class Constants {
 		
 		// linearithmic
 		put("n log n", n -> n * (long) (Math.log(n) / Math.log(2D)));
+		put("n log^1.5 n", n -> (long) (n * Math.pow(Math.log(n) / Math.log(2D), 1.5)));
 		put("n log^2 n", n -> {
 			long log = (long) (Math.log(n) / Math.log(2D));
 			return n * log * log;
@@ -52,6 +53,9 @@ public final class Constants {
 		
 		put("2^n", n -> 1L << (long)n);
 		
+		// specialized
+		put("n^1.5 log^0.5 n", n -> (long) (n * Math.pow(n * Math.log(n) / Math.log(2D), 0.5)));
+		put("bosenelson", n -> (long) Math.pow(n, Math.log(3) / Math.log(2)));
 		put("goblin", n -> (long) (n * n * n) * (long) (Math.pow(n * fact(n), fact(n) + 1)));
 	}};
 }

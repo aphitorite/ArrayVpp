@@ -12,6 +12,7 @@ public final class FullDinnerSort extends Sort {
 		this.setRunAllSortsName("Full Dinner sort");
 		this.setRunSortName("Full Dinnersort");
 		this.setCategory("Exchange Sorts");
+        this.setAuthors("Potassium");
 		this.setBucketSort(false);
 		this.setRadixSort(false);
 		this.setUnreasonablySlow(false);

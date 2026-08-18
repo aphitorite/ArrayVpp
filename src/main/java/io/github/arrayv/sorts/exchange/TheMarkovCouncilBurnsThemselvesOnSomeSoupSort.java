@@ -11,6 +11,7 @@ final public class TheMarkovCouncilBurnsThemselvesOnSomeSoupSort extends BogoSor
         this.setRunAllSortsName("The Markov Council Burns Themselves On Some Soup Sort");
         this.setRunSortName("The Markov Council Burns Themselves On Some Soupsort");
         this.setCategory("Impractical Sorts");
+		this.setAuthors("Distray");
         this.setBucketSort(false);
         this.setRadixSort(false);
         this.setUnreasonablySlow(true);

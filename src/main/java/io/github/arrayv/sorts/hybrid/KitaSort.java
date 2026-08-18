@@ -39,6 +39,7 @@ final public class KitaSort extends Sort {
 		this.setRunAllSortsName("Kita Sort");
 		this.setRunSortName("Kitasort");
 		this.setCategory("Block Merge Sorts");
+	    this.setAuthors("Control, aphitorite");
         this.setConstant("n log n");
 		this.setBucketSort(false);
 		this.setRadixSort(false);

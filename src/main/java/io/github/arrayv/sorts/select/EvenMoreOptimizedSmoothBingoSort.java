@@ -14,6 +14,8 @@ final public class EvenMoreOptimizedSmoothBingoSort extends Sort {
         this.setRunAllSortsName("Even More Optimized Smooth Bingo Sort");
         this.setRunSortName("Even More Optimized Smooth Bingo Sort");
         this.setCategory("Selection Sorts");
+  	    this.setAuthors("Distray");
+  	    this.setConstant("n^2");
         this.setBucketSort(false);
         this.setRadixSort(false);
         this.setUnreasonablySlow(false);

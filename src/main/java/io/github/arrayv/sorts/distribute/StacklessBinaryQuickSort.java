@@ -37,6 +37,7 @@ public final class StacklessBinaryQuickSort extends Sort {
         this.setRunAllSortsName("Stackless Binary Quick Sort");
         this.setRunSortName("Stackless Binary Quicksort");
         this.setCategory("Distribution Sorts");
+        this.setAuthors("aphitorite");
         this.setBucketSort(false);
         this.setRadixSort(false);
         this.setUnreasonablySlow(false);

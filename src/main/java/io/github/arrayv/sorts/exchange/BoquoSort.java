@@ -11,6 +11,7 @@ final public class BoquoSort extends BogoSorting {
         this.setRunAllSortsName("Boquo Sort");
         this.setRunSortName("Boquosort");
         this.setCategory("Bogo Sorts");
+		this.setAuthors("Distray");
         this.setBucketSort(false);
         this.setRadixSort(false);
         this.setUnreasonablySlow(true);

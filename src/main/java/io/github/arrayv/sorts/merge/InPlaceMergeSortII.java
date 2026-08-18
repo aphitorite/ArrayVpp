@@ -4,7 +4,6 @@ package io.github.arrayv.sorts.merge;
 import io.github.arrayv.main.ArrayVisualizer;
 import io.github.arrayv.sorts.templates.Sort;
 import io.github.arrayv.utils.IndexedRotations;
-import java.util.Arrays;
 
 /*
  * 
@@ -39,6 +38,8 @@ final public class InPlaceMergeSortII extends Sort {
         this.setRunAllSortsName("In-Place Merge Sort II");
         this.setRunSortName("In-Place Merge Sort II");
         this.setCategory("Merge Sorts");
+        this.setAuthors("aphitorite");
+        this.setConstant("n^2");
         this.setBucketSort(false);
         this.setRadixSort(false);
         this.setUnreasonablySlow(false);

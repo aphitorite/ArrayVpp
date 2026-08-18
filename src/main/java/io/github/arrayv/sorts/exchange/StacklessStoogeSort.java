@@ -11,6 +11,7 @@ final public class StacklessStoogeSort extends Sort {
         this.setRunAllSortsName("Stackless Stooge Sort");
         this.setRunSortName("Stackless Stoogesort");
         this.setCategory("Impractical Sorts");
+        this.setAuthors("Distray");
         this.setBucketSort(false);
         this.setRadixSort(false);
         this.setUnreasonablySlow(true);

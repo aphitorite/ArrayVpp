@@ -11,6 +11,7 @@ final public class WeavedMaxHeapSort extends HeapSorting {
         this.setRunAllSortsName("Weaved Max Heap Sort");
         this.setRunSortName("Weaved Heapsort");
         this.setCategory("Selection Sorts");
+  	    this.setAuthors("Distray");
         this.setConstant("n log n");
         this.setBucketSort(false);
         this.setRadixSort(false);

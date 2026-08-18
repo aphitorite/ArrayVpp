@@ -12,6 +12,7 @@ final public class AphiTournamentSort extends Sort {
         this.setRunAllSortsName("Aphitorite's Tournament Sort");
         this.setRunSortName("Aphitorite's Tournamentsort");
         this.setCategory("Selection Sorts");
+  	    this.setAuthors("aphitorite, Distray");
         this.setConstant("n log n");
         this.setBucketSort(false);
         this.setRadixSort(false);

@@ -38,6 +38,8 @@ final public class CircleHalverSort extends Sort {
         this.setRunAllSortsName("Circle Halver Sort");
         this.setRunSortName("Circle Halver Sorting Network");
         this.setCategory("Concurrent Sorts");
+        this.setAuthors("aphitorite, yuji");
+        this.setConstant("n log^3 n");
         this.setBucketSort(false);
         this.setRadixSort(false);
         this.setUnreasonablySlow(false);

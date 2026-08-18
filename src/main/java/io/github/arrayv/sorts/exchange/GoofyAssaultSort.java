@@ -10,6 +10,7 @@ public final class GoofyAssaultSort extends BogoSorting {
         this.setRunAllSortsName("Goofy Assault Sort");
         this.setRunSortName("Goofy Assaultsort");
         this.setCategory("Bogo Sorts");
+		this.setAuthors("Distray");
         this.setBucketSort(false);
         this.setRadixSort(false);
         this.setUnreasonablySlow(true);

@@ -6,6 +6,7 @@ import io.github.arrayv.main.ArrayVisualizer;
 import io.github.arrayv.utils.Highlights;
 import io.github.arrayv.utils.Renderer;
 import io.github.arrayv.visuals.Visual;
+import io.github.arrayv.visuals.templates.Colorize;
 
 /*
  *
@@ -41,7 +42,6 @@ public final class DisparityChords extends Visual {
 
         this.setListName("Disparity Chords");
         this.setCategory("Circle Visuals");
-        this.setColorable(stance.ALWAYS);
         this.setOverlayable(true);
     }
 
@@ -89,7 +89,7 @@ public final class DisparityChords extends Visual {
         this.mainRender.setStroke(arrayVisualizer.getDefaultStroke());
 
         for (int i = n-1; i >= 0; i--) {
-            this.mainRender.setColor(getIntColor(array[i], arrayVisualizer.getCurrentLength()));
+            this.mainRender.setColor(Colorize.bestFit(array, i, n, Colorize::hue, Colorize::graybright));
 
             int ax =  width/2 + (int)(r * Math.cos(Math.PI * (2d*i / n - 0.5)));
             int ay = height/2 + (int)(r * Math.sin(Math.PI * (2d*i / n - 0.5)));
@@ -103,23 +103,17 @@ public final class DisparityChords extends Visual {
         for (int i = 0; i < n; i++) {
             if (Highlights.fancyFinishActive() && i < Highlights.getFancyFinishPosition()) {
                 this.mainRender.setColor(Color.GREEN);
-
-                int ax =  width/2 + (int)(r * Math.cos(Math.PI * (2d*i / n - 0.5)));
-                int ay = height/2 + (int)(r * Math.sin(Math.PI * (2d*i / n - 0.5)));
-                int bx =  width/2 + (int)(r * Math.cos(Math.PI * (2d*array[i] / n - 0.5)));
-                int by = height/2 + (int)(r * Math.sin(Math.PI * (2d*array[i] / n - 0.5)));
-
-                this.mainRender.drawLine(ax, ay, bx, by);
-            } else if (Highlights.containsPosition(i)) {
+            } else {
                 if (arrayVisualizer.analysisEnabled()) this.mainRender.setColor(Color.LIGHT_GRAY);
                 else                                   this.mainRender.setColor(Color.WHITE);
-
-                int ax =  width/2 + (int)(r * Math.cos(Math.PI * (2d*i / n - 0.5)));
-                int ay = height/2 + (int)(r * Math.sin(Math.PI * (2d*i / n - 0.5)));
-                int bx =  width/2 + (int)(r * Math.cos(Math.PI * (2d*array[i] / n - 0.5)));
-                int by = height/2 + (int)(r * Math.sin(Math.PI * (2d*array[i] / n - 0.5)));
-
-                this.mainRender.drawLine(ax, ay, bx, by);
+            }
+            if ((Highlights.fancyFinishActive() && i < Highlights.getFancyFinishPosition()) || Highlights.containsPosition(i)) {
+	            int ax =  width/2 + (int)(r * Math.cos(Math.PI * (2d*i / n - 0.5)));
+	            int ay = height/2 + (int)(r * Math.sin(Math.PI * (2d*i / n - 0.5)));
+	            int bx =  width/2 + (int)(r * Math.cos(Math.PI * (2d*array[i] / n - 0.5)));
+	            int by = height/2 + (int)(r * Math.sin(Math.PI * (2d*array[i] / n - 0.5)));
+	
+	            this.mainRender.drawLine(ax, ay, bx, by);
             }
         }
     }

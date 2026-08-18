@@ -14,6 +14,7 @@ public final class VutuuwuSort extends BogoSorting {
         this.setRunAllSortsName("VutuUwU Sort");
         this.setRunSortName("Vutuuwusort");
         this.setCategory("Esoteric Sorts");
+        this.setAuthors("Distray");
         this.setBucketSort(false);
         this.setRadixSort(false);
         this.setUnreasonablySlow(true);

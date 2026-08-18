@@ -148,7 +148,7 @@ public abstract class Visual {
     }
 
     public static Color getIntColor(int i, int length) {
-        return Color.getHSBColor(((float) i / length), 0.8F, 0.8F);
+        return Color.getHSBColor(((float) i / length), 1.0F, 1.0F);
     }
 	
 	public static Color getGray(int t, int n) {

@@ -60,6 +60,7 @@ final public class HolyGrailSort extends HolyGrailSorting {
         this.setRunAllSortsName("Holy Grail Sort");
         this.setRunSortName("Holy Grailsort");
         this.setCategory("Block Merge Sorts");
+	    this.setAuthors("The Studio");
         this.setConstant("n log n");
         this.setBucketSort(false);
         this.setRadixSort(false);

@@ -1,11 +1,7 @@
 package io.github.arrayv.sorts.hybrid;
 
-import java.util.ArrayList;
-
 import io.github.arrayv.main.ArrayVisualizer;
-import io.github.arrayv.sorts.insert.BinaryInsertionSort;
 import io.github.arrayv.sorts.merge.InPlaceMergeSortV;
-import io.github.arrayv.sorts.merge.RotateMergeSort;
 import io.github.arrayv.sorts.templates.Sort;
 import io.github.arrayv.utils.ArrayVList;
 
@@ -18,6 +14,7 @@ final public class ImageSort extends Sort {
         this.setRunAllSortsName("Image Sort");
         this.setRunSortName("Imagesort");
         this.setCategory("Hybrid Sorts");
+        this.setAuthors("Distray");
         this.setBucketSort(false);
         this.setRadixSort(false);
         this.setUnreasonablySlow(false);

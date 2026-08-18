@@ -12,6 +12,7 @@ final public class AdvancedLogSortDistayStyleOldPartition extends Sort {
 		this.setRunAllSortsName("Advanced Log Sort (Colorcoded, Old Fragment Fallback)");
 		this.setRunSortName("Advanced Logsort (Colorcoded, Old Fragment Fallback)");
 		this.setCategory("Hybrid Sorts");
+        this.setAuthors("Distray");
 		this.setConstant("n log n");
 		this.setBucketSort(false);
 		this.setRadixSort(false);

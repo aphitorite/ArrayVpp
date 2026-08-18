@@ -15,7 +15,8 @@ public class CaiSortMkII extends GrailSorting {
         this.setSortListName("Cai Mk. II");
         this.setRunAllSortsName("Cai Sort Mark II");
         this.setRunSortName("Caisort Mk. II");
-        this.setCategory("Golf Sorts");
+        this.setCategory("Hybrid Sorts");
+        this.setAuthors("Distray");
         this.setConstant("n log n");
         this.setBucketSort(false);
         this.setRadixSort(false);

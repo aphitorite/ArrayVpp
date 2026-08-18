@@ -34,6 +34,7 @@ public final class FunSort extends Sort {
         this.setRunAllSortsName("Fun Sort");
         this.setRunSortName("Fun Sort");
         this.setCategory("Exchange Sorts");
+        this.setAuthors("fungamer2");
         this.setBucketSort(false);
         this.setRadixSort(false);
         this.setUnreasonablySlow(false);

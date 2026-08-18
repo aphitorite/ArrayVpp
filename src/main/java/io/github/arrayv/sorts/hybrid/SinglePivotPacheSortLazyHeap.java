@@ -15,6 +15,7 @@ final public class SinglePivotPacheSortLazyHeap extends Sort {
         this.setRunAllSortsName("Single-Pivot Pache Sort");
         this.setRunSortName("Single-Pivot Pache Sort (Lazyheap)");
         this.setCategory("Hybrid Sorts");
+        this.setAuthors("Distray");
         this.setConstant("n log n");
         this.setBucketSort(false);
         this.setRadixSort(false);

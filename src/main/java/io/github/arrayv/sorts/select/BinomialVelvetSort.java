@@ -11,6 +11,7 @@ final public class BinomialVelvetSort extends Sort {
         this.setRunAllSortsName("Binomial Velvet Sort");
         this.setRunSortName("Binomial Velvet Sort");
         this.setCategory("Selection Sorts");
+  	    this.setAuthors("Distray");
 		this.setConstant("n log n");
         this.setBucketSort(false);
         this.setRadixSort(false);

@@ -37,6 +37,8 @@ final public class SmoothBingoSort extends Sort {
         this.setRunAllSortsName("Smooth Bingo Sort");
         this.setRunSortName("Smooth Bingo Sort");
         this.setCategory("Selection Sorts");
+  	    this.setAuthors("Distray");
+  	    this.setConstant("n^2");
         this.setBucketSort(false);
         this.setRadixSort(false);
         this.setUnreasonablySlow(false);

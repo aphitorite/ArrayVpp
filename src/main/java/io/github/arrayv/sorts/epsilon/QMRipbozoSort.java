@@ -21,6 +21,7 @@ import io.github.arrayv.sorts.templates.BogoSorting;
 		    this.setRunAllSortsName("Ripbozo Sort (Quadratic Memory)");
 		    this.setRunSortName("Quad Ripbozosort");
 		    this.setCategory("Epsilon Committee Sorts");
+		    this.setAuthors("Distray");
 		    this.setBucketSort(false);
 		    this.setRadixSort(false);
 		    this.setUnreasonablySlow(true);

@@ -1,7 +1,16 @@
-package io.github.arrayv.sorts.merge;
+package io.github.arrayv.sorts.epsilon;
 
 import io.github.arrayv.main.ArrayVisualizer;
 import io.github.arrayv.sorts.templates.Sort;
+
+/*******************************************
+ *          The Epsilon Committee          *
+ * --------------------------------------- *
+ * We've got 99 problems, and practicality *
+ * ain't one                               *
+ * ======================================= *
+ * Author: Distray                         *
+ *******************************************/
 
 final public class BlockSwapMergeSortEpsilonCommittee extends Sort {
     public BlockSwapMergeSortEpsilonCommittee(ArrayVisualizer arrayVisualizer) {
@@ -11,6 +20,7 @@ final public class BlockSwapMergeSortEpsilonCommittee extends Sort {
         this.setRunAllSortsName("The Epsilon Committee's Block-Swap Merge Sort");
         this.setRunSortName("The Epsilon Committee's Block-Swap Mergesort");
         this.setCategory("Merge Sorts");
+        this.setAuthors("Distray");
         this.setBucketSort(false);
         this.setRadixSort(false);
         this.setUnreasonablySlow(false);

@@ -15,6 +15,7 @@ final public class SinglePivotPacheSortSBBLazyHeap extends Sort {
         this.setRunAllSortsName("Single-Pivot Pache Sort (Single Bit Buffer)");
         this.setRunSortName("Single-Pivot Pache Sort (SBB Lazyheap)");
         this.setCategory("Hybrid Sorts");
+        this.setAuthors("Distray");
         this.setConstant("n log n");
         this.setBucketSort(false);
         this.setRadixSort(false);

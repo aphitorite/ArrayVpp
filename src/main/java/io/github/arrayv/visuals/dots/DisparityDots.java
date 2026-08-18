@@ -1,11 +1,10 @@
 package io.github.arrayv.visuals.dots;
 
-import java.awt.Color;
-
 import io.github.arrayv.main.ArrayVisualizer;
 import io.github.arrayv.utils.Highlights;
 import io.github.arrayv.utils.Renderer;
 import io.github.arrayv.visuals.Visual;
+import io.github.arrayv.visuals.templates.Colorize;
 
 /*
  *
@@ -42,7 +41,7 @@ public final class DisparityDots extends Visual {
         this.setListName("Disparity Dots");
         this.setCategory("Dot Visuals");
         this.setOverlayable(true);
-        this.addSupportedFeatures("linkeddots");
+        this.addSupportedFeatures("linkeddots", "heat");
     }
 
     public int[] getTopPosFor(int[] array, double idx, int val, ArrayVisualizer ArrayVisualizer, Renderer Renderer) {
@@ -81,24 +80,24 @@ public final class DisparityDots extends Visual {
             this.mainRender.setStroke(arrayVisualizer.getCustomStroke(2));
 
             for (int i = 0; i < n; i++) {
-                if (Highlights.fancyFinishActive() && i < Highlights.getFancyFinishPosition()) {
-                    this.mainRender.setColor(Color.GREEN);
+                if ((Highlights.fancyFinishActive() && i < Highlights.getFancyFinishPosition()) || Highlights.containsPosition(i))
                     this.mainRender.setStroke(arrayVisualizer.getCustomStroke(4));
-                } else if (Highlights.containsPosition(i)) {
-                    this.mainRender.setColor(arrayVisualizer.getHighlightColor());
-                    this.mainRender.setStroke(arrayVisualizer.getCustomStroke(4));
-                } else if (arrayVisualizer.colorEnabled())
-                    this.mainRender.setColor(getIntColor(array[i], arrayVisualizer.getCurrentLength()));
-                else if (Highlights.hasColor(array, i)) {
-                    this.mainRender.setColor(Highlights.colorAt(array, i));
-                } else this.mainRender.setColor(Color.WHITE);
+                else
+                    this.mainRender.setStroke(arrayVisualizer.getCustomStroke(2));
+        		this.mainRender.setColor(
+        			Colorize.bestFit(array, i, n,
+        				Colorize::heatmap,
+        				Colorize::fancyFinish,
+        				Colorize::hue,
+        				Colorize::snow
+        			)
+        		);
 
                 disp = (1 + Math.cos((Math.PI * (array[i] - i)) / (arrayVisualizer.getCurrentLength() * 0.5))) * 0.5;
                 int x =  width/2 + (int)(disp * r * Math.cos(Math.PI * (2d*i / n - 0.5)));
                 int y = height/2 + (int)(disp * r * Math.sin(Math.PI * (2d*i / n - 0.5)));
 
                 this.mainRender.drawLine(lastX, lastY, x, y);
-                this.mainRender.setStroke(arrayVisualizer.getCustomStroke(2));
 
                 lastX = x;
                 lastY = y;
@@ -108,13 +107,15 @@ public final class DisparityDots extends Visual {
             int dotS = renderer.getDotDimensions();
 
             for (int i = 0; i < n; i++) {
-                if (Highlights.fancyFinishActive() && i < Highlights.getFancyFinishPosition())
-                    this.mainRender.setColor(Color.GREEN);
-
-                else if (arrayVisualizer.colorEnabled())
-                    this.mainRender.setColor(getIntColor(array[i], arrayVisualizer.getCurrentLength()));
-
-                else this.mainRender.setColor(Color.WHITE);
+                if (Highlights.containsPosition(i)) continue;
+        		this.mainRender.setColor(
+        			Colorize.bestFit(array, i, n,
+        				Colorize::heatmap,
+        				Colorize::fancyFinish,
+        				Colorize::hue,
+        				Colorize::snow
+        			)
+        		);
 
                 double disp = (1 + Math.cos((Math.PI * (array[i] - i)) / (arrayVisualizer.getCurrentLength() * 0.5))) * 0.5;
                 int x =  width/2 + (int)(disp * r * Math.cos(Math.PI * (2d*i / n - 0.5)));

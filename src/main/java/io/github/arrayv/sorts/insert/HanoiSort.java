@@ -49,6 +49,7 @@ public final class HanoiSort extends Sort {
 		this.setRunAllSortsName("Hanoi Sort");
 		this.setRunSortName("Hanoi sort");
 		this.setCategory("Impractical Sorts");
+		this.setAuthors("Anonymous0726, Andrey Astrelin");
         this.setConstant("2^n");
 		this.setBucketSort(false);
 		this.setRadixSort(false);

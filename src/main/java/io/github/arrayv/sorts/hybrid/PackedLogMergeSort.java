@@ -14,8 +14,8 @@ final public class PackedLogMergeSort extends Sort {
         this.setRunAllSortsName("Packed Log-Merge Sort");
         this.setRunSortName("Packed Log-Mergesort");
         this.setCategory("Hybrid Sorts");
+        this.setAuthors("Distray");
         this.setConstant("n log n");
-        this.setComparisonBased(true);
         this.setBucketSort(false);
         this.setRadixSort(false);
         this.setUnreasonablySlow(false);

@@ -20,6 +20,8 @@ final public class MubbleSort extends Sort {
         this.setRunAllSortsName("Mubble Sort");
         this.setRunSortName("Mubblesort");
         this.setCategory("Exchange Sorts");
+		this.setAuthors("Distray");
+		this.setConstant("n^2");
         this.setBucketSort(false);
         this.setRadixSort(false);
         this.setUnreasonablySlow(false);

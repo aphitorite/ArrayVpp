@@ -13,6 +13,7 @@ final public class AdvancedLogSortDistayStyle extends Sort {
 		this.setRunAllSortsName("Advanced Log Sort (Colorcoded)");
 		this.setRunSortName("Advanced Logsort (Colorcoded)");
 		this.setCategory("Hybrid Sorts");
+        this.setAuthors("Distray");
 		this.setConstant("n log n");
 		this.setBucketSort(false);
 		this.setRadixSort(false);

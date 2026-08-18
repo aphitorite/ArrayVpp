@@ -22,28 +22,28 @@ public final class PerlinNoise {
     private PerlinNoise() {
     }
 
-    private static float fade(float t) {
+    private static double fade(double t) {
         return t * t * t * (t * (t * 6 - 15) + 10);
     }
 
-    private static float grad(int hash, float x) {
+    private static double grad(int hash, double x) {
         return (hash & 1) == 0 ? x : -x;
     }
 
-    private static float lerp(float t, float a, float b) {
+    private static double lerp(double t, double a, double b) {
         return a + t * (b - a);
     }
 
-    public static float returnNoise(float x) {
+    public static double returnNoise(double x) {
         int index = ((int) Math.floor(x)) & 0xff;
         x -= Math.floor(x);
-        float u = fade(x);
+        double u = fade(x);
         return lerp(u, grad(PERM[index], x), grad(PERM[index + 1], x - 1)) * 2;
     }
 
-    public static float returnFracBrownNoise(float x, int octave) {
-        float f = 0.0f;
-        float w = 0.5f;
+    public static double returnFracBrownNoise(double x, int octave) {
+        double f = 0.0f;
+        double w = 0.5f;
         for (int i = 0; i < octave; i++) {
             f += w * returnNoise(x);
             x *= 2.0f;

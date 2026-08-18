@@ -37,6 +37,7 @@ final public class UnstableMicrokitaSort extends Sort {
 		this.setRunAllSortsName("Unstable Microkita Sort");
 		this.setRunSortName("Unstable Microkitasort");
 		this.setCategory("Hybrid Sorts");
+        this.setAuthors("Distray");
 		this.setConstant("n log n");
 		this.setBucketSort(false);
 		this.setRadixSort(false);

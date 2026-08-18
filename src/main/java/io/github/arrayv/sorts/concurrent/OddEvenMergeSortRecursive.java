@@ -19,6 +19,8 @@ public final class OddEvenMergeSortRecursive extends Sort {
         this.setRunAllSortsName("Batcher's Odd-Even Merge Sort");
         this.setRunSortName("Recursive Odd-Even Mergesort");
         this.setCategory("Concurrent Sorts");
+        this.setAuthors("Ken Batcher");
+        this.setConstant("n log^2 n");
         this.setBucketSort(false);
         this.setRadixSort(false);
         this.setUnreasonablySlow(false);

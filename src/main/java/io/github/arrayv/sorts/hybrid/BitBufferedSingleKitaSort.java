@@ -14,6 +14,7 @@ final public class BitBufferedSingleKitaSort extends Sort {
 		this.setRunAllSortsName("Bit-Buffered Single Kita Sort");
 		this.setRunSortName("Bit-Buffered Single Kitasort");
 		this.setCategory("Hybrid Sorts");
+        this.setAuthors("Distray");
 		this.setConstant("n log n");
 		this.setBucketSort(false);
 		this.setRadixSort(false);

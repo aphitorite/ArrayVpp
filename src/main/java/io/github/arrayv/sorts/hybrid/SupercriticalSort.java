@@ -10,6 +10,7 @@ public class SupercriticalSort extends Sort {
         this.setRunAllSortsName("Supercritical Sort");
         this.setRunSortName("Supercritical Sort");
         this.setCategory("Hybrid Sorts");
+        this.setAuthors("Distray");
         this.setConstant("n log n");
         this.setBucketSort(false);
         this.setRadixSort(false);

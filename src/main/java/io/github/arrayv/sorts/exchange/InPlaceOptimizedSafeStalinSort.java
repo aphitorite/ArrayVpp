@@ -39,6 +39,7 @@ final public class InPlaceOptimizedSafeStalinSort extends Sort {
         this.setRunAllSortsName("In-Place Optimized Safe Stalin Sort");
         this.setRunSortName("In-Place Optimized Safe Stalinsort");
         this.setCategory("Hybrid Sorts");
+		this.setAuthors("Distray");
         this.setBucketSort(false);
         this.setRadixSort(false);
         this.setUnreasonablySlow(true);

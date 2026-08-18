@@ -1,7 +1,6 @@
 package io.github.arrayv.sorts.hybrid;
 
 import io.github.arrayv.main.ArrayVisualizer;
-import io.github.arrayv.sorts.hybrid.LazicciSort;
 import io.github.arrayv.sorts.insert.BlockInsertionSortNeon;
 import io.github.arrayv.sorts.templates.GrailSorting;
 import io.github.arrayv.utils.IndexedRotations;
@@ -14,7 +13,8 @@ public class NilSort extends GrailSorting {
         this.setRunAllSortsName("Nil Sort");
         this.setRunSortName("Nilsort");
         this.setCategory("Golf Sorts");
-        this.setConstant("n log n log log n");
+        this.setAuthors("Distray");
+        this.setConstant("n sqrt n");
         this.setBucketSort(false);
         this.setRadixSort(false);
         this.setUnreasonablySlow(false);

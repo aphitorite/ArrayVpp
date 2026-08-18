@@ -10,7 +10,8 @@
      this.setSortListName("Bodo");
      this.setRunAllSortsName("Bodo Sort (Buffed Boko Sort)");
      this.setRunSortName("Bodo Sort");
-     this.setCategory("Esoteric Sorts");
+     this.setCategory("Bogo Sorts");
+     this.setAuthors("Distray");
      this.setBucketSort(false);
      this.setRadixSort(false);
      this.setUnreasonablySlow(true);

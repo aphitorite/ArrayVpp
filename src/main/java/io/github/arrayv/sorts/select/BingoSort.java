@@ -27,6 +27,8 @@ public final class BingoSort extends Sort {
         this.setRunAllSortsName("Bingo Sort");
         this.setRunSortName("Bingosort");
         this.setCategory("Selection Sorts");
+        this.setAuthors("McDude_73");
+        this.setConstant("n^2");
         this.setBucketSort(false);
         this.setRadixSort(false);
         this.setUnreasonablySlow(false);

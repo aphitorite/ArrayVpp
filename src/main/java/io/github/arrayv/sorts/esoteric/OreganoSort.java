@@ -11,6 +11,7 @@ final public class OreganoSort extends BogoSorting {
         this.setRunAllSortsName("Oregano Sort");
         this.setRunSortName("Oregano Sort");
         this.setCategory("Esoteric Sorts");
+        this.setAuthors("Distray");
         this.setBucketSort(false);
         this.setRadixSort(false);
         this.setUnreasonablySlow(true);
