@@ -1,8 +1,8 @@
 package io.github.arrayv.sorts.hybrid;
 
 import io.github.arrayv.main.ArrayVisualizer;
-import io.github.arrayv.sorts.templates.Sort;
 import io.github.arrayv.sorts.insert.BinaryInsertionSort;
+import io.github.arrayv.sorts.templates.Sort;
 
 /*
  * 
@@ -30,6 +30,21 @@ SOFTWARE.
  *
  */
 
+/**
+	Futuristic sorting algorithm:
+	
+	Unstable sort that sorts in O(n log n) comps and O(n) moves O(1) space worst case.
+	This sort is deterministic unlike other in-place O(n log n) comps O(n) move sorts.
+	
+	For a long time, a deterministic O(n log n) comps O(n) moves sort remained
+	unsolved until Franceschini & Geffert 2005.
+	
+	Although this sort is a simplified unstable version of aphitorite's method,
+	it remains a very complicated sorting algorithm.
+	
+	@author aphitorite
+	@version 1.2.1
+*/
 final public class IzaSort extends Sort {
 	public IzaSort(ArrayVisualizer arrayVisualizer) {
 		super(arrayVisualizer);
@@ -48,23 +63,10 @@ final public class IzaSort extends Sort {
 		this.setAuthors("aphitorite");
 	}
 	
-	/**
-		futuristic sorting algorithm:
-		
-		unstable sort that sorts in O(n log n) comps and O(n) moves O(1) space worst case
-		this sort is deterministic unlike other in-place O(n log n) comps O(n) move sorts
-		
-		for a long time a deterministic O(n log n) comps O(n) moves sort remained
-		unsolved until franceschini's method in 2007
-		
-		although this sort is a simplified unstable version of aphitorite's method
-		it remains a very complicated sorting algorithm
-		
-		@author aphitorite
-	*/
-	
 	private final int MIN_INSERT = 32;
 	private final int MIN_HEAP   = 4095;
+	private static final double DELAY = 0.25;
+	private static final double SWAP_DELAY = 2 * DELAY;
 	
 	private BinaryInsertionSort smallSort;
 	
@@ -73,7 +75,7 @@ final public class IzaSort extends Sort {
 	}
 	
 	private void blockSwap(int[] array, int a, int b, int s) {
-		while(s-- > 0) Writes.swap(array, a++, b++, 1, true, false);
+		while(s-- > 0) Writes.swap(array, a++, b++, SWAP_DELAY, true, false);
 	}
 	
 	private int leftBinSearch(int[] array, int a, int b, int val) {
@@ -111,12 +113,12 @@ final public class IzaSort extends Sort {
 		
 		while(i < m && j < b) {
 			if(Reads.compareValues(array[i], array[j]) <= 0)
-				Writes.swap(array, p++, i++, 1, true, false);
+				Writes.swap(array, p++, i++, SWAP_DELAY, true, false);
 			else 
-				Writes.swap(array, p++, j++, 1, true, false);
+				Writes.swap(array, p++, j++, SWAP_DELAY, true, false);
 		}
-		while(i < m) Writes.swap(array, p++, i++, 1, true, false);
-		while(j < b) Writes.swap(array, p++, j++, 1, true, false);
+		while(i < m) Writes.swap(array, p++, i++, SWAP_DELAY, true, false);
+		while(j < b) Writes.swap(array, p++, j++, SWAP_DELAY, true, false);
 	}
 	
 	private void siftDown(int[] array, int val, int i, int p, int n) {
@@ -132,10 +134,10 @@ final public class IzaSort extends Sort {
 			}
 			if(next == i) break;
 			
-			Writes.write(array, p+i, max, 0.25, true, false);
+			Writes.write(array, p+i, max, DELAY, true, false);
 			i = next;
 		}
-		Writes.write(array, p+i, val, 0.25, true, false);
+		Writes.write(array, p+i, val, DELAY, true, false);
 	}
 	private void optiHeapSort(int[] array, int a, int b) {
 		int n = b-a;
@@ -146,7 +148,7 @@ final public class IzaSort extends Sort {
 		for(int i = n-1; i > 0; i--) {
 			Highlights.markArray(2, a+i);
 			int t = array[a+i];
-			Writes.write(array, a+i, array[a], 1, false, false);
+			Writes.write(array, a+i, array[a], DELAY, false, false);
 			this.siftDown(array, t, 0, a, i);
 		}
 	}
@@ -167,10 +169,10 @@ final public class IzaSort extends Sort {
 		}
 		
 		private void flipBit(int a, int b) {
-			Writes.swap(array, a, b, 0.5, true, false);
+			Writes.swap(array, a, b, SWAP_DELAY, true, false);
 		}
 		private boolean getBit(int a, int b) {
-			return Reads.compareIndices(array, a, b, 0, false) > 0;
+			return Reads.compareIndices(array, a, b, DELAY, false) > 0;
 		}
 		private void setBit(int a, int b, boolean bit) {
 			if(this.getBit(a, b) ^ bit)
@@ -267,7 +269,7 @@ final public class IzaSort extends Sort {
 			this.kSize = 1; //how many gapped keys (always in the form 2^k-1)
 			this.gSize = new BitArray(array, pa, pb, this.kSize+1, log2(g)+1);
 			
-			Writes.swap(array, this.keyPos(0), o, 1, true, false); //swap elements to key positions
+			Writes.swap(array, this.keyPos(0), o, SWAP_DELAY, true, false); //swap elements to key positions
 		}
 		
 		private int gapPos(int idx) {
@@ -284,11 +286,11 @@ final public class IzaSort extends Sort {
 				int s = this.gSize.get(i);
 				int j = this.gapPos(i);
 				
-				while(s-- > 0) Writes.swap(array, po++, j++, 1, true, false);
+				while(s-- > 0) Writes.swap(array, po++, j++, SWAP_DELAY, true, false);
 				
 				if(i == b-1) return;
 				
-				Writes.swap(array, po++, this.keyPos(i), 1, true, false);
+				Writes.swap(array, po++, this.keyPos(i), SWAP_DELAY, true, false);
 			}
 		}
 		private void increaseSize() { //precondition: this.size == this.kSize+1
@@ -387,9 +389,9 @@ final public class IzaSort extends Sort {
 		public void insert(int idx, int loc, int gPos, int gTail) {
 			int pos = this.gapPos(loc);
 			int t = array[idx];
-			Writes.write(array, idx, array[pos+gTail], 1, true, false);
-			Writes.arraycopy(array, pos+gPos, array, pos+gPos+1, gTail-gPos, 0.5, true, false);
-			Writes.write(array, pos+gPos, t, 1, true, false);
+			Writes.write(array, idx, array[pos+gTail], DELAY, true, false);
+			Writes.arraycopy(array, pos+gPos, array, pos+gPos+1, gTail-gPos, 0.25, true, false);
+			Writes.write(array, pos+gPos, t, DELAY, true, false);
 			
 			this.gSize.incr(loc);
 			this.size++;
@@ -510,7 +512,7 @@ final public class IzaSort extends Sort {
 	}
 	private void pivotSelect(int[] array, int a, int b) {
 		if(b-a <= 256)
-			Writes.swap(array, a, this.ninther(array, a, b), 1, true, false);
+			Writes.swap(array, a, this.ninther(array, a, b), SWAP_DELAY, true, false);
 		
 		else {
 			int s = (b-a)/3; 
@@ -519,7 +521,7 @@ final public class IzaSort extends Sort {
 			int m1 = this.ninther(array, a+  s, a+2*s);
 			int b1 = this.ninther(array, a+2*s, b);
 			
-			Writes.swap(array, a, this.medianOfThree(array, a1, m1, b1), 1, true, false);
+			Writes.swap(array, a, this.medianOfThree(array, a1, m1, b1), SWAP_DELAY, true, false);
 		}
 	}
 	private void medianOfMedians(int[] array, int a, int b) {
@@ -527,9 +529,9 @@ final public class IzaSort extends Sort {
 			int m = a, i = a;
 			
 			for(; i+2 < b; i += 3)
-				Writes.swap(array, m++, this.medianOfThree(array, i, i+1, i+2), 1, true, false);
+				Writes.swap(array, m++, this.medianOfThree(array, i, i+1, i+2), SWAP_DELAY, true, false);
 			while(i < b)
-				Writes.swap(array, m++, i++, 1, true, false);
+				Writes.swap(array, m++, i++, SWAP_DELAY, true, false);
 			
 			b = m;
 		}
@@ -554,10 +556,10 @@ final public class IzaSort extends Sort {
 			}
 			while(j >= i && Reads.compareValues(array[j], array[a]) > 0);
 				
-			if(i < j) Writes.swap(array, i, j, 1, false, false);
+			if(i < j) Writes.swap(array, i, j, SWAP_DELAY, false, false);
 			else {
 				Highlights.clearMark(3);
-				Writes.swap(array, a, j, 1, true, false);
+				Writes.swap(array, a, j, SWAP_DELAY, true, false);
 				return j;
 			}
 		}
@@ -592,10 +594,8 @@ final public class IzaSort extends Sort {
 			this.smallSort.customBinaryInsert(array, a, b, 0.25);
 		
 		while(b1-a1 > this.MIN_INSERT) {
-			if(badPartition) {
-				this.medianOfMedians(array, a1, b1);
-				badPartition = false;
-			}
+			if(badPartition) this.medianOfMedians(array, a1, b1);
+
 			else this.pivotSelect(array, a1, b1);
 			
 			int m = this.partition(array, a1, b1);
@@ -622,8 +622,8 @@ final public class IzaSort extends Sort {
 		int i = a, j = b;
 		
 		for(int k = a+1; k < b; k += 2) {
-			Writes.swap(array, i++, k-1, 1, true, false);
-			Writes.swap(array, j++, k,   1, true, false);
+			Writes.swap(array, i++, k-1, SWAP_DELAY, true, false);
+			Writes.swap(array, j++, k,   0.5, true, false);
 		}
 		this.blockSwap(array, i, b, j-b);
 	}
@@ -633,8 +633,8 @@ final public class IzaSort extends Sort {
 		this.blockSwap(array, a, b, m-a);
 		
 		for(int k = a+1; k < b; k += 2) {
-			Writes.swap(array, i++, k-1, 1, true, false);
-			Writes.swap(array, j++, k,   1, true, false);
+			Writes.swap(array, i++, k-1, SWAP_DELAY, true, false);
+			Writes.swap(array, j++, k,   0.5, true, false);
 		}
 	}
 	
@@ -643,36 +643,36 @@ final public class IzaSort extends Sort {
 			int max = j;
 			
 			for(int i = max+1; i < Math.min(j+s, b); i++)
-				if(Reads.compareIndices(array, i, max, 0.125, true) > 0)
+				if(Reads.compareIndices(array, i, max, DELAY, true) > 0)
 					max = i;
 				
-			Writes.swap(array, j, max, 1, true, false);
+			Writes.swap(array, j, max, SWAP_DELAY, true, false);
 		}
 		for(int j = b; j > a; ) {
 			int k = a;
 			
 			for(int i = k+s; i < j; i += s)
-				if(Reads.compareIndices(array, i, k, 0.125, true) > 0)
+				if(Reads.compareIndices(array, i, k, DELAY, true) > 0)
 					k = i;
 				
 			int k1 = --j;
 				
 			for(int i = k+1; i < Math.min(k+s, j); i++) 
-				if(Reads.compareIndices(array, i, k1, 0.125, true) > 0)
+				if(Reads.compareIndices(array, i, k1, DELAY, true) > 0)
 					k1 = i;
 				
 			Highlights.markArray(3, j);
 				
 			if(k1 == j) {
-				Writes.swap(array, k, j, 1, true, false);
+				Writes.swap(array, k, j, SWAP_DELAY, true, false);
 			}
 			else {
 				Highlights.clearMark(2);
 				
 				int t = array[j];
-				Writes.write(array, j, array[k], 0.5, true, false);
-				Writes.write(array, k, array[k1], 0.5, true, false);
-				Writes.write(array, k1, t, 0.5, true, false);
+				Writes.write(array, j, array[k], DELAY, true, false);
+				Writes.write(array, k, array[k1], DELAY, true, false);
+				Writes.write(array, k1, t, DELAY, true, false);
 			}
 		}
 		Highlights.clearMark(3);
@@ -688,19 +688,19 @@ final public class IzaSort extends Sort {
 		
 		while(c-- > 0) {
 			if(Reads.compareValues(array[i], array[j]) > 0)
-				Writes.swap(array, --p, i--, 1, true, false);
+				Writes.swap(array, --p, i--, SWAP_DELAY, true, false);
 			else
-				Writes.swap(array, --p, j--, 1, true, false);
+				Writes.swap(array, --p, j--, SWAP_DELAY, true, false);
 		}
 		int m1 = m;
 		
 		while(i >= a && j >= m) {
 			if(Reads.compareValues(array[i], array[j]) > 0)
-				Writes.swap(array, --m1, i--, 1, true, false);
+				Writes.swap(array, --m1, i--, SWAP_DELAY, true, false);
 			else
-				Writes.swap(array, --m1, j--, 1, true, false);
+				Writes.swap(array, --m1, j--, SWAP_DELAY, true, false);
 		}
-		while(j >= m) Writes.swap(array, --m1, j--, 1, true, false);
+		while(j >= m) Writes.swap(array, --m1, j--, SWAP_DELAY, true, false);
 	}
 	
 	private void gridSort(int[] array, int a, int b, int ia, int im, int pk, int t1, int t2, int pa1, int pb1, int pa2, int pb2, int p, int bLen, int log, int bsv, boolean bw) {
@@ -718,7 +718,7 @@ final public class IzaSort extends Sort {
 		
 		//initialize trees
 		
-		Writes.swap(array, p+bLen-1, pk, 1, true, false);
+		Writes.swap(array, p+bLen-1, pk, SWAP_DELAY, true, false);
 		
 		GAVLTree keyBuf = new GAVLTree(array, pk, t1, pa1, pb1);
 		GAVLTree idxBuf = new GAVLTree(array, ia, t2, pa2, pb2);
@@ -736,16 +736,16 @@ final public class IzaSort extends Sort {
 			int bPos = p+idx*bLen2X+bLen;
 			int gPos = this.rightBinSearch(array, bPos, bPos+bLen, bsv, bw)-bPos;
 			
-			Writes.swap(array, i, bPos+gPos, 1, true, false); //swap sorting element to bucket
+			Writes.swap(array, i, bPos+gPos, SWAP_DELAY, true, false); //swap sorting element to bucket
 			
 			if(gPos == bLen-1) { //if after inserting element and gap is full, split
 			
-				Writes.swap(array, bPos-1, t1+loc, 1, true, false); //swap key back to bucket block
+				Writes.swap(array, bPos-1, t1+loc, SWAP_DELAY, true, false); //swap key back to bucket block
 				
 				int bPosNew = p+kSize*bLen2X+bLen;
 				this.fancySplitBucket(array, bPos-bLen, bPos+bLen, bPosNew, log); //sort bucket and merge with block
 				
-				Writes.swap(array, bPos-1, t1+loc, 1, true, false); //swap key back to tree
+				Writes.swap(array, bPos-1, t1+loc, SWAP_DELAY, true, false); //swap key back to tree
 				
 				//insert the new block's tail into the tree along with the new index
 				
@@ -762,7 +762,7 @@ final public class IzaSort extends Sort {
 			int bPos = p+idx*bLen2X+bLen;
 			int gPos = this.rightBinSearch(array, bPos, bPos+bLen, bsv, bw)-bPos; //very rarely bPos+bLen can go out of bounds by 1 but it will never matter
 			
-			Writes.swap(array, bPos-1, pk+i, 1, true, false);
+			Writes.swap(array, bPos-1, pk+i, SWAP_DELAY, true, false);
 			this.optiLazyHeap(array, bPos, bPos+gPos, log);
 			this.mergeTo(array, bPos-bLen, bPos, bPos+gPos, j);
 			j += bLen+gPos;
@@ -774,7 +774,7 @@ final public class IzaSort extends Sort {
 			int idx = this.leftBinSearch(array, im+i, im+kSize, array[ia+i])-im;
 			
 			while(idx != i) {
-				Writes.swap(array, ia+i, ia+idx, 1, true, false);
+				Writes.swap(array, ia+i, ia+idx, SWAP_DELAY, true, false);
 				idx = this.leftBinSearch(array, im+i, im+kSize, array[ia+i])-im;
 			}
 		}
@@ -817,8 +817,8 @@ final public class IzaSort extends Sort {
 		//[ bit buffer ][ buf ][ tree buffer ][            array             ][ bit buffer ]
 		//a             a1     a2             a3                              b1            b
 		
-		if(Reads.compareIndices(array, a3, b1-1, 1, true) < 0) {
-			Writes.swap(array, a1, a3, 1, true, false);
+		if(Reads.compareIndices(array, a3-1, b1, DELAY, true) < 0) {
+			Writes.swap(array, a1, a3, SWAP_DELAY, true, false);
 			GAVLTree tree = new GAVLTree(array, a1, a2, a, b1);
 			
 			int c = 1;
@@ -827,7 +827,7 @@ final public class IzaSort extends Sort {
 				Delays.sleep(0.5);
 				
 				if(tree.insertDistinct(i)) {
-					Writes.swap(array, j++, i, 1, true, false);
+					Writes.swap(array, j++, i, SWAP_DELAY, true, false);
 					c++;
 				}
 			}
@@ -862,11 +862,11 @@ final public class IzaSort extends Sort {
 					while(j < cur) {
 						int loc = this.leftBinSearch(array, a1+i, a2, array[a3+j])-a1;
 						
-						if(loc == i) Writes.swap(array, a3+j, a3+(--cur), 1, true, false); //access the bit buffer as little as possible
+						if(loc == i) Writes.swap(array, a3+j, a3+(--cur), SWAP_DELAY, true, false); //access the bit buffer as little as possible
 						
 						else {
 							cnts.decr(loc);
-							Writes.swap(array, a3+j, a3+cnts.get(loc), 1, true, false);
+							Writes.swap(array, a3+j, a3+cnts.get(loc), SWAP_DELAY, true, false);
 						}
 					}
 					j = this.rightBinSearch(array, a3+j, b1, array[a1+i], false)-a3;
@@ -895,21 +895,21 @@ final public class IzaSort extends Sort {
 					
 					while(true) {
 						while(++i < j) {
-							int cmp = Reads.compareIndexValue(array, i, piv, 0.5, true);
-							if(cmp == 0) Writes.swap(array, i1++, i, 1, true, false);
+							int cmp = Reads.compareIndexValue(array, i, piv, DELAY, true);
+							if(cmp == 0) Writes.swap(array, i1++, i, SWAP_DELAY, true, false);
 							else if(cmp > 0) break;
 						}
 						Highlights.clearMark(2);
 
 						while(--j > i) {
-							int cmp = Reads.compareIndexValue(array, j, piv, 0.5, true);
-							if(cmp == 0) Writes.swap(array, --j1, j, 1, true, false);
+							int cmp = Reads.compareIndexValue(array, j, piv, DELAY, true);
+							if(cmp == 0) Writes.swap(array, --j1, j, SWAP_DELAY, true, false);
 							else if(cmp < 0) break;
 						}
 						Highlights.clearMark(2);
 
 						if(i < j) {
-							Writes.swap(array, i, j, 1, true, false);
+							Writes.swap(array, i, j, SWAP_DELAY, true, false);
 							Highlights.clearMark(2);
 						}
 						else {
@@ -919,8 +919,8 @@ final public class IzaSort extends Sort {
 							}
 							else if(j < i) j++;
 
-							while(i1 > a6) Writes.swap(array, --i, --i1, 1, true, false);
-							while(j1 < b3) Writes.swap(array, j++, j1++, 1, true, false);
+							while(i1 > a6) Writes.swap(array, --i, --i1, SWAP_DELAY, true, false);
+							while(j1 < b3) Writes.swap(array, j++, j1++, SWAP_DELAY, true, false);
 
 							break;
 						}
@@ -985,11 +985,11 @@ final public class IzaSort extends Sort {
 			
 			while(a1 < a2 && j < b1) {
 				if(Reads.compareValues(array[a1], array[j]) <= 0)
-					Writes.swap(array, i++, a1++, 1, true, false);
+					Writes.swap(array, i++, a1++, SWAP_DELAY, true, false);
 				else
-					Writes.swap(array, i++, j++, 1, true, false);
+					Writes.swap(array, i++, j++, SWAP_DELAY, true, false);
 			}
-			while(a1 < a2) Writes.swap(array, i++, a1++, 1, true, false);
+			while(a1 < a2) Writes.swap(array, i++, a1++, SWAP_DELAY, true, false);
 		}
 		
 		//sort lower bit buffer + filler zone (heap sorts = 15n writes)

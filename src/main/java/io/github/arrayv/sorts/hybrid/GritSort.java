@@ -31,6 +31,21 @@ SOFTWARE.
  *
  */
 
+/**
+	Historic sorting algorithm:
+	
+	Sorts in-place, stable, O(n sqrt(n log n)) comparisons, O(n) moves worst case deterministically.
+	Was the fastest in-place stable O(n) moves sort circa 1996-2007 (before Franceschini).
+	
+	Borrows some ideas from https://doi.org/10.1007/BF01940644
+	and improves upon a number of them such as eliminating the need for tail recursion.
+	
+	Implementation uses O(log n) space for simplified block merge and block partition,
+	but both can be achieved in O(1) space within the time bounds using more complicated techniques.
+	
+	@author aphitorite
+	@version 2.0.1
+*/
 final public class GritSort extends Sort {
 	public GritSort(ArrayVisualizer arrayVisualizer) {
 		super(arrayVisualizer);
@@ -48,21 +63,6 @@ final public class GritSort extends Sort {
 		this.setBogoSort(false);
 		this.setAuthors("aphitorite");
 	}
-	
-	/**
-		historic sorting algorithm:
-		
-		sorts in-place stable O(n sqrt(n log n)) comparisons O(n) moves worst case deterministically
-		was the fastest in-place stable O(n) moves sort circa 1996-2007 (before franceschini)
-		
-		borrows some ideas from https://doi.org/10.1007/BF01940644
-		and improves upon a number of them such as eliminating the need for tail recursion
-		
-		implementation uses O(log n) space for simplified block merge and block partition
-		but both can be achieved in O(1) space within the time bounds using more complicated techniques
-		
-		@author aphitorite
-	*/
 	
 	private final int MIN_SORT = 74; //at n < floor(74/2) the amount of pivots in gritPartition is < 2
 	

@@ -1,16 +1,15 @@
 package io.github.arrayv.sorts.hybrid;
 
-import io.github.arrayv.main.ArrayVisualizer;
-import io.github.arrayv.sorts.templates.Sort;
-import io.github.arrayv.sorts.insert.BinaryInsertionSort;
-import io.github.arrayv.sorts.select.MaxHeapSort;
 import java.util.Random;
 
+import io.github.arrayv.main.ArrayVisualizer;
+import io.github.arrayv.sorts.templates.Sort;
+
 /*
- * 
+ *
 MIT License
 
-Copyright (c) 2021 aphitorite
+Copyright (c) 2021-2024 aphitorite
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -32,15 +31,14 @@ SOFTWARE.
  *
  */
 
-final public class PacheSort extends Sort {
+public final class PacheSort extends Sort {
 	public PacheSort(ArrayVisualizer arrayVisualizer) {
 		super(arrayVisualizer);
-		
+
 		this.setSortListName("Pache");
-		this.setRunAllSortsName("Pache Sort");
+		this.setRunAllSortsName("Pachesort");
 		this.setRunSortName("Pachesort");
 		this.setCategory("Hybrid Sorts");
-		this.setAuthors("aphitorite");
 		this.setConstant("n log n");
 		this.setBucketSort(false);
 		this.setRadixSort(false);
@@ -50,10 +48,60 @@ final public class PacheSort extends Sort {
 		this.setAuthors("aphitorite");
 	}
 	
-	private final int MIN_INSERT = 16;
+	//simple average case O(n log n) comps O(n) moves sort
+	
+	private final int MIN_HEAP = 255;
 	
 	private Random rng;
-	private BinaryInsertionSort smallSort;
+	
+	private int log2(int n) {
+		return 31-Integer.numberOfLeadingZeros(n);
+	}
+	
+	private int leftBinSearch(int[] array, int a, int b, int val) {
+		while(a < b) {
+			int m = (a+b) >>> 1;
+			Highlights.markArray(2, m);
+			Delays.sleep(0.25);
+			
+			if(Reads.compareValues(val, array[m]) <= 0) 
+				b = m;
+			else	 
+				a = m+1;
+		}
+		return a;
+	}
+	private int rightBinSearch(int[] array, int a, int b, int val) {
+		while(a < b) {
+			int m = (a+b) >>> 1;
+			Highlights.markArray(2, m);
+			Delays.sleep(0.25);
+
+			if(Reads.compareValues(val, array[m]) < 0)
+				b = m;
+			else
+				a = m+1;
+		}
+		return a;
+	}
+	
+	private void blockSwap(int[] array, int a, int b, int s) {
+		while(s-- > 0) Writes.swap(array, a++, b++, 1, true, false);
+	}
+	
+	private void mergeFW(int[] array, int a, int m, int b, int p) {
+		int pLen = m-a, pEnd = p+pLen;
+		this.blockSwap(array, a, p, pLen);
+		
+		while(p < pEnd && m < b) {
+			if(Reads.compareValues(array[p], array[m]) <= 0)
+				Writes.swap(array, a++, p++, 1, true, false);
+			
+			else Writes.swap(array, a++, m++, 1, true, false);
+		}
+		while(p < pEnd)
+			Writes.swap(array, a++, p++, 1, true, false);
+	}
 	
 	private class BitArray {
 		private final int[] array;
@@ -71,7 +119,7 @@ final public class PacheSort extends Sort {
 		}
 		
 		private void flipBit(int a, int b) {
-			Writes.swap(array, a, b, 0.25, true, false);
+			Writes.swap(array, a, b, 0.5, true, false);
 		}
 		private boolean getBit(int a, int b) {
 			return Reads.compareIndices(array, a, b, 0, false) > 0;
@@ -87,14 +135,14 @@ final public class PacheSort extends Sort {
 				this.setBit(i, j, false);
 		}
 		
-	    public void set(int idx, int uInt) {
+		public void set(int idx, int uInt) {
 			assert (idx >= 0 && idx < size) : "BitArray index out of bounds";
 			
 			int s = idx*w, i1 = pa+s+w;
 			for(int i = pa+s, j = pb+s; i < i1; i++, j++, uInt >>= 1)
 				this.setBit(i, j, (uInt & 1) == 1);
 			
-			if(uInt > 0) System.out.printf("Warning: Word too large at index %d\n", idx);
+			if(uInt > 0) System.out.println("Warning: Word too large");
 		}
 		public int get(int idx) {
 			assert (idx >= 0 && idx < size) : "BitArray index out of bounds";
@@ -113,7 +161,7 @@ final public class PacheSort extends Sort {
 				this.flipBit(i, j);
 				if(this.getBit(i, j)) return;
 			}
-			System.out.printf("Warning: Integer overflow at index %d\n", idx);
+			System.out.println("Warning: Integer overflow");
 		}
 		public void decr(int idx) {
 			assert (idx >= 0 && idx < size) : "BitArray index out of bounds";
@@ -123,278 +171,234 @@ final public class PacheSort extends Sort {
 				this.flipBit(i, j);
 				if(!this.getBit(i, j)) return;
 			}
-			System.out.printf("Warning: Integer underflow at index %d\n", idx);
+			System.out.println("Warning: Integer underflow");
 		}
 	}
 	
-	//bit buffer creation
+	private void siftDown(int[] array, int pos, int len, int root, int t) {
+		int curr = root;
+		int cmp  = Integer.numberOfLeadingZeros(root+1) % 2 == 1 ? 1 : -1;
+		
+		int left = 2*curr + 1;
+		
+		while(left < len) {
+			int next = left;
+			int gChild = 2*left + 1;
+			
+			for(int node : new int[] {left+1, gChild, gChild+1, gChild+2, gChild+3} ) {
+				if(node >= len) break;
+				
+				if(Reads.compareIndices(array, pos+node, pos+next, 0.25, true) == cmp)
+					next = node;
+			}
+			Highlights.clearMark(2);
+			
+			if(next >= gChild) {
+				if(Reads.compareIndexValue(array, pos+next, t, 0.25, true) == cmp) {
+					Writes.write(array, pos+curr, array[pos+next], 0.75, true, false);
+					
+					curr = next;
+					left = 2*curr + 1;
+					
+					int parent = (next-1) / 2;
+					
+					if(Reads.compareIndexValue(array, pos+parent, t, 0.25, true) == cmp) {
+						Writes.write(array, pos+curr, t, 0.75, true, false);
+						t = array[pos+parent];
+						Writes.write(array, pos+parent, array[pos+curr], 0.75, true, false);
+					}
+				}
+				else break;
+			}
+			else {
+				if(Reads.compareIndexValue(array, pos+next, t, 0.25, true) == cmp) {
+					Writes.write(array, pos+curr, array[pos+next], 0.75, true, false);
+					curr = next;
+				}
+				break;
+			}
+		}
+		Writes.write(array, pos+curr, t, 0.75, true, false);
+	}
+	private void heapify(int[] array, int pos, int len) {
+		for(int i = (len-1)/2; i >= 0; i--)
+			this.siftDown(array, pos, len, i, array[pos+i]);
+	}
 	
-	private void randomSqrtMedian(int[] array, int a, int b) { //swap random sqrt n sample and find its median
-		int len = b-a, s = (int)Math.sqrt(len);
-		s -= 1-s%2;
+	private void minMaxHeap(int[] array, int a, int b) {
+		int pos = a, len = b-a;
+		
+		this.heapify(array, pos, len);
+		
+		for(int i = len; i > 1; ) {
+			int t = array[pos+(--i)];
+			Highlights.markArray(3, pos+i);
+			Writes.write(array, pos+i, array[pos], 1, true, false);
+			this.siftDown(array, pos, i, 0, t);
+		}
+		Highlights.clearMark(3);
+	}
+	private void selectMinMax(int[] array, int a, int b, int s) {
+		this.heapify(array, a, b-a);
 		
 		for(int i = 0; i < s; i++) {
-			int rand = rng.nextInt(len-i);
-			Writes.swap(array, a+i, a+i+rand, 1, true, false);
+			int t = array[--b];
+			Highlights.markArray(3, b);
+			Writes.write(array, b, array[a], 1, true, false);
+			this.siftDown(array, a, b-a, 0, t);
 		}
-		for(int i = 0;; i++) {
-			int c = 0, ce = 0;
-			
-			for(int j = 0; j < s; j++) {
-				if(j == i) continue;
-				
-				int cmp = Reads.compareIndices(array, a+j, a+i, 0.25, true);
-				
-				c  += cmp == -1 ? 1 : 0;
-				ce += cmp <=  0 ? 1 : 0;
-			}
-			if(s/2 >= c && s/2 <= ce) {
-				Writes.swap(array, a, a+i, 1, true, false);
-				return;
-			}
-		}
-	}
-	private int partition(int[] array, int a, int b) {
-		int i = a, j = b;
+		Highlights.clearMark(3);
 		
-		this.randomSqrtMedian(array, a, b);
-		Highlights.markArray(3, a);
+		for(int i = 0; i < s; i++) {
+			int t = array[--b];
+			int c = 1;
+			
+			if(Reads.compareIndices(array, a+c+1, a+c, 0.5, true) < 0) c++;
+			Highlights.clearMark(2);
+			Highlights.markArray(3, b);
 		
-		do {
-			do {
-				i++;
-				Highlights.markArray(1, i);
-				Delays.sleep(0.5);
-			}
-			while(i < j && Reads.compareIndices(array, i, a, 0, false) < 0);
-			
-			do {
-				j--;
-				Highlights.markArray(2, j);
-				Delays.sleep(0.5);
-			}
-			while(j >= i && Reads.compareIndices(array, j, a, 0, false) > 0);
-				
-			if(i < j) Writes.swap(array, i, j, 1, true, false);
-			
-			else {
-				Writes.swap(array, a, j, 1, true, false);
-				Highlights.clearMark(3);
-				return j;
-			}
+			Writes.write(array, b, array[a+c], 1, true, false);
+			this.siftDown(array, a, b-a, c, t);
 		}
-		while(true);
-	}
-	private void dualQuickSelect(int[] array, int a, int b, int r1, int r2) {
-		int a1 = a, b1 = b;
+		Highlights.clearMark(3);
+		int a1 = a+s;
 		
-		while(b-a > this.MIN_INSERT) {
-			int m = this.partition(array, a, b);
-			
-			if(m > r2 && m < b1)        b1 = m;
-			else if(m < r2 && m+1 > a1) a1 = m+1;
-			else if(m == r2)            a1 = b1;
-			
-			if(m > r1)      b = m;
-			else if(m < r1) a = m+1;
-			else            break;
-		}
-		if(b-a <= this.MIN_INSERT) 
-			this.smallSort.customBinaryInsert(array, a, b, 0.25);
-		
-		while(b1-a1 > this.MIN_INSERT) {
-			int m = this.partition(array, a1, b1);
-			
-			if(m == r2) return;
-			
-			else if(m > r2) b1 = m;
-			else if(m < r2) a1 = m+1;
-			else            break;
-		}
-		if(b1-a1 <= this.MIN_INSERT) 
-			this.smallSort.customBinaryInsert(array, a1, b1, 0.25);
+		while(a1 > a) Writes.swap(array, --a1, b++, 1, true, false);
 	}
 	
-	private int leftBinSearch(int[] array, int a, int b, int val) {
-		while(a < b) {
-			int m = a+(b-a)/2;
+	private void optiLazyHeap(int[] array, int a, int b, int s) {
+		for(int j = a; j < b; j += s) {
+			int max = j;
 			
-			Highlights.markArray(2, m);
-			Delays.sleep(0.125);
-			
-			if(Reads.compareValues(val, array[m]) <= 0) 
-				b = m;
-			else	 
-				a = m+1;
-		}
-		return a;
-	}
-	
-	private void multiSwap(int[] array, int a, int b, int len) {
-		while(len-- > 0) Writes.swap(array, a++, b++, 1, true, false);
-	}
-	private void mergeFW(int[] array, int a, int m, int b, int p) {
-        int pLen = m-a;
-        this.multiSwap(array, p, a, pLen);
-        
-        int i = 0, j = m, k = a;
-        
-        while(i < pLen && j < b) {
-            if(Reads.compareValues(array[p+i], array[j]) <= 0) 
-                Writes.swap(array, k++, p+(i++), 1, true, false);
-            else
-                Writes.swap(array, k++, j++, 1, true, false);
-        }
-        while(i < pLen) Writes.swap(array, k++, p+(i++), 1, true, false);
-	}
-	
-	//sqrt n way heap
-	
-	private void maxToFront(int[] array, int a, int b) {
-		int max = a;
-		
-		for(int i = a+1; i < b; i++)
-			if(Reads.compareIndices(array, i, max, 0.05, true) > 0)
-				max = i;
-		
-		Writes.swap(array, max, a, 0.5, true, false);
-	}
-	private void lazyHeapSort(int[] array, int a, int b) {
-		int s = (int)Math.sqrt(b-a-1)+1;
-		
-		for(int i = a; i < b; i += s)
-			this.maxToFront(array, i, Math.min(i+s, b));
-		
-		for(int j = b; j > a;) {
-			int max = a;
-			
-			for(int i = max+s; i < j; i += s)
-				if(Reads.compareIndices(array, i, max, 0.05, true) >= 0)
+			for(int i = max+1; i < Math.min(j+s, b); i++)
+				if(Reads.compareIndices(array, i, max, 0.125, true) > 0)
 					max = i;
 				
-			Writes.swap(array, max, --j, 0.5, true, false);
-			this.maxToFront(array, max, Math.min(max+s, j));
+			Writes.swap(array, j, max, 1, true, false);
 		}
+		for(int j = b; j > a; ) {
+			int k = a;
+			
+			for(int i = k+s; i < j; i += s)
+				if(Reads.compareIndices(array, i, k, 0.125, true) > 0)
+					k = i;
+				
+			int k1 = --j;
+				
+			for(int i = k+1; i < Math.min(k+s, j); i++) 
+				if(Reads.compareIndices(array, i, k1, 0.125, true) > 0)
+					k1 = i;
+				
+			Highlights.markArray(3, j);
+				
+			if(k1 == j) {
+				Writes.swap(array, k, j, 1, true, false);
+			}
+			else {
+				Highlights.clearMark(2);
+				
+				int t = array[j];
+				Writes.write(array, j, array[k], 0.5, true, false);
+				Writes.write(array, k, array[k1], 0.5, true, false);
+				Writes.write(array, k1, t, 0.5, true, false);
+			}
+		}
+		Highlights.clearMark(3);
 	}
 	
-	private void sortBucket(int[] array, int a, int b) {
-		if(b-a <= this.MIN_INSERT) {
-			this.smallSort.customBinaryInsert(array, a, b, 0.25);
+	private void sortBucket(int[] array, int a, int b, int s, int val) {
+		for(int i = b-1; i >= a; i--)
+			if(Reads.compareIndexValue(array, i, val, 0.5, true) == 0)
+				Writes.swap(array, i, --b, 0.5, true, false);
+		
+		this.optiLazyHeap(array, a, b, s);
+	}
+
+	@Override
+	public void runSort(int[] array, int length, int bucketCount) {
+		int a = 0, b = length;
+		
+		if(length <= this.MIN_HEAP) {
+			this.minMaxHeap(array, a, b);
 			return;
 		}
 		
-		//bucket may be oversized so we partition equal elements to the right
-		//the max element in a bucket is == pivot
-		
-		int max = a;
-		for(int i = a+1; i < b; i++)
-			if(Reads.compareIndices(array, i, max, 0.5, true) > 0)
-				max = i;
-		
-		int piv = array[max];
-		int i = a-1, j = b;
-		
-		do {
-			do {
-				i++;
-				Highlights.markArray(1, i);
-				Delays.sleep(0.25);
-			}
-			while(i < j && Reads.compareIndexValue(array, i, piv, 0, false) < 0);
-			
-			do {
-				j--;
-				Highlights.markArray(2, j);
-				Delays.sleep(0.25);
-			}
-			while(j >= i && Reads.compareIndexValue(array, j, piv, 0, false) == 0);
-				
-			if(i < j) Writes.swap(array, i, j, 1, true, false);
-			else break;
-		}
-		while(true);
-		
-		this.lazyHeapSort(array, a, i);
-	}
-	
-	@Override
-	public void runSort(int[] array, int length, int bucketCount) {
 		this.rng = new Random();
-		this.smallSort = new BinaryInsertionSort(this.arrayVisualizer);
 		
-		int a = 0, b = length;
+		int log	= this.log2(length-1)+1;
+		int pCnt   = length/(log*log);
+		int bitLen = (pCnt+1)*log;
 		
-		int log = 32-Integer.numberOfLeadingZeros(length-1), logSq = log*log;
-		int s = length/logSq;
-		int bSize = 2*(s+1)*log;
+		int a1 = a+bitLen, b1 = b-bitLen;
 		
-		int a1 = a+bSize, b1 = b-bSize;
+		this.selectMinMax(array, a, b, bitLen);
 		
-		//create bit buffer
-		
-		this.dualQuickSelect(array, a, b, a1, b1-1);
-		
-		BitArray cnt = new BitArray(array, a, b1, s+1, log);
-		BitArray pos = new BitArray(array, a+bSize/2, b1+bSize/2, s+1, log);
-		
-		MaxHeapSort heapSort = new MaxHeapSort(this.arrayVisualizer);
-		
-		//main sort
-		
-		if(Reads.compareIndices(array, a1, b1-1, 1, true) < 0) { //if equal we dont have to sort
-			int len1 = b1-a1, a2 = a1+s;
+		if(Reads.compareIndices(array, a1-1, b1, 1, true) < 0) {
+			int a2 = a1;
 			
-			for(int i = 0; i < s; i++) { //swap random n/log^2 n elements + sort
-				int rand = rng.nextInt(len1-i);
-				Writes.swap(array, a1+i, a1+i+rand, 1, true, false);
-			}
-			heapSort.customHeapSort(array, a1, a2, 0.5);
+			for(int i = 0; i < pCnt; i++)
+				Writes.swap(array, a2, a2+this.rng.nextInt(b1-(a2++)), 1, true, false);
 			
-			//partition into buckets
+			this.minMaxHeap(array, a1, a2);
 			
-			for(int i = a2; i < b1; i++) { //count elements
-				Highlights.markArray(1, i);
-				Delays.sleep(0.5);
-				
-				int loc = this.leftBinSearch(array, a1, a2, array[i])-a1;
-				cnt.incr(loc);
+			//for(int j = a2, i = (a2=a1)+1; i < j; i += 2)
+			//	Writes.swap(array, a2++, i, 1, true, false);
+			
+			BitArray cnts = new BitArray(array, a, b1, pCnt+1, log);
+			
+			for(int i = a2; i < b1; i++) {
+				Highlights.markArray(3, i);
+				cnts.incr(this.leftBinSearch(array, a1, a2, array[i])-a1);
 			}
-			for(int i = 0, sum = 0; i < s+1; i++) { //prefix sum
-				sum += cnt.get(i);
-				pos.set(i, sum);
+			Highlights.clearMark(3);
+			
+			for(int i = 1, sum = cnts.get(0); i < pCnt+1; i++) {
+				sum += cnts.get(i);
+				cnts.set(i, sum);
 			}
-			for(int i = 0, j = 0; i < s; i++) { //transport elements
-				int cur = pos.get(i);
+			for(int i = 0, j = 0; i < pCnt; i++) {
+				Highlights.markArray(3, a1+i);
+				int cur = cnts.get(i);
+				int loc = this.leftBinSearch(array, a1+i, a2, array[a2+j])-a1;
 				
 				while(j < cur) {
-					int loc = this.leftBinSearch(array, a1+i, a2, array[a2+j])-a1;
-					
-					if(loc == i) Writes.swap(array, a2+j, a2+(--cur), 1, true, false); //access the bit buffer as little as possible
-					
+					if(loc == i) {
+						j++;
+						loc = this.leftBinSearch(array, a1+i, a2, array[a2+j])-a1;
+					}
 					else {
-						pos.decr(loc);
-						Writes.swap(array, a2+j, a2+pos.get(loc), 1, true, false);
+						cnts.decr(loc);
+						int dest = cnts.get(loc);
+						
+						while(true) {
+							int newLoc = this.leftBinSearch(array, a1+i, a2, array[a2+dest])-a1;
+							
+							if(newLoc != loc) {
+								loc = newLoc;
+								break;
+							}
+							cnts.decr(loc);
+							dest--;
+						}
+						Writes.swap(array, a2+j, a2+dest, 1, true, false);
 					}
 				}
-				j += cnt.get(i);
+				j = this.rightBinSearch(array, a2+j, b1, array[a1+i])-a2;
 			}
-			pos.free();
+			cnts.free();
+			Highlights.clearMark(3);
 			
-			//sort buckets using sqrt n way heap
+			int j = a2;
 			
-			for(int i = 0, j = a2; i < s+1; i++) {
-				int s1 = cnt.get(i);
-				this.sortBucket(array, j, j+s1);
-				j += s1;
+			for(int i = 0; i < pCnt; i++) {
+				Highlights.markArray(3, a1+i);
+				int j1 = this.rightBinSearch(array, j, b1, array[a1+i]);
+				this.sortBucket(array, j, j1, log, array[a1+i]);
+				j = j1;
 			}
-			cnt.free();
-			
-			this.mergeFW(array, a1, a2, b1, a); //redistribute pivots
+			this.optiLazyHeap(array, j, b1, log);
+			this.mergeFW(array, a1, a2, b1, a);
+			this.minMaxHeap(array, a, a+pCnt);
 		}
-			
-		//finishing up
-		
-    	heapSort.customHeapSort(array, a, a1, 0.25);
-    	heapSort.customHeapSort(array, b1, b, 0.25);
 	}
 }

@@ -30,7 +30,22 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
  *
  */
-
+	
+/**
+	Ultimate sorting algorithm:
+	
+	Unstable and probabilistic sorting algorithm performing an average of
+	n log n + ~4.4 n comparisons and O(n) moves (~12.1 n) in O(1) space.
+	
+	Makes the fewest comparisons among the sorts of its kind.
+	Achieves the ultimate goal of an n log n + O(n) comps, in-place O(n) moves sort.
+	
+	Implements a modified library sort where the original algorithm is proven to be O(n log n)
+	from http://www.cs.sunysb.edu/~bender/newpub/BenderFaMo06-librarysort.pdf.
+	
+	@author aphitorite
+	@version 4.2.3
+*/
 public final class FlanSort extends Sort {
 	public FlanSort(ArrayVisualizer arrayVisualizer) {
 		super(arrayVisualizer);
@@ -47,21 +62,6 @@ public final class FlanSort extends Sort {
 		this.setBogoSort(false);
         this.setAuthors("aphitorite, Flanlaina");
 	}
-	
-	/**
-		ultimate sorting algorithm:
-		
-		unstable and probabilistic sorting algorithm performing an average of
-		n log n + ~4.4 n comparisons and O(n) moves (~12.1 n) in O(1) space
-		
-		makes the fewest comparisons among the sorts of its kind
-		achieves the ultimate goal of a n log n + O(n) comps in place O(n) moves sort
-		
-		implements a modified library sort where the original algorithm is proven to be O(n log n)
-		from http://www.cs.sunysb.edu/~bender/newpub/BenderFaMo06-librarysort.pdf
-		
-		@author aphitorite
-	*/
 	
 	private final int MIN_INSERT = 32;
 
