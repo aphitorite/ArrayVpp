@@ -124,11 +124,6 @@ public abstract class Sort {
         return (int)deprecatedMetadataTable[11];
     }
 
-    public String getAuthors() {
-        initDeprecatedMetadataTable();
-        return (String)deprecatedMetadataTable[12];
-    }
-
     public boolean getUseShellsortGaps() {
         return this.useShellsortGaps;
     }
@@ -218,11 +213,6 @@ public abstract class Sort {
         initDeprecatedMetadataTable();
         deprecatedMetadataTable[10] = question;
         deprecatedMetadataTable[11] = defaultAnswer;
-    }
-
-    protected void setAuthors(String authors) {
-        initDeprecatedMetadataTable();
-        deprecatedMetadataTable[12] = authors;
     }
 
     public int validateAnswer(int answer) {
