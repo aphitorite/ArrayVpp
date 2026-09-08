@@ -109,24 +109,36 @@ public class BufferedWeavedMergeSort extends Sort {
     	}
     	Writes.changeAllocAmount(-3*g);
     }
-
-    @Override
-    public void runSort(int[] array, int length, int bucketCount) {
-    	int s = 1;
-    	while(s*s < length) s *= 2;
+    
+    public void bwm(int[] array, int a, int b) {
+    	int s = 1, n = b-a;
+    	while(s*s < n) s *= 2;
     	InPlaceMergeSortV p = new InPlaceMergeSortV(arrayVisualizer);
-    	if(length < 64) {
-    		p.IPM5(array, 0, length);
+    	if(n < 64) {
+    		p.IPM5(array, a, b);
     		return;
     	}
     	for(int i = s; i < 2 * s; i++) {
-    		mergepp(array, 0, i, length, s);
+    		//mergepp(array, a, i, b, s);
+    		int j = 0;
+    		for(; a+i+j*s<b; j++) {
+    			Writes.swap(array, a+j, a+i+j*s, 1, true, false);
+    		}
+    		bwm(array, a, a + j);
+    		for(j = 0; a+i+j*s<b; j++) {
+    			Writes.swap(array, a+j, a+i+j*s, 1, true, false);
+    		}
     	}
     	for(int i = s / 2; i > 0; i /= 2) {
-    		weave(array, 0, s, length, i);
-    		IndexedRotations.cycleReverse(array, 0, length-s, length, 1, true, false);
+    		weave(array, a, a+s, b, i);
+    		if (i > 1) IndexedRotations.cycleReverse(array, a, b-s, b, 1, true, false);
     	}
-    	runSort(array, s, bucketCount);
-		p.inPlaceMerge5(array, 0, s, s, length-s);
+    	bwm(array, b-s, b);
+		p.inPlaceMerge5(array, a, n-s, b-s, s);
+    }
+
+    @Override
+    public void runSort(int[] array, int length, int bucketCount) {
+    	bwm(array, 0, length);
     }
 }

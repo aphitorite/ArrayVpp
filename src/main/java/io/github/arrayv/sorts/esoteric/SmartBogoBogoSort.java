@@ -1,4 +1,4 @@
-package io.github.arrayv.sorts.distribute;
+package io.github.arrayv.sorts.esoteric;
 
 import io.github.arrayv.main.ArrayVisualizer;
 import io.github.arrayv.sorts.templates.BogoSorting;
@@ -47,6 +47,8 @@ public final class SmartBogoBogoSort extends BogoSorting {
         this.setRunAllSortsName("Smart Bogo Bogo Sort");
         this.setRunSortName("Smart Bogobogosort");
         this.setCategory("Impractical Sorts");
+        this.setAuthors("Emerald Block");
+        this.setConstant("bogo");
         this.setBucketSort(false);
         this.setRadixSort(false);
         this.setUnreasonablySlow(true);

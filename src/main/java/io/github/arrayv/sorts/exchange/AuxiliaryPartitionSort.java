@@ -10,6 +10,8 @@ public final class AuxiliaryPartitionSort extends Sort {
       this.setRunAllSortsName("Auxiliary Partition Sort");
       this.setRunSortName("Auxpartsort");
       this.setCategory("Exchange Sorts");
+      this.setAuthors("Potassium");
+      this.setConstant("n log n");
       this.setBucketSort(false);
       this.setRadixSort(false);
       this.setUnreasonablySlow(false);

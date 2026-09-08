@@ -39,6 +39,7 @@ public final class EctaSortLegacy extends Sort {
         this.setRunSortName("Ectasort (Legacy)");
         this.setCategory("Block Merge Sorts");
 	    this.setAuthors("aphitorite");
+	    this.setConstant("n log n");
         this.setBucketSort(false);
         this.setRadixSort(false);
         this.setUnreasonablySlow(false);

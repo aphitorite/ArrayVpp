@@ -11,6 +11,7 @@ public final class CashewSort extends Sort {
       this.setRunSortName("Cashew Sort");
       this.setCategory("Exchange Sorts");
       this.setAuthors("Potassium");
+      this.setConstant("n^2");
       this.setBucketSort(false);
       this.setRadixSort(false);
       this.setUnreasonablySlow(false);

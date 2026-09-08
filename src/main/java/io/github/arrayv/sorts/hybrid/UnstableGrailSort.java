@@ -57,6 +57,8 @@ public final class UnstableGrailSort extends UnstableGrailSorting {
         this.setRunAllSortsName("Unstable Grailsort");
         this.setRunSortName("Unstable Grailsort");
         this.setCategory("Hybrid Sorts");
+        this.setAuthors("Andrey Astrelin");
+        this.setConstant("n log n");
         this.setBucketSort(false);
         this.setRadixSort(false);
         this.setUnreasonablySlow(false);

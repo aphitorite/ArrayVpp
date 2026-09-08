@@ -64,6 +64,7 @@ public class SkaSort extends Sort {
 		this.setRunSortName("Skasort");
 		this.setCategory("Distribution Sorts");
 	    this.setAuthors("Malte Skarupke");
+	    this.setConstant("n");
 		this.setBucketSort(false); // fixed bucket count
 		this.setRadixSort(false);
 		this.setUnreasonablySlow(false);

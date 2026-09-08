@@ -3,7 +3,6 @@ package io.github.arrayv.sorts.hybrid;
 import io.github.arrayv.main.ArrayVisualizer;
 import io.github.arrayv.sorts.templates.Sort;
 
-// who made this?
 final public class GoldenStacklessMergeSort extends Sort {
     public GoldenStacklessMergeSort(ArrayVisualizer arrayVisualizer) {
         super(arrayVisualizer);
@@ -12,6 +11,7 @@ final public class GoldenStacklessMergeSort extends Sort {
         this.setRunAllSortsName("Golden Stackless Merge Sort");
         this.setRunSortName("Golden Stackless Mergesort");
         this.setCategory("Merge Sorts");
+        this.setAuthors("Potassium");
         this.setBucketSort(false);
         this.setRadixSort(false);
         this.setUnreasonablySlow(false);

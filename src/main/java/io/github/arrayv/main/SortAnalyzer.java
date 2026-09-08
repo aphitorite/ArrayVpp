@@ -28,8 +28,6 @@ import java.nio.file.Path;
 import java.util.List;
 import java.util.*;
 import java.util.stream.StreamSupport;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipFile;
 
 /*
  *
@@ -59,10 +57,6 @@ SOFTWARE.
  */
 
 public final class SortAnalyzer {
-    private static final URL EXTRA_SORTS_DOWNLOAD;
-    private static final String EXTRA_SORTS_JAR_NAME = "ArrayV-Extra-Sorts.jar";
-    private static final File EXTRA_SORTS_FILE = new File("cache", EXTRA_SORTS_JAR_NAME);
-    private static final URLClassLoader EXTRA_SORTS_CLASS_LOADER;
     private static final Map.Entry<String, String>[] IMPORT_REPLACEMENTS = CommonUtils.createPairArray(
         "import dialogs.", "import io.github.arrayv.dialogs.",
         "import frames.", "import io.github.arrayv.frames.",
@@ -79,17 +73,6 @@ public final class SortAnalyzer {
 
     private final Set<Class<?>> extraSorts = new HashSet<>();
     private final Map<SortNameType, Map<String, SortInfo>> sortsByName = new EnumMap<>(SortNameType.class);
-
-    static {
-        try {
-            EXTRA_SORTS_DOWNLOAD = new URL("https://nightly.link/Gaming32/ArrayV-Extra-Sorts/workflows/build/main/extra-sorts-jar.zip");
-            EXTRA_SORTS_CLASS_LOADER = new URLClassLoader(new URL[] {
-                EXTRA_SORTS_FILE.toURI().toURL()
-            });
-        } catch (MalformedURLException e) {
-            throw new Error(e);
-        }
-    }
 
     private final ArrayList<SortInfo> sorts;
     private final ArrayList<VisualInfo> visuals;
@@ -150,10 +133,6 @@ public final class SortAnalyzer {
         return sort;
     }
 
-    private void setSortCameFromExtra(Class<?> sort) {
-        extraSorts.add(sort);
-    }
-
     @SuppressWarnings("unchecked")
     private boolean compileSingle(String name, ClassLoader loader) {
         Class<?> sortClass;
@@ -174,9 +153,6 @@ public final class SortAnalyzer {
 
     private boolean compileSingle(Class<? extends Sort> sortClass) {
         try {
-            if (sortClass.getClassLoader() == EXTRA_SORTS_CLASS_LOADER) {
-                setSortCameFromExtra(sortClass);
-            }
             SortInfo sort = new SortInfo(sorts.size(), sortClass);
 
             try {
@@ -275,9 +251,6 @@ public final class SortAnalyzer {
             .acceptPackages("sorts", "io.github.arrayv.sorts")
             .rejectPackages("sorts.templates", "io.github.arrayv.sorts.templates")
             .initializeLoadedClasses();
-        if (includeExtras && extraSortsInstalled()) {
-            classGraph.addClassLoader(EXTRA_SORTS_CLASS_LOADER);
-        }
         return classGraph;
     }
 
@@ -329,35 +302,6 @@ public final class SortAnalyzer {
         }
     }
 
-    public void analyzeSortsExtrasOnly() {
-        if (!extraSortsInstalled()) return;
-        // analyzeSorts(
-        //     classGraph(true)
-        //         .whitelistJars(EXTRA_SORTS_FILE.getName())
-        // );
-        // Custom sort analysis so sorts don't get duplicated
-        try {
-            try (ZipFile zf = new ZipFile(EXTRA_SORTS_FILE)) {
-                for (final Enumeration<? extends ZipEntry> en = zf.entries(); en.hasMoreElements();) {
-                    ZipEntry entry = en.nextElement();
-                    if (entry.isDirectory()) continue;
-                    String name = entry.getName();
-                    if (!name.endsWith(".class")) continue;
-                    String nameNoExt = name.substring(0, name.length() - 6);
-                    if (!nameNoExt.startsWith("sorts") && !nameNoExt.startsWith("io/github/arrayv/sorts")) continue;
-                    if (nameNoExt.contains("$")) continue;
-                    String className = nameNoExt.replace('/', '.');
-                    this.compileSingle(className, EXTRA_SORTS_CLASS_LOADER);
-                }
-            }
-        } catch (Exception e) {
-            if (e instanceof RuntimeException) {
-                throw (RuntimeException)e; // rethrow
-            }
-            throw new RuntimeException(e);
-        }
-    }
-
     public void analyzeSorts(ClassGraph classGraph) {
         try (ScanResult scanResult = classGraph.scan()) {
             List<ClassInfo> sortFiles;
@@ -373,14 +317,6 @@ public final class SortAnalyzer {
         }
     }
 
-    public boolean extraSortsInstalled() {
-        return EXTRA_SORTS_FILE.isFile();
-    }
-
-    public void installOrUpdateExtraSorts() throws IOException {
-        installOrUpdateExtraSorts(null);
-    }
-
     public void unloadAllExtraSorts() {
         int j = 0;
         for (SortInfo sort : sorts) {
@@ -390,85 +326,6 @@ public final class SortAnalyzer {
         }
         sorts.subList(j, sorts.size()).clear();
         extraSorts.clear();
-    }
-
-    public void installOrUpdateExtraSorts(ProgressMonitor monitor) throws IOException {
-        final File CACHE_DIR = EXTRA_SORTS_FILE.getParentFile();
-        CACHE_DIR.mkdirs();
-        final File DOWNLOAD_TEMP_FILE = File.createTempFile("avdownload-", ".zip", CACHE_DIR);
-        DOWNLOAD_TEMP_FILE.deleteOnExit(); // Really just a safeguard in case installOrUpdateExtraSorts fails
-        URLConnection connection = EXTRA_SORTS_DOWNLOAD.openConnection();
-        int totalProgress = 0;
-        int partProgress = 0;
-        int partLength = 0;
-        if (monitor != null) {
-            monitor.setMinimum(0);
-            final int contentLength = (int)connection.getContentLengthLong();
-            if (contentLength > 0) { // Negative if size unknown or overflow
-                partLength = contentLength;
-                monitor.setMaximum(contentLength * 2);
-            } else if (EXTRA_SORTS_FILE.isFile()) {
-                // We can estimate the download size from the previous file if this is an update
-                final int fileLength = (int)EXTRA_SORTS_FILE.length();
-                if (fileLength > 0) {
-                    partLength = fileLength;
-                    monitor.setMaximum(fileLength * 2);
-                } else {
-                    partLength = -1;
-                }
-            } else {
-                partLength = -1;
-            }
-            monitor.setNote("Downloading...");
-            monitor.setProgress(0);
-        }
-        try (
-            InputStream is = connection.getInputStream();
-            OutputStream os = new FileOutputStream(DOWNLOAD_TEMP_FILE);
-        ) {
-            byte[] buffer = new byte[8192];
-            int len;
-            while ((len = is.read(buffer)) != -1) {
-                if (monitor != null && partLength != -1) {
-                    totalProgress += len;
-                    partProgress += len;
-                    monitor.setProgress(totalProgress);
-                    monitor.setNote("Downloading... (" + partProgress / 1024 + " KB/" + partLength / 1024 + " KB)");
-                }
-                os.write(buffer, 0, len);
-            }
-        }
-        try (ZipFile zf = new ZipFile(DOWNLOAD_TEMP_FILE)) {
-            final ZipEntry EXTRA_SORTS_JAR_ENTRY = zf.getEntry(EXTRA_SORTS_JAR_NAME);
-            if (monitor != null) {
-                final int size = (int)EXTRA_SORTS_JAR_ENTRY.getSize();
-                if (size > 0) { // Negative if size unknown or overflow (extremely unlikely)
-                    partLength = size;
-                    monitor.setMaximum(totalProgress + size);
-                } else {
-                    partLength = -1;
-                }
-                partProgress = 0;
-                monitor.setNote("Extracting...");
-            }
-            try (
-                InputStream is = zf.getInputStream(EXTRA_SORTS_JAR_ENTRY);
-                OutputStream os = new FileOutputStream(EXTRA_SORTS_FILE);
-            ) {
-                byte[] buffer = new byte[8192];
-                int len;
-                while ((len = is.read(buffer)) != -1) {
-                    if (monitor != null && partLength != -1) {
-                        totalProgress += len;
-                        partProgress += len;
-                        monitor.setProgress(totalProgress);
-                        monitor.setNote("Extracting... (" + partProgress / 1024 + " KB/" + partLength / 1024 + " KB)");
-                    }
-                    os.write(buffer, 0, len);
-                }
-            }
-        }
-        DOWNLOAD_TEMP_FILE.delete(); // Might as well do it now
     }
 
     private static final class JavaPackageNameFinder {

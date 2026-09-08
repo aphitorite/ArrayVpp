@@ -50,8 +50,13 @@ public final class Constants {
 		put("n^9",  n -> n * n * n * n * n * n * n * n * n);
 		put("n^10", n -> n * n * n * n * n * n * n * n * n * n);
 		put("n^n", n -> (long) Math.pow(n, n));
-		
+
+		put("n^2 log^-2 n", n -> {
+			long log = (long) (Math.log(n) / Math.log(2D));
+			return n * n / log / log;
+		});
 		put("2^n", n -> 1L << (long)n);
+		put("2^n/2", n -> (long)Math.pow(Math.sqrt(2),n));
 		
 		// specialized
 		put("n^1.5 log^0.5 n", n -> (long) (n * Math.pow(n * Math.log(n) / Math.log(2D), 0.5)));

@@ -14,14 +14,10 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JList;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
-import javax.swing.ProgressMonitor;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
@@ -32,7 +28,6 @@ import io.github.arrayv.groovyapi.GroovyLocals;
 import io.github.arrayv.main.ArrayVisualizer;
 import io.github.arrayv.main.RunSort;
 import io.github.arrayv.main.SortAnalyzer;
-import io.github.arrayv.panes.JErrorPane;
 import io.github.arrayv.sortdata.SortInfo;
 
 /*
@@ -212,65 +207,6 @@ public final class SortPrompt extends javax.swing.JFrame implements AppFrame {
         jButton3.setText("Run All in Selected Category");
         jButton3.addActionListener(evt -> jButton3ActionPerformed());
 
-        JPanel extraSortsManagementPanel = new JPanel();
-        JButton installExtraSortPackButton = new JButton(
-            arrayVisualizer.getSortAnalyzer().extraSortsInstalled() ?
-                "Update Extra Sorts Pack" :
-                "Install Extra Sorts Pack"
-        );
-        installExtraSortPackButton.addActionListener(e -> {
-            utilFrame.sortButtonResetText();
-            utilFrame.sortButtonDisable();
-            dispose();
-            new Thread(() -> {
-                ProgressMonitor installProgress = new ProgressMonitor(
-                    arrayVisualizer.getMainWindow(),
-                    "Installing...",
-                    "Installing...",
-                    0, 1
-                );
-                installProgress.setMillisToDecideToPopup(500);
-                installProgress.setMillisToPopup(500);
-                SortAnalyzer analyzer = arrayVisualizer.getSortAnalyzer();
-                boolean success;
-                try {
-                    analyzer.installOrUpdateExtraSorts(installProgress);
-                    success = true;
-                } catch (Exception e1) {
-                    e1.printStackTrace();
-                    JErrorPane.invokeCustomErrorMessage("Failed to install: " + e1.getMessage());
-                    JErrorPane.invokeErrorMessage(e1, "Install Extra Sorts Pack");
-                    success = false;
-                }
-                installProgress.close();
-                if (success) {
-                    analyzer.unloadAllExtraSorts();
-                    analyzer.analyzeSortsExtrasOnly();
-                    analyzer.sortSorts();
-                    arrayVisualizer.refreshTables();
-                    utilFrame.sortButtonEnable();
-                    JOptionPane.showMessageDialog(
-                        arrayVisualizer.getMainWindow(),
-                        "Successfully installed and loaded extra sorts pack!",
-                        "Install Extra Sorts Pack",
-                        JOptionPane.INFORMATION_MESSAGE
-                    );
-                } else {
-                    utilFrame.sortButtonEnable();
-                }
-            }, "ExtraSortsInstall").start();
-        });
-        extraSortsManagementPanel.add(installExtraSortPackButton);
-        if (arrayVisualizer.getSortAnalyzer().extraSortsInstalled()) {
-            JCheckBox showExtraSorts = new JCheckBox("Show Extra Sorts");
-            showExtraSorts.setSelected(SortPrompt.showExtraSorts);
-            showExtraSorts.addActionListener(e -> {
-                SortPrompt.showExtraSorts = showExtraSorts.isSelected();
-                loadSorts();
-            });
-            extraSortsManagementPanel.add(showExtraSorts);
-        }
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -292,8 +228,6 @@ public final class SortPrompt extends javax.swing.JFrame implements AppFrame {
             .addGroup(Alignment.CENTER, layout.createSequentialGroup()
                 .addComponent(jButton1))
             .addGroup(Alignment.CENTER, layout.createSequentialGroup()
-                .addComponent(extraSortsManagementPanel))
-            .addGroup(Alignment.CENTER, layout.createSequentialGroup()
                 .addComponent(jButton2))
         );
         layout.setVerticalGroup(
@@ -312,7 +246,7 @@ public final class SortPrompt extends javax.swing.JFrame implements AppFrame {
                     .addComponent(this.jButton3)
                     .addGap(5, 5, 5)
                     .addComponent(jButton1)
-                    .addComponent(extraSortsManagementPanel)
+                    .addGap(5, 5, 5)
                     .addComponent(jButton2)
                     .addGap(5, 5, 5))
         );

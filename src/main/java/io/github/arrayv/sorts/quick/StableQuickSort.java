@@ -40,6 +40,8 @@ public final class StableQuickSort extends Sort {
         this.setRunAllSortsName("Stable Quick Sort");
         this.setRunSortName("Stable Quicksort");
         this.setCategory("Quick Sorts");
+        this.setAuthors("Rodney Shaghoulian");
+        this.setConstant("n log n");
         this.setBucketSort(false);
         this.setRadixSort(false);
         this.setUnreasonablySlow(false);

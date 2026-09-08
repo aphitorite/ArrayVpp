@@ -39,6 +39,8 @@ public final class BufferPartitionMergeSort extends Sort {
         this.setRunAllSortsName("Buffer Partition Merge Sort");
         this.setRunSortName("BPMSort");
         this.setCategory("Hybrid Sorts");
+        this.setAuthors("yuji");
+        this.setConstant("n log n");
         this.setBucketSort(false);
         this.setRadixSort(false);
         this.setUnreasonablySlow(false);

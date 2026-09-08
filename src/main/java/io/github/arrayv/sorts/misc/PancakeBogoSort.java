@@ -1,0 +1,33 @@
+package io.github.arrayv.sorts.misc;
+
+import io.github.arrayv.main.ArrayVisualizer;
+import io.github.arrayv.sorts.templates.BogoSorting;
+
+/**
+ * @author Ayako-chan
+ *
+ */
+public final class PancakeBogoSort extends BogoSorting {
+
+    public PancakeBogoSort(ArrayVisualizer arrayVisualizer) {
+        super(arrayVisualizer);
+        setSortListName("Pancake Bogo");
+        setRunAllSortsName("Pancake Bogo Sort");
+        setRunSortName("Pancake Bogosort");
+        setCategory("Impractical Sorts");
+        setAuthors("Flanlaina");
+        setConstant("n^3");
+        setBucketSort(false);
+        setRadixSort(false);
+        setUnreasonablySlow(true);
+        setUnreasonableLimit(512);
+        setBogoSort(true);
+    }
+
+    @Override
+    public void runSort(int[] array, int length, int bucketCount) {
+        for (int i = length - 1; i >= 0; i--)
+            while (!isMaxSorted(array, 0, i + 1))
+                Writes.reversal(array, 0, BogoSorting.randInt(0, i + 1), delay, true, false);
+    }
+}

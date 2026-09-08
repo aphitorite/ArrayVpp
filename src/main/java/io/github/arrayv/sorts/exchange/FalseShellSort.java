@@ -33,7 +33,7 @@ public final class FalseShellSort extends BogoSorting {
 
          for(int j = 0; i < currentLength; ++i) {
             if (m.empty() || this.Reads.compareIndices(array, i, m.peek(), 1.0, true) >= 0) {
-               if (!m.empty() && j + g >= i) {
+               if (!m.empty() && j + g * g >= i) {
                   ++f;
                } else {
                   j = i;

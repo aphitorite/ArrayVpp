@@ -40,6 +40,8 @@ public final class YujisBufferedMergeSort2 extends Sort {
         this.setRunAllSortsName("Optimized Andrey/Yuji Sort");
         this.setRunSortName("Optimized Andrey/Yuji Sort");
         this.setCategory("Hybrid Sorts");
+        this.setAuthors("Andrey Astrelin, yuji");
+        this.setConstant("n log n");
         this.setBucketSort(false);
         this.setRadixSort(false);
         this.setUnreasonablySlow(false);

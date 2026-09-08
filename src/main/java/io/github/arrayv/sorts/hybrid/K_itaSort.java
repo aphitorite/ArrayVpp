@@ -16,6 +16,7 @@ final public class K_itaSort extends Sort {
         this.setRunAllSortsName("K-ita Sort");
         this.setRunSortName("K-itasort");
         this.setCategory("Block Merge Sorts");
+	    this.setConstant("n log n");
         this.setBucketSort(false);
         this.setRadixSort(false);
         this.setUnreasonablySlow(false);

@@ -37,6 +37,8 @@ public final class WeaveMergeSort extends Sort {
         this.setRunAllSortsName("Weave Merge Sort");
         this.setRunSortName("Weave Mergesort");
         this.setCategory("Hybrid Sorts");
+        this.setAuthors("w0rthy");
+        this.setConstant("n^2");
         this.setBucketSort(false);
         this.setRadixSort(false);
         this.setUnreasonablySlow(false);

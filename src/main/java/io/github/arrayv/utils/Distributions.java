@@ -224,7 +224,7 @@ public enum Distributions {
 
             int[] perlinNoise = new int[currentLen];
 
-            double step = 1f / currentLen;
+            double step = 1d / currentLen;
             double randomStart = (double) (random.nextInt(currentLen));
             int octave = (int) (Math.log(currentLen) / Math.log(2));
 

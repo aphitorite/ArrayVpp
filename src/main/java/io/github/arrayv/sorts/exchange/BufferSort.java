@@ -10,6 +10,8 @@ public final class BufferSort extends Sort {
       this.setRunAllSortsName("Buffer Sort");
       this.setRunSortName("Buffersort");
       this.setCategory("Exchange Sorts");
+      this.setAuthors("Potassium");
+      this.setConstant("n^2");
       this.setBucketSort(false);
       this.setRadixSort(false);
       this.setUnreasonablySlow(false);
