@@ -1,5 +1,6 @@
 package io.github.arrayv.prompts;
 
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
@@ -11,9 +12,14 @@ import java.util.function.UnaryOperator;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.GroupLayout.Alignment;
+import javax.swing.JButton;
+import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JList;
+import javax.swing.JSpinner;
 import javax.swing.JTextField;
+import javax.swing.SpinnerNumberModel;
+import javax.swing.event.ChangeListener;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
@@ -21,6 +27,7 @@ import io.github.arrayv.frames.AppFrame;
 import io.github.arrayv.frames.UtilFrame;
 import io.github.arrayv.main.ArrayVisualizer;
 import io.github.arrayv.sortdata.VisualInfo;
+import io.github.arrayv.visuals.features.HeatMap;
 
 /*
  *
@@ -93,6 +100,8 @@ public final class VisualPrompt extends javax.swing.JFrame implements AppFrame {
     private JFrame frame;
     private UtilFrame utilFrame;
     private IdentityHashMap<String, javax.swing.JCheckBox> jCheckBoxes;
+    private IdentityHashMap<String, JSpinner> jSpinners;
+    private IdentityHashMap<String, javax.swing.JComponent> jCells;
     
     private javax.swing.JCheckBox byIndex(int i) {
         String id = arrayVisualizer.getVisualFeatures()[i].getListID();
@@ -114,6 +123,46 @@ public final class VisualPrompt extends javax.swing.JFrame implements AppFrame {
         });
         jCheckBoxes.put(id, n);
         return n;
+    }
+
+    private JSpinner spinnerFor(int i) {
+        String id = arrayVisualizer.getVisualFeatures()[i].getListID();
+        if (!"heat".equals(id)) return null;
+        if (jSpinners.containsKey(id)) return jSpinners.get(id);
+        JSpinner sp = new JSpinner(new SpinnerNumberModel(HeatMap.bShift, 0, 6, 1));
+        sp.setToolTipText("Heat map: Cache line size");
+        JFormattedTextField field = ((JSpinner.DefaultEditor) sp.getEditor()).getTextField();
+        field.setColumns(1);
+        field.setPreferredSize(new Dimension(12, 14));
+        field.setMinimumSize(new Dimension(12, 14));
+        sp.setPreferredSize(new Dimension(36, 18));
+        sp.setMinimumSize(new Dimension(36, 18));
+        sp.setMaximumSize(new Dimension(36, 18));
+        for (java.awt.Component c : sp.getComponents()) {
+            if (c instanceof JButton) {
+                c.setPreferredSize(new Dimension(12, 8));
+                c.setMinimumSize(new Dimension(12, 8));
+                c.setMaximumSize(new Dimension(12, 8));
+            }
+        }
+        sp.addChangeListener((ChangeListener) evt -> HeatMap.bShift = (Integer) sp.getValue());
+        jSpinners.put(id, sp);
+        return sp;
+    }
+
+    private javax.swing.JComponent cellFor(int i) {
+        String id = arrayVisualizer.getVisualFeatures()[i].getListID();
+        if (jCells.containsKey(id)) return jCells.get(id);
+        javax.swing.JCheckBox cb = byIndex(i);
+        JSpinner sp = spinnerFor(i);
+        javax.swing.JComponent cell = sp == null ? cb : new javax.swing.JPanel();
+        if (sp != null) {
+            cell.setLayout(new javax.swing.BoxLayout(cell, javax.swing.BoxLayout.LINE_AXIS));
+            cell.add(cb);
+            cell.add(sp);
+        }
+        jCells.put(id, cell);
+        return cell;
     }
 
     public VisualPrompt(ArrayVisualizer arrayVisualizer, JFrame frame, UtilFrame utilFrame) {
@@ -153,6 +202,8 @@ public final class VisualPrompt extends javax.swing.JFrame implements AppFrame {
         this.jList1 = new javax.swing.JList();
         this.jTextField1 = new PlaceholderTextField();
         this.jCheckBoxes = new IdentityHashMap<>();
+        this.jSpinners = new IdentityHashMap<>();
+        this.jCells = new IdentityHashMap<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -201,7 +252,7 @@ public final class VisualPrompt extends javax.swing.JFrame implements AppFrame {
                 javax.swing.GroupLayout.SequentialGroup s = layout.createSequentialGroup().addGap(25, 25, 25);
                 for (int j = i; j < i + ROW && j < n; j++) {
                     if (j != i) s.addGap(5, 5, 5);
-                    s.addComponent(byIndex(j));
+                    s.addComponent(cellFor(j));
                 }
                 g.addGroup(Alignment.CENTER, s.addGap(25, 25, 25));
             }
@@ -214,7 +265,7 @@ public final class VisualPrompt extends javax.swing.JFrame implements AppFrame {
             for (int j = 0; j < ROW; j++) {
                 javax.swing.GroupLayout.SequentialGroup g = layout.createSequentialGroup();
                 for (int i = j; i < n; i += ROW) {
-                    g.addGap(5, 5, 5).addComponent(byIndex(i));
+                    g.addGap(5, 5, 5).addComponent(cellFor(i));
                 }
                 if (j < n) p.addGroup(g);
             }

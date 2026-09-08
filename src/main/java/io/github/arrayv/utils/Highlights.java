@@ -2,6 +2,7 @@ package io.github.arrayv.utils;
 
 import io.github.arrayv.main.ArrayVisualizer;
 import io.github.arrayv.panes.JErrorPane;
+import io.github.arrayv.visuals.features.HeatMap;
 
 import java.awt.Color;
 import java.util.Arrays;
@@ -661,7 +662,7 @@ public final class Highlights {
     	float[] thisHM = heatVals.get(array);
     	if (thisHM == null || heatPosition < 0 || heatPosition >= array.length)
             return;
-		thisHM[heatPosition] = 1f - ((1f - thisHM[heatPosition]) * (1f - HEAT));
+		thisHM[heatPosition >> HeatMap.bShift] = 1f - ((1f - thisHM[heatPosition >> HeatMap.bShift]) * (1f - HEAT));
     }
     
     public synchronized void coolDown(int[] array, int n) {

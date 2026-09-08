@@ -11,6 +11,8 @@ import io.github.arrayv.visuals.VisualFeature;
 public class HeatMap extends VisualFeature {
 	private static Highlights HIGHLIGHTS;
 	
+	public static volatile int bShift = 0;
+	
     // loosely based on :matter
     private static Color[] STATES = {
     	new Color(25, 12, 50),
@@ -33,7 +35,7 @@ public class HeatMap extends VisualFeature {
     }
     
     public static Color getColor(int[] array, int pos) {
-		float heat = HIGHLIGHTS.heatAt(array, pos);
+		float heat = HIGHLIGHTS.heatAt(array, pos >> bShift);
 		if (heat >= 0f) {
     		int idx = 0;
     		float cutval = 0f;
