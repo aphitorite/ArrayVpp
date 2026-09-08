@@ -130,7 +130,7 @@ public final class VisualPrompt extends javax.swing.JFrame implements AppFrame {
         if (!"heat".equals(id)) return null;
         if (jSpinners.containsKey(id)) return jSpinners.get(id);
         JSpinner sp = new JSpinner(new SpinnerNumberModel(HeatMap.bShift, 0, 6, 1));
-        sp.setToolTipText("Heat map: Cache line size");
+        sp.setToolTipText("Heat Map: Cache line size (2^k)");
         JFormattedTextField field = ((JSpinner.DefaultEditor) sp.getEditor()).getTextField();
         field.setColumns(1);
         field.setPreferredSize(new Dimension(12, 14));
