@@ -43,16 +43,12 @@ public final class PCBoysParShellSort extends Sort {
 
     int lastgap;
 
-	protected int stablereturn(int a) {
-        return arrayVisualizer.doingStabilityCheck() ? arrayVisualizer.getStabilityValue(a) : a;
-    }
-
 	protected int par(int[] array, int len) {
 		boolean[] max = new boolean[len];
-		int maximum = stablereturn(array[0]);
+		int maximum = Reads.getTrueValue(array[0]);
 		for (int i = 1; i < len; i++) {
-			if (stablereturn(array[i]) > maximum) {
-				maximum = stablereturn(array[i]);
+			if (Reads.getTrueValue(array[i]) > maximum) {
+				maximum = Reads.getTrueValue(array[i]);
 				max[i] = true;
 			}
 		}
@@ -61,9 +57,9 @@ public final class PCBoysParShellSort extends Sort {
 		int j = len - 1;
 		while (j >= 0 && i >= p) {
 			while(!max[j] && j > 0) j--;
-			maximum = stablereturn(array[j]);
-			while (maximum <= stablereturn(array[i]) && i >= p) i--;
-			if (stablereturn(array[j]) > stablereturn(array[i]) && p < i - j) p = i - j;
+			maximum = Reads.getTrueValue(array[j]);
+			while (maximum <= Reads.getTrueValue(array[i]) && i >= p) i--;
+			if (Reads.getTrueValue(array[j]) > Reads.getTrueValue(array[i]) && p < i - j) p = i - j;
 			j--;
 		}
 		return p;

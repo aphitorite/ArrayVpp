@@ -86,14 +86,16 @@ public final class Reads {
         this.comparisons.set(value);
     }
 
+    public int getTrueValue(int n) {
+        return arrayVisualizer.getTrueValue(n);
+    }
+
     public int compareValues(int left, int right) {
         if (arrayVisualizer.sortCanceled()) throw new StopSort();
         this.comparisons.incrementAndGet();
 
-        if (arrayVisualizer.doingStabilityCheck()) {
-            left  = arrayVisualizer.getStabilityValue(left);
-            right = arrayVisualizer.getStabilityValue(right);
-        }
+        left  = arrayVisualizer.getTrueValue(left);
+        right = arrayVisualizer.getTrueValue(right);
 
         int cmpVal;
 
@@ -191,9 +193,7 @@ public final class Reads {
         for (int i = 0; i < length; i++) {
             if (arrayVisualizer.sortCanceled()) throw new StopSort();
 
-            int val = array[i];
-            if (arrayVisualizer.doingStabilityCheck())
-                val = arrayVisualizer.getStabilityValue(val);
+            int val = arrayVisualizer.getTrueValue(array[i]);
 
             Timer.startLap("Analysis");
 
@@ -222,9 +222,7 @@ public final class Reads {
         for (int i = 0; i < length; i++) {
             if (arrayVisualizer.sortCanceled()) throw new StopSort();
 
-            int val = array[i];
-            if (arrayVisualizer.doingStabilityCheck())
-                val = arrayVisualizer.getStabilityValue(val);
+            int val = arrayVisualizer.getTrueValue(array[i]);
 
             Timer.startLap("Analysis");
 
@@ -253,9 +251,7 @@ public final class Reads {
         for (int i = 0; i < length; i++) {
             if (arrayVisualizer.sortCanceled()) throw new StopSort();
 
-            int val = array[i];
-            if (arrayVisualizer.doingStabilityCheck())
-                val = arrayVisualizer.getStabilityValue(val);
+            int val = arrayVisualizer.getTrueValue(array[i]);
 
             Timer.startLap("Analysis");
 
@@ -284,9 +280,7 @@ public final class Reads {
         for (int i = 0; i < length; i++) {
             if (arrayVisualizer.sortCanceled()) throw new StopSort();
 
-            int val = array[i];
-            if (arrayVisualizer.doingStabilityCheck())
-                val = arrayVisualizer.getStabilityValue(val);
+            int val = arrayVisualizer.getTrueValue(array[i]);
 
             Timer.startLap("Analysis");
 
@@ -316,9 +310,7 @@ public final class Reads {
         for (int i = 0; i < length; i++) {
             if (arrayVisualizer.sortCanceled()) throw new StopSort();
 
-            int val = array[i];
-            if (arrayVisualizer.doingStabilityCheck())
-                val = arrayVisualizer.getStabilityValue(val);
+            int val = arrayVisualizer.getTrueValue(array[i]);
 
             Timer.startLap("Analysis");
 
@@ -344,8 +336,7 @@ public final class Reads {
     }
 
     public int getDigit(int a, int power, int radix) {
-        if (arrayVisualizer.doingStabilityCheck())
-            a = arrayVisualizer.getStabilityValue(a);
+        a = arrayVisualizer.getTrueValue(a);
 
         int digit;
         Timer.startLap();
@@ -355,8 +346,7 @@ public final class Reads {
     }
 
     public boolean getBit(int n, int k) {
-        if (arrayVisualizer.doingStabilityCheck())
-            n = arrayVisualizer.getStabilityValue(n);
+        n = arrayVisualizer.getTrueValue(n);
 
         // Find boolean value of bit k in n
         boolean result;

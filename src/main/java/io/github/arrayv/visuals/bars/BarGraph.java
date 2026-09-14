@@ -20,7 +20,7 @@ public final class BarGraph extends Visual {
     }
 
     public int[] getTopPosFor(int[] array, double idx, int val, ArrayVisualizer ArrayVisualizer, Renderer Renderer) {
-    	int trueval = ArrayVisualizer.doingStabilityCheck() && ArrayVisualizer.colorEnabled() ? ArrayVisualizer.getStabilityValue(val) : val;
+    	int trueval = ArrayVisualizer.colorEnabled() ? ArrayVisualizer.getTrueValue(val) : val;
         int y = (int) (((Renderer.getViewSize() - 20)) - (trueval + 1) * Renderer.getYScale());
     	return new int[] {
     		(int)(Renderer.getXScale()*(idx+0.5d))+20,
@@ -50,7 +50,7 @@ public final class BarGraph extends Visual {
 		int n = renderer.getArrayLength(), nmain = arrayVisualizer.getCurrentLength();
 		// keep booleans we're accessing here
     	boolean color = arrayVisualizer.colorEnabled(),
-    			useAltVals = arrayVisualizer.doingStabilityCheck() && color;
+    			useAltVals = color;
 
     	// calculate the min and max of the scales
     	double[] scl = scales(xScale, 1);
@@ -73,7 +73,7 @@ public final class BarGraph extends Visual {
     				Colorize::snow
     			)
     		);
-            val = useAltVals ? arrayVisualizer.getStabilityValue(array[v]) : array[v];
+            val = useAltVals ? arrayVisualizer.getTrueValue(array[v]) : array[v];
             int h = (int) ((val + 1) * yScale);
             int nw = hl && width == 1 ? 1 : 0;
 

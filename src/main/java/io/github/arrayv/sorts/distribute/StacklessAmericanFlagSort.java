@@ -46,13 +46,6 @@ public final class StacklessAmericanFlagSort extends Sort {
         this.setAuthors("aphitorite");
     }
 
-	private int stabVal(int idx) {
-		if(arrayVisualizer.doingStabilityCheck())
-			return arrayVisualizer.getStabilityValue(idx);
-		else
-			return idx;
-	}
-
 	private static int shift(int n, int q, int r) {
 		while(q > 0) {
 			n /= r;
@@ -123,7 +116,7 @@ public final class StacklessAmericanFlagSort extends Sort {
 				}
 
 				i = b;
-				while(b < length && shift(this.stabVal(array[b]), q+1, r) == shift(m, q+1, r)) {
+				while(b < length && shift(Reads.getTrueValue(array[b]), q+1, r) == shift(m, q+1, r)) {
 					Highlights.markArray(1, b);
 					int digit = Reads.getDigit(array[b], q, r);
 					Writes.write(cnts, digit, cnts[digit]+1, 0.5, false, true);

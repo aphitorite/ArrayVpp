@@ -296,17 +296,6 @@ public abstract class MadhouseTools extends GrailSorting {
         return noSort;
     }
 
-    /**Defines the translated value of {@code value} in the array.
-     * @param value The value to translate.
-     * @return An {@code int} with the real value translated from the input.
-     * @author Gaming32
-     * @author aphitorite
-     * @since MHT-1.0
-     */
-    public int stableReturn(int value) {
-        return arrayVisualizer.doingStabilityCheck() ? arrayVisualizer.getStabilityValue(value) : value;
-    }
-
     /**Defines the maximum disparity of {@code array} section {@code [start, end)} in {@code O(n)} time.
      * @param array The input array.
      * @param start The start of the input bounds.
@@ -321,11 +310,11 @@ public abstract class MadhouseTools extends GrailSorting {
         if (start >= end) throw new RuntimeException("MadhouseTools: Invalid range for disparity check, since start is after or at end: (" + start + ", " + end + ")");
         boolean[] max = new boolean[end - start];
         Writes.changeAllocAmount(end - start);
-        int maximum = stableReturn(array[start]);
+        int maximum = Reads.getTrueValue(array[start]);
         for (int i = 1; i < end - start; i++) {
             if (mark) Highlights.markArray(1, start + i);
-            if (stableReturn(array[start + i]) > maximum) {
-                maximum = stableReturn(array[start + i]);
+            if (Reads.getTrueValue(array[start + i]) > maximum) {
+                maximum = Reads.getTrueValue(array[start + i]);
                 max[i] = true;
                 Writes.changeAuxWrites(1);
             }
@@ -334,21 +323,21 @@ public abstract class MadhouseTools extends GrailSorting {
         int p = 1;
         for (int i = end - start - 1, j = end - start - 1; j >= 0 && i >= p; j--) {
             while (!max[j] && j > 0) j--;
-            maximum = stableReturn(array[start + j]);
+            maximum = Reads.getTrueValue(array[start + j]);
             Highlights.markArray(1, start + j);
-            int c = stableReturn(array[start + i]);
+            int c = Reads.getTrueValue(array[start + i]);
             Highlights.markArray(2, start + i);
             Reads.addComparison();
             Delays.sleep(delay);
             while (maximum <= c && i >= p) {
                 i--;
-                c = stableReturn(array[start + i]);
+                c = Reads.getTrueValue(array[start + i]);
                 Highlights.markArray(2, start + i);
                 Delays.sleep(delay);
                 Reads.addComparison();
             }
             Reads.addComparison();
-            if (stableReturn(array[start + j]) > stableReturn(array[start + i]) && p < i - j) p = i - j;
+            if (Reads.getTrueValue(array[start + j]) > Reads.getTrueValue(array[start + i]) && p < i - j) p = i - j;
         }
         Writes.changeAllocAmount(-(end - start));
         return p;
@@ -367,7 +356,7 @@ public abstract class MadhouseTools extends GrailSorting {
     public boolean isPerm(int[] original, int[] input, double delay, boolean mark) {
         int length = Math.min(original.length, input.length);
         int empty = Integer.MAX_VALUE;
-        for (int i = 0; i < length; i++) if (stableReturn(original[i]) < empty) empty = stableReturn(original[i]);
+        for (int i = 0; i < length; i++) if (Reads.getTrueValue(original[i]) < empty) empty = Reads.getTrueValue(original[i]);
         empty--;
         boolean perm = true;
         int[] test = Writes.createExternalArray(length);

@@ -56,7 +56,7 @@ public final class DisparityBarGraph extends Visual {
     	boolean fancy = Highlights.fancyFinishActive(),
     			color = arrayVisualizer.colorEnabled(),
     			change = fancy || color,
-    			useAltVals = arrayVisualizer.doingStabilityCheck() && color,
+    			useAltVals = color,
 		heatMap = arrayVisualizer.queryFeatureState("heat") > 0;
 
     	// calculate the min and max of the scales
@@ -81,7 +81,7 @@ public final class DisparityBarGraph extends Visual {
     			)
     		);
             try {
-            	val = useAltVals ? arrayVisualizer.getStabilityValue(array[v]) : array[v];
+            	val = useAltVals ? arrayVisualizer.getTrueValue(array[v]) : array[v];
             } catch(ArrayIndexOutOfBoundsException e) {
             	// fuck you
             	val = 0;

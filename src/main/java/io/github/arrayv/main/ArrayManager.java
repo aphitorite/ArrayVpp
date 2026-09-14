@@ -1,11 +1,13 @@
 package io.github.arrayv.main;
 
-import io.github.arrayv.panes.JErrorPane;
-import io.github.arrayv.distributions.templates.Distribution;
-import io.github.arrayv.shuffles.templates.Shuffle;
-import io.github.arrayv.utils.*;
-
 import java.util.Arrays;
+
+import io.github.arrayv.distributions.templates.Distribution;
+import io.github.arrayv.panes.JErrorPane;
+import io.github.arrayv.shuffles.templates.Shuffle;
+import io.github.arrayv.utils.Delays;
+import io.github.arrayv.utils.Highlights;
+import io.github.arrayv.utils.Writes;
 
 /*
  *
@@ -86,10 +88,8 @@ public final class ArrayManager {
 
     //TODO: Fix minimum to zero
     public void initializeArray(int[] array) {
-        if (arrayVisualizer.doingStabilityCheck()) {
-            arrayVisualizer.resetStabilityTable();
-            arrayVisualizer.resetIndexTable();
-        }
+        arrayVisualizer.resetValueTable();
+        arrayVisualizer.resetIndexTable();
 
         int currentLen = arrayVisualizer.getCurrentLength();
 
@@ -178,7 +178,7 @@ public final class ArrayManager {
 
         int[] counts    = new int[length];
         int[] prefixSum = new int[length];
-        int[] table     = arrayVisualizer.getStabilityTable();
+        int[] table     = arrayVisualizer.getValueTable();
 
         for (int i = 0; i < length; i++)
             counts[array[i]]++;
@@ -194,15 +194,18 @@ public final class ArrayManager {
             }
         }
 
-        for (int i = length-1; i >= 0; i--)
-            Writes.write(array, i, --prefixSum[array[i]], 0.5, true, false);
-
+        for (int i = length-1; i >= 0; i--) {
+            if(false) Writes.write(array, i, --prefixSum[array[i]], 0.5, true, false);
+            else array[i] = --prefixSum[array[i]];
+        }
         arrayVisualizer.setIndexTable();
-
         Delays.setSleepRatio(speed);
     }
 
     public void refreshArray(int[] array, int currentLen, ArrayVisualizer arrayVisualizer) {
+        arrayVisualizer.resetValueTable();
+        arrayVisualizer.resetIndexTable();
+
         try {
             Thread.sleep(1000);
         } catch (InterruptedException e) {
@@ -215,9 +218,7 @@ public final class ArrayManager {
         arrayVisualizer.setHeading("");
         if (!arrayVisualizer.useAntiQSort()) {
             this.shuffleArray(array, currentLen, arrayVisualizer);
-
-            if (arrayVisualizer.doingStabilityCheck())
-                this.stableShuffle(array, currentLen);
+            this.stableShuffle(array, currentLen);
 
             int[] validateArray = arrayVisualizer.getValidationArray();
             if (validateArray != null) {

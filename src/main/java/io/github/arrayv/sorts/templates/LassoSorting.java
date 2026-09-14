@@ -254,8 +254,7 @@ public abstract class LassoSorting extends Sort {
     
     // Still WIP (O(log n) average, O(n) worst, O(0) best)
     protected int slopeSearch(int[] array, int start, int end, int keyIndex, double sleep, boolean exclusive) {
-    	int key = arrayVisualizer.doingStabilityCheck() ? arrayVisualizer.getStabilityValue(array[keyIndex])
-    		: array[keyIndex];
+    	int key = Reads.getTrueValue(array[keyIndex]);
     	if(end-start == 0)
     		return start;
     	else if(end-start == 1) {
@@ -263,10 +262,7 @@ public abstract class LassoSorting extends Sort {
     	}
     	int max = Integer.MIN_VALUE, min = Integer.MAX_VALUE;
     	for(int i=start; i<end; i++) {
-    		int v = array[i];
-    		if(arrayVisualizer.doingStabilityCheck()) {
-    			v = arrayVisualizer.getStabilityValue(v);
-    		}
+    		int v = Reads.getTrueValue(array[i]);
     		if(max < v) {
     			max = v;
     		}

@@ -46,7 +46,7 @@ public final class ScatterPlot extends Visual {
     }
 
     public int[] getTopPosFor(int[] array, double idx, int val, ArrayVisualizer ArrayVisualizer, Renderer Renderer) {
-    	int trueval = ArrayVisualizer.doingStabilityCheck() && ArrayVisualizer.colorEnabled() ? ArrayVisualizer.getStabilityValue(val) : val;
+    	int trueval = ArrayVisualizer.colorEnabled() ? ArrayVisualizer.getTrueValue(val) : val;
         int y = (int) (((Renderer.getViewSize() - 20)) - (trueval + 1) * Renderer.getYScale());
     	return new int[] {
     		(int)(Renderer.getXScale()*(idx+0.5d))+20,
@@ -83,7 +83,7 @@ public final class ScatterPlot extends Visual {
                 else
                 	this.mainRender.setStroke(arrayVisualizer.getCustomStroke(2));
 
-                int val = arrayVisualizer.doingStabilityCheck() && arrayVisualizer.colorEnabled() ? arrayVisualizer.getStabilityValue(array[i]): array[i];
+                int val = arrayVisualizer.colorEnabled() ? arrayVisualizer.getTrueValue(array[i]): array[i];
                 int y = (int) (((renderer.getViewSize() - 20)) - (val + 1) * renderer.getYScale());
 
                 this.mainRender.drawLine(lastX + offset, renderer.getYOffset() + lastY, j + offset, renderer.getYOffset() + y);
@@ -108,7 +108,7 @@ public final class ScatterPlot extends Visual {
         			)
         		);
 
-                int val = arrayVisualizer.doingStabilityCheck() && arrayVisualizer.colorEnabled() ? arrayVisualizer.getStabilityValue(array[i]): array[i];
+                int val = arrayVisualizer.colorEnabled() ? arrayVisualizer.getTrueValue(array[i]): array[i];
                 int y = (int) (((renderer.getViewSize() - 20)) - (val + 1) * renderer.getYScale());
 
                 this.mainRender.fillRect(j + offset, renderer.getYOffset() + y, dotS, dotS);
@@ -120,7 +120,7 @@ public final class ScatterPlot extends Visual {
 
             for (int i = 0, j = 0; i < renderer.getArrayLength(); i++) {
                 if (Highlights.containsPosition(i)) {
-                    int val = arrayVisualizer.doingStabilityCheck() && arrayVisualizer.colorEnabled() ? arrayVisualizer.getStabilityValue(array[i]): array[i];
+                    int val = arrayVisualizer.colorEnabled() ? arrayVisualizer.getTrueValue(array[i]): array[i];
                     int y = (int) (((renderer.getViewSize() - 20)) - (val + 1) * renderer.getYScale());
 
                     this.mainRender.fillRect(j + offset - (int)(1.5*dotS), renderer.getYOffset() + y - (int)(1.5*dotS), 4*dotS, 4*dotS);

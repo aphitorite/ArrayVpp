@@ -190,16 +190,12 @@ public final class pcboygamesisyournewgodSortReleaseCandidate extends BestForNSo
     }
 
     // COMMON MADHOUSE COMPONENTS
-    private int stableReturn(int a) {
-        return arrayVisualizer.doingStabilityCheck() ? arrayVisualizer.getStabilityValue(a) : a;
-    }
-
     private boolean hasNoDupes(int[] array, int min, int max, int a, int b) {
         int size = max - min + 1;
         int[] holes = new int[size];
         for (int x = a; x < b; x++) {
-            if (holes[stableReturn(array[x]) - min] == 1) return false;
-            else holes[stableReturn(array[x]) - min] = 1;
+            if (holes[Reads.getTrueValue(array[x]) - min] == 1) return false;
+            else holes[Reads.getTrueValue(array[x]) - min] = 1;
         }
         return true;
     }
@@ -919,7 +915,7 @@ public final class pcboygamesisyournewgodSortReleaseCandidate extends BestForNSo
     	// Pseudo-Counting
         ArrayList<Integer> values = new ArrayList<>();
         ArrayList<Integer> times = new ArrayList<>();
-        values.add(stableReturn(array[start]));
+        values.add(Reads.getTrueValue(array[start]));
         Writes.changeAllocAmount(1); Writes.changeAuxWrites(1);
         times.add(1);
         Writes.changeAllocAmount(1); Writes.changeAuxWrites(1);
@@ -930,7 +926,7 @@ public final class pcboygamesisyournewgodSortReleaseCandidate extends BestForNSo
                 times.set(last, get + 1);
                 Writes.changeAuxWrites(1);
             } else {
-                values.add(stableReturn(array[i]));
+                values.add(Reads.getTrueValue(array[i]));
                 Writes.changeAllocAmount(1); Writes.changeAuxWrites(1);
                 times.add(1);
                 Writes.changeAllocAmount(1); Writes.changeAuxWrites(1);
@@ -1775,8 +1771,8 @@ public final class pcboygamesisyournewgodSortReleaseCandidate extends BestForNSo
         int min = Integer.MAX_VALUE;
         int max = Integer.MIN_VALUE;
         for (int i = a; i < b; i++) {
-            if (stableReturn(array[i]) < min) min = stableReturn(array[i]);
-            if (stableReturn(array[i]) > max) max = stableReturn(array[i]);
+            if (Reads.getTrueValue(array[i]) < min) min = Reads.getTrueValue(array[i]);
+            if (Reads.getTrueValue(array[i]) > max) max = Reads.getTrueValue(array[i]);
         }
         boolean equals = !hasNoDupes(array, min, max, a, b);
         int[] init = Writes.createExternalArray(n);
@@ -1840,7 +1836,7 @@ public final class pcboygamesisyournewgodSortReleaseCandidate extends BestForNSo
     }
 
     private int fcomp(int[] array, int a, int b, int f) {
-        int c = stableReturn(array[a]), d = stableReturn(array[b]);
+        int c = Reads.getTrueValue(array[a]), d = Reads.getTrueValue(array[b]);
         if (c < d) return -1;
         else if (c > d) return 1;
         else return 0;
@@ -2035,19 +2031,19 @@ public final class pcboygamesisyournewgodSortReleaseCandidate extends BestForNSo
 
     private int par(int[] array, int a, int b) {
         boolean[] max = new boolean[b - a];
-        int maximum = stableReturn(array[a]);
+        int maximum = Reads.getTrueValue(array[a]);
         for (int i = 1; i < b - a; i++) {
-            if (stableReturn(array[a + i]) > maximum) {
-                maximum = stableReturn(array[a + i]);
+            if (Reads.getTrueValue(array[a + i]) > maximum) {
+                maximum = Reads.getTrueValue(array[a + i]);
                 max[i] = true;
             }
         }
         int p = 1;
         for (int j = b - a - 1, i = b - a - 1; j >= 0 && i >= p; j--) {
             while (!max[j] && j > 0) j--;
-            maximum = stableReturn(array[a + j]);
-            while (maximum <= stableReturn(array[a + i]) && i >= p) i--;
-            if (stableReturn(array[a + j]) > stableReturn(array[a + i]) && p < i - j) p = i - j;
+            maximum = Reads.getTrueValue(array[a + j]);
+            while (maximum <= Reads.getTrueValue(array[a + i]) && i >= p) i--;
+            if (Reads.getTrueValue(array[a + j]) > Reads.getTrueValue(array[a + i]) && p < i - j) p = i - j;
         }
         return p;
     }
