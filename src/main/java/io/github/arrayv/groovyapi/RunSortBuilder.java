@@ -241,6 +241,8 @@ public final class RunSortBuilder {
         final Delays Delays = arrayVisualizer.getDelays();
         final Timer Timer = arrayVisualizer.getTimer();
 
+        arrayVisualizer.getUtilFrame().sortButtonDisable();
+
         final RunGroupContext runGroupContext = RunGroupContext.CONTEXT.get();
         final int startingLength = runGroupContext != null ? runGroupContext.getStartingLength() : -1;
 
@@ -281,5 +283,6 @@ public final class RunSortBuilder {
             Thread.sleep(1000);
         } catch (InterruptedException ignored) {
         }
+        arrayVisualizer.getUtilFrame().sortButtonEnable();
     }
 }

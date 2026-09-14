@@ -268,30 +268,35 @@ public final class GroovyLocals {
         Sounds.toggleSound(true);
         Thread sortingThread = new Thread(() -> {
             RunGroupContext.CONTEXT.set(new RunGroupContext(sortCount, arrayVisualizer.getCurrentLength()));
+            arrayVisualizer.getUtilFrame().beginBulkRun();
             try {
-                arrayManager.toggleMutableLength(false);
+                try {
+                    arrayManager.toggleMutableLength(false);
 
-                run.run();
+                    run.run();
 
-                if (isRunAll) {
-                    arrayVisualizer.setCategory("Showcase Sorts");
-                    arrayVisualizer.setHeading("Finished!!");
-                } else {
-                    arrayVisualizer.setCategory("Run " + arrayVisualizer.getCategory());
-                    arrayVisualizer.setHeading("Done");
+                    if (isRunAll) {
+                        arrayVisualizer.setCategory("Showcase Sorts");
+                        arrayVisualizer.setHeading("Finished!!");
+                    } else {
+                        arrayVisualizer.setCategory("Run " + arrayVisualizer.getCategory());
+                        arrayVisualizer.setHeading("Done");
+                    }
+                    arrayVisualizer.updateNow();
+
+                    arrayManager.toggleMutableLength(true);
+                } catch (Exception e) {
+                    JErrorPane.invokeErrorMessage(e);
                 }
-                arrayVisualizer.updateNow();
+                Sounds.toggleSound(false);
 
-                arrayManager.toggleMutableLength(true);
-            } catch (Exception e) {
-                JErrorPane.invokeErrorMessage(e);
-            }
-            Sounds.toggleSound(false);
-
-            arrayVisualizer.setSortingThread(null);
-            RunGroupContext rgc;
-            if ((rgc = RunGroupContext.CONTEXT.get()) != null) {
-                ScriptThread.runClosers(rgc.closers);
+                arrayVisualizer.setSortingThread(null);
+                RunGroupContext rgc;
+                if ((rgc = RunGroupContext.CONTEXT.get()) != null) {
+                    ScriptThread.runClosers(rgc.closers);
+                }
+            } finally {
+                arrayVisualizer.getUtilFrame().endBulkRun();
             }
         }, threadName);
 

@@ -2,6 +2,7 @@ package io.github.arrayv.groovyapi;
 
 import groovy.lang.GroovyShell;
 import groovy.lang.Script;
+import io.github.arrayv.frames.UtilFrame;
 import io.github.arrayv.main.ArrayVisualizer;
 import io.github.arrayv.panes.JErrorPane;
 import org.codehaus.groovy.control.CompilationFailedException;
@@ -82,8 +83,18 @@ public final class ScriptManager {
          */
         @Override
         public void run() {
-            super.run();
-            runClosers(closers);
+            UtilFrame utilFrame = ArrayVisualizer.getInstance().getUtilFrame();
+            if (utilFrame != null) {
+                utilFrame.beginBulkRun();
+            }
+            try {
+                super.run();
+                runClosers(closers);
+            } finally {
+                if (utilFrame != null) {
+                    utilFrame.endBulkRun();
+                }
+            }
         }
     }
 

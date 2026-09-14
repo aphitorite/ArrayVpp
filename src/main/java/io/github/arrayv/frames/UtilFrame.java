@@ -361,6 +361,7 @@ public final class UtilFrame extends javax.swing.JFrame {
     }
 
     public void sortButtonEnable() {
+        if (this.bulkRunDepth > 0) return;
         sortButton.setEnabled(true);
         rerunButton.setEnabled(lastSortId >= 0);
         fastForwardButton.setEnabled(false);
@@ -374,9 +375,24 @@ public final class UtilFrame extends javax.swing.JFrame {
         stopButton.setEnabled(true);
     }
 
+    public synchronized void beginBulkRun() {
+        this.bulkRunDepth++;
+        this.sortButtonDisable();
+    }
+
+    public synchronized void endBulkRun() {
+        if (this.bulkRunDepth > 0) {
+            this.bulkRunDepth--;
+        }
+        if (this.bulkRunDepth == 0) {
+            this.sortButtonEnable();
+        }
+    }
+
     public static void setLastSort(UtilFrame instance, int sortId) {
         lastSortId = sortId;
-        if (instance != null && instance.rerunButton != null && !instance.arrayVisualizer.isActive()) {
+        if (instance != null && instance.rerunButton != null
+                && instance.bulkRunDepth == 0 && !instance.arrayVisualizer.isActive()) {
             instance.rerunButton.setEnabled(true);
         }
     }
@@ -571,6 +587,7 @@ public final class UtilFrame extends javax.swing.JFrame {
     private javax.swing.JButton rerunButton;
     private javax.swing.JButton fastForwardButton;
     private javax.swing.JButton stopButton;
+    private volatile int bulkRunDepth = 0;
     private javax.swing.JCheckBox fixedDelayCheckbox;
     private javax.swing.JCheckBox shuffleCheckbox;
     private javax.swing.JCheckBox soundsCheckbox;
