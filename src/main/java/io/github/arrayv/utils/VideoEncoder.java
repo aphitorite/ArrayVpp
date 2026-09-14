@@ -13,8 +13,8 @@ import java.util.concurrent.TimeUnit;
  * Falls back to software x264 if a selected hardware encoder is unavailable.
  */
 public enum VideoEncoder {
-    X264_VERYFAST("Software (x264 veryfast)", "-c:v", "libx264", "-preset", "veryfast", "-crf", "18"),
-    X264_ULTRAFAST("Software (x264 ultrafast)", "-c:v", "libx264", "-preset", "ultrafast", "-crf", "20"),
+    X264_VERYFAST("x264 veryfast", "-c:v", "libx264", "-preset", "veryfast", "-crf", "18"),
+    X264_ULTRAFAST("x264 ultrafast", "-c:v", "libx264", "-preset", "ultrafast", "-crf", "20"),
     NVENC("NVIDIA NVENC", "-c:v", "h264_nvenc", "-preset", "p4", "-cq", "19"),
     QSV("Intel Quick Sync", "-c:v", "h264_qsv", "-preset", "veryfast"),
     AMF("AMD AMF", "-c:v", "h264_amf", "-quality", "speed");

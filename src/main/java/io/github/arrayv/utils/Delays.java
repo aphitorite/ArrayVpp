@@ -131,6 +131,13 @@ public final class Delays {
         return this.virtualTime;
     }
 
+    /** Advances the virtual clock by an exact amount, ignoring the sleep ratio. */
+    public void advanceVirtual(double millis) {
+        if (this.virtualMode) {
+            this.virtualTime += millis;
+        }
+    }
+
     public boolean paused() {
         return this.paused;
     }

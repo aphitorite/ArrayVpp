@@ -848,6 +848,26 @@ public final class ArrayVisualizer {
         this.Sounds.toggleSound(this.offlineSoundWasEnabled);
     }
 
+    /**
+     * Holds the current frame for the given number of milliseconds. While
+     * offline-rendering the virtual clock is advanced by the exact amount and
+     * the frame is captured; while recording (or always, when {@code videoOnly}
+     * is false) the thread sleeps so the real-time sampler holds the frame.
+     */
+    public void holdFrame(double millis, boolean videoOnly) {
+        if (this.offlineRender) {
+            this.renderOfflineFrame(true);
+            this.Delays.advanceVirtual(millis);
+            this.renderOfflineFrame(true);
+        } else if (!videoOnly || this.videoRecorder.isRecording()) {
+            try {
+                Thread.sleep((long) millis);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
+        }
+    }
+
     public void updateNow() {
         this.updateNow(1);
     }
@@ -1569,6 +1589,8 @@ public final class ArrayVisualizer {
         this.Writes.clearAllocAmount();
 
         this.Highlights.clearAllMarks();
+
+        this.holdFrame(1000, true);
 
         if (this.offlineRender) {
             OfflineVideoRenderer renderer = this.offlineRenderer;

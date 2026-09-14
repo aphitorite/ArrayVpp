@@ -206,11 +206,7 @@ public final class ArrayManager {
         arrayVisualizer.resetValueTable();
         arrayVisualizer.resetIndexTable();
 
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            JErrorPane.invokeErrorMessage(e);
-        }
+        arrayVisualizer.holdFrame(1000, false);
 
         arrayVisualizer.resetAllStatistics();
         Highlights.clearAllMarks();
@@ -236,11 +232,7 @@ public final class ArrayManager {
 
         Highlights.clearAllMarks();
 
-        try {
-            Thread.sleep(500);
-        } catch (InterruptedException e) {
-            JErrorPane.invokeErrorMessage(e);
-        }
+        arrayVisualizer.holdFrame(500, false);
 
         arrayVisualizer.resetAllStatistics();
     }
