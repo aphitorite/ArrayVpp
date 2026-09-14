@@ -13,3 +13,5 @@ dependency-reduced-pom.xml
 .settings/
 .idea/
 *.iml
+/videos
+src/main/java/io/github/arrayv/sorts/test/

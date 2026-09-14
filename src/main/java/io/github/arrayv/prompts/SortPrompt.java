@@ -104,12 +104,18 @@ public final class SortPrompt extends javax.swing.JFrame implements AppFrame {
     private final ArrayVisualizer arrayVisualizer;
     private final JFrame frame;
     private final UtilFrame utilFrame;
+    private final File recordFile;
 
     public SortPrompt(int[] array, ArrayVisualizer arrayVisualizer, JFrame frame, UtilFrame utilFrame) {
+        this(array, arrayVisualizer, frame, utilFrame, null);
+    }
+
+    public SortPrompt(int[] array, ArrayVisualizer arrayVisualizer, JFrame frame, UtilFrame utilFrame, File recordFile) {
         this.array = array;
         this.arrayVisualizer = arrayVisualizer;
         this.frame = frame;
         this.utilFrame = utilFrame;
+        this.recordFile = recordFile;
 
         setAlwaysOnTop(true);
         setUndecorated(true);
@@ -206,6 +212,11 @@ public final class SortPrompt extends javax.swing.JFrame implements AppFrame {
 
         jButton3.setText("Run All in Selected Category");
         jButton3.addActionListener(evt -> jButton3ActionPerformed());
+
+        if (this.recordFile != null) {
+            jButton1.setEnabled(false);
+            jButton3.setEnabled(false);
+        }
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -305,6 +316,16 @@ public final class SortPrompt extends javax.swing.JFrame implements AppFrame {
             }
         }
         final SortInfo selection = sortNotFinal;
+        if (selection == null) {
+            return;
+        }
+        if (this.recordFile != null && !arrayVisualizer.getVideoRecorder().isRecording()) {
+            if (!arrayVisualizer.getVideoRecorder().start(this.recordFile, 60)) {
+                utilFrame.recordButtonResetText();
+                dispose();
+                return;
+            }
+        }
         UtilFrame.setLastSort(utilFrame, selection.getId());
         new Thread("SortingThread") {
             @Override
@@ -314,6 +335,7 @@ public final class SortPrompt extends javax.swing.JFrame implements AppFrame {
             }
         }.start();
         utilFrame.sortButtonResetText();
+        utilFrame.recordButtonResetText();
         dispose();
     }//GEN-LAST:event_jList1ValueChanged
 
@@ -340,7 +362,7 @@ public final class SortPrompt extends javax.swing.JFrame implements AppFrame {
             jButton3.setEnabled(false);
         } else {
             jButton3.setText("Run All ".concat(category));
-            jButton3.setEnabled(CATEGORY_SORT_THREADS.containsKey(category));
+            jButton3.setEnabled(this.recordFile == null && CATEGORY_SORT_THREADS.containsKey(category));
         }
     }
 

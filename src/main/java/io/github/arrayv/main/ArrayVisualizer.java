@@ -51,6 +51,7 @@ import java.util.function.UnaryOperator;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.WindowConstants;
 
@@ -76,6 +77,7 @@ import io.github.arrayv.utils.ShellsortGaps;
 import io.github.arrayv.utils.Sounds;
 import io.github.arrayv.utils.Statistics;
 import io.github.arrayv.utils.Timer;
+import io.github.arrayv.utils.VideoRecorder;
 import io.github.arrayv.utils.Writes;
 import io.github.arrayv.visuals.Visual;
 import io.github.arrayv.visuals.VisualFeature;
@@ -233,6 +235,8 @@ public final class ArrayVisualizer {
     private Graphics2D mainRender;
     private Graphics2D extraRender;
 
+    private final Object frameLock = new Object();
+
     private final Delays Delays;
     private final Highlights Highlights;
     private final Reads Reads;
@@ -242,6 +246,7 @@ public final class ArrayVisualizer {
     private final Writes Writes;
     private final AntiQSort antiQSort;
     private final ScriptManager scriptManager;
+    private final VideoRecorder videoRecorder;
 
     private VisualInfo[] visuals;
     private Visual runningVisual;
@@ -495,6 +500,7 @@ public final class ArrayVisualizer {
 
         this.antiQSort = new AntiQSort(this);
         this.scriptManager = new ScriptManager();
+        this.videoRecorder = new VideoRecorder(this);
 
         Highlights.postInit();
 
@@ -593,6 +599,7 @@ public final class ArrayVisualizer {
                     try {
                         if (ArrayVisualizer.this.updateVisualsForced.get() > 0) {
                             ArrayVisualizer.this.updateVisualsForced.decrementAndGet();
+                            synchronized (ArrayVisualizer.this.frameLock) {
                             ArrayVisualizer.this.renderer.updateVisualsStart(ArrayVisualizer.this);
                             
                             int[][] arrays;
@@ -619,6 +626,7 @@ public final class ArrayVisualizer {
                                 ArrayVisualizer.this.drawStats(Color.WHITE, false);
                             }
                             background.drawImage(ArrayVisualizer.this.img, 0, 0, null);
+                            }
                             Toolkit.getDefaultToolkit().sync();
                         }
                         if (ArrayVisualizer.this.updateVisualsForced.get() > 10000) {
@@ -1264,6 +1272,12 @@ public final class ArrayVisualizer {
     public BufferedImage getFramebuffer() {
         return this.img;
     }
+    public Object getFrameLock() {
+        return this.frameLock;
+    }
+    public VideoRecorder getVideoRecorder() {
+        return this.videoRecorder;
+    }
     public Graphics2D getMainRender() {
         return this.mainRender;
     }
@@ -1488,6 +1502,11 @@ public final class ArrayVisualizer {
         this.Writes.clearAllocAmount();
 
         this.Highlights.clearAllMarks();
+
+        if (this.videoRecorder.isRecording()) {
+            this.videoRecorder.stop();
+            SwingUtilities.invokeLater(this.utilFrame::recordButtonResetText);
+        }
     }
 
     public void toggleStatistics(boolean showStatistics) {
@@ -1619,6 +1638,9 @@ public final class ArrayVisualizer {
         this.window.addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent close) {
+                if (ArrayVisualizer.this.videoRecorder.isRecording()) {
+                    ArrayVisualizer.this.videoRecorder.stop(false);
+                }
                 ArrayVisualizer.this.Sounds.closeSynth();
                 ArrayVisualizer.this.visualsEnabled = false;
                 if (ArrayVisualizer.this.isActive()) {

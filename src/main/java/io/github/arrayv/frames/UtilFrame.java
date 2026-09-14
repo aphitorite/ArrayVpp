@@ -3,6 +3,8 @@ package io.github.arrayv.frames;
 import java.awt.Toolkit;
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -119,6 +121,7 @@ public final class UtilFrame extends javax.swing.JFrame {
         JButton clearStatsButton = new JButton();
         this.statsCheckbox = new javax.swing.JCheckBox();
         this.realTimeCheckbox = new javax.swing.JCheckBox();
+        this.recordButton = new javax.swing.JButton();
 
         jLabel1.setText("Settings");
 
@@ -203,6 +206,9 @@ public final class UtilFrame extends javax.swing.JFrame {
         realTimeCheckbox.setText("Calc Real Time");
         realTimeCheckbox.addActionListener(evt -> realTimeCheckboxActionPerformed());
 
+        recordButtonResetText();
+        this.recordButton.addActionListener(evt -> recordButtonActionPerformed());
+
         JButton scriptButton = new JButton("Run Script");
         scriptButton.addActionListener(e -> {
             File scriptFile = new RunScriptDialog().getFile();
@@ -244,8 +250,9 @@ public final class UtilFrame extends javax.swing.JFrame {
                                     .addComponent(speedButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(this.visualButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(this.sortButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(scriptButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(this.modeBox, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                                     .addComponent(scriptButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                     .addComponent(this.recordButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                     .addComponent(this.modeBox, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                 .addGap(0, 10, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -290,6 +297,8 @@ public final class UtilFrame extends javax.swing.JFrame {
                     .addComponent(this.realTimeCheckbox)
                     .addGap(5, 5, 5)
                     .addComponent(scriptButton)
+                    .addGap(8, 8, 8)
+                    .addComponent(this.recordButton)
                     .addGap(8, 8, 8))
         );
 
@@ -363,6 +372,7 @@ public final class UtilFrame extends javax.swing.JFrame {
     public void sortButtonEnable() {
         if (this.bulkRunDepth > 0) return;
         sortButton.setEnabled(true);
+        recordButton.setEnabled(true);
         rerunButton.setEnabled(lastSortId >= 0);
         fastForwardButton.setEnabled(false);
         stopButton.setEnabled(false);
@@ -370,6 +380,7 @@ public final class UtilFrame extends javax.swing.JFrame {
 
     public void sortButtonDisable() {
         sortButton.setEnabled(false);
+        recordButton.setEnabled(false);
         rerunButton.setEnabled(false);
         fastForwardButton.setEnabled(true);
         stopButton.setEnabled(true);
@@ -467,6 +478,39 @@ public final class UtilFrame extends javax.swing.JFrame {
 
     private void realTimeCheckboxActionPerformed() {
         Timer.toggleRealTimer(realTimeCheckbox.isSelected());
+    }
+
+    private void recordButtonActionPerformed() {
+        if (arrayVisualizer.getVideoRecorder().isRecording()) {
+            arrayVisualizer.getVideoRecorder().stop();
+            recordButtonResetText();
+            return;
+        }
+        if (this.abstractFrame != null && this.abstractFrame.isVisible()) {
+            boolean wasSortPrompt = this.abstractFrame instanceof SortPrompt;
+            this.abstractFrame.dispose();
+            sortButtonResetText();
+            recordButtonResetText();
+            if (wasSortPrompt) {
+                return;
+            }
+        }
+        File videosDir = new File(System.getProperty("user.dir"), "videos");
+        videosDir.mkdirs();
+        String timestamp = DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss").format(LocalDateTime.now());
+        File file = new File(videosDir, timestamp + ".mp4");
+        for (int suffix = 1; file.exists(); suffix++) {
+            file = new File(videosDir, timestamp + "-" + suffix + ".mp4");
+        }
+        this.abstractFrame = new SortPrompt(this.array, this.arrayVisualizer, this.frame, this, file);
+        recordButton.setText("Close");
+        sortButtonResetText();
+        visualButtonResetText();
+        shuffleButtonResetText();
+    }
+
+    public void recordButtonResetText() {
+        recordButton.setText("Render Video");
     }
 
     private void clearStatsButtonActionPerformed() {
@@ -595,4 +639,5 @@ public final class UtilFrame extends javax.swing.JFrame {
     private javax.swing.JCheckBox endSweepCheckbox;
     private javax.swing.JCheckBox statsCheckbox;
     private javax.swing.JCheckBox realTimeCheckbox;
+    private javax.swing.JButton recordButton;
 }
