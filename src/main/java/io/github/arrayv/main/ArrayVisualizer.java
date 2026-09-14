@@ -170,7 +170,7 @@ public final class ArrayVisualizer {
 
     final int[] array;
     final int[] validateArray;
-    final int[] valueTable;
+    final int[] stabilityTable;
     final int[] indexTable;
     final List<int[]> arrays;
     final List<ArrayVList> arrayVLists;
@@ -196,6 +196,7 @@ public final class ArrayVisualizer {
     private final Thread visualsThread;
 
     private volatile boolean visualsEnabled;
+    private final boolean disabledStabilityCheck;
 
     private String category;
     private String heading;
@@ -222,6 +223,7 @@ public final class ArrayVisualizer {
     private volatile boolean showExternalArrays;
 
     private volatile boolean useAntiQSort;
+    private volatile boolean stabilityChecking;
     private volatile boolean visualizingNetworks;
     private volatile boolean reversedComparator;
     
@@ -527,9 +529,18 @@ public final class ArrayVisualizer {
 
         this.refreshTables();
 
-        int[] validateArray;
-        this.valueTable = new int[this.maxArrayVal];
-        this.indexTable = new int[this.maxArrayVal];
+        int[] stabilityTable, indexTable, validateArray;
+        boolean disabledStabilityCheck;
+        try {
+            stabilityTable = new int[this.maxArrayVal];
+            indexTable = new int[this.maxArrayVal];
+            disabledStabilityCheck = false;
+        } catch (OutOfMemoryError e) {
+            JErrorPane.invokeCustomErrorMessage("Failed to allocate arrays for stability check. This feature will be disabled.");
+            stabilityTable = null;
+            indexTable = null;
+            disabledStabilityCheck = true;
+        }
         try {
             validateArray = new int[this.maxArrayVal];
         } catch (OutOfMemoryError e) {
@@ -537,8 +548,15 @@ public final class ArrayVisualizer {
             validateArray = null;
         }
         this.validateArray = validateArray;
-        this.resetValueTable();
-        this.resetIndexTable();
+        this.stabilityTable = stabilityTable;
+        this.indexTable = indexTable;
+        //noinspection ConstantValue
+        this.disabledStabilityCheck = disabledStabilityCheck;
+        //noinspection ConstantValue
+        if (!this.disabledStabilityCheck) {
+            this.resetStabilityTable();
+            this.resetIndexTable();
+        }
 
         this.category = "";
         this.heading = "";
@@ -561,6 +579,7 @@ public final class ArrayVisualizer {
         this.showExternalArrays = false;
 
         this.useAntiQSort = false;
+        this.stabilityChecking = false;
         this.visualizingNetworks = false;
 
         this.isCanceled = false;
@@ -923,19 +942,19 @@ public final class ArrayVisualizer {
         return this.validateArray;
     }
 
-    public int getTrueValue(int n) {
+    public int getStabilityValue(int n) {
         n = Math.max(0, Math.min(n, this.sortLength-1));
 
-        return this.valueTable[n];
+        return this.stabilityTable[n];
     }
 
-    public int[] getValueTable() {
-        return this.valueTable;
+    public int[] getStabilityTable() {
+        return this.stabilityTable;
     }
 
-    public void resetValueTable() {
+    public void resetStabilityTable() {
         for (int i = 0; i < this.sortLength; i++) {
-            this.valueTable[i] = i;
+            this.stabilityTable[i] = i;
         }
     }
 
@@ -1144,21 +1163,31 @@ public final class ArrayVisualizer {
             case 0:
                 this.reversedComparator = false;
                 this.useAntiQSort = false;
+                this.stabilityChecking = false;
                 this.visualizingNetworks = false;
                 break;
             case 1:
                 this.reversedComparator = false;
                 this.useAntiQSort = true;
+                this.stabilityChecking = false;
+                this.visualizingNetworks = false;
+                break;
+            case 2:
+                this.reversedComparator = false;
+                this.useAntiQSort = false;
+                this.stabilityChecking = true;
                 this.visualizingNetworks = false;
                 break;
             case 3:
                 this.reversedComparator = true;
                 this.useAntiQSort = false;
+                this.stabilityChecking = false;
                 this.visualizingNetworks = false;
                 break;
             case 4:
                 this.reversedComparator = false;
                 this.useAntiQSort = false;
+                this.stabilityChecking = false;
                 this.visualizingNetworks = true;
                 break;
         }
@@ -1188,6 +1217,10 @@ public final class ArrayVisualizer {
         if (cmp == 0)
             return 0;
         return cmp / Math.abs(cmp);
+    }
+
+    public boolean doingStabilityCheck() {
+        return this.stabilityChecking;
     }
 
     public boolean reversedComparator() {
@@ -1517,7 +1550,7 @@ public final class ArrayVisualizer {
 
         // if (tempStability && success)
         //     JOptionPane.showMessageDialog(this.window, "This sort is stable!", "Information", JOptionPane.OK_OPTION, null);
-        if (success && !stable) {
+        if (this.stabilityChecking && success && !stable) {
             boolean tempSound = this.Sounds.isEnabled();
             this.Sounds.toggleSound(false);
             this.Highlights.toggleFancyFinish(false);
@@ -1767,6 +1800,10 @@ public final class ArrayVisualizer {
             String output = parseStringArray(this.sortSuggestions);
             JOptionPane.showMessageDialog(this.window, "Here's a list of suggestions based on your sorts:\n" + output, "Info", JOptionPane.INFORMATION_MESSAGE);
         }
+    }
+
+    public boolean isDisabledStabilityCheck() {
+        return disabledStabilityCheck;
     }
 
     public static int getMaxLengthPower() {

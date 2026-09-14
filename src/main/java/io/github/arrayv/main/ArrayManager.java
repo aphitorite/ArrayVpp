@@ -1,13 +1,11 @@
 package io.github.arrayv.main;
 
-import java.util.Arrays;
-
-import io.github.arrayv.distributions.templates.Distribution;
 import io.github.arrayv.panes.JErrorPane;
+import io.github.arrayv.distributions.templates.Distribution;
 import io.github.arrayv.shuffles.templates.Shuffle;
-import io.github.arrayv.utils.Delays;
-import io.github.arrayv.utils.Highlights;
-import io.github.arrayv.utils.Writes;
+import io.github.arrayv.utils.*;
+
+import java.util.Arrays;
 
 /*
  *
@@ -88,8 +86,10 @@ public final class ArrayManager {
 
     //TODO: Fix minimum to zero
     public void initializeArray(int[] array) {
-        arrayVisualizer.resetValueTable();
-        arrayVisualizer.resetIndexTable();
+        if (arrayVisualizer.doingStabilityCheck()) {
+            arrayVisualizer.resetStabilityTable();
+            arrayVisualizer.resetIndexTable();
+        }
 
         int currentLen = arrayVisualizer.getCurrentLength();
 
@@ -178,7 +178,7 @@ public final class ArrayManager {
 
         int[] counts    = new int[length];
         int[] prefixSum = new int[length];
-        int[] table     = arrayVisualizer.getValueTable();
+        int[] table     = arrayVisualizer.getStabilityTable();
 
         for (int i = 0; i < length; i++)
             counts[array[i]]++;
@@ -194,18 +194,15 @@ public final class ArrayManager {
             }
         }
 
-        for (int i = length-1; i >= 0; i--) {
-            if(false) Writes.write(array, i, --prefixSum[array[i]], 0.5, true, false);
-            else array[i] = --prefixSum[array[i]];
-        }
+        for (int i = length-1; i >= 0; i--)
+            Writes.write(array, i, --prefixSum[array[i]], 0.5, true, false);
+
         arrayVisualizer.setIndexTable();
+
         Delays.setSleepRatio(speed);
     }
 
     public void refreshArray(int[] array, int currentLen, ArrayVisualizer arrayVisualizer) {
-        arrayVisualizer.resetValueTable();
-        arrayVisualizer.resetIndexTable();
-
         arrayVisualizer.holdFrame(1000, false);
 
         arrayVisualizer.resetAllStatistics();
@@ -214,7 +211,9 @@ public final class ArrayManager {
         arrayVisualizer.setHeading("");
         if (!arrayVisualizer.useAntiQSort()) {
             this.shuffleArray(array, currentLen, arrayVisualizer);
-            this.stableShuffle(array, currentLen);
+
+            if (arrayVisualizer.doingStabilityCheck())
+                this.stableShuffle(array, currentLen);
 
             int[] validateArray = arrayVisualizer.getValidationArray();
             if (validateArray != null) {

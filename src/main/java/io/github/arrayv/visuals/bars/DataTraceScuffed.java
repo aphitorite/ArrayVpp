@@ -65,7 +65,7 @@ final public class DataTraceScuffed extends Visual {
         if(renderer.isAuxActive() && array != arrayVisualizer.getArray()) return;
     	boolean fancy = highlights.fancyFinishActive(),
     			color = arrayVisualizer.colorEnabled(),
-    			useAltVals = color;
+    			useAltVals = arrayVisualizer.doingStabilityCheck() && color;
   
     	int width = arrayVisualizer.currentWidth() - 20, height = arrayVisualizer.currentHeight() - 40, n = arrayVisualizer.getCurrentLength();
 		int imgWidth = n < width ? Math.max(maxWidth(), n) : width, imgHeight = Math.min(height, MAX_HEIGHT);

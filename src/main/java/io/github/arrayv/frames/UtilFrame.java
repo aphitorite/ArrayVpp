@@ -131,11 +131,15 @@ public final class UtilFrame extends javax.swing.JFrame {
         modeBox.setModel(new DefaultComboBoxModel<>(new String[] {
             "Sorting",
             "AntiQSort",
+            "Stability Check",
             "Sorting Networks",
             "Reversed Sorting"
             // "*Simple* Benchmarking"
         }));
         modeBox.addActionListener(evt -> modeBoxActionPerformed());
+        if (arrayVisualizer.isDisabledStabilityCheck()) {
+            modeBox.removeItem("Stability Check");
+        }
 
         visualButtonResetText();
         visualButton.addActionListener(evt -> visualButtonActionPerformed());
@@ -652,6 +656,13 @@ public final class UtilFrame extends javax.swing.JFrame {
                 }
                 shuffleButton.setEnabled(false);
                 arrayVisualizer.setComparator(1);
+                break;
+
+            case "Stability Check":
+                if (arrayVisualizer.enableBenchmarking(false))
+                    break;
+                shuffleButton.setEnabled(true);
+                arrayVisualizer.setComparator(2);
                 break;
 
             case "Sorting Networks":

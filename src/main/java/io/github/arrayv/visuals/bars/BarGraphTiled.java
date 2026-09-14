@@ -23,7 +23,7 @@ public final class BarGraphTiled extends Visual {
     public int[] getTopPosFor(int[] array, double idx, int val, ArrayVisualizer ArrayVisualizer, Renderer Renderer) {
     	int[] box = this.getBoundingBox(array, Renderer.renderedInstances() - Renderer.isWhichArray(array), Renderer.renderedInstances(), ArrayVisualizer, Renderer);
     	int n = Renderer.getArrayLengthFor(array);
-    	int trueval = ArrayVisualizer.colorEnabled() ? ArrayVisualizer.getTrueValue(val) : val;
+    	int trueval = ArrayVisualizer.doingStabilityCheck() && ArrayVisualizer.colorEnabled() ? ArrayVisualizer.getStabilityValue(val) : val;
     	double xs = (box[1] - box[0]) / (double) n;
         int y = (int) ((trueval + 1) * ((box[3] - box[2]) / (double) n));
     	return new int[] {
@@ -89,7 +89,7 @@ public final class BarGraphTiled extends Visual {
 		int n = renderer.getArrayLength(), nmain = arrayVisualizer.getCurrentLength();
 		// keep booleans we're accessing here
     	boolean color = arrayVisualizer.colorEnabled(),
-    			useAltVals = color;
+    			useAltVals = arrayVisualizer.doingStabilityCheck() && color;
 
     	// calculate the min and max of the scales
     	double[] scl = scales(xScale, 1);
@@ -112,7 +112,7 @@ public final class BarGraphTiled extends Visual {
     				Colorize::snow
     			)
     		);
-            val = useAltVals ? arrayVisualizer.getTrueValue(array[v]) : array[v];
+            val = useAltVals ? arrayVisualizer.getStabilityValue(array[v]) : array[v];
             int h = (int) ((val + 1) * yScale);
             int nw = hl && width == 1 ? 1 : 0;
 

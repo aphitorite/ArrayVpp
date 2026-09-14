@@ -43,7 +43,7 @@ public final class DunningKrugerSort extends BogoSorting {
 			i = 0;
 			while (j < length) {
 				i = array[j];
-				this.Writes.swap(array, j, Math.min(Reads.getTrueValue(array[j]), length - 1), 1.5D, true, false);
+				this.Writes.swap(array, j, Math.min(arrayVisualizer.getStabilityValue(array[j]), length - 1), 1.5D, true, false);
 				if (this.Reads.compareValues(array[j], i) == 0) j++; 
 			} 
 			if (isArraySorted(array, length)) {

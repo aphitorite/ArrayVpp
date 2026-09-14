@@ -460,7 +460,10 @@ public class Searches {
     		return start;
     	int max = Integer.MIN_VALUE, min = Integer.MAX_VALUE;
     	for(int i=start; i<end; i++) {
-    		int v = arrv.getTrueValue(array[i]);
+    		int v = array[i];
+    		if(arrv.doingStabilityCheck()) {
+    			v = arrv.getStabilityValue(v);
+    		}
     		if(max < v) {
     			max = v;
     		}

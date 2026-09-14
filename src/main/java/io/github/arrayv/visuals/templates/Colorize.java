@@ -22,7 +22,7 @@ public class Colorize {
 	}
 	
 	private static int trueval(int[] array, int idx) {
-		return ARRAYVISUALIZER.colorEnabled() ? ARRAYVISUALIZER.getIndexValue(array[idx]) : array[idx];
+		return ARRAYVISUALIZER.doingStabilityCheck() && ARRAYVISUALIZER.colorEnabled() ? ARRAYVISUALIZER.getIndexValue(array[idx]) : array[idx];
 	}
 	public static Color gray(int[] array, int idx, int actinglen) {
 		if (HIGHLIGHTS.containsPosition(array, idx))

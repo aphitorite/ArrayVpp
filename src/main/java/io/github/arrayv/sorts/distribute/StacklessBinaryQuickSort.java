@@ -46,6 +46,13 @@ public final class StacklessBinaryQuickSort extends Sort {
         this.setAuthors("aphitorite");
     }
 
+	private int stabVal(int idx) {
+		if(arrayVisualizer.doingStabilityCheck())
+			return arrayVisualizer.getStabilityValue(idx);
+		else
+			return idx;
+	}
+
 	private int partition(int[] array, int a, int b, int bit) {
         int i = a-1, j = b;
 
@@ -84,7 +91,7 @@ public final class StacklessBinaryQuickSort extends Sort {
 				i = b;
 				Highlights.clearMark(2);
 				arrayVisualizer.toggleAnalysis(true);
-				while(b < length && (Reads.getTrueValue(array[b]) >> (q+1)) == (m >> (q+1))) {
+				while(b < length && (this.stabVal(array[b]) >> (q+1)) == (m >> (q+1))) {
 					Highlights.markArray(1, b);
 					Delays.sleep(0.5);
 					b++;
