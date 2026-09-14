@@ -1,13 +1,12 @@
 package io.github.arrayv.prompts;
 
-import io.github.arrayv.dialogs.ShuffleDialog;
+import io.github.arrayv.distributions.templates.Distribution;
 import io.github.arrayv.frames.AppFrame;
 import io.github.arrayv.frames.UtilFrame;
 import io.github.arrayv.main.ArrayManager;
 import io.github.arrayv.main.ArrayVisualizer;
 import io.github.arrayv.panes.JErrorPane;
-import io.github.arrayv.utils.Distributions;
-import io.github.arrayv.utils.Shuffles;
+import io.github.arrayv.shuffles.templates.Shuffle;
 
 import javax.swing.*;
 import java.util.Arrays;
@@ -67,7 +66,7 @@ public final class ShufflePrompt extends javax.swing.JFrame implements AppFrame 
         initializing = true;
         jList1.setListData(arrayManager.getDistributionIDs());
         for (int i = 0; i < arrayManager.getDistributions().length; i++) {
-            if (arrayManager.getDistribution().equals(arrayManager.getDistributions()[i])) {
+            if (arrayManager.getDistribution() == arrayManager.getDistributions()[i]) {
                 jList1.setSelectedIndex(i);
                 break;
             }
@@ -75,20 +74,14 @@ public final class ShufflePrompt extends javax.swing.JFrame implements AppFrame 
         shuffleModel = new DefaultListModel<>();
         jList2.setModel(shuffleModel);
         Arrays.stream(arrayManager.getShuffleIDs()).forEach(shuffleModel::addElement);
-        if (arrayManager.getShuffle().size() > 1) {
-            shuffleModel.add(0, "Advanced");
+        for (int i = 0; i < arrayManager.getShuffles().length; i++) {
+            if (arrayManager.getShuffle() == arrayManager.getShuffles()[i]) {
+                jList2.setSelectedIndex(i);
+                break;
+            }
+        }
+        if (jList2.getSelectedIndex() == -1) {
             jList2.setSelectedIndex(0);
-        } else {
-            for (int i = 0; i < arrayManager.getShuffles().length; i++) {
-                if (arrayManager.containsShuffle(arrayManager.getShuffles()[i])) {
-                    jList2.setSelectedIndex(i);
-                    break;
-                }
-            }
-            if (jList2.getSelectedIndex() == -1) {
-                shuffleModel.add(0, "Advanced");
-                jList2.setSelectedIndex(0);
-            }
         }
         initializing = false;
 
@@ -112,7 +105,6 @@ public final class ShufflePrompt extends javax.swing.JFrame implements AppFrame 
     private void initComponents() {
 
         // Variables declaration - do not modify//GEN-BEGIN:variables
-        javax.swing.JButton jButton1 = new javax.swing.JButton();
         javax.swing.JCheckBox jCheckBox1 = new javax.swing.JCheckBox();
 
         javax.swing.JLabel jLabel1 = new javax.swing.JLabel();
@@ -124,9 +116,6 @@ public final class ShufflePrompt extends javax.swing.JFrame implements AppFrame 
         this.jList2 = new javax.swing.JList();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jButton1.setText("Open Advanced Editor");
-        jButton1.addActionListener(evt -> jButton1ActionPerformed());
 
         jCheckBox1.setSelected(arrayVisualizer.isSeeded());
         jCheckBox1.setText("Seeded");
@@ -169,8 +158,7 @@ public final class ShufflePrompt extends javax.swing.JFrame implements AppFrame 
                         .addGroup(layout.createSequentialGroup()
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(20, 20, 20)
-                        .addGroup(layout.createSequentialGroup()
-                                .addComponent(jButton1)))
+                        )
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addGap(475, 475, 475)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
@@ -195,8 +183,7 @@ public final class ShufflePrompt extends javax.swing.JFrame implements AppFrame 
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, true)
                                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGap(10, 10, 10)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, true)
-    	                        	.addComponent(jButton1)))
+                            )
                     .addGroup(layout.createSequentialGroup()
                             .addContainerGap()
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -213,17 +200,11 @@ public final class ShufflePrompt extends javax.swing.JFrame implements AppFrame 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed() {//GEN-FIRST:event_jList1ValueChanged
-        utilFrame.shuffleButtonResetText();
-        dispose();
-        new ShuffleDialog(arrayManager, this);
-    }//GEN-LAST:event_jList1ValueChanged
-
     private void jList1ValueChanged() {//GEN-FIRST:event_jList1ValueChanged
         if (initializing)
             return;
         int selection = jList1.getSelectedIndex();
-        Distributions[] distributions = arrayManager.getDistributions();
+        Distribution[] distributions = arrayManager.getDistributions();
         if (selection >= 0 && selection < distributions.length)
             arrayManager.setDistribution(distributions[selection]);
     }//GEN-LAST:event_jList1ValueChanged
@@ -232,12 +213,7 @@ public final class ShufflePrompt extends javax.swing.JFrame implements AppFrame 
         if (initializing)
             return;
         int selection = jList2.getSelectedIndex();
-        if (shuffleModel.getElementAt(0).equals("Advanced")) {
-            if (selection == 0) return;
-            shuffleModel.remove(0);
-            selection--;
-        }
-        Shuffles[] shuffles = arrayManager.getShuffles();
+        Shuffle[] shuffles = arrayManager.getShuffles();
         if (selection >= 0 && selection < shuffles.length)
             arrayManager.setShuffleSingle(shuffles[selection]);
     }//GEN-LAST:event_jList1ValueChanged

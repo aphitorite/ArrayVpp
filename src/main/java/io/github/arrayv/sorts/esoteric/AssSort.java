@@ -2,7 +2,7 @@ package io.github.arrayv.sorts.esoteric;
 
 import io.github.arrayv.main.ArrayVisualizer;
 import io.github.arrayv.sorts.templates.Sort;
-import io.github.arrayv.utils.Distributions;
+import io.github.arrayv.distributions.templates.Distribution;
 
 // @Meme Man#3121
 public final class AssSort extends Sort {
@@ -22,6 +22,7 @@ public final class AssSort extends Sort {
         this.setAuthors("Distray, gooflang");
 	}
 	public void runSort(int[] array, int currentLength, int bucketCount) {
-		Distributions.BLANCMANGE.initializeArray(array, arrayVisualizer);
+		Distribution distribution = arrayVisualizer.getSortAnalyzer().getDistributionById("Blancmange");
+		if (distribution != null) distribution.initializeArray(array, arrayVisualizer);
 	}
 }

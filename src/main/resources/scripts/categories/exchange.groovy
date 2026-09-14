@@ -1,5 +1,4 @@
 import io.github.arrayv.prompts.SortPrompt
-import io.github.arrayv.utils.Shuffles
 
 SortPrompt.setSortThreadForCategory('Exchange Sorts', 29) {
     run UnoptimizedBubbleSort go 512.numbers, 1.5.speed
@@ -23,11 +22,11 @@ SortPrompt.setSortThreadForCategory('Exchange Sorts', 29) {
     run ClassicThreeSmoothCombSort go 1024.numbers, 1.25.speed
     run CircleSortRecursive go 1024.numbers
     run CircleSortIterative go 1024.numbers
-    run LLQuickSort go 2048.numbers, ((arrayv.arrayManager.containsShuffle(Shuffles.RANDOM) ? 1.5 : 5).speed)
+    run LLQuickSort go 2048.numbers, ((arrayv.arrayManager.containsShuffle(arrayv.sortAnalyzer.getShuffleById('RandomShuffle')) ? 1.5 : 5).speed)
     run LRQuickSort go 2048.numbers
     run LRQuickSortParallel go 2048.numbers
     run DualPivotQuickSort go 2048.numbers
-    run StableQuickSort go 2048.numbers, ((arrayv.arrayManager.containsShuffle(Shuffles.RANDOM) ? 1 : 6.5).speed)
+    run StableQuickSort go 2048.numbers, ((arrayv.arrayManager.containsShuffle(arrayv.sortAnalyzer.getShuffleById('RandomShuffle')) ? 1 : 6.5).speed)
     run StableQuickSortParallel go 2048.numbers
     run ForcedStableQuickSort go 2048.numbers
     run TableSort go 1024.numbers, 0.75.speed

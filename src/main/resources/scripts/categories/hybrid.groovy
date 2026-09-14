@@ -1,5 +1,4 @@
 import io.github.arrayv.prompts.SortPrompt
-import io.github.arrayv.utils.Shuffles
 
 SortPrompt.setSortThreadForCategory('Hybrid Sorts', 32) {
     run HybridCombSort go 1024.numbers
@@ -7,7 +6,7 @@ SortPrompt.setSortThreadForCategory('Hybrid Sorts', 32) {
     run IntroCircleSortIterative go 1024.numbers
     run BinaryMergeSort go 2048.numbers
     run MergeInsertionSort go 2048.numbers, 1.75.speed
-    run WeaveMergeSort go 2048.numbers, ((arrayv.arrayManager.containsShuffle(Shuffles.RANDOM) ? 1.65 : 6.5).speed)
+    run WeaveMergeSort go 2048.numbers, ((arrayv.arrayManager.containsShuffle(arrayv.sortAnalyzer.getShuffleById('RandomShuffle')) ? 1.65 : 6.5).speed)
     run TimSort go 2048.numbers
     run CocktailMergeSort go 2048.numbers
     run LaziestSort go 1024.numbers

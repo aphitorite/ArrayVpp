@@ -10,6 +10,8 @@ import io.github.arrayv.sorts.templates.Sort;
 import io.github.arrayv.utils.CommonUtils;
 import io.github.arrayv.visuals.Visual;
 import io.github.arrayv.visuals.VisualFeature;
+import io.github.arrayv.distributions.templates.Distribution;
+import io.github.arrayv.shuffles.templates.Shuffle;
 import io.github.classgraph.ClassGraph;
 import io.github.classgraph.ClassInfo;
 import io.github.classgraph.ScanResult;
@@ -77,6 +79,8 @@ public final class SortAnalyzer {
     private final ArrayList<SortInfo> sorts;
     private final ArrayList<VisualInfo> visuals;
     private final ArrayList<VisualFeature> features;
+    private final ArrayList<Shuffle> shuffles;
+    private final ArrayList<Distribution> distributions;
     private final ArrayList<String> invalidSorts;
     private final ArrayList<String> suggestions;
 
@@ -88,6 +92,8 @@ public final class SortAnalyzer {
         this.sorts = new ArrayList<>();
         this.visuals = new ArrayList<>();
         this.features = new ArrayList<>();
+        this.shuffles = new ArrayList<>();
+        this.distributions = new ArrayList<>();
         this.invalidSorts = new ArrayList<>();
         this.suggestions = new ArrayList<>();
 
@@ -227,6 +233,96 @@ public final class SortAnalyzer {
             return false;
         }
         return true;
+    }
+
+    public void analyzeShuffles() {
+        this.shuffles.clear();
+        ClassGraph classGraph = new ClassGraph()
+            .acceptPackages(
+                "shuffles",           "io.github.arrayv.shuffles"
+            )
+            .rejectPackages(
+                "shuffles.templates", "io.github.arrayv.shuffles.templates"
+            )
+            .initializeLoadedClasses();
+
+        try (ScanResult scanResult = classGraph.scan()) {
+            List<ClassInfo> shuffleFiles = scanResult.getAllClasses();
+            for (ClassInfo shuffleFile : shuffleFiles) {
+                if (shuffleFile.getName().contains("$")) continue;
+                this.compileSingleShuffle(shuffleFile.loadClass(Shuffle.class));
+            }
+        } catch (Exception e) {
+            JErrorPane.invokeErrorMessage(e);
+        }
+    }
+
+    public void analyzeDistributions() {
+        this.distributions.clear();
+        ClassGraph classGraph = new ClassGraph()
+            .acceptPackages(
+                "distributions",           "io.github.arrayv.distributions"
+            )
+            .rejectPackages(
+                "distributions.templates", "io.github.arrayv.distributions.templates"
+            )
+            .initializeLoadedClasses();
+
+        try (ScanResult scanResult = classGraph.scan()) {
+            List<ClassInfo> distributionFiles = scanResult.getAllClasses();
+            for (ClassInfo distributionFile : distributionFiles) {
+                if (distributionFile.getName().contains("$")) continue;
+                this.compileSingleDistribution(distributionFile.loadClass(Distribution.class));
+            }
+        } catch (Exception e) {
+            JErrorPane.invokeErrorMessage(e);
+        }
+    }
+
+    private void compileSingleShuffle(Class<? extends Shuffle> shuffleClass) {
+        try {
+            Shuffle shuffle = shuffleClass.getDeclaredConstructor().newInstance();
+            try {
+                if (verifyShuffle(shuffle)) {
+                    for (Shuffle existing : shuffles) {
+                        if (existing.getId().equals(shuffle.getId())) {
+                            throw new Exception("duplicate shuffle ID '" + shuffle.getId() + "'");
+                        }
+                    }
+                    shuffles.add(shuffle);
+                } else if (sortErrorMsg != null) {
+                    throw new Exception(sortErrorMsg);
+                }
+            } catch (Exception e) {
+                invalidSorts.add(shuffleClass.getName() + " (" + e.getMessage() + ")");
+            }
+        } catch (Exception e) {
+            JErrorPane.invokeErrorMessage(e, "Could not load " + shuffleClass.getName());
+            invalidSorts.add(shuffleClass.getName() + " (failed to load)");
+        }
+    }
+
+    private void compileSingleDistribution(Class<? extends Distribution> distributionClass) {
+        try {
+            Distribution distribution = distributionClass.getDeclaredConstructor().newInstance();
+            try {
+                if (verifyDistribution(distribution)) {
+                    for (Distribution existing : distributions) {
+                        if (existing.getId().equals(distribution.getId())) {
+                            throw new Exception("duplicate distribution ID '" + distribution.getId() + "'");
+                        }
+                    }
+                    distributions.add(distribution);
+                } else if (sortErrorMsg != null) {
+                    throw new Exception(sortErrorMsg);
+                }
+            } catch (Exception e) {
+                invalidSorts.add(distributionClass.getName() + " (" + e.getMessage() + ")");
+            }
+        } catch (Exception e) {
+            JErrorPane.invokeErrorMessage(e, "Could not load " + distributionClass.getName());
+            invalidSorts.add(distributionClass.getName() + " (failed to load)");
+        }
     }
 
     private Map<String, SortInfo> getSortNameCategory(SortNameType type) {
@@ -690,6 +786,22 @@ public final class SortAnalyzer {
         return true;
     }
 
+    private boolean verifyShuffle(Shuffle shuffle) {
+        if (shuffle.getName().isEmpty()) {
+            this.sortErrorMsg = "missing shuffle name";
+            return false;
+        }
+        return true;
+    }
+
+    private boolean verifyDistribution(Distribution distribution) {
+        if (distribution.getName().isEmpty()) {
+            this.sortErrorMsg = "missing distribution name";
+            return false;
+        }
+        return true;
+    }
+
     private boolean verifyVisualFeature(VisualFeature feature) {
         if (feature.isDisabled()) {
             this.sortErrorMsg = "manually disabled";
@@ -735,6 +847,28 @@ public final class SortAnalyzer {
     
     public VisualFeature[] getVisualFeatures() {
     	return features.toArray(new VisualFeature[0]);
+    }
+
+    public Shuffle[] getShuffles() {
+        return shuffles.toArray(new Shuffle[0]);
+    }
+
+    public Distribution[] getDistributions() {
+        return distributions.toArray(new Distribution[0]);
+    }
+
+    public Shuffle getShuffleById(String id) {
+        for (Shuffle shuffle : shuffles) {
+            if (shuffle.getId().equals(id)) return shuffle;
+        }
+        return null;
+    }
+
+    public Distribution getDistributionById(String id) {
+        for (Distribution distribution : distributions) {
+            if (distribution.getId().equals(id)) return distribution;
+        }
+        return null;
     }
 
     public String[] getInvalidSorts() {

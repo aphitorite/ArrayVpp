@@ -1,5 +1,4 @@
-import io.github.arrayv.utils.Shuffles
-import io.github.arrayv.utils.Distributions
+import io.github.arrayv.shuffles.templates.Shuffle
 
 int nsize = 16384
 double factor = 0.5
@@ -9,10 +8,10 @@ def shuffles = arrayv.arrayManager.shuffles.clone()
 
 runGroup(shuffles.size()) {
     for (sh in shuffles) {
-        if (sh == Shuffles.ALREADY) {
+        if (sh == arrayv.sortAnalyzer.getShuffleById('Already')) {
             arrayv.setCategory("Few Uniques")
             arrayv.setUniqueItems(Math.sqrt(nsize) as int)
-            arrayv.arrayManager.setShuffleSingle(Shuffles.RANDOM)
+            arrayv.arrayManager.setShuffleSingle(arrayv.sortAnalyzer.getShuffleById('RandomShuffle'))
             sort()
             arrayv.setUniqueItems(nsize)
         } else {
