@@ -1,4 +1,5 @@
 import io.github.arrayv.prompts.SortPrompt
+import io.github.arrayv.utils.Shuffles
 
 SortPrompt.setSortThreadForCategory('Insertion Sorts', 14) {
     run InsertionSort go 128.numbers, 0.005.speed
@@ -10,8 +11,8 @@ SortPrompt.setSortThreadForCategory('Insertion Sorts', 14) {
     run SimplifiedLibrarySort go 2048.numbers
     run LibrarySort go 2048.numbers
     run PatienceSort go 2048.numbers
-    run ClassicTreeSort go 2048.numbers, ((arrayv.arrayManager.containsShuffle(arrayv.sortAnalyzer.getShuffleById('RandomShuffle')) ? 1 : 5).speed)
-    run TreeSort go 2048.numbers, ((arrayv.arrayManager.containsShuffle(arrayv.sortAnalyzer.getShuffleById('RandomShuffle')) ? 1 : 5).speed)
+    run ClassicTreeSort go 2048.numbers, ((arrayv.arrayManager.containsShuffle(Shuffles.RANDOM) ? 1 : 5).speed)
+    run TreeSort go 2048.numbers, ((arrayv.arrayManager.containsShuffle(Shuffles.RANDOM) ? 1 : 5).speed)
     run AATreeSort go 2048.numbers
     run AVLTreeSort go 2048.numbers
     run SplaySort go 2048.numbers

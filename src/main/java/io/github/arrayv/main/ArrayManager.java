@@ -1,8 +1,6 @@
 package io.github.arrayv.main;
 
 import io.github.arrayv.panes.JErrorPane;
-import io.github.arrayv.distributions.templates.Distribution;
-import io.github.arrayv.shuffles.templates.Shuffle;
 import io.github.arrayv.utils.*;
 
 import java.util.Arrays;
@@ -35,8 +33,8 @@ SOFTWARE.
  */
 
 public final class ArrayManager {
-    private final Shuffle[] shuffleTypes;
-    private final Distribution[] distributionTypes;
+    private final io.github.arrayv.utils.Shuffles[] shuffleTypes;
+    private final io.github.arrayv.utils.Distributions[] distributionTypes;
     private final String[] shuffleIDs;
     private final String[] distributionIDs;
 
@@ -47,17 +45,17 @@ public final class ArrayManager {
     private final ArrayVisualizer arrayVisualizer;
     private final Delays Delays;
     private final Highlights Highlights;
-    private Shuffle shuffle;
-    private Distribution distribution;
+    private ShuffleGraph shuffle;
+    private Distributions distribution;
     private final Writes Writes;
 
     public ArrayManager(ArrayVisualizer arrayVisualizer) {
         this.arrayVisualizer = arrayVisualizer;
 
-        this.shuffle = arrayVisualizer.getSortAnalyzer().getShuffleById("RandomShuffle");
-        this.distribution = arrayVisualizer.getSortAnalyzer().getDistributionById("Linear");
-        this.shuffleTypes = arrayVisualizer.getSortAnalyzer().getShuffles();
-        this.distributionTypes = arrayVisualizer.getSortAnalyzer().getDistributions();
+        this.shuffle = ShuffleGraph.single(Shuffles.RANDOM);
+        this.distribution = Distributions.LINEAR;
+        this.shuffleTypes = Shuffles.values();
+        this.distributionTypes = Distributions.values();
 
         hadDistributionAllocationError = false;
 
@@ -115,36 +113,55 @@ public final class ArrayManager {
     public String[] getShuffleIDs() {
         return this.shuffleIDs;
     }
-    public Shuffle[] getShuffles() {
+    public Shuffles[] getShuffles() {
         return this.shuffleTypes;
     }
-    public Shuffle getShuffle() {
+    public ShuffleGraph getShuffle() {
         return this.shuffle;
     }
 
-    public Shuffle setShuffleSingle(Shuffle shuffle) {
-        this.shuffle = shuffle;
-        return shuffle;
+    /**
+     * @deprecated This method is deprecatated. Please use {@link #setShuffleSingle(Shuffles)} or {@link #setShuffle(ShuffleGraph)} instead.
+     * @see #setShuffleSingle(Shuffles)
+     * @see #setShuffle(ShuffleGraph)
+     */
+    public void setShuffle(Shuffles choice) {
+        this.setShuffleSingle(choice);
     }
 
-    public boolean containsShuffle(Shuffle shuffle) {
-        return this.shuffle == shuffle;
+    public ShuffleGraph setShuffle(ShuffleGraph graph) {
+        this.shuffle = graph;
+        return graph; // return the shuffle so additional methods can be called on it
+    }
+
+    public ShuffleGraph setShuffleSingle(Shuffles shuffle) {
+        return this.setShuffle(ShuffleGraph.single(shuffle));
+    }
+    public ShuffleGraph setShuffleSingle(Distributions distribution) {
+        return this.setShuffle(ShuffleGraph.single(distribution));
+    }
+    public ShuffleGraph setShuffleSingle(Distributions distribution, boolean warped) {
+        return this.setShuffle(ShuffleGraph.single(distribution, warped));
     }
 
     public String[] getDistributionIDs() {
         return this.distributionIDs;
     }
-    public Distribution[] getDistributions() {
+    public Distributions[] getDistributions() {
         return this.distributionTypes;
     }
-    public Distribution getDistribution() {
+    public Distributions getDistribution() {
         return this.distribution;
     }
-    public void setDistribution(Distribution choice) {
+    public void setDistribution(Distributions choice) {
         this.distribution = choice;
         this.distribution.selectDistribution(arrayVisualizer.getArray(), arrayVisualizer);
         if (!arrayVisualizer.isActive())
             this.initializeArray(arrayVisualizer.getArray());
+    }
+
+    public boolean containsShuffle(Shuffles shuffle) {
+        return this.shuffle.contains(new ShuffleInfo(shuffle));
     }
 
     public void shuffleArray(int[] array, int currentLen, ArrayVisualizer arrayVisualizer) {
@@ -157,10 +174,11 @@ public final class ArrayManager {
 
         if (arrayVisualizer.isActive()) {
             double sleepRatio = arrayVisualizer.getCurrentLength()/1024d;
+            sleepRatio *= shuffle.getSleepRatio();
             Delays.setSleepRatio(sleepRatio);
         }
 
-        shuffle.shuffleArray(array);
+        shuffle.shuffleArray(array, this.arrayVisualizer);
 
         Delays.setSleepRatio(speed);
 

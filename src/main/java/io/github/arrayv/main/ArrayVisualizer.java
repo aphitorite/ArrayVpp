@@ -518,15 +518,11 @@ public final class ArrayVisualizer {
         SoundFrame test = new SoundFrame(this.Sounds);
         test.setVisible(true);
 
+        this.arrayManager = new ArrayManager(this);
         this.sortAnalyzer = new SortAnalyzer(this);
 
         this.sortAnalyzer.analyzeSorts();
         this.sortAnalyzer.analyzeVisuals();
-        this.sortAnalyzer.analyzeShuffles();
-        this.sortAnalyzer.analyzeDistributions();
-
-        this.arrayManager = new ArrayManager(this);
-
         this.refreshTables();
 
         int[] stabilityTable, indexTable, validateArray;
