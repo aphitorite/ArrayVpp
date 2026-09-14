@@ -71,6 +71,7 @@ import io.github.arrayv.utils.ArrayVList;
 import io.github.arrayv.utils.ConstantBuilder;
 import io.github.arrayv.utils.Delays;
 import io.github.arrayv.utils.Highlights;
+import io.github.arrayv.utils.OfflineVideoRenderer;
 import io.github.arrayv.utils.Reads;
 import io.github.arrayv.utils.Renderer;
 import io.github.arrayv.utils.ShellsortGaps;
@@ -213,6 +214,8 @@ public final class ArrayVisualizer {
     private final Statistics statSnapshot;
     private String fontSelection;
     private double fontSelectionScale;
+    private int cachedFontSize = -1;
+    private String cachedFontName;
 
     private volatile boolean showStatistics;
     private volatile boolean showColor;
@@ -247,6 +250,12 @@ public final class ArrayVisualizer {
     private final AntiQSort antiQSort;
     private final ScriptManager scriptManager;
     private final VideoRecorder videoRecorder;
+
+    private volatile boolean offlineRender;
+    private OfflineVideoRenderer offlineRenderer;
+    private boolean offlineSoundWasEnabled;
+    private double offlineCaptureInterval;
+    private double offlineLastCapture;
 
     private VisualInfo[] visuals;
     private Visual runningVisual;
@@ -600,31 +609,8 @@ public final class ArrayVisualizer {
                         if (ArrayVisualizer.this.updateVisualsForced.get() > 0) {
                             ArrayVisualizer.this.updateVisualsForced.decrementAndGet();
                             synchronized (ArrayVisualizer.this.frameLock) {
-                            ArrayVisualizer.this.renderer.updateVisualsStart(ArrayVisualizer.this);
+                            ArrayVisualizer.this.renderFrameContents();
                             
-                            int[][] arrays;
-                            synchronized (ArrayVisualizer.this.arrays) {
-                            	synchronized (ArrayVisualizer.this.arrayVLists) {
-                            		int count, ttl;
-                            		do {
-                            			count = ArrayVisualizer.this.arrays.size();
-                            			ttl = count + ArrayVisualizer.this.arrayVLists.size();
-                            		} while (ttl == 0);
-                                    arrays = ArrayVisualizer.this.arrays.toArray(new int[ttl][]);
-                                    Iterator<ArrayVList> it = ArrayVisualizer.this.arrayVLists.iterator();
-                                    while (it.hasNext()) {
-                                    	arrays[count++] = it.next().__internal_array();
-                                    }
-                            	}
-                            }
-                            ArrayVisualizer.this.renderer.drawVisual(ArrayVisualizer.this.runningVisual, arrays, ArrayVisualizer.this, ArrayVisualizer.this.Highlights);
-
-                            if (ArrayVisualizer.this.showStatistics) {
-                                ArrayVisualizer.this.statSnapshot.updateStats(ArrayVisualizer.this);
-                                ArrayVisualizer.this.updateFontSize();
-                                ArrayVisualizer.this.drawStats(Color.BLACK, true);
-                                ArrayVisualizer.this.drawStats(Color.WHITE, false);
-                            }
                             background.drawImage(ArrayVisualizer.this.img, 0, 0, null);
                             }
                             Toolkit.getDefaultToolkit().sync();
@@ -792,10 +778,86 @@ public final class ArrayVisualizer {
         }
     }
 
+    private void renderFrameContents() {
+        this.renderer.updateVisualsStart(this);
+
+        int[][] arrays;
+        synchronized (this.arrays) {
+            synchronized (this.arrayVLists) {
+                int count, ttl;
+                do {
+                    count = this.arrays.size();
+                    ttl = count + this.arrayVLists.size();
+                } while (ttl == 0);
+                arrays = this.arrays.toArray(new int[ttl][]);
+                Iterator<ArrayVList> it = this.arrayVLists.iterator();
+                while (it.hasNext()) {
+                    arrays[count++] = it.next().__internal_array();
+                }
+            }
+        }
+        this.renderer.drawVisual(this.runningVisual, arrays, this, this.Highlights);
+
+        if (this.showStatistics) {
+            this.statSnapshot.updateStats(this);
+            this.updateFontSize();
+            this.drawStats(Color.BLACK, true);
+            this.drawStats(Color.WHITE, false);
+        }
+    }
+
+    private void renderOfflineFrame(boolean force) {
+        double virtualTime = this.Delays.getVirtualTime();
+        if (!force && virtualTime - this.offlineLastCapture < this.offlineCaptureInterval) {
+            // Rendering faster than the output frame rate would only produce
+            // frames that get merged away, so skip the work entirely.
+            return;
+        }
+        synchronized (this.frameLock) {
+            this.renderFrameContents();
+        }
+        OfflineVideoRenderer renderer = this.offlineRenderer;
+        if (renderer != null) {
+            renderer.submit(this.img, virtualTime);
+        }
+        this.offlineLastCapture = virtualTime;
+    }
+
+    public boolean isOfflineRendering() {
+        return this.offlineRender;
+    }
+
+    public void beginOfflineRender(OfflineVideoRenderer renderer) {
+        this.offlineRenderer = renderer;
+        this.offlineSoundWasEnabled = this.Sounds.isEnabled();
+        this.Sounds.toggleSound(false);
+        this.updateVisualsForced.set(0);
+        this.offlineCaptureInterval = 1000.0 / Math.max(1, renderer.getFps());
+        this.offlineLastCapture = Double.NEGATIVE_INFINITY;
+        this.offlineRender = true;
+        synchronized (this.frameLock) {
+            // Wait for any in-flight visuals-thread render to complete.
+        }
+        this.Delays.enterVirtualMode();
+    }
+
+    public void endOfflineRender() {
+        this.Delays.exitVirtualMode();
+        this.offlineRender = false;
+        this.offlineRenderer = null;
+        this.Sounds.toggleSound(this.offlineSoundWasEnabled);
+    }
+
     public void updateNow() {
         this.updateNow(1);
     }
     public void updateNow(int fallback) {
+        if (this.offlineRender) {
+            if (Thread.currentThread() == this.sortingThread) {
+                this.renderOfflineFrame(false);
+            }
+            return;
+        }
         if (hidden) {
             frameSkipped = true;
             return;
@@ -1330,8 +1392,13 @@ public final class ArrayVisualizer {
         return this.cw / 1280d;
     }
     public void updateFontSize() {
-        this.typeFace = new Font(fontSelection, Font.PLAIN, (int) (this.getWindowRatio() * fontSelectionScale));
-        this.mainRender.setFont(this.typeFace);
+        int size = (int) (this.getWindowRatio() * fontSelectionScale);
+        if (this.typeFace == null || size != this.cachedFontSize || !fontSelection.equals(this.cachedFontName)) {
+            this.typeFace = new Font(fontSelection, Font.PLAIN, size);
+            this.cachedFontSize = size;
+            this.cachedFontName = fontSelection;
+            this.mainRender.setFont(this.typeFace);
+        }
     }
 
     public void toggleAnalysis(boolean highlightAsAnalysis) {
@@ -1503,7 +1570,17 @@ public final class ArrayVisualizer {
 
         this.Highlights.clearAllMarks();
 
-        if (this.videoRecorder.isRecording()) {
+        if (this.offlineRender) {
+            OfflineVideoRenderer renderer = this.offlineRenderer;
+            this.renderOfflineFrame(true);
+            double finalTime = this.Delays.getVirtualTime();
+            this.endOfflineRender();
+            if (renderer != null) {
+                renderer.finish(finalTime);
+            }
+            SwingUtilities.invokeLater(this.utilFrame::renderButtonResetText);
+            this.updateNow();
+        } else if (this.videoRecorder.isRecording()) {
             this.videoRecorder.stop();
             SwingUtilities.invokeLater(this.utilFrame::recordButtonResetText);
         }

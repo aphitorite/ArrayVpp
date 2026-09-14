@@ -10,8 +10,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.LockSupport;
 
@@ -83,7 +81,7 @@ public final class VideoRecorder {
         return this.output;
     }
 
-    public synchronized boolean start(File file, int fps) {
+    public synchronized boolean start(File file, int fps, VideoEncoder encoder) {
         if (this.recording || this.stopping) {
             return false;
         }
@@ -104,41 +102,22 @@ public final class VideoRecorder {
             parent.mkdirs();
         }
 
-        List<String> command = new ArrayList<>();
-        command.add("ffmpeg");
-        command.add("-y");
-        command.add("-loglevel");
-        command.add("error");
-        command.add("-f");
-        command.add("rawvideo");
-        command.add("-pix_fmt");
-        command.add("bgr24");
-        command.add("-s");
-        command.add(width + "x" + height);
-        command.add("-r");
-        command.add(Integer.toString(fps));
-        command.add("-i");
-        command.add("-");
-        command.add("-an");
-        command.add("-c:v");
-        command.add("libx264");
-        command.add("-preset");
-        command.add("veryfast");
-        command.add("-crf");
-        command.add("18");
-        command.add("-pix_fmt");
-        command.add("yuv420p");
-        command.add("-movflags");
-        command.add("+faststart");
-        command.add(file.getAbsolutePath());
-
-        Process process;
+        VideoEncoder.Result result;
         try {
-            process = new ProcessBuilder(command).start();
+            result = VideoEncoder.startProcess(fps, width, height, file, encoder);
         } catch (IOException e) {
-            JErrorPane.invokeErrorMessage(e, "Render Video");
+            JErrorPane.invokeErrorMessage(e, "Record Video");
             JErrorPane.invokeCustomErrorMessage("Failed to start ffmpeg. Make sure ffmpeg is installed and on your PATH.");
             return false;
+        }
+        Process process = result.process;
+        if (result.fallbackError != null) {
+            String message = result.fallbackError;
+            SwingUtilities.invokeLater(() -> JOptionPane.showMessageDialog(
+                null,
+                "The selected video encoder was unavailable; using software x264 instead.\n" + message,
+                "Video Encoder",
+                JOptionPane.WARNING_MESSAGE));
         }
 
         this.process = process;

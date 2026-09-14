@@ -23,6 +23,7 @@ import io.github.arrayv.utils.Delays;
 import io.github.arrayv.utils.Highlights;
 import io.github.arrayv.utils.Sounds;
 import io.github.arrayv.utils.Timer;
+import io.github.arrayv.utils.VideoEncoder;
 
 /*
  *
@@ -122,6 +123,9 @@ public final class UtilFrame extends javax.swing.JFrame {
         this.statsCheckbox = new javax.swing.JCheckBox();
         this.realTimeCheckbox = new javax.swing.JCheckBox();
         this.recordButton = new javax.swing.JButton();
+        this.renderButton = new javax.swing.JButton();
+        this.renderFpsBox = new javax.swing.JComboBox<>();
+        this.encoderBox = new javax.swing.JComboBox<>();
 
         jLabel1.setText("Settings");
 
@@ -209,6 +213,17 @@ public final class UtilFrame extends javax.swing.JFrame {
         recordButtonResetText();
         this.recordButton.addActionListener(evt -> recordButtonActionPerformed());
 
+        renderButtonResetText();
+        this.renderButton.addActionListener(evt -> renderButtonActionPerformed());
+
+        this.renderFpsBox.setModel(new DefaultComboBoxModel<>(new String[] { "60 fps", "120 fps", "240 fps" }));
+        this.renderFpsBox.setToolTipText("Render frame rate");
+        this.renderFpsBox.setSelectedIndex(0);
+
+        this.encoderBox.setModel(new DefaultComboBoxModel<>(VideoEncoder.values()));
+        this.encoderBox.setToolTipText("Video encoder used by Record and Render");
+        this.encoderBox.setSelectedIndex(0);
+
         JButton scriptButton = new JButton("Run Script");
         scriptButton.addActionListener(e -> {
             File scriptFile = new RunScriptDialog().getFile();
@@ -252,6 +267,9 @@ public final class UtilFrame extends javax.swing.JFrame {
                                     .addComponent(this.sortButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                      .addComponent(scriptButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                      .addComponent(this.recordButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                     .addComponent(this.renderButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                     .addComponent(this.renderFpsBox, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                     .addComponent(this.encoderBox, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                      .addComponent(this.modeBox, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                 .addGap(0, 10, Short.MAX_VALUE))
         );
@@ -299,6 +317,9 @@ public final class UtilFrame extends javax.swing.JFrame {
                     .addComponent(scriptButton)
                     .addGap(8, 8, 8)
                     .addComponent(this.recordButton)
+                    .addComponent(this.renderButton)
+                    .addComponent(this.renderFpsBox)
+                    .addComponent(this.encoderBox)
                     .addGap(8, 8, 8))
         );
 
@@ -373,6 +394,9 @@ public final class UtilFrame extends javax.swing.JFrame {
         if (this.bulkRunDepth > 0) return;
         sortButton.setEnabled(true);
         recordButton.setEnabled(true);
+        renderButton.setEnabled(true);
+        renderFpsBox.setEnabled(true);
+        encoderBox.setEnabled(true);
         rerunButton.setEnabled(lastSortId >= 0);
         fastForwardButton.setEnabled(false);
         stopButton.setEnabled(false);
@@ -381,6 +405,9 @@ public final class UtilFrame extends javax.swing.JFrame {
     public void sortButtonDisable() {
         sortButton.setEnabled(false);
         recordButton.setEnabled(false);
+        renderButton.setEnabled(false);
+        renderFpsBox.setEnabled(false);
+        encoderBox.setEnabled(false);
         rerunButton.setEnabled(false);
         fastForwardButton.setEnabled(true);
         stopButton.setEnabled(true);
@@ -480,6 +507,17 @@ public final class UtilFrame extends javax.swing.JFrame {
         Timer.toggleRealTimer(realTimeCheckbox.isSelected());
     }
 
+    private File nextVideoFile() {
+        File videosDir = new File(System.getProperty("user.dir"), "videos");
+        videosDir.mkdirs();
+        String timestamp = DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss").format(LocalDateTime.now());
+        File file = new File(videosDir, timestamp + ".mp4");
+        for (int suffix = 1; file.exists(); suffix++) {
+            file = new File(videosDir, timestamp + "-" + suffix + ".mp4");
+        }
+        return file;
+    }
+
     private void recordButtonActionPerformed() {
         if (arrayVisualizer.getVideoRecorder().isRecording()) {
             arrayVisualizer.getVideoRecorder().stop();
@@ -491,26 +529,66 @@ public final class UtilFrame extends javax.swing.JFrame {
             this.abstractFrame.dispose();
             sortButtonResetText();
             recordButtonResetText();
+            renderButtonResetText();
             if (wasSortPrompt) {
                 return;
             }
         }
-        File videosDir = new File(System.getProperty("user.dir"), "videos");
-        videosDir.mkdirs();
-        String timestamp = DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss").format(LocalDateTime.now());
-        File file = new File(videosDir, timestamp + ".mp4");
-        for (int suffix = 1; file.exists(); suffix++) {
-            file = new File(videosDir, timestamp + "-" + suffix + ".mp4");
-        }
-        this.abstractFrame = new SortPrompt(this.array, this.arrayVisualizer, this.frame, this, file);
+        this.abstractFrame = new SortPrompt(this.array, this.arrayVisualizer, this.frame, this,
+            SortPrompt.RunMode.RECORD, nextVideoFile(), 0, getSelectedEncoder());
         recordButton.setText("Close");
         sortButtonResetText();
         visualButtonResetText();
         shuffleButtonResetText();
     }
 
+    private void renderButtonActionPerformed() {
+        if (arrayVisualizer.isOfflineRendering()) {
+            arrayVisualizer.setCanceled(true);
+            renderButtonResetText();
+            return;
+        }
+        if (this.abstractFrame != null && this.abstractFrame.isVisible()) {
+            boolean wasSortPrompt = this.abstractFrame instanceof SortPrompt;
+            this.abstractFrame.dispose();
+            sortButtonResetText();
+            recordButtonResetText();
+            renderButtonResetText();
+            if (wasSortPrompt) {
+                return;
+            }
+        }
+        this.abstractFrame = new SortPrompt(this.array, this.arrayVisualizer, this.frame, this,
+            SortPrompt.RunMode.RENDER, nextVideoFile(), getRenderFps(), getSelectedEncoder());
+        renderButton.setText("Close");
+        sortButtonResetText();
+        visualButtonResetText();
+        shuffleButtonResetText();
+    }
+
+    public int getRenderFps() {
+        String selected = (String) this.renderFpsBox.getSelectedItem();
+        if (selected == null) {
+            return 60;
+        }
+        try {
+            return Integer.parseInt(selected.trim().split("\\s+")[0]);
+        } catch (NumberFormatException e) {
+            return 60;
+        }
+    }
+
+    public VideoEncoder getSelectedEncoder() {
+        Object selected = this.encoderBox.getSelectedItem();
+        return selected instanceof VideoEncoder ? (VideoEncoder) selected : VideoEncoder.X264_VERYFAST;
+    }
+
     public void recordButtonResetText() {
-        recordButton.setText("Render Video");
+        recordButton.setText("Record");
+    }
+
+    public void renderButtonResetText() {
+        renderButton.setText("Render");
     }
 
     private void clearStatsButtonActionPerformed() {
@@ -640,4 +718,7 @@ public final class UtilFrame extends javax.swing.JFrame {
     private javax.swing.JCheckBox statsCheckbox;
     private javax.swing.JCheckBox realTimeCheckbox;
     private javax.swing.JButton recordButton;
+    private javax.swing.JButton renderButton;
+    private javax.swing.JComboBox<String> renderFpsBox;
+    private javax.swing.JComboBox<VideoEncoder> encoderBox;
 }

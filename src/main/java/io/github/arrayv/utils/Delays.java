@@ -45,6 +45,9 @@ public final class Delays {
     private final AtomicInteger noStepping = new AtomicInteger();
     private volatile boolean stepping;
 
+    private volatile boolean virtualMode;
+    private double virtualTime;
+
     private final DecimalFormat formatter;
 
     private final Sounds Sounds;
@@ -114,6 +117,20 @@ public final class Delays {
         if (this.skipped) this.Sounds.changeNoteDelayAndFilter(1);
     }
 
+    public boolean isVirtual() {
+        return this.virtualMode;
+    }
+    public void enterVirtualMode() {
+        this.virtualTime = 0;
+        this.virtualMode = true;
+    }
+    public void exitVirtualMode() {
+        this.virtualMode = false;
+    }
+    public double getVirtualTime() {
+        return this.virtualTime;
+    }
+
     public boolean paused() {
         return this.paused;
     }
@@ -161,6 +178,12 @@ public final class Delays {
         if (this.arrayVisualizer.useFixedDelays() && this.arrayVisualizer.isSortActive()) {
             millis = 1;
         } else if (millis <= 0) {
+            return;
+        }
+
+        if (this.virtualMode) {
+            this.virtualTime += (millis * (1 / this.sleepRatio));
+            this.currentDelay = (millis * (1 / this.sleepRatio));
             return;
         }
 

@@ -15,6 +15,8 @@ public final class Statistics {
     private String sortHeading;
     private String sortExtraHeading;
     private String arrayLength;
+    private int cachedLength = -1;
+    private int cachedUnique = -1;
 
     private String framerate;
     private String sortDelay;
@@ -84,9 +86,14 @@ public final class Statistics {
         this.sortCategory = arrayVisualizer.getCategory();
         this.sortHeading = arrayVisualizer.getHeading();
         this.sortExtraHeading = arrayVisualizer.getExtraHeading();
-        int showUnique = Math.min(arrayVisualizer.getUniqueItems(), arrayVisualizer.getCurrentLength());
-        this.arrayLength = this.formatter.format(arrayVisualizer.getCurrentLength()) + " Numbers"
-            + ", " + this.formatter.format(showUnique) + " Unique";
+        int currentLength = arrayVisualizer.getCurrentLength();
+        int showUnique = Math.min(arrayVisualizer.getUniqueItems(), currentLength);
+        if (currentLength != this.cachedLength || showUnique != this.cachedUnique) {
+            this.arrayLength = this.formatter.format(currentLength) + " Numbers"
+                + ", " + this.formatter.format(showUnique) + " Unique";
+            this.cachedLength = currentLength;
+            this.cachedUnique = showUnique;
+        }
 
         if (frameTimeMillis == 0) {
             this.framerate = ">1000 FPS";

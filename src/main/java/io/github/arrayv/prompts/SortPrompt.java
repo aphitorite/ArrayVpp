@@ -29,6 +29,8 @@ import io.github.arrayv.main.ArrayVisualizer;
 import io.github.arrayv.main.RunSort;
 import io.github.arrayv.main.SortAnalyzer;
 import io.github.arrayv.sortdata.SortInfo;
+import io.github.arrayv.utils.OfflineVideoRenderer;
+import io.github.arrayv.utils.VideoEncoder;
 
 /*
  *
@@ -99,23 +101,36 @@ public final class SortPrompt extends javax.swing.JFrame implements AppFrame {
     private static final Map<String, Map.Entry<Runnable, Integer>> CATEGORY_SORT_THREADS = new LinkedHashMap<>();
     private static final String UNKNOWN_AUTHOR_LABEL = "(Unknown)";
 
+    public enum RunMode {
+        NORMAL,
+        RECORD,
+        RENDER
+    }
+
     private final int[] array;
 
     private final ArrayVisualizer arrayVisualizer;
     private final JFrame frame;
     private final UtilFrame utilFrame;
-    private final File recordFile;
+    private final RunMode runMode;
+    private final File outputFile;
+    private final int renderFps;
+    private final VideoEncoder encoder;
 
     public SortPrompt(int[] array, ArrayVisualizer arrayVisualizer, JFrame frame, UtilFrame utilFrame) {
-        this(array, arrayVisualizer, frame, utilFrame, null);
+        this(array, arrayVisualizer, frame, utilFrame, RunMode.NORMAL, null, 0, null);
     }
 
-    public SortPrompt(int[] array, ArrayVisualizer arrayVisualizer, JFrame frame, UtilFrame utilFrame, File recordFile) {
+    public SortPrompt(int[] array, ArrayVisualizer arrayVisualizer, JFrame frame, UtilFrame utilFrame,
+            RunMode runMode, File outputFile, int renderFps, VideoEncoder encoder) {
         this.array = array;
         this.arrayVisualizer = arrayVisualizer;
         this.frame = frame;
         this.utilFrame = utilFrame;
-        this.recordFile = recordFile;
+        this.runMode = runMode == null ? RunMode.NORMAL : runMode;
+        this.outputFile = outputFile;
+        this.renderFps = renderFps;
+        this.encoder = encoder;
 
         setAlwaysOnTop(true);
         setUndecorated(true);
@@ -213,7 +228,7 @@ public final class SortPrompt extends javax.swing.JFrame implements AppFrame {
         jButton3.setText("Run All in Selected Category");
         jButton3.addActionListener(evt -> jButton3ActionPerformed());
 
-        if (this.recordFile != null) {
+        if (this.runMode != RunMode.NORMAL) {
             jButton1.setEnabled(false);
             jButton3.setEnabled(false);
         }
@@ -319,12 +334,20 @@ public final class SortPrompt extends javax.swing.JFrame implements AppFrame {
         if (selection == null) {
             return;
         }
-        if (this.recordFile != null && !arrayVisualizer.getVideoRecorder().isRecording()) {
-            if (!arrayVisualizer.getVideoRecorder().start(this.recordFile, 60)) {
+        if (this.runMode == RunMode.RECORD && !arrayVisualizer.getVideoRecorder().isRecording()) {
+            if (!arrayVisualizer.getVideoRecorder().start(this.outputFile, 60, this.encoder)) {
                 utilFrame.recordButtonResetText();
                 dispose();
                 return;
             }
+        } else if (this.runMode == RunMode.RENDER) {
+            OfflineVideoRenderer renderer = new OfflineVideoRenderer(arrayVisualizer);
+            if (!renderer.start(this.outputFile, this.renderFps, this.encoder)) {
+                utilFrame.renderButtonResetText();
+                dispose();
+                return;
+            }
+            arrayVisualizer.beginOfflineRender(renderer);
         }
         UtilFrame.setLastSort(utilFrame, selection.getId());
         new Thread("SortingThread") {
@@ -335,7 +358,11 @@ public final class SortPrompt extends javax.swing.JFrame implements AppFrame {
             }
         }.start();
         utilFrame.sortButtonResetText();
-        utilFrame.recordButtonResetText();
+        if (this.runMode == RunMode.RECORD) {
+            utilFrame.recordButtonResetText();
+        } else if (this.runMode == RunMode.RENDER) {
+            utilFrame.renderButtonResetText();
+        }
         dispose();
     }//GEN-LAST:event_jList1ValueChanged
 
@@ -362,7 +389,7 @@ public final class SortPrompt extends javax.swing.JFrame implements AppFrame {
             jButton3.setEnabled(false);
         } else {
             jButton3.setText("Run All ".concat(category));
-            jButton3.setEnabled(this.recordFile == null && CATEGORY_SORT_THREADS.containsKey(category));
+            jButton3.setEnabled(this.runMode == RunMode.NORMAL && CATEGORY_SORT_THREADS.containsKey(category));
         }
     }
 
