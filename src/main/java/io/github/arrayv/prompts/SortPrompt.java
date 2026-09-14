@@ -5,6 +5,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.io.File;
+import java.io.IOException;
 import java.util.AbstractMap.SimpleImmutableEntry;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -22,12 +23,14 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
 import io.github.arrayv.dialogs.ImportSortDialog;
+import io.github.arrayv.dialogs.RunScriptDialog;
 import io.github.arrayv.frames.AppFrame;
 import io.github.arrayv.frames.UtilFrame;
 import io.github.arrayv.groovyapi.GroovyLocals;
 import io.github.arrayv.main.ArrayVisualizer;
 import io.github.arrayv.main.RunSort;
 import io.github.arrayv.main.SortAnalyzer;
+import io.github.arrayv.panes.JErrorPane;
 import io.github.arrayv.sortdata.SortInfo;
 import io.github.arrayv.utils.OfflineVideoRenderer;
 import io.github.arrayv.utils.VideoEncoder;
@@ -172,6 +175,7 @@ public final class SortPrompt extends javax.swing.JFrame implements AppFrame {
         this.jList1 = new javax.swing.JList();
         JButton jButton1 = new JButton();
         JButton jButton2 = new JButton();
+        JButton scriptButton = new JButton();
         this.jButton3 = new javax.swing.JButton();
         this.jTextField1 = new PlaceholderTextField();
 
@@ -228,9 +232,13 @@ public final class SortPrompt extends javax.swing.JFrame implements AppFrame {
         jButton3.setText("Run All in Selected Category");
         jButton3.addActionListener(evt -> jButton3ActionPerformed());
 
+        scriptButton.setText("Run Script");
+        scriptButton.addActionListener(evt -> scriptButtonActionPerformed());
+
         if (this.runMode != RunMode.NORMAL) {
             jButton1.setEnabled(false);
             jButton3.setEnabled(false);
+            scriptButton.setEnabled(false);
         }
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -254,6 +262,8 @@ public final class SortPrompt extends javax.swing.JFrame implements AppFrame {
             .addGroup(Alignment.CENTER, layout.createSequentialGroup()
                 .addComponent(jButton1))
             .addGroup(Alignment.CENTER, layout.createSequentialGroup()
+                .addComponent(scriptButton))
+            .addGroup(Alignment.CENTER, layout.createSequentialGroup()
                 .addComponent(jButton2))
         );
         layout.setVerticalGroup(
@@ -272,6 +282,8 @@ public final class SortPrompt extends javax.swing.JFrame implements AppFrame {
                     .addComponent(this.jButton3)
                     .addGap(5, 5, 5)
                     .addComponent(jButton1)
+                    .addGap(5, 5, 5)
+                    .addComponent(scriptButton)
                     .addGap(5, 5, 5)
                     .addComponent(jButton2)
                     .addGap(5, 5, 5))
@@ -319,6 +331,20 @@ public final class SortPrompt extends javax.swing.JFrame implements AppFrame {
         utilFrame.sortButtonResetText();
         dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void scriptButtonActionPerformed() {
+        File scriptFile = new RunScriptDialog().getFile();
+        utilFrame.sortButtonResetText();
+        dispose();
+        if (scriptFile == null) {
+            return;
+        }
+        try {
+            arrayVisualizer.getScriptManager().runInThread(scriptFile);
+        } catch (IOException e) {
+            JErrorPane.invokeErrorMessage(e, "Run Script");
+        }
+    }
 
     private void jList1ValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jList1ValueChanged
         @SuppressWarnings("rawtypes")

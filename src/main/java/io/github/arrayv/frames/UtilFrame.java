@@ -2,7 +2,6 @@ package io.github.arrayv.frames;
 
 import java.awt.Toolkit;
 import java.io.File;
-import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -11,11 +10,9 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-import io.github.arrayv.dialogs.RunScriptDialog;
 import io.github.arrayv.main.ArrayManager;
 import io.github.arrayv.main.ArrayVisualizer;
 import io.github.arrayv.main.RunSort;
-import io.github.arrayv.panes.JErrorPane;
 import io.github.arrayv.prompts.ShufflePrompt;
 import io.github.arrayv.prompts.SortPrompt;
 import io.github.arrayv.prompts.VisualPrompt;
@@ -224,17 +221,6 @@ public final class UtilFrame extends javax.swing.JFrame {
         this.encoderBox.setToolTipText("Video encoder used by Record and Render");
         this.encoderBox.setSelectedIndex(0);
 
-        JButton scriptButton = new JButton("Run Script");
-        scriptButton.addActionListener(e -> {
-            File scriptFile = new RunScriptDialog().getFile();
-            if (scriptFile == null) return;
-            try {
-                arrayVisualizer.getScriptManager().runInThread(scriptFile);
-            } catch (IOException e1) {
-                JErrorPane.invokeErrorMessage(e1, "Run Script");
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -264,13 +250,11 @@ public final class UtilFrame extends javax.swing.JFrame {
                                     .addComponent(clearStatsButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(speedButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(this.visualButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(this.sortButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                     .addComponent(scriptButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                     .addComponent(this.sortButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                      .addGroup(layout.createSequentialGroup()
-                                         .addComponent(this.recordButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                         .addComponent(this.renderButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                          .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                         .addComponent(this.renderButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                     .addComponent(this.renderFpsBox, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                         .addComponent(this.renderFpsBox, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                      .addComponent(this.encoderBox, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                      .addComponent(this.modeBox, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                 .addGap(0, 10, Short.MAX_VALUE))
@@ -315,13 +299,10 @@ public final class UtilFrame extends javax.swing.JFrame {
                     .addGap(5, 5, 5)
                     .addComponent(this.statsCheckbox)
                     .addComponent(this.realTimeCheckbox)
-                    .addGap(5, 5, 5)
-                    .addComponent(scriptButton)
                     .addGap(8, 8, 8)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(this.recordButton)
-                        .addComponent(this.renderButton))
-                    .addComponent(this.renderFpsBox)
+                        .addComponent(this.renderButton)
+                        .addComponent(this.renderFpsBox))
                     .addComponent(this.encoderBox)
                     .addGap(8, 8, 8))
         );
